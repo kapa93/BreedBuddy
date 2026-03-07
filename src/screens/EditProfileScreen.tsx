@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,10 +8,12 @@ import {
   ScrollView,
   Alert,
   ActivityIndicator,
+  Image,
 } from 'react-native';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigation } from '@react-navigation/native';
-import { updateProfile } from '@/api/auth';
+import { updateProfile, getProfile } from '@/api/auth';
+import { uploadProfileImage, pickImages } from '@/lib/imageUpload';
 import { useAuthStore } from '@/store/authStore';
 import { profileSchema } from '@/utils/validation';
 
@@ -21,10 +23,36 @@ export function EditProfileScreen() {
   const queryClient = useQueryClient();
   const [name, setName] = useState('');
   const [city, setCity] = useState('');
+  const [imageUri, setImageUri] = useState<string | null>(null);
+  const [imageBase64, setImageBase64] = useState<string | null>(null);
   const [error, setError] = useState('');
 
+  const { data: profile } = useQuery({
+    queryKey: ['profile', user?.id],
+    queryFn: () => getProfile(user!.id),
+    enabled: !!user?.id,
+  });
+
+  useEffect(() => {
+    if (profile) {
+      setName(profile.name);
+      setCity(profile.city ?? '');
+      setImageUri(profile.profile_image_url ?? null);
+    }
+  }, [profile]);
+
   const mutation = useMutation({
-    mutationFn: () => updateProfile(user!.id, { name, city: city || null }),
+    mutationFn: async () => {
+      let profileImageUrl = profile?.profile_image_url ?? null;
+      if (imageBase64) {
+        profileImageUrl = await uploadProfileImage(user!.id, imageBase64);
+      }
+      return updateProfile(user!.id, {
+        name,
+        city: city || null,
+        profile_image_url: profileImageUrl,
+      });
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['profile', user?.id] });
       navigation.goBack();
@@ -42,10 +70,31 @@ export function EditProfileScreen() {
     mutation.mutate();
   };
 
+  const handlePickImage = async () => {
+    try {
+      const picked = await pickImages(1);
+      if (picked[0]) {
+        setImageUri(picked[0].uri);
+        setImageBase64(picked[0].base64 ?? null);
+      }
+    } catch (e) {
+      Alert.alert('Error', (e as Error).message);
+    }
+  };
+
   if (!user) return null;
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      <Text style={styles.label}>Profile photo</Text>
+      <TouchableOpacity style={styles.imagePicker} onPress={handlePickImage}>
+        {imageUri ? (
+          <Image source={{ uri: imageUri }} style={styles.profileImage} resizeMode="cover" />
+        ) : (
+          <Text style={styles.imagePlaceholder}>+ Add photo</Text>
+        )}
+      </TouchableOpacity>
+
       <Text style={styles.label}>Name</Text>
       <TextInput
         style={styles.input}
@@ -83,6 +132,18 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f9fafb' },
   content: { padding: 16 },
   label: { fontSize: 14, fontWeight: '600', color: '#374151', marginBottom: 8, marginTop: 16 },
+  imagePicker: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: '#e5e7eb',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    marginBottom: 8,
+  },
+  profileImage: { width: 100, height: 100 },
+  imagePlaceholder: { fontSize: 14, color: '#6b7280' },
   input: {
     borderWidth: 1,
     borderColor: '#d1d5db',

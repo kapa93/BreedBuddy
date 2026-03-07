@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect } from 'react';
+import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import {
   View,
   Text,
@@ -13,13 +13,21 @@ import {
 import { signIn } from '@/api/auth';
 import { useAuthStore } from '@/store/authStore';
 import { signInSchema } from '@/utils/validation';
+import type { AuthStackParamList } from '@/navigation/types';
 
 export function SignInScreen() {
   const navigation = useNavigation();
+  const route = useRoute<RouteProp<AuthStackParamList, 'SignIn'>>();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+
+  useEffect(() => {
+    const msg = route.params?.message;
+    if (msg) setSuccessMessage(msg);
+  }, [route.params?.message]);
 
   const handleSignIn = async () => {
     setError('');
@@ -47,6 +55,10 @@ export function SignInScreen() {
     >
       <Text style={styles.title}>Welcome to BreedBuddy</Text>
       <Text style={styles.subtitle}>Sign in to join your breed community</Text>
+
+      {successMessage ? (
+        <Text style={styles.successMessage}>{successMessage}</Text>
+      ) : null}
 
       <TextInput
         style={styles.input}
@@ -116,6 +128,11 @@ const styles = StyleSheet.create({
   },
   error: {
     color: '#DC2626',
+    fontSize: 14,
+    marginBottom: 16,
+  },
+  successMessage: {
+    color: '#059669',
     fontSize: 14,
     marginBottom: 16,
   },

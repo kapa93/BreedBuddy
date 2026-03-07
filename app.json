@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "breedbuddy",
     "name": "BreedBuddy",
     "slug": "BreedBuddy",
     "version": "1.0.0",

@@ -71,7 +71,13 @@ function ProfileTab() {
     <Stack.Navigator>
       <Stack.Screen name="ProfileMain" component={ProfileScreen} options={{ title: 'Profile' }} />
       <Stack.Screen name="EditProfile" component={EditProfileScreen} options={{ title: 'Edit Profile' }} />
-      <Stack.Screen name="EditDog" component={EditDogScreen} options={{ title: 'Dog Profile' }} />
+      <Stack.Screen
+        name="EditDog"
+        component={EditDogScreen}
+        options={({ route }: { route: { params?: { dogId?: string } } }) => ({
+          title: route.params?.dogId ? 'Edit Dog' : 'Add Dog',
+        })}
+      />
     </Stack.Navigator>
   );
 }

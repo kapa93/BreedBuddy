@@ -11,8 +11,8 @@ import {
   Image,
 } from 'react-native';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useNavigation } from '@react-navigation/native';
-import { createDog, updateDog, getDogByOwner } from '@/api/dogs';
+import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
+import { createDog, updateDog, getDogById } from '@/api/dogs';
 import { uploadDogImage, pickImages } from '@/lib/imageUpload';
 import { useAuthStore } from '@/store/authStore';
 import { dogSchema } from '@/utils/validation';
@@ -25,9 +25,12 @@ import {
   ENERGY_LEVEL_LABELS,
 } from '@/utils/breed';
 import type { BreedEnum, AgeGroupEnum, EnergyLevelEnum } from '@/types';
+import type { ProfileStackParamList } from '@/navigation/types';
 
 export function EditDogScreen() {
   const navigation = useNavigation();
+  const route = useRoute<RouteProp<ProfileStackParamList, 'EditDog'>>();
+  const dogId = route.params?.dogId;
   const { user } = useAuthStore();
   const queryClient = useQueryClient();
   const [name, setName] = useState('');
@@ -39,9 +42,9 @@ export function EditDogScreen() {
   const [error, setError] = useState('');
 
   const { data: existingDog } = useQuery({
-    queryKey: ['dog', user?.id],
-    queryFn: () => getDogByOwner(user!.id),
-    enabled: !!user?.id,
+    queryKey: ['dog', dogId],
+    queryFn: () => getDogById(dogId!),
+    enabled: !!dogId,
   });
 
   useEffect(() => {
@@ -51,8 +54,15 @@ export function EditDogScreen() {
       setAgeGroup(existingDog.age_group);
       setEnergyLevel(existingDog.energy_level);
       setImageUri(existingDog.dog_image_url);
+    } else if (!dogId) {
+      setName('');
+      setBreed('GOLDEN_RETRIEVER');
+      setAgeGroup('ADULT');
+      setEnergyLevel('MED');
+      setImageUri(null);
+      setImageBase64(null);
     }
-  }, [existingDog]);
+  }, [existingDog, dogId]);
 
   const mutation = useMutation({
     mutationFn: async () => {
@@ -88,6 +98,7 @@ export function EditDogScreen() {
       }
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['dogs', user?.id] });
       queryClient.invalidateQueries({ queryKey: ['dog', user?.id] });
       navigation.goBack();
     },
@@ -198,7 +209,7 @@ export function EditDogScreen() {
         {mutation.isPending ? (
           <ActivityIndicator color="#FFF" />
         ) : (
-          <Text style={styles.submitText}>{existingDog ? 'Save' : 'Add Dog'}</Text>
+          <Text style={styles.submitText}>Save</Text>
         )}
       </TouchableOpacity>
     </ScrollView>

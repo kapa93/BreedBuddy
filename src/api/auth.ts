@@ -1,12 +1,15 @@
 import { supabase } from '@/lib/supabase';
 import type { Profile } from '@/types';
 
+const AUTH_CALLBACK_URL = 'breedbuddy://auth/callback';
+
 export async function signUp(email: string, password: string, name: string, city?: string) {
   const { data: authData, error: authError } = await supabase.auth.signUp({
     email,
     password,
     options: {
       data: { name, city },
+      emailRedirectTo: AUTH_CALLBACK_URL,
     },
   });
 
@@ -23,6 +26,8 @@ export async function signUp(email: string, password: string, name: string, city
 
   return authData;
 }
+
+export { AUTH_CALLBACK_URL };
 
 export async function signIn(email: string, password: string) {
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
@@ -48,7 +53,7 @@ export async function getProfile(userId: string): Promise<Profile | null> {
 
 export async function updateProfile(
   userId: string,
-  updates: Partial<Pick<Profile, 'name' | 'city'>>
+  updates: Partial<Pick<Profile, 'name' | 'city' | 'profile_image_url'>>
 ) {
   const { data, error } = await supabase
     .from('profiles')

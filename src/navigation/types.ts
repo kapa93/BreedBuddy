@@ -6,7 +6,7 @@ export type RootStackParamList = {
 };
 
 export type AuthStackParamList = {
-  SignIn: undefined;
+  SignIn: { message?: string };
   SignUp: undefined;
 };
 
@@ -39,5 +39,5 @@ export type SearchStackParamList = {
 export type ProfileStackParamList = {
   ProfileMain: undefined;
   EditProfile: undefined;
-  EditDog: undefined;
+  EditDog: { dogId?: string };
 };

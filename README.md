@@ -34,13 +34,13 @@ npm install
 1. Create a project at [supabase.com](https://supabase.com)
 2. Go to **SQL Editor** and run the migrations in order:
    - `supabase/migrations/001_initial_schema.sql`
-3. Create Storage buckets (Supabase Dashboard → Storage):
-   - **dog-images** (public)
-   - **post-images** (public)
+   - `supabase/migrations/002_storage_buckets.sql`
+   - `supabase/migrations/003_multi_dog.sql`
+   - `supabase/migrations/004_profile_image.sql`
 
-   For each bucket, enable public access so images can be displayed.
+3. Enable Email auth in **Authentication → Providers** (Email is on by default)
 
-4. Enable Email auth in **Authentication → Providers** (Email is on by default)
+4. **Email confirmation redirect** (for mobile): Go to **Authentication → URL Configuration** and add `breedbuddy://auth/callback` to **Redirect URLs**. This lets the email confirmation link open your app instead of a 404.
 
 ### 3. Environment variables
 
@@ -79,7 +79,7 @@ src/
 ## Features
 
 - **Auth**: Email + password sign up / sign in, session persistence
-- **Profiles**: User profile (name, email, city) + dog profile (name, breed, age, energy, photo)
+- **Profiles**: User profile (name, email, city, profile photo) + dog profile (name, breed, age, energy, photo)
 - **Breed communities**: Home feed for your dog’s breed, Explore all 6 breeds
 - **Posts**: Create posts with type (Question, Update/Story, Tip), tag, and multiple images
 - **Reactions**: Facebook-style emoji reactions (Like, Love, Haha, Wow, Sad, Angry)
@@ -91,6 +91,7 @@ src/
 
 ## Storage
 
+- **profile-images**: `${uid}/avatar.jpg` (user profile photo)
 - **dog-images**: `${uid}/dogs/${dogId}/${uuid}.jpg`
 - **post-images**: `${uid}/posts/${postId}/${uuid}.jpg`
 

@@ -38,10 +38,14 @@ export function SignUpScreen() {
 
     setLoading(true);
     try {
-      await signUp(email, password, name.trim(), city.trim() || undefined);
-      const { supabase } = await import('@/lib/supabase');
-      const { data } = await supabase.auth.getSession();
-      useAuthStore.getState().setSession(data.session);
+      const authData = await signUp(email, password, name.trim(), city.trim() || undefined);
+      useAuthStore.getState().setSession(authData.session ?? null);
+      if (!authData.session) {
+        setError('');
+        (navigation as any).navigate('SignIn', {
+          message: 'Check your email to confirm your account, then sign in.',
+        });
+      }
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Sign up failed');
     } finally {

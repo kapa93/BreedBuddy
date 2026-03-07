@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, RefreshControl } from 'react-native';
+import { View, Text, StyleSheet, FlatList, RefreshControl, ScrollView, TouchableOpacity } from 'react-native';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuthStore } from '@/store/authStore';
 import { useUIStore } from '@/store/uiStore';
 import { getFeed } from '@/api/posts';
-import { getDogByOwner } from '@/api/dogs';
+import { getDogsByOwner } from '@/api/dogs';
 import { PostCard } from '@/components/PostCard';
 import { ReactionPicker } from '@/components/ReactionPicker';
 import { setReaction } from '@/api/reactions';
@@ -16,14 +16,16 @@ export function HomeScreen({ navigation }: { navigation: { navigate: (s: string,
   const { feedSort } = useUIStore();
   const queryClient = useQueryClient();
   const [reactionPickerPost, setReactionPickerPost] = useState<PostWithDetails | null>(null);
+  const [selectedDogIndex, setSelectedDogIndex] = useState(0);
 
-  const { data: dog } = useQuery({
-    queryKey: ['dog', user?.id],
-    queryFn: () => getDogByOwner(user!.id),
+  const { data: dogs } = useQuery({
+    queryKey: ['dogs', user?.id],
+    queryFn: () => getDogsByOwner(user!.id),
     enabled: !!user?.id,
   });
 
-  const breed = dog?.breed ?? 'GOLDEN_RETRIEVER';
+  const selectedDog = dogs?.[selectedDogIndex];
+  const breed = selectedDog?.breed ?? 'GOLDEN_RETRIEVER';
 
   const { data: posts, isLoading, refetch, isRefetching } = useQuery({
     queryKey: ['feed', breed, feedSort, user?.id],
@@ -62,7 +64,7 @@ export function HomeScreen({ navigation }: { navigation: { navigate: (s: string,
     );
   }
 
-  if (!dog) {
+  if (!dogs || dogs.length === 0) {
     return (
       <View style={styles.center}>
         <Text style={styles.emptyText}>Add a dog profile to see your breed's feed</Text>
@@ -92,6 +94,23 @@ export function HomeScreen({ navigation }: { navigation: { navigate: (s: string,
 
   return (
     <View style={styles.container}>
+      {dogs.length > 1 && (
+        <View style={styles.dogSelector}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.dogSelectorScroll}>
+            {dogs.map((dog, idx) => (
+              <TouchableOpacity
+                key={dog.id}
+                style={[styles.dogChip, selectedDogIndex === idx && styles.dogChipSelected]}
+                onPress={() => setSelectedDogIndex(idx)}
+              >
+                <Text style={[styles.dogChipText, selectedDogIndex === idx && styles.dogChipTextSelected]}>
+                  {dog.name}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
+      )}
       <FlatList
         data={posts ?? []}
         keyExtractor={(item) => item.id}
@@ -128,4 +147,32 @@ const styles = StyleSheet.create({
   emptySub: { fontSize: 14, color: '#666', marginTop: 8 },
   emptyText: { fontSize: 16, color: '#666' },
   link: { marginTop: 16, color: '#2196F3', fontSize: 16, fontWeight: '500' },
+  dogSelector: {
+    backgroundColor: '#FFF',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E5E7EB',
+  },
+  dogSelectorScroll: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  dogChip: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    backgroundColor: '#E5E7EB',
+    borderRadius: 20,
+  },
+  dogChipSelected: {
+    backgroundColor: '#2563EB',
+  },
+  dogChipText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#374151',
+  },
+  dogChipTextSelected: {
+    color: '#FFF',
+  },
 });

@@ -20,7 +20,7 @@ async function enrichPosts(rawPosts: RawPostRow[], userId: string | null): Promi
   // Fetch profiles and dogs for all authors
   const [profilesRes, dogsRes, commentCountsRes] = await Promise.all([
     supabase.from('profiles').select('id, name').in('id', authorIds),
-    supabase.from('dogs').select('owner_id, name, dog_image_url').in('owner_id', authorIds),
+    supabase.from('dogs').select('owner_id, name, dog_image_url').in('owner_id', authorIds).order('created_at', { ascending: true }),
     Promise.all(
       rawPosts.map((p) =>
         supabase.from('comments').select('*', { count: 'exact', head: true }).eq('post_id', p.id)
@@ -31,9 +31,10 @@ async function enrichPosts(rawPosts: RawPostRow[], userId: string | null): Promi
   const profilesMap = new Map(
     (profilesRes.data ?? []).map((p) => [p.id, p])
   );
-  const dogsMap = new Map(
-    (dogsRes.data ?? []).map((d) => [d.owner_id, d])
-  );
+  const dogsMap = new Map<string, { owner_id: string; name: string; dog_image_url: string | null }>();
+  for (const d of dogsRes.data ?? []) {
+    if (!dogsMap.has(d.owner_id)) dogsMap.set(d.owner_id, d);
+  }
 
   return rawPosts.map((post, idx) => {
     const profile = profilesMap.get(post.author_id);

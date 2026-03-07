@@ -83,6 +83,7 @@ export interface Profile {
   name: string;
   email: string;
   city: string | null;
+  profile_image_url: string | null;
   created_at: string;
   updated_at: string;
 }

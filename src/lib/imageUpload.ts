@@ -1,3 +1,4 @@
+import * as Crypto from 'expo-crypto';
 import * as ImagePicker from 'expo-image-picker';
 import { supabase } from './supabase';
 import { decode } from 'base64-arraybuffer';
@@ -29,18 +30,38 @@ export async function pickImages(maxCount = 5): Promise<ImagePickResult[]> {
   }));
 }
 
+export async function uploadProfileImage(userId: string, base64Data: string): Promise<string> {
+  const ext = 'jpg';
+  const path = `${userId}/avatar.${ext}`;
+
+  const { data, error } = await supabase.storage
+    .from('profile-images')
+    .upload(path, decode(base64Data), {
+      contentType: 'image/jpeg',
+      upsert: true,
+    });
+
+  if (error) throw error;
+
+  const { data: urlData } = supabase.storage
+    .from('profile-images')
+    .getPublicUrl(data.path);
+
+  return urlData.publicUrl;
+}
+
 export async function uploadDogImage(
   userId: string,
   dogId: string,
   base64Data: string
 ): Promise<string> {
   const ext = 'jpg';
-  const path = `${userId}/dogs/${dogId}/${crypto.randomUUID()}.${ext}`;
+  const path = `${userId}/dogs/${dogId}/${Crypto.randomUUID()}.${ext}`;
 
   const { data, error } = await supabase.storage
     .from('dog-images')
     .upload(path, decode(base64Data), {
-      contentType: `image/${ext}`,
+      contentType: 'image/jpeg',
       upsert: true,
     });
 
@@ -60,12 +81,12 @@ export async function uploadPostImage(
   index: number
 ): Promise<string> {
   const ext = 'jpg';
-  const path = `${userId}/posts/${postId}/${crypto.randomUUID()}.${ext}`;
+  const path = `${userId}/posts/${postId}/${Crypto.randomUUID()}.${ext}`;
 
   const { data, error } = await supabase.storage
     .from('post-images')
     .upload(path, decode(base64Data), {
-      contentType: `image/${ext}`,
+      contentType: 'image/jpeg',
       upsert: false,
     });
 
