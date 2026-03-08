@@ -18,6 +18,7 @@ import { PostDetailScreen } from '@/screens/PostDetailScreen';
 import { CreatePostScreen } from '@/screens/CreatePostScreen';
 import { EditProfileScreen } from '@/screens/EditProfileScreen';
 import { EditDogScreen } from '@/screens/EditDogScreen';
+import { Ionicons } from '@expo/vector-icons';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
@@ -91,11 +92,46 @@ function MainTabs() {
         headerShown: false,
       }}
     >
-      <Tab.Screen name="Home" component={HomeTab} options={{ tabBarLabel: 'Home' }} />
-      <Tab.Screen name="Explore" component={ExploreTab} options={{ tabBarLabel: 'Explore' }} />
-      <Tab.Screen name="Search" component={SearchTab} options={{ tabBarLabel: 'Search' }} />
-      <Tab.Screen name="Notifications" component={NotificationsScreen} options={{ tabBarLabel: 'Notifications' }} />
-      <Tab.Screen name="Profile" component={ProfileTab} options={{ tabBarLabel: 'Profile' }} />
+      <Tab.Screen
+        name="Home"
+        component={HomeTab}
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color, size }) => <Ionicons name="home" size={size} color={color} />,
+        }}
+      />
+      <Tab.Screen
+        name="Explore"
+        component={ExploreTab}
+        options={{
+          tabBarLabel: 'Explore',
+          tabBarIcon: ({ color, size }) => <Ionicons name="compass" size={size} color={color} />,
+        }}
+      />
+      <Tab.Screen
+        name="Search"
+        component={SearchTab}
+        options={{
+          tabBarLabel: 'Search',
+          tabBarIcon: ({ color, size }) => <Ionicons name="search" size={size} color={color} />,
+        }}
+      />
+      <Tab.Screen
+        name="Notifications"
+        component={NotificationsScreen}
+        options={{
+          tabBarLabel: 'Notifications',
+          tabBarIcon: ({ color, size }) => <Ionicons name="notifications" size={size} color={color} />,
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileTab}
+        options={{
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({ color, size }) => <Ionicons name="person" size={size} color={color} />,
+        }}
+      />
     </Tab.Navigator>
   );
 }
