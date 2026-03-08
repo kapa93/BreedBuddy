@@ -142,7 +142,7 @@ export function QuestionCard({ data, onPress, onReactionSelect, currentUserId, o
 }
 
 const styles = StyleSheet.create({
-  card: { backgroundColor: colors.surface, borderRadius: radius.lg, padding: spacing.lg, borderWidth: 1, borderColor: colors.border, marginBottom: spacing.lg },
+  card: { backgroundColor: colors.surface, borderRadius: radius.lg, padding: spacing.lg, borderWidth: 1, borderColor: colors.border, marginBottom: spacing.sm },
   header: { flexDirection: "row", alignItems: "center" },
   headerText: { flex: 1, marginLeft: spacing.md },
   author: { ...typography.subtitle, fontSize: 18 },

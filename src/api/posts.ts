@@ -89,7 +89,8 @@ export async function getFeed(
   sort: FeedSort = 'newest',
   limit = 20,
   offset = 0,
-  userId: string | null = null
+  userId: string | null = null,
+  typeFilter: PostTypeEnum | null = null
 ): Promise<PostWithDetails[]> {
   let query = supabase
     .from('posts')
@@ -104,6 +105,10 @@ export async function getFeed(
     .eq('breed', breed)
     .order('created_at', { ascending: false })
     .range(offset, offset + limit - 1);
+
+  if (typeFilter) {
+    query = query.eq('type', typeFilter);
+  }
 
   const { data, error } = await query;
   if (error) throw error;

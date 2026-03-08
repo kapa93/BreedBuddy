@@ -26,6 +26,17 @@ export const BREED_HERO_IMAGES: Record<BreedEnum, string> = {
     "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800",
 };
 
+/** Local asset for Australian Shepherd feed banner */
+const AUSSIE_FEED_IMAGE = require("../../assets/aussie-feed.jpeg");
+
+/** Get breed hero image source - uses local asset for Australian Shepherd, URI for others */
+export function getBreedHeroImageSource(breed: BreedEnum) {
+  if (breed === "AUSTRALIAN_SHEPHERD") {
+    return AUSSIE_FEED_IMAGE;
+  }
+  return { uri: BREED_HERO_IMAGES[breed] } as const;
+}
+
 /** Pack grid card images (square) */
 export const BREED_PACK_IMAGES: Record<BreedEnum, string> = {
   AUSTRALIAN_SHEPHERD:

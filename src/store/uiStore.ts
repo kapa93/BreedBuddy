@@ -1,18 +1,20 @@
 import { create } from 'zustand';
-import type { BreedEnum, PostWithDetails } from '../types';
+import type { BreedEnum, PostWithDetails, PostTypeEnum } from '../types';
 
 export type FeedSort = 'newest' | 'trending';
 
+export type FeedFilter = FeedSort | PostTypeEnum;
+
 interface UIState {
-  feedSort: FeedSort;
-  setFeedSort: (sort: FeedSort) => void;
+  feedFilter: FeedFilter;
+  setFeedFilter: (filter: FeedFilter) => void;
   reactionPickerPost: PostWithDetails | null;
   setReactionPickerPost: (post: PostWithDetails | null) => void;
 }
 
 export const useUIStore = create<UIState>((set) => ({
-  feedSort: 'newest',
-  setFeedSort: (feedSort) => set({ feedSort }),
+  feedFilter: 'newest',
+  setFeedFilter: (feedFilter) => set({ feedFilter }),
   reactionPickerPost: null,
   setReactionPickerPost: (reactionPickerPost) => set({ reactionPickerPost }),
 }));
