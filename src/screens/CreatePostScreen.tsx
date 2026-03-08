@@ -18,6 +18,7 @@ import { supabase } from '@/lib/supabase';
 import { useAuthStore } from '@/store/authStore';
 import { BREED_LABELS, POST_TYPE_LABELS, POST_TAG_LABELS } from '@/utils/breed';
 import { postSchema } from '@/utils/validation';
+import { shadow } from '@/theme';
 import type { BreedEnum, PostTypeEnum, PostTagEnum } from '@/types';
 
 type CreatePostRoute = {
@@ -216,7 +217,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
   },
   imageRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 8 },
-  thumb: { width: 72, height: 72, borderRadius: 8, overflow: 'hidden', backgroundColor: '#e5e7eb', position: 'relative' },
+  thumb: { width: 72, height: 72, borderRadius: 8, overflow: 'hidden', backgroundColor: '#e5e7eb', position: 'relative', ...shadow.sm },
   thumbImage: { width: 72, height: 72 },
   removeOverlay: { position: 'absolute', top: 0, right: 0, width: 24, height: 24, backgroundColor: 'rgba(0,0,0,0.5)', borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
   removeText: { fontSize: 18, color: '#fff', fontWeight: 'bold' },
@@ -238,6 +239,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     marginTop: 24,
+    ...shadow.sm,
   },
   submitDisabled: { opacity: 0.7 },
   submitText: { color: '#FFF', fontSize: 16, fontWeight: '600' },

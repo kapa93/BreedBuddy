@@ -16,6 +16,7 @@ import { getDogsByOwner, deleteDog } from '@/api/dogs';
 import { signOut } from '@/api/auth';
 import { uploadProfileImage, pickImages } from '@/lib/imageUpload';
 import { DogAvatar } from '@/components/DogAvatar';
+import { shadow } from '@/theme';
 import { BREED_LABELS } from '@/utils/breed';
 import { AGE_GROUP_LABELS, ENERGY_LEVEL_LABELS } from '@/utils/breed';
 import type { ProfileStackParamList } from '@/navigation/types';
@@ -212,6 +213,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     borderBottomWidth: 1,
     borderBottomColor: '#E5E7EB',
+    ...shadow.sm,
   },
   avatarTouchable: {
     alignSelf: 'center',
@@ -260,6 +262,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
     marginHorizontal: 16,
     borderRadius: 12,
+    ...shadow.sm,
   },
   sectionTitle: {
     fontSize: 12,
@@ -316,6 +319,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     borderRadius: 12,
     alignItems: 'center',
+    ...shadow.sm,
   },
   btnText: {
     fontSize: 16,

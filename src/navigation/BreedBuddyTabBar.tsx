@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { DogPawIcon } from "@/assets/DogPawIcon";
-import { colors, spacing, typography } from "@/theme";
+import { colors, shadow, spacing, typography } from "@/theme";
 
 const TAB_CONFIG = [
   { key: "Home", label: "Home", icon: "home" as const },
@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderWidth: 6,
     borderColor: colors.background,
+    ...shadow.sm,
   },
   centerIcon: {
     color: "#FFFFFF",

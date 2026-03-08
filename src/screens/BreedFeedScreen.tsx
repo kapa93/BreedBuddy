@@ -48,6 +48,7 @@ export function BreedFeedScreen() {
   const { feedFilter, setFeedFilter } = useUIStore();
   const queryClient = useQueryClient();
   const breed = breedParam ?? "GOLDEN_RETRIEVER";
+  const [reactionMenuOpen, setReactionMenuOpen] = useState(false);
 
   const { data: joinedBreeds = [], refetch: refetchJoins } = useQuery({
     queryKey: ["joinedBreeds", user?.id],
@@ -193,12 +194,14 @@ export function BreedFeedScreen() {
           data={posts ?? []}
           keyExtractor={(item) => item.id}
           ListHeaderComponent={renderHeader}
+          scrollEnabled={!reactionMenuOpen}
           renderItem={({ item }) => (
             <View style={styles.cardWrap}>
               <QuestionCard
                 data={postToQuestionCardData(item)}
                 onPress={() => navigation.navigate("PostDetail", { postId: item.id })}
                 onReactionSelect={handleReactionSelect(item)}
+                onReactionMenuOpenChange={setReactionMenuOpen}
                 currentUserId={user?.id}
                 onEdit={handleEditPost}
                 onDelete={handleDeletePost}
@@ -228,7 +231,7 @@ const styles = StyleSheet.create({
   safe: { flex: 1 },
   container: { flex: 1 },
   heroSection: { paddingHorizontal: spacing.lg, marginTop: spacing.lg, marginBottom: spacing.sm },
-  tabsSection: { paddingHorizontal: spacing.lg, marginTop: -spacing.xs, marginBottom: spacing.sm },
+  tabsSection: { paddingLeft: spacing.lg, paddingRight: 0, marginTop: -spacing.xs, marginBottom: spacing.sm },
   cardWrap: { paddingHorizontal: spacing.lg, marginBottom: spacing.sm },
   listContent: { paddingBottom: spacing.xxxl },
   emptyList: { flexGrow: 1 },

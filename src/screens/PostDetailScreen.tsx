@@ -32,7 +32,7 @@ import { PrimaryButton } from "@/ui/PrimaryButton";
 import { formatRelativeTime } from "@/utils/breed";
 import { BREED_LABELS, POST_TYPE_LABELS, POST_TAG_LABELS } from "@/utils/breed";
 import { commentSchema } from "@/utils/validation";
-import { colors, radius, spacing, typography } from "@/theme";
+import { colors, radius, shadow, spacing, typography } from "@/theme";
 import type { ReactionEnum } from "@/types";
 
 export function PostDetailScreen() {
@@ -313,6 +313,7 @@ const styles = StyleSheet.create({
     borderRadius: radius.lg,
     borderWidth: 1,
     borderColor: colors.border,
+    ...shadow.sm,
   },
   header: {
     flexDirection: "row",
@@ -394,6 +395,7 @@ const styles = StyleSheet.create({
   postButton: {
     minHeight: 44,
     paddingVertical: spacing.sm,
+    ...shadow.sm,
   },
   input: {
     flex: 1,
@@ -406,5 +408,6 @@ const styles = StyleSheet.create({
     ...typography.body,
     borderWidth: 1,
     borderColor: colors.border,
+    ...shadow.sm,
   },
 });

@@ -25,6 +25,7 @@ import {
   ENERGY_LEVEL_LABELS,
 } from '@/utils/breed';
 import type { BreedEnum, AgeGroupEnum, EnergyLevelEnum } from '@/types';
+import { shadow } from '@/theme';
 import type { ProfileStackParamList } from '@/navigation/types';
 
 export function EditDogScreen() {
@@ -228,6 +229,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',
+    ...shadow.sm,
   },
   dogImage: { width: 120, height: 120 },
   imagePlaceholder: { fontSize: 14, color: '#6b7280' },
@@ -238,6 +240,7 @@ const styles = StyleSheet.create({
     padding: 12,
     fontSize: 16,
     backgroundColor: '#FFF',
+    ...shadow.sm,
   },
   chipScroll: { marginBottom: 8, maxHeight: 44 },
   chipRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
@@ -257,6 +260,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     marginTop: 24,
+    ...shadow.sm,
   },
   submitDisabled: { opacity: 0.7 },
   submitText: { color: '#FFF', fontSize: 16, fontWeight: '600' },

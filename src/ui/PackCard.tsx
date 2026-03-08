@@ -1,6 +1,6 @@
 import React from "react";
 import { Image, ImageSourcePropType, Pressable, StyleSheet, Text, View } from "react-native";
-import { colors, radius, spacing, typography } from "../theme";
+import { colors, radius, shadow, spacing, typography } from "../theme";
 import type { BreedColorKey } from "../theme";
 
 type Props = {
@@ -27,8 +27,8 @@ export function PackCard({ label, image, breedColor, onPress }: Props) {
 const styles = StyleSheet.create({
   wrap: { alignItems: "center", width: "100%" },
   pressed: { opacity: 0.92 },
-  imageWrap: { width: "100%", aspectRatio: 1, borderRadius: radius.lg, overflow: "hidden", borderWidth: 2, marginBottom: spacing.sm },
+  imageWrap: { width: "100%", aspectRatio: 1, borderRadius: radius.lg, overflow: "hidden", borderWidth: 2, marginBottom: spacing.sm, ...shadow.sm },
   image: { width: "100%", height: "100%" },
-  labelPill: { paddingHorizontal: spacing.md, paddingVertical: spacing.sm, borderRadius: radius.pill, borderWidth: 1 },
+  labelPill: { paddingHorizontal: spacing.md, paddingVertical: spacing.sm, borderRadius: radius.pill, borderWidth: 1, ...shadow.sm },
   label: { ...typography.body, fontWeight: "700" },
 });

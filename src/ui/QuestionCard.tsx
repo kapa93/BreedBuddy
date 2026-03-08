@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Pressable, StyleSheet, Text, View, Modal, TouchableOpacity, Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { colors, radius, spacing, typography } from "../theme";
+import { colors, radius, shadow, spacing, typography } from "../theme";
 import { Avatar } from "./Avatar";
 import { ImageStrip } from "./ImageStrip";
 import { ReactionBar } from "@/components/ReactionBar";
@@ -13,12 +13,13 @@ type Props = {
   data: QuestionCardData;
   onPress?: () => void;
   onReactionSelect?: (reaction: ReactionEnum | null) => void;
+  onReactionMenuOpenChange?: (open: boolean) => void;
   currentUserId?: string | null;
   onEdit?: (postId: string) => void;
   onDelete?: (postId: string) => void;
 };
 
-export function QuestionCard({ data, onPress, onReactionSelect, currentUserId, onEdit, onDelete }: Props) {
+export function QuestionCard({ data, onPress, onReactionSelect, onReactionMenuOpenChange, currentUserId, onEdit, onDelete }: Props) {
   const [menuVisible, setMenuVisible] = useState(false);
   const [menuLayout, setMenuLayout] = useState({ x: 0, y: 0, width: 0, height: 0 });
   const menuBtnRef = useRef<View>(null);
@@ -112,6 +113,7 @@ export function QuestionCard({ data, onPress, onReactionSelect, currentUserId, o
             reactions={data.reaction_counts ?? {}}
             userReaction={data.user_reaction}
             onSelect={onReactionSelect}
+            onMenuOpenChange={onReactionMenuOpenChange}
           />
         ) : (
           <View style={styles.reactionPlaceholder}>
@@ -142,7 +144,7 @@ export function QuestionCard({ data, onPress, onReactionSelect, currentUserId, o
 }
 
 const styles = StyleSheet.create({
-  card: { backgroundColor: colors.surface, borderRadius: radius.lg, padding: spacing.lg, borderWidth: 1, borderColor: colors.border, marginBottom: spacing.sm },
+  card: { backgroundColor: colors.surface, borderRadius: radius.lg, padding: spacing.lg, borderWidth: 1, borderColor: colors.border, marginBottom: spacing.sm, ...shadow.sm },
   header: { flexDirection: "row", alignItems: "center" },
   headerText: { flex: 1, marginLeft: spacing.md },
   author: { ...typography.subtitle, fontSize: 18 },

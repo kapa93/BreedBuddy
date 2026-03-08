@@ -14,6 +14,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getPostById, updatePost } from '@/api/posts';
 import { useAuthStore } from '@/store/authStore';
 import { BREED_LABELS, POST_TYPE_LABELS, POST_TAG_LABELS } from '@/utils/breed';
+import { shadow } from '@/theme';
 import { postSchema } from '@/utils/validation';
 import type { PostTypeEnum, PostTagEnum } from '@/types';
 
@@ -183,6 +184,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     minHeight: 120,
     backgroundColor: '#FFF',
+    ...shadow.sm,
   },
   error: { color: '#ef4444', marginTop: 12, fontSize: 14 },
   submit: {
@@ -191,6 +193,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     marginTop: 24,
+    ...shadow.sm,
   },
   submitDisabled: { opacity: 0.7 },
   submitText: { color: '#FFF', fontSize: 16, fontWeight: '600' },

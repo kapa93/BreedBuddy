@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { colors, radius, spacing, typography } from "../theme";
+import { colors, radius, shadow, spacing, typography } from "../theme";
 import { Avatar } from "./Avatar";
 import { ReactionPill } from "./ReactionPill";
 
@@ -36,7 +36,7 @@ export function AnswerCard({ author, body, avatarUri, timestamp, helpfulCount = 
 }
 
 const styles = StyleSheet.create({
-  card: { backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border, borderRadius: radius.lg, padding: spacing.lg, marginBottom: spacing.md },
+  card: { backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border, borderRadius: radius.lg, padding: spacing.lg, marginBottom: spacing.md, ...shadow.sm },
   header: { flexDirection: "row", alignItems: "center", marginBottom: spacing.sm },
   author: { ...typography.subtitle, flex: 1, marginLeft: spacing.md },
   timestamp: { ...typography.caption },

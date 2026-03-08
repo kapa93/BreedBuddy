@@ -12,7 +12,7 @@ import { ImageGrid } from './ImageGrid';
 import { ReactionBar } from './ReactionBar';
 import { formatRelativeTime } from '../utils/breed';
 import { BREED_LABELS, POST_TYPE_LABELS, POST_TAG_LABELS } from '../utils/breed';
-import { colors, radius, spacing, typography } from '@/theme';
+import { colors, radius, shadow, spacing, typography } from '@/theme';
 
 const { width } = Dimensions.get('window');
 const THUMB_SIZE = (width - 48) / 3;
@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     borderRadius: radius.lg,
     borderWidth: 1,
     borderColor: colors.border,
+    ...shadow.sm,
   },
   header: {
     flexDirection: 'row',

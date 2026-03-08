@@ -15,6 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import { updateProfile, getProfile } from '@/api/auth';
 import { uploadProfileImage, pickImages } from '@/lib/imageUpload';
 import { useAuthStore } from '@/store/authStore';
+import { shadow } from '@/theme';
 import { profileSchema } from '@/utils/validation';
 
 export function EditProfileScreen() {
@@ -141,6 +142,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     overflow: 'hidden',
     marginBottom: 8,
+    ...shadow.sm,
   },
   profileImage: { width: 100, height: 100 },
   imagePlaceholder: { fontSize: 14, color: '#6b7280' },
@@ -151,6 +153,7 @@ const styles = StyleSheet.create({
     padding: 12,
     fontSize: 16,
     backgroundColor: '#FFF',
+    ...shadow.sm,
   },
   error: { color: '#ef4444', marginTop: 12, fontSize: 14 },
   submit: {
@@ -159,6 +162,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     marginTop: 24,
+    ...shadow.sm,
   },
   submitDisabled: { opacity: 0.7 },
   submitText: { color: '#FFF', fontSize: 16, fontWeight: '600' },

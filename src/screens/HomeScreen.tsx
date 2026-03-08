@@ -52,6 +52,7 @@ export function HomeScreen({
   const queryClient = useQueryClient();
   const [selectedDogIndex, setSelectedDogIndex] = useState(0);
   const [selectedBreedIndex, setSelectedBreedIndex] = useState(0);
+  const [reactionMenuOpen, setReactionMenuOpen] = useState(false);
 
   const { data: dogs } = useQuery({
     queryKey: ["dogs", user?.id],
@@ -258,12 +259,14 @@ export function HomeScreen({
           data={posts ?? []}
           keyExtractor={(item) => item.id}
           ListHeaderComponent={renderHeader}
+          scrollEnabled={!reactionMenuOpen}
           renderItem={({ item }) => (
             <View style={styles.cardWrap}>
               <QuestionCard
                 data={postToQuestionCardData(item)}
                 onPress={() => navigation.navigate("PostDetail", { postId: item.id })}
                 onReactionSelect={handleReactionSelect(item)}
+                onReactionMenuOpenChange={setReactionMenuOpen}
                 currentUserId={user?.id}
                 onEdit={handleEditPost}
                 onDelete={handleDeletePost}
@@ -366,7 +369,7 @@ const styles = StyleSheet.create({
   breedChipText: { ...typography.bodyMuted, fontWeight: "700" },
   breedChipTextSelected: { color: "#FFFFFF" },
   heroSection: { paddingHorizontal: spacing.lg, marginTop: spacing.lg, marginBottom: spacing.sm },
-  tabsSection: { paddingHorizontal: spacing.lg, marginTop: -spacing.xs, marginBottom: spacing.sm },
+  tabsSection: { paddingLeft: spacing.lg, paddingRight: 0, marginTop: -spacing.xs, marginBottom: spacing.sm },
   cardWrap: { paddingHorizontal: spacing.lg, marginBottom: spacing.sm },
   listContent: { paddingBottom: spacing.xxxl },
 });

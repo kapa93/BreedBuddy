@@ -1,6 +1,6 @@
 import React from "react";
 import { Pressable, StyleSheet, Text } from "react-native";
-import { colors, radius, spacing, typography } from "../theme";
+import { colors, radius, shadow, spacing, typography } from "../theme";
 
 import type { ViewStyle } from "react-native";
 
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.xl,
     alignItems: "center",
     justifyContent: "center",
+    ...shadow.sm,
   },
   pressed: { opacity: 0.92 },
   disabled: { opacity: 0.5 },

@@ -13,7 +13,7 @@ import {
 import { BreedHero } from "./BreedHero";
 import { getBreedHeroImageSource } from "@/utils/breedAssets";
 import { BREED_LABELS } from "@/utils/breed";
-import { colors, radius, spacing, typography } from "@/theme";
+import { colors, radius, shadow, spacing, typography } from "@/theme";
 import type { BreedEnum } from "@/types";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
@@ -180,6 +180,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     borderTopLeftRadius: radius.lg,
     borderTopRightRadius: radius.lg,
+    ...shadow.sm,
     padding: spacing.lg,
     paddingBottom: spacing.xxl + 20,
   },

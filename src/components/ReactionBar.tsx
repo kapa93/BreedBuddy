@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,7 +6,9 @@ import {
   Modal,
   StyleSheet,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
+import * as Haptics from "expo-haptics";
 import { REACTION_EMOJI } from "@/utils/breed";
 import { colors, radius, spacing, typography } from "@/theme";
 import type { ReactionEnum } from "@/types";
@@ -17,10 +19,17 @@ interface ReactionBarProps {
   reactions: Partial<Record<ReactionEnum, number>>;
   userReaction?: ReactionEnum | null;
   onSelect: (reaction: ReactionEnum | null) => void;
+  onMenuOpenChange?: (open: boolean) => void;
 }
 
-export function ReactionBar({ reactions, userReaction, onSelect }: ReactionBarProps) {
+const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
+const STRIP_WIDTH = 308;
+const STRIP_HEIGHT = 84;
+
+export function ReactionBar({ reactions, userReaction, onSelect, onMenuOpenChange }: ReactionBarProps) {
   const [stripVisible, setStripVisible] = useState(false);
+  const [buttonLayout, setButtonLayout] = useState({ x: 0, y: 0, width: 0, height: 0 });
+  const likeButtonRef = useRef<View>(null);
 
   const totalCount = Object.values(reactions || {}).reduce((s, c) => s + (c ?? 0), 0);
   const displayEmoji = userReaction ? REACTION_EMOJI[userReaction] : "👍";
@@ -34,8 +43,16 @@ export function ReactionBar({ reactions, userReaction, onSelect }: ReactionBarPr
   };
 
   const handleLongPress = () => {
-    setStripVisible(true);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    likeButtonRef.current?.measureInWindow((x, y, width, height) => {
+      setButtonLayout({ x, y, width, height: height ?? 0 });
+      setStripVisible(true);
+    });
   };
+
+  useEffect(() => {
+    onMenuOpenChange?.(stripVisible);
+  }, [stripVisible, onMenuOpenChange]);
 
   const handleStripSelect = (reaction: ReactionEnum) => {
     onSelect(reaction === userReaction ? null : reaction);
@@ -46,8 +63,10 @@ export function ReactionBar({ reactions, userReaction, onSelect }: ReactionBarPr
     <>
       <View style={styles.wrapper}>
         <Pressable
+          ref={likeButtonRef}
           onPress={handleTap}
           onLongPress={handleLongPress}
+          delayLongPress={200}
           style={({ pressed }) => [
             styles.likeButton,
             userReaction && styles.likeButtonActive,
@@ -84,7 +103,19 @@ export function ReactionBar({ reactions, userReaction, onSelect }: ReactionBarPr
           activeOpacity={1}
           onPress={() => setStripVisible(false)}
         >
-          <View style={styles.stripContainer}>
+          <View
+            style={[
+              styles.stripContainer,
+              {
+                position: "absolute",
+                top:
+                  buttonLayout.y - STRIP_HEIGHT - 4 >= 16
+                    ? buttonLayout.y - STRIP_HEIGHT - 4
+                    : buttonLayout.y + buttonLayout.height + 4,
+                left: Math.max(16, Math.min(SCREEN_WIDTH - STRIP_WIDTH - 16, buttonLayout.x + buttonLayout.width / 2 - STRIP_WIDTH / 2)),
+              },
+            ]}
+          >
             <View style={styles.strip}>
               {REACTIONS.map((type) => (
                 <TouchableOpacity
