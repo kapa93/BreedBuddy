@@ -22,6 +22,7 @@ import { FeedItem } from "@/components/FeedItem";
 import { getBreedHeroImageSource } from "@/utils/breedAssets";
 import { BREED_LABELS } from "@/utils/breed";
 import { useScrollDirection, useScrollDirectionUpdater } from "@/context/ScrollDirectionContext";
+import { ScreenWithWallpaper } from "@/components/ScreenWithWallpaper";
 import { colors, radius, spacing, typography } from "@/theme";
 import type { PostWithDetails, BreedEnum, ReactionEnum } from "@/types";
 import type { FeedFilter } from "@/store/uiStore";
@@ -218,9 +219,10 @@ export function BreedFeedScreen() {
   ), [showSwipeable, joinedBreeds, breed, isJoined, tabKey, handleJoinPress, handleJoinPressForBreed, setFeedFilter]);
 
   return (
-    <SafeAreaView style={styles.safe} edges={["left", "right"]}>
-      <View style={styles.container}>
-        <FlatList
+    <ScreenWithWallpaper>
+      <SafeAreaView style={styles.safe} edges={["left", "right"]}>
+        <View style={styles.container}>
+          <FlatList
           data={posts ?? []}
           keyExtractor={(item) => item.id}
           ListHeaderComponent={renderHeader}
@@ -255,8 +257,9 @@ export function BreedFeedScreen() {
           ]}
           showsVerticalScrollIndicator={false}
         />
-      </View>
-    </SafeAreaView>
+        </View>
+      </SafeAreaView>
+    </ScreenWithWallpaper>
   );
 }
 

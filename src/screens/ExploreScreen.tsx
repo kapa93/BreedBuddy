@@ -6,17 +6,18 @@ import {
   ScrollView,
   useWindowDimensions,
   Pressable,
+  Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
-import { PackCard } from "@/ui/PackCard";
 import { getPackItems } from "@/utils/breedAssets";
 import { useScrollDirectionUpdater } from "@/context/ScrollDirectionContext";
-import { colors, spacing, typography } from "@/theme";
+import { ScreenWithWallpaper } from "@/components/ScreenWithWallpaper";
+import { colors, radius, spacing, typography } from "@/theme";
 
 const CARD_GAP = spacing.md;
 const H_PADDING = spacing.lg;
-const NUM_COLUMNS = 3;
+const NUM_COLUMNS = 2;
 
 export function ExploreScreen({
   navigation,
@@ -29,17 +30,8 @@ export function ExploreScreen({
   const packItems = getPackItems();
 
   return (
-    <SafeAreaView style={styles.safe} edges={["left", "right"]}>
-      <View style={styles.topBar}>
-        <Text style={styles.title}>Choose Your Pack</Text>
-        <Pressable
-          onPress={() => navigation.navigate("SearchMain")}
-          style={styles.searchBtn}
-          hitSlop={12}
-        >
-          <Ionicons name="search" size={24} color={colors.textPrimary} />
-        </Pressable>
-      </View>
+    <ScreenWithWallpaper>
+      <SafeAreaView style={styles.safe} edges={["left", "right"]}>
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.content}
@@ -47,22 +39,38 @@ export function ExploreScreen({
         onScroll={onScroll}
         scrollEventThrottle={16}
       >
-        <Text style={styles.subtitle}>Pick a breed community to explore</Text>
-
-        <View style={styles.grid}>
+        <View style={styles.header}>
+          <View style={styles.titleWrap}>
+            <Ionicons name="add" size={16} color={colors.primary} />
+            <Text style={styles.title}>Choose Your Pack</Text>
+            <Ionicons name="add" size={16} color={colors.primary} />
+          </View>
+          <Text style={styles.subtitle}>Pick one or more communities to explore</Text>
+        </View>
+        <View style={styles.gridWrap}>
+          <View style={styles.grid}>
           {packItems.map((item) => (
-            <View key={item.breed} style={[styles.cell, { width: cardWidth }]}>
-              <PackCard
-                label={item.label}
-                image={{ uri: item.imageUri }}
-                breedColor={item.breedColor}
-                onPress={() => navigation.navigate("BreedFeed", { breed: item.breed })}
-              />
-            </View>
+            <Pressable
+              key={item.breed}
+              style={[styles.cell, { width: cardWidth }]}
+              onPress={() => navigation.navigate("BreedFeed", { breed: item.breed })}
+            >
+              {({ pressed }) => (
+                <View style={[styles.imageWrapper, pressed && styles.pressed]}>
+                  <Image
+                    source={item.image}
+                    style={styles.breedImage}
+                    resizeMode="contain"
+                  />
+                </View>
+              )}
+            </Pressable>
           ))}
+          </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </ScreenWithWallpaper>
   );
 }
 
@@ -74,23 +82,29 @@ const styles = StyleSheet.create({
     paddingTop: spacing.sm,
     paddingBottom: spacing.xxxl,
   },
-  topBar: {
-    flexDirection: "row",
+  header: {
     alignItems: "center",
-    justifyContent: "space-between",
     paddingHorizontal: H_PADDING,
     paddingTop: spacing.lg,
-    paddingBottom: spacing.sm,
+    paddingBottom: 0,
+  },
+  titleWrap: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.sm,
   },
   title: {
     ...typography.titleXL,
   },
-  searchBtn: {
-    padding: spacing.sm,
-  },
   subtitle: {
     ...typography.bodyMuted,
-    marginBottom: spacing.xxl,
+    marginTop: spacing.xs,
+    marginBottom: spacing.lg,
+    textAlign: "center",
+  },
+  gridWrap: {
+    alignItems: "center",
+    marginLeft: 10,
   },
   grid: {
     flexDirection: "row",
@@ -101,4 +115,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: CARD_GAP / 2,
     marginBottom: spacing.lg,
   },
+  imageWrapper: {
+    width: "100%",
+    aspectRatio: 1,
+    borderRadius: radius.xl,
+    overflow: "hidden",
+  },
+  breedImage: {
+    width: "100%",
+    height: "100%",
+    borderRadius: radius.xl,
+  },
+  pressed: { opacity: 0.92 },
 });

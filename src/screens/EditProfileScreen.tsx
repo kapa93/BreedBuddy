@@ -15,6 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import { updateProfile, getProfile } from '@/api/auth';
 import { uploadProfileImage, pickImages } from '@/lib/imageUpload';
 import { useAuthStore } from '@/store/authStore';
+import { ScreenWithWallpaper } from '@/components/ScreenWithWallpaper';
 import { shadow } from '@/theme';
 import { profileSchema } from '@/utils/validation';
 
@@ -86,7 +87,8 @@ export function EditProfileScreen() {
   if (!user) return null;
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+    <ScreenWithWallpaper>
+      <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <Text style={styles.label}>Profile photo</Text>
       <TouchableOpacity style={styles.imagePicker} onPress={handlePickImage}>
         {imageUri ? (
@@ -126,6 +128,7 @@ export function EditProfileScreen() {
         )}
       </TouchableOpacity>
     </ScrollView>
+    </ScreenWithWallpaper>
   );
 }
 

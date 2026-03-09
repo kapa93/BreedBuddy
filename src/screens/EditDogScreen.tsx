@@ -25,6 +25,7 @@ import {
   ENERGY_LEVEL_LABELS,
 } from '@/utils/breed';
 import type { BreedEnum, AgeGroupEnum, EnergyLevelEnum } from '@/types';
+import { ScreenWithWallpaper } from '@/components/ScreenWithWallpaper';
 import { shadow } from '@/theme';
 import type { ProfileStackParamList } from '@/navigation/types';
 
@@ -136,7 +137,8 @@ export function EditDogScreen() {
   if (!user) return null;
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+    <ScreenWithWallpaper>
+      <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <Text style={styles.label}>Dog photo</Text>
       <TouchableOpacity style={styles.imagePicker} onPress={handlePickImage}>
         {imageUri ? (
@@ -214,6 +216,7 @@ export function EditDogScreen() {
         )}
       </TouchableOpacity>
     </ScrollView>
+    </ScreenWithWallpaper>
   );
 }
 

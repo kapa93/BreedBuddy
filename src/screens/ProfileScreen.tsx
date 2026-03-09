@@ -16,6 +16,7 @@ import { getDogsByOwner, deleteDog } from '@/api/dogs';
 import { signOut } from '@/api/auth';
 import { uploadProfileImage, pickImages } from '@/lib/imageUpload';
 import { DogAvatar } from '@/components/DogAvatar';
+import { ScreenWithWallpaper } from '@/components/ScreenWithWallpaper';
 import { shadow } from '@/theme';
 import { BREED_LABELS } from '@/utils/breed';
 import { AGE_GROUP_LABELS, ENERGY_LEVEL_LABELS } from '@/utils/breed';
@@ -99,7 +100,8 @@ export function ProfileScreen({ navigation }: { navigation: ProfileNav }) {
   const primaryDog = dogs?.[0];
 
   return (
-    <ScrollView style={styles.container}>
+    <ScreenWithWallpaper>
+      <ScrollView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity
           onPress={handleChangePhoto}
@@ -111,7 +113,8 @@ export function ProfileScreen({ navigation }: { navigation: ProfileNav }) {
             <DogAvatar
               imageUrl={profile?.profile_image_url ?? primaryDog?.dog_image_url}
               name={profile?.name ?? primaryDog?.name}
-              size={80}
+              size={92}
+              roundedSquare
             />
             {photoMutation.isPending ? (
               <View style={styles.avatarOverlay}>
@@ -199,6 +202,7 @@ export function ProfileScreen({ navigation }: { navigation: ProfileNav }) {
         <Text style={styles.signOutText}>Sign out</Text>
       </TouchableOpacity>
     </ScrollView>
+    </ScreenWithWallpaper>
   );
 }
 
@@ -219,9 +223,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   avatarWrapper: {
-    width: 80,
-    height: 80,
+    width: 92,
+    height: 92,
     position: 'relative',
+    borderRadius: 16,
+    overflow: 'hidden',
   },
   avatarOverlay: {
     position: 'absolute',
@@ -229,7 +235,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    borderRadius: 40,
+    borderRadius: 16,
     backgroundColor: 'rgba(0,0,0,0.4)',
     alignItems: 'center',
     justifyContent: 'center',
@@ -349,11 +355,11 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     backgroundColor: 'rgba(0,0,0,0.4)',
-    borderRadius: 40,
+    borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
-    width: 80,
-    height: 80,
+    width: 92,
+    height: 92,
   },
   avatarBadge: {
     position: 'absolute',

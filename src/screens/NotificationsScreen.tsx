@@ -11,6 +11,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigation } from '@react-navigation/native';
 import { getNotifications, markNotificationRead, markAllNotificationsRead } from '@/api/notifications';
 import { useAuthStore } from '@/store/authStore';
+import { ScreenWithWallpaper } from '@/components/ScreenWithWallpaper';
 import { formatRelativeTime } from '@/utils/breed';
 
 type NotificationItem = {
@@ -58,22 +59,27 @@ export function NotificationsScreen() {
 
   if (!user) {
     return (
-      <View style={styles.centered}>
-        <Text style={styles.emptyText}>Sign in to see notifications</Text>
-      </View>
+      <ScreenWithWallpaper>
+        <View style={styles.centered}>
+          <Text style={styles.emptyText}>Sign in to see notifications</Text>
+        </View>
+      </ScreenWithWallpaper>
     );
   }
 
   if (isLoading) {
     return (
-      <View style={styles.centered}>
-        <ActivityIndicator size="large" color="#6366f1" />
-      </View>
+      <ScreenWithWallpaper>
+        <View style={styles.centered}>
+          <ActivityIndicator size="large" color="#6366f1" />
+        </View>
+      </ScreenWithWallpaper>
     );
   }
 
   return (
-    <View style={styles.container}>
+    <ScreenWithWallpaper>
+      <View style={styles.container}>
       {unreadCount > 0 && (
         <TouchableOpacity
           style={styles.markAllBtn}
@@ -116,6 +122,7 @@ export function NotificationsScreen() {
         />
       )}
     </View>
+    </ScreenWithWallpaper>
   );
 }
 

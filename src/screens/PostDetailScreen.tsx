@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   Text,
@@ -32,6 +32,8 @@ import { PrimaryButton } from "@/ui/PrimaryButton";
 import { formatRelativeTime } from "@/utils/breed";
 import { BREED_LABELS, POST_TYPE_LABELS, POST_TAG_LABELS } from "@/utils/breed";
 import { commentSchema } from "@/utils/validation";
+import { ScreenWithWallpaper } from "@/components/ScreenWithWallpaper";
+import { useScrollDirection } from "@/context/ScrollDirectionContext";
 import { colors, radius, shadow, spacing, typography } from "@/theme";
 import type { ReactionEnum } from "@/types";
 
@@ -45,8 +47,13 @@ export function PostDetailScreen() {
   const postId = (route.params as { postId: string })?.postId ?? "";
   const { user } = useAuthStore();
   const queryClient = useQueryClient();
+  const { setScrollDirection } = useScrollDirection();
   const [commentText, setCommentText] = useState("");
   const [menuVisible, setMenuVisible] = useState(false);
+
+  useEffect(() => {
+    setScrollDirection("up");
+  }, [setScrollDirection]);
   const [menuLayout, setMenuLayout] = useState({ x: 0, y: 0, width: 0, height: 0 });
   const menuBtnRef = useRef<View>(null);
 
@@ -149,9 +156,11 @@ export function PostDetailScreen() {
 
   if (isLoading || !post) {
     return (
-      <View style={styles.centered}>
-        <Text style={styles.loadingText}>Loading...</Text>
-      </View>
+      <ScreenWithWallpaper>
+        <View style={styles.centered}>
+          <Text style={styles.loadingText}>Loading...</Text>
+        </View>
+      </ScreenWithWallpaper>
     );
   }
 
@@ -160,11 +169,12 @@ export function PostDetailScreen() {
   const tagLabel = POST_TAG_LABELS[post.tag] ?? post.tag;
 
   return (
-    <SafeAreaView style={styles.safe}>
-      <KeyboardAvoidingView
+    <ScreenWithWallpaper>
+      <SafeAreaView style={styles.safe}>
+        <KeyboardAvoidingView
         style={styles.container}
         behavior={Platform.OS === "ios" ? "padding" : undefined}
-        keyboardVerticalOffset={90}
+        keyboardVerticalOffset={60}
       >
         <ScrollView
           style={styles.scroll}
@@ -276,7 +286,7 @@ export function PostDetailScreen() {
           </View>
         </ScrollView>
 
-        <View style={styles.inputRow}>
+        <View style={[styles.inputRow, { marginBottom: 38 }]}>
           <TextInput
             style={styles.input}
             placeholder="Add an answer..."
@@ -295,7 +305,8 @@ export function PostDetailScreen() {
         </View>
       </KeyboardAvoidingView>
 
-    </SafeAreaView>
+      </SafeAreaView>
+    </ScreenWithWallpaper>
   );
 }
 

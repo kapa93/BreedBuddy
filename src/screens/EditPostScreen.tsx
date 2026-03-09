@@ -14,7 +14,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getPostById, updatePost } from '@/api/posts';
 import { useAuthStore } from '@/store/authStore';
 import { BREED_LABELS, POST_TYPE_LABELS, POST_TAG_LABELS } from '@/utils/breed';
-import { shadow } from '@/theme';
+import { colors, shadow } from '@/theme';
 import { postSchema } from '@/utils/validation';
 import type { PostTypeEnum, PostTagEnum } from '@/types';
 
@@ -81,7 +81,7 @@ export function EditPostScreen() {
 
   if (isLoading || !post) {
     return (
-      <View style={styles.centered}>
+      <View style={[styles.centered, styles.background]}>
         <ActivityIndicator size="large" color="#3b82f6" />
       </View>
     );
@@ -96,7 +96,8 @@ export function EditPostScreen() {
   const breed = post.breed;
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+    <View style={styles.background}>
+      <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <Text style={styles.label}>Breed</Text>
       <Text style={styles.breedValue}>{BREED_LABELS[breed]}</Text>
 
@@ -156,10 +157,12 @@ export function EditPostScreen() {
         )}
       </TouchableOpacity>
     </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  background: { flex: 1, backgroundColor: colors.background },
   container: { flex: 1 },
   content: { padding: 16, paddingBottom: 40 },
   centered: { flex: 1, justifyContent: 'center', alignItems: 'center' },

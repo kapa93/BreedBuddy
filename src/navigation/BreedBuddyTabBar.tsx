@@ -7,20 +7,21 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome6 } from "@expo/vector-icons";
 import { DogPawIcon } from "@/assets/DogPawIcon";
 import { useScrollDirection } from "@/context/ScrollDirectionContext";
 import { colors, spacing, typography } from "@/theme";
 
 const TAB_CONFIG = [
-  { key: "Home", label: "Home", icon: "home" as const },
+  { key: "Home", label: "Home", icon: "house" as const },
   { key: "Explore", label: "Explore", icon: "compass" as const },
-  { key: "Create", label: "Create", icon: "create-outline" as const },
-  { key: "Notifications", label: "Alerts", icon: "notifications" as const },
-  { key: "Profile", label: "Profile", icon: "person" as const },
+  { key: "Create", label: "Create", icon: "pen" as const },
+  { key: "Notifications", label: "Alerts", icon: "bell" as const },
+  { key: "Profile", label: "Profile", icon: "user" as const },
 ];
 
 const INDICATOR_ANIMATION = { duration: 60 };
+const WRAP_PADDING_H = spacing.md;
 
 export function BreedBuddyTabBar({ state, navigation }: BottomTabBarProps) {
   const insets = useSafeAreaInsets();
@@ -28,13 +29,15 @@ export function BreedBuddyTabBar({ state, navigation }: BottomTabBarProps) {
   const [wrapWidth, setWrapWidth] = useState(0);
   const indicatorLeft = useSharedValue(0);
   const prevIndexRef = useRef(state.index);
-  // Scroll-based hide: animate translateY when scrolling down
+  // Scroll-based hide: animate translateY when scrolling down (always visible on Explore)
   const translateY = useSharedValue(0);
+  const isExplore = state.routeNames[state.index] === "Explore";
   useEffect(() => {
-    translateY.value = withTiming(scrollDirection === "down" ? 120 : 0, {
+    const shouldHide = !isExplore && scrollDirection === "down";
+    translateY.value = withTiming(shouldHide ? 120 : 0, {
       duration: 220,
     });
-  }, [scrollDirection]);
+  }, [scrollDirection, isExplore]);
 
   const animatedBarStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY.value }],
@@ -46,9 +49,10 @@ export function BreedBuddyTabBar({ state, navigation }: BottomTabBarProps) {
 
   useEffect(() => {
     if (wrapWidth > 0) {
-      const tabWidth = wrapWidth / 5;
+      const contentWidth = wrapWidth - WRAP_PADDING_H * 2;
+      const tabWidth = contentWidth / 5;
       const indicatorWidth = tabWidth * 0.8;
-      const targetLeft = state.index * tabWidth + (tabWidth - indicatorWidth) / 2;
+      const targetLeft = WRAP_PADDING_H + state.index * tabWidth + (tabWidth - indicatorWidth) / 2;
       const isTabChange = prevIndexRef.current !== state.index;
       prevIndexRef.current = state.index;
 
@@ -81,7 +85,7 @@ export function BreedBuddyTabBar({ state, navigation }: BottomTabBarProps) {
             style={[
               styles.indicator,
               {
-                width: wrapWidth > 0 ? (wrapWidth / 5) * 0.8 : 0,
+                width: wrapWidth > 0 ? ((wrapWidth - WRAP_PADDING_H * 2) / 5) * 0.8 : 0,
               },
               indicatorAnimatedStyle,
             ]}
@@ -110,10 +114,11 @@ export function BreedBuddyTabBar({ state, navigation }: BottomTabBarProps) {
               onPress={() => navigation.navigate(item.key)}
               style={styles.item}
             >
-              <Ionicons
+              <FontAwesome6
                 name={item.icon}
-                size={24}
+                size={22}
                 color={isActive ? colors.primary : colors.textMuted}
+                solid={isActive}
               />
               <Text
                 style={[
@@ -144,6 +149,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     justifyContent: "space-between",
     backgroundColor: colors.surface,
+    paddingHorizontal: WRAP_PADDING_H,
     paddingTop: spacing.sm,
     paddingBottom: spacing.lg,
     overflow: "visible",
@@ -168,6 +174,11 @@ const styles = StyleSheet.create({
     height: 3,
     backgroundColor: colors.primary,
     borderRadius: 2,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: -2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+    elevation: 4,
   },
   label: {
     ...typography.caption,
@@ -187,19 +198,19 @@ const styles = StyleSheet.create({
   },
   centerButton: {
     position: "absolute",
-    bottom: 4,
+    bottom: 7,
     left: "50%",
-    marginLeft: -26.5,
-    width: 53,
-    height: 53,
-    borderRadius: 26.5,
+    marginLeft: -27.5,
+    width: 55,
+    height: 52,
+    borderRadius: 20,
     backgroundColor: colors.primary,
     alignItems: "center",
     justifyContent: "center",
     shadowColor: colors.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.4,
-    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
     elevation: 8,
   },
 });

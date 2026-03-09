@@ -24,6 +24,7 @@ import { FeedItem } from "@/components/FeedItem";
 import { getBreedHeroImageSource } from "@/utils/breedAssets";
 import { BREED_LABELS } from "@/utils/breed";
 import { useScrollDirection, useScrollDirectionUpdater } from "@/context/ScrollDirectionContext";
+import { ScreenWithWallpaper } from "@/components/ScreenWithWallpaper";
 import { colors, radius, spacing, typography } from "@/theme";
 import type { PostWithDetails, ReactionEnum } from "@/types";
 import type { FeedFilter } from "@/store/uiStore";
@@ -250,24 +251,28 @@ export function HomeScreen({
 
   if (!user) {
     return (
-      <SafeAreaView style={styles.safe}>
-        <View style={styles.center}>
-          <Text style={styles.emptyText}>Sign in to see your feed</Text>
-        </View>
-      </SafeAreaView>
+      <ScreenWithWallpaper showOverlay>
+        <SafeAreaView style={styles.safe}>
+          <View style={styles.center}>
+            <Text style={styles.emptyText}>Sign in to see your feed</Text>
+          </View>
+        </SafeAreaView>
+      </ScreenWithWallpaper>
     );
   }
 
   if (!dogs || dogs.length === 0) {
     return (
-      <SafeAreaView style={styles.safe}>
-        <View style={styles.center}>
-          <Text style={styles.emptyText}>Add a dog profile to see your breed's feed</Text>
-          <Text style={styles.link} onPress={() => navigation.navigate("Profile")}>
-            Go to Profile
-          </Text>
-        </View>
-      </SafeAreaView>
+      <ScreenWithWallpaper showOverlay>
+        <SafeAreaView style={styles.safe}>
+          <View style={styles.center}>
+            <Text style={styles.emptyText}>Add a dog profile to see your breed's feed</Text>
+            <Text style={styles.link} onPress={() => navigation.navigate("Profile")}>
+              Go to Profile
+            </Text>
+          </View>
+        </SafeAreaView>
+      </ScreenWithWallpaper>
     );
   }
 
@@ -283,9 +288,10 @@ export function HomeScreen({
   );
 
   return (
-    <SafeAreaView style={styles.safe} edges={["left", "right"]}>
-      <View style={styles.container}>
-        <FlatList
+    <ScreenWithWallpaper showOverlay>
+      <SafeAreaView style={styles.safe} edges={["left", "right"]}>
+        <View style={styles.container}>
+          <FlatList
           data={posts ?? []}
           keyExtractor={(item) => item.id}
           ListHeaderComponent={renderHeader}
@@ -320,8 +326,9 @@ export function HomeScreen({
           ]}
           showsVerticalScrollIndicator={false}
         />
-      </View>
-    </SafeAreaView>
+        </View>
+      </SafeAreaView>
+    </ScreenWithWallpaper>
   );
 }
 

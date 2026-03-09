@@ -18,6 +18,7 @@ import { supabase } from '@/lib/supabase';
 import { useAuthStore } from '@/store/authStore';
 import { BREED_LABELS, POST_TYPE_LABELS, POST_TAG_LABELS } from '@/utils/breed';
 import { postSchema } from '@/utils/validation';
+import { ScreenWithWallpaper } from '@/components/ScreenWithWallpaper';
 import { colors, shadow, spacing } from '@/theme';
 import type { BreedEnum, PostTypeEnum, PostTagEnum } from '@/types';
 
@@ -111,7 +112,8 @@ export function CreatePostScreen() {
   if (!user) return null;
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+    <ScreenWithWallpaper>
+      <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <Text style={styles.label}>Breed</Text>
       <Text style={styles.breedValue}>{BREED_LABELS[breed]}</Text>
 
@@ -188,6 +190,7 @@ export function CreatePostScreen() {
         )}
       </TouchableOpacity>
     </ScrollView>
+    </ScreenWithWallpaper>
   );
 }
 

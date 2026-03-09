@@ -11,6 +11,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { signIn } from '@/api/auth';
+import { ScreenWithWallpaper } from '@/components/ScreenWithWallpaper';
 import { colors } from '@/theme';
 import { useAuthStore } from '@/store/authStore';
 import { signInSchema } from '@/utils/validation';
@@ -50,10 +51,11 @@ export function SignInScreen() {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-    >
+    <ScreenWithWallpaper>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
       <Text style={styles.title}>Welcome to BreedBuddy</Text>
       <Text style={styles.subtitle}>Sign in to join your breed community</Text>
 
@@ -97,6 +99,7 @@ export function SignInScreen() {
         <Text style={styles.linkText}>Don't have an account? Sign up</Text>
       </TouchableOpacity>
     </KeyboardAvoidingView>
+    </ScreenWithWallpaper>
   );
 }
 
@@ -105,7 +108,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 24,
-    backgroundColor: colors.background,
   },
   title: {
     fontSize: 28,

@@ -5,19 +5,21 @@ interface DogAvatarProps {
   imageUrl?: string | null;
   name?: string;
   size?: number;
+  roundedSquare?: boolean;
 }
 
-export function DogAvatar({ imageUrl, name, size = 40 }: DogAvatarProps) {
+export function DogAvatar({ imageUrl, name, size = 40, roundedSquare }: DogAvatarProps) {
+  const borderRadius = roundedSquare ? 16 : size / 2;
   return (
-    <View style={[styles.container, { width: size, height: size, borderRadius: size / 2 }]}>
+    <View style={[styles.container, { width: size, height: size, borderRadius }]}>
       {imageUrl ? (
         <Image
           source={{ uri: imageUrl }}
-          style={[styles.image, { width: size, height: size, borderRadius: size / 2 }]}
+          style={[styles.image, { width: size, height: size, borderRadius }]}
           resizeMode="cover"
         />
       ) : (
-        <View style={[styles.placeholder, { width: size, height: size, borderRadius: size / 2 }]}>
+        <View style={[styles.placeholder, { width: size, height: size, borderRadius }]}>
           <Text style={[styles.placeholderText, { fontSize: size * 0.4 }]}>
             {name ? name[0].toUpperCase() : '🐕'}
           </Text>

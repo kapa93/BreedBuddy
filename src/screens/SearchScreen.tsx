@@ -23,6 +23,7 @@ import {
   POST_TAG_LABELS,
   POST_TYPE_LABELS,
 } from '@/utils/breed';
+import { ScreenWithWallpaper } from '@/components/ScreenWithWallpaper';
 import type { PostWithDetails } from '@/types';
 import type { BreedEnum, PostTagEnum, PostTypeEnum, ReactionEnum } from '@/types';
 
@@ -68,7 +69,8 @@ export function SearchScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <ScreenWithWallpaper>
+      <View style={styles.container}>
       <View style={styles.searchRow}>
         <TextInput
           style={styles.input}
@@ -156,6 +158,7 @@ export function SearchScreen() {
       )}
 
     </View>
+    </ScreenWithWallpaper>
   );
 }
 

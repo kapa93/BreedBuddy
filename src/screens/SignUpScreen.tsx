@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { signUp } from '@/api/auth';
+import { ScreenWithWallpaper } from '@/components/ScreenWithWallpaper';
 import { colors } from '@/theme';
 import { useAuthStore } from '@/store/authStore';
 import { signUpSchema } from '@/utils/validation';
@@ -55,10 +56,11 @@ export function SignUpScreen() {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-    >
+    <ScreenWithWallpaper>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
       <ScrollView contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled">
         <Text style={styles.title}>Create Account</Text>
         <Text style={styles.subtitle}>Join your breed community</Text>
@@ -108,18 +110,18 @@ export function SignUpScreen() {
           )}
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.link} onPress={() => (navigation as any).navigate('SignIn')}>
-          <Text style={styles.linkText}>Already have an account? Sign in</Text>
-        </TouchableOpacity>
-      </ScrollView>
+      <TouchableOpacity style={styles.link} onPress={() => (navigation as any).navigate('SignIn')}>
+        <Text style={styles.linkText}>Already have an account? Sign in</Text>
+      </TouchableOpacity>
+    </ScrollView>
     </KeyboardAvoidingView>
+    </ScreenWithWallpaper>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
   },
   scroll: {
     flexGrow: 1,

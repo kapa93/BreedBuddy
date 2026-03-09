@@ -71,6 +71,7 @@ export function ReactionBar({ reactions, userReaction, onSelect, onMenuOpenChang
           delayLongPress={200}
           style={({ pressed }) => [
             styles.likeButton,
+            totalCount > 0 && styles.likeButtonWithCount,
             userReaction && styles.likeButtonActive,
             pressed && styles.pressed,
           ]}
@@ -78,28 +79,15 @@ export function ReactionBar({ reactions, userReaction, onSelect, onMenuOpenChang
           {showBone ? (
             <View style={styles.iconWrap} pointerEvents="none">
               <Bone
-                size={20}
+                size={22}
                 color={userReaction ? colors.primary : colors.textSecondary}
               />
             </View>
           ) : (
             <Text style={styles.emoji} pointerEvents="none">{displayEmoji}</Text>
           )}
-          <Text
-            pointerEvents="none"
-            style={[
-              styles.label,
-              userReaction ? styles.labelActive : styles.labelInactive,
-            ]}
-          >
-            {userReaction === "LIKE"
-              ? "Treat"
-              : userReaction
-                ? REACTION_LABELS[userReaction]
-                : "Treat"}
-          </Text>
           {totalCount > 0 && (
-            <Text pointerEvents="none" style={[styles.count, userReaction && styles.countActive]}> {totalCount}</Text>
+            <Text pointerEvents="none" style={[styles.count, userReaction && styles.countActive]}>{totalCount}</Text>
           )}
         </Pressable>
       </View>
@@ -157,15 +145,6 @@ export function ReactionBar({ reactions, userReaction, onSelect, onMenuOpenChang
   );
 }
 
-const REACTION_LABELS: Record<ReactionEnum, string> = {
-  LIKE: "Treat",
-  LOVE: "Love",
-  HAHA: "Haha",
-  WOW: "Wow",
-  SAD: "Sad",
-  ANGRY: "Angry",
-};
-
 const styles = StyleSheet.create({
   wrapper: {
     flexDirection: "row",
@@ -175,16 +154,22 @@ const styles = StyleSheet.create({
   likeButton: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.lg,
+    height: 36,
+    paddingVertical: 0,
+    paddingLeft: spacing.md,
+    paddingRight: spacing.sm,
     borderRadius: radius.pill,
     backgroundColor: colors.surfaceMuted,
     borderWidth: 1,
     borderColor: colors.border,
   },
+  likeButtonWithCount: {
+    paddingRight: spacing.md,
+  },
   likeButtonActive: {
     backgroundColor: colors.primarySoft,
-    borderColor: colors.border,
+    borderColor: colors.primary,
+    borderWidth: 1,
   },
   pressed: {
     opacity: 0.7,

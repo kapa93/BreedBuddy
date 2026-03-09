@@ -14,21 +14,41 @@ export function PackCard({ label, image, breedColor, onPress }: Props) {
   const breed = colors.breeds[breedColor];
   return (
     <Pressable onPress={onPress} style={({ pressed }) => [styles.wrap, pressed && styles.pressed]}>
-      <View style={[styles.imageWrap, { backgroundColor: breed.bg, borderColor: breed.ring }]}>
+      <View style={[styles.card, { backgroundColor: breed.bg, borderColor: breed.ring }]}>
         <Image source={image} style={styles.image} resizeMode="cover" />
-      </View>
-      <View style={[styles.labelPill, { backgroundColor: breed.bg, borderColor: breed.ring }]}>
-        <Text style={[styles.label, { color: breed.text }]}>{label}</Text>
+        <View style={[styles.labelPill, { borderColor: breed.ring }]}>
+          <Text style={[styles.label, { color: breed.text }]}>{label}</Text>
+        </View>
       </View>
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
-  wrap: { alignItems: "center", width: "100%" },
+  wrap: { width: "100%", alignItems: "center" },
   pressed: { opacity: 0.92 },
-  imageWrap: { width: "100%", aspectRatio: 1, borderRadius: radius.lg, overflow: "hidden", borderWidth: 2, marginBottom: spacing.sm, ...shadow.sm },
+  card: {
+    width: "100%",
+    aspectRatio: 0.85,
+    borderRadius: radius.xl,
+    overflow: "hidden",
+    borderWidth: 2,
+    ...shadow.sm,
+  },
   image: { width: "100%", height: "100%" },
-  labelPill: { paddingHorizontal: spacing.md, paddingVertical: spacing.sm, borderRadius: radius.pill, borderWidth: 1, ...shadow.sm },
+  labelPill: {
+    position: "absolute",
+    bottom: spacing.sm,
+    left: spacing.sm,
+    right: spacing.sm,
+    backgroundColor: "#FFFFFF",
+    borderWidth: 2,
+    borderRadius: radius.pill,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    alignItems: "center",
+    justifyContent: "center",
+    ...shadow.sm,
+  },
   label: { ...typography.body, fontWeight: "700" },
 });
