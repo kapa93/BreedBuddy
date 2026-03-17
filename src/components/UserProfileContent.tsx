@@ -1,0 +1,588 @@
+import React from 'react';
+import {
+  ActivityIndicator,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { DogAvatar } from '@/components/DogAvatar';
+import { ProfileDogCard } from '@/components/ProfileDogCard';
+import { ScreenWithWallpaper } from '@/components/ScreenWithWallpaper';
+import { useUserProfile } from '@/hooks/useUserProfile';
+import { useStackHeaderHeight } from '@/hooks/useStackHeaderHeight';
+import { colors, radius, shadow, spacing, typography } from '@/theme';
+import {
+  BREED_LABELS,
+  POST_TAG_LABELS,
+  POST_TYPE_LABELS,
+  formatRelativeTime,
+} from '@/utils/breed';
+
+type Props = {
+  profileUserId: string;
+  viewerUserId?: string | null;
+  showPrivateAccountInfo?: boolean;
+  onOpenPost?: (postId: string) => void;
+  onEditProfile?: () => void;
+  onAddDog?: () => void;
+  onEditDog?: (dogId: string) => void;
+  onDeleteDog?: (dogId: string, dogName: string) => void;
+  onChangePhoto?: () => void;
+  onSignOut?: () => void;
+  isPhotoUpdating?: boolean;
+};
+
+function formatJoinedDate(createdAt?: string) {
+  if (!createdAt) return null;
+  return new Date(createdAt).toLocaleDateString(undefined, {
+    month: 'short',
+    year: 'numeric',
+  });
+}
+
+function Section({
+  title,
+  rightLabel,
+  children,
+}: {
+  title: string;
+  rightLabel?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <View style={styles.section}>
+      <View style={styles.sectionHeader}>
+        <Text style={styles.sectionTitle}>{title}</Text>
+        {rightLabel ? <Text style={styles.sectionMeta}>{rightLabel}</Text> : null}
+      </View>
+      {children}
+    </View>
+  );
+}
+
+function QuickStat({
+  icon,
+  label,
+}: {
+  icon: React.ComponentProps<typeof Ionicons>['name'];
+  label: string;
+}) {
+  return (
+    <View style={styles.quickStat}>
+      <Ionicons name={icon} size={16} color={colors.primaryDark} />
+      <Text style={styles.quickStatText}>{label}</Text>
+    </View>
+  );
+}
+
+export function UserProfileContent({
+  profileUserId,
+  viewerUserId,
+  showPrivateAccountInfo = false,
+  onOpenPost,
+  onEditProfile,
+  onAddDog,
+  onEditDog,
+  onDeleteDog,
+  onChangePhoto,
+  onSignOut,
+  isPhotoUpdating = false,
+}: Props) {
+  const headerHeight = useStackHeaderHeight();
+  const {
+    isOwnProfile,
+    profile,
+    dogs,
+    posts,
+    joinedBreeds,
+    dogsLoading,
+    postsLoading,
+    joinedBreedsLoading,
+    isLoading,
+    error,
+    refetchAll,
+  } = useUserProfile({
+    profileUserId,
+    viewerUserId,
+    recentPostsLimit: 4,
+    includeJoinedBreeds: true,
+  });
+
+  const primaryDog = dogs[0];
+  const canManageProfile = isOwnProfile;
+  const joinedLabel = formatJoinedDate(profile?.created_at);
+
+  if (isLoading && !profile) {
+    return (
+      <ScreenWithWallpaper>
+        <View style={styles.centeredState}>
+          <ActivityIndicator size="large" color={colors.primary} />
+          <Text style={styles.stateText}>Loading profile...</Text>
+        </View>
+      </ScreenWithWallpaper>
+    );
+  }
+
+  if (error) {
+    return (
+      <ScreenWithWallpaper>
+        <View style={styles.centeredState}>
+          <Text style={styles.stateTitle}>Couldn&apos;t load this profile</Text>
+          <Text style={styles.stateText}>
+            {(error as Error).message || 'Please try again in a moment.'}
+          </Text>
+          <Pressable style={styles.primaryButton} onPress={() => void refetchAll()}>
+            <Text style={styles.primaryButtonText}>Try Again</Text>
+          </Pressable>
+        </View>
+      </ScreenWithWallpaper>
+    );
+  }
+
+  if (!profile) {
+    return (
+      <ScreenWithWallpaper>
+        <View style={styles.centeredState}>
+          <Text style={styles.stateTitle}>Profile not found</Text>
+          <Text style={styles.stateText}>This member profile isn&apos;t available.</Text>
+        </View>
+      </ScreenWithWallpaper>
+    );
+  }
+
+  return (
+    <ScreenWithWallpaper>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={[styles.contentContainer, { paddingTop: headerHeight + 15 }]}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.heroCard}>
+          <Pressable
+            disabled={!canManageProfile || !onChangePhoto || isPhotoUpdating}
+            onPress={onChangePhoto}
+            style={styles.heroAvatarWrap}
+          >
+            <DogAvatar
+              imageUrl={profile.profile_image_url ?? primaryDog?.dog_image_url}
+              name={profile.name ?? primaryDog?.name}
+              size={96}
+              roundedSquare
+            />
+            {canManageProfile && onChangePhoto ? (
+              <View style={styles.heroAvatarBadge}>
+                {isPhotoUpdating ? (
+                  <ActivityIndicator size="small" color="#FFFFFF" />
+                ) : (
+                  <Ionicons name="camera" size={15} color="#FFFFFF" />
+                )}
+              </View>
+            ) : null}
+          </Pressable>
+
+          <Text style={styles.heroName}>{profile.name}</Text>
+
+          {profile.city ? (
+            <View style={styles.locationRow}>
+              <Ionicons name="location-outline" size={16} color={colors.textMuted} />
+              <Text style={styles.locationText}>{profile.city}</Text>
+            </View>
+          ) : null}
+
+          <View style={styles.quickStatsRow}>
+            <QuickStat icon="paw-outline" label={`${dogs.length} ${dogs.length === 1 ? 'dog' : 'dogs'}`} />
+            <QuickStat icon="chatbubble-ellipses-outline" label={`${posts.length} recent posts`} />
+            {joinedLabel ? <QuickStat icon="calendar-outline" label={`Joined ${joinedLabel}`} /> : null}
+          </View>
+
+          {canManageProfile && (onEditProfile || onAddDog) ? (
+            <View style={styles.heroActions}>
+              {onEditProfile ? (
+                <Pressable style={[styles.primaryButton, styles.heroActionButton]} onPress={onEditProfile}>
+                  <Text style={styles.primaryButtonText}>Edit Profile</Text>
+                </Pressable>
+              ) : null}
+              {onAddDog ? (
+                <Pressable style={[styles.secondaryButton, styles.heroActionButton]} onPress={onAddDog}>
+                  <Text style={styles.secondaryButtonText}>Add Dog</Text>
+                </Pressable>
+              ) : null}
+            </View>
+          ) : null}
+        </View>
+
+        {showPrivateAccountInfo ? (
+          <Section title="Account">
+            <Text style={styles.accountValue}>{profile.email}</Text>
+          </Section>
+        ) : null}
+
+        <Section
+          title={canManageProfile ? 'My Dogs' : 'Dogs'}
+          rightLabel={dogs.length > 0 ? `${dogs.length}` : undefined}
+        >
+          {dogsLoading ? (
+            <View style={styles.inlineLoading}>
+              <ActivityIndicator size="small" color={colors.primary} />
+              <Text style={styles.inlineLoadingText}>Loading dogs...</Text>
+            </View>
+          ) : dogs.length > 0 ? (
+            <View style={styles.sectionStack}>
+              {dogs.map((dog) => (
+                <ProfileDogCard
+                  key={dog.id}
+                  dog={dog}
+                  onEdit={canManageProfile && onEditDog ? () => onEditDog(dog.id) : undefined}
+                  onDelete={
+                    canManageProfile && onDeleteDog
+                      ? () => onDeleteDog(dog.id, dog.name)
+                      : undefined
+                  }
+                />
+              ))}
+            </View>
+          ) : (
+            <View style={styles.emptySection}>
+              <Text style={styles.emptySectionTitle}>
+                {canManageProfile ? 'Add your first dog profile' : 'No dogs shared yet'}
+              </Text>
+              <Text style={styles.emptySectionText}>
+                {canManageProfile
+                  ? 'Dog profiles power identity across BreedBuddy, from feeds to meetups.'
+                  : 'This member hasn&apos;t added any dog details yet.'}
+              </Text>
+              {canManageProfile && onAddDog ? (
+                <Pressable style={styles.secondaryButton} onPress={onAddDog}>
+                  <Text style={styles.secondaryButtonText}>Add Dog</Text>
+                </Pressable>
+              ) : null}
+            </View>
+          )}
+        </Section>
+
+        {(joinedBreedsLoading || joinedBreeds.length > 0) ? (
+          <Section title="Communities">
+            {joinedBreedsLoading ? (
+              <View style={styles.inlineLoading}>
+                <ActivityIndicator size="small" color={colors.primary} />
+                <Text style={styles.inlineLoadingText}>Loading communities...</Text>
+              </View>
+            ) : (
+              <View style={styles.communityRow}>
+                {joinedBreeds.map((breed) => (
+                  <View key={breed} style={styles.communityChip}>
+                    <Text style={styles.communityChipText}>{BREED_LABELS[breed] ?? breed}</Text>
+                  </View>
+                ))}
+              </View>
+            )}
+          </Section>
+        ) : null}
+
+        <Section title="Recent Posts">
+          {postsLoading ? (
+            <View style={styles.inlineLoading}>
+              <ActivityIndicator size="small" color={colors.primary} />
+              <Text style={styles.inlineLoadingText}>Loading recent posts...</Text>
+            </View>
+          ) : posts.length > 0 ? (
+            <View style={styles.sectionStack}>
+              {posts.map((post) => (
+                <Pressable
+                  key={post.id}
+                  style={styles.postCard}
+                  onPress={onOpenPost ? () => onOpenPost(post.id) : undefined}
+                >
+                  <View style={styles.postMetaRow}>
+                    <View style={styles.postTypeChip}>
+                      <Text style={styles.postTypeChipText}>
+                        {POST_TYPE_LABELS[post.type] ?? post.type}
+                      </Text>
+                    </View>
+                    <Text style={styles.postTimestamp}>{formatRelativeTime(post.created_at)}</Text>
+                  </View>
+
+                  {post.title ? <Text style={styles.postTitle}>{post.title}</Text> : null}
+
+                  <Text style={styles.postBody} numberOfLines={3}>
+                    {post.content_text}
+                  </Text>
+
+                  <View style={styles.postFooter}>
+                    <Text style={styles.postFooterText}>{POST_TAG_LABELS[post.tag] ?? post.tag}</Text>
+                    <Text style={styles.postFooterText}>
+                      {post.comment_count} {post.comment_count === 1 ? 'comment' : 'comments'}
+                    </Text>
+                  </View>
+                </Pressable>
+              ))}
+            </View>
+          ) : (
+            <View style={styles.emptySection}>
+              <Text style={styles.emptySectionTitle}>No posts yet</Text>
+              <Text style={styles.emptySectionText}>
+                {canManageProfile
+                  ? 'Your recent posts will show up here after you share with the pack.'
+                  : 'This member hasn&apos;t posted in the community yet.'}
+              </Text>
+            </View>
+          )}
+        </Section>
+
+        {showPrivateAccountInfo && onSignOut ? (
+          <Pressable style={styles.signOutButton} onPress={onSignOut}>
+            <Text style={styles.signOutText}>Sign Out</Text>
+          </Pressable>
+        ) : null}
+      </ScrollView>
+    </ScreenWithWallpaper>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  contentContainer: {
+    paddingBottom: 86,
+    gap: spacing.md,
+  },
+  centeredState: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: spacing.xxxl,
+    gap: spacing.md,
+  },
+  stateTitle: {
+    ...typography.titleMD,
+    textAlign: 'center',
+  },
+  stateText: {
+    ...typography.bodyMuted,
+    textAlign: 'center',
+  },
+  heroCard: {
+    marginHorizontal: spacing.lg,
+    padding: spacing.xxl,
+    backgroundColor: colors.surface,
+    borderRadius: radius.xl,
+    borderWidth: 1,
+    borderColor: colors.border,
+    alignItems: 'center',
+    gap: spacing.md,
+    ...shadow.md,
+  },
+  heroAvatarWrap: {
+    position: 'relative',
+  },
+  heroAvatarBadge: {
+    position: 'absolute',
+    right: -2,
+    bottom: -2,
+    width: 30,
+    height: 30,
+    borderRadius: radius.pill,
+    backgroundColor: colors.primary,
+    borderWidth: 2,
+    borderColor: colors.surface,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  heroName: {
+    ...typography.titleMD,
+    textAlign: 'center',
+  },
+  locationRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
+  },
+  locationText: {
+    ...typography.bodyMuted,
+  },
+  quickStatsRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: spacing.sm,
+  },
+  quickStat: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
+    backgroundColor: colors.primarySoft,
+    borderRadius: radius.pill,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+  },
+  quickStatText: {
+    ...typography.caption,
+    color: colors.primaryDark,
+    fontWeight: '700',
+  },
+  heroActions: {
+    width: '100%',
+    flexDirection: 'row',
+    gap: spacing.sm,
+  },
+  section: {
+    marginHorizontal: spacing.lg,
+    padding: spacing.lg,
+    backgroundColor: colors.surface,
+    borderRadius: radius.lg,
+    borderWidth: 1,
+    borderColor: colors.border,
+    gap: spacing.md,
+    ...shadow.sm,
+  },
+  sectionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  sectionTitle: {
+    ...typography.subtitle,
+  },
+  sectionMeta: {
+    ...typography.caption,
+  },
+  sectionStack: {
+    gap: spacing.md,
+  },
+  accountValue: {
+    ...typography.body,
+  },
+  emptySection: {
+    gap: spacing.sm,
+  },
+  inlineLoading: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+  },
+  inlineLoadingText: {
+    ...typography.bodyMuted,
+  },
+  emptySectionTitle: {
+    ...typography.body,
+    fontWeight: '700',
+  },
+  emptySectionText: {
+    ...typography.bodyMuted,
+  },
+  communityRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing.sm,
+  },
+  communityChip: {
+    backgroundColor: colors.surfaceMuted,
+    borderRadius: radius.pill,
+    borderWidth: 1,
+    borderColor: colors.border,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+  },
+  communityChipText: {
+    ...typography.caption,
+    color: colors.textSecondary,
+    fontWeight: '700',
+  },
+  postCard: {
+    backgroundColor: colors.surfaceMuted,
+    borderRadius: radius.md,
+    borderWidth: 1,
+    borderColor: colors.border,
+    padding: spacing.lg,
+    gap: spacing.sm,
+  },
+  postMetaRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: spacing.sm,
+  },
+  postTypeChip: {
+    alignSelf: 'flex-start',
+    backgroundColor: colors.primarySoft,
+    borderRadius: radius.pill,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.xs,
+  },
+  postTypeChipText: {
+    ...typography.caption,
+    color: colors.primaryDark,
+    fontWeight: '700',
+  },
+  postTimestamp: {
+    ...typography.caption,
+  },
+  postTitle: {
+    ...typography.body,
+    fontWeight: '700',
+  },
+  postBody: {
+    ...typography.bodyMuted,
+  },
+  postFooter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: spacing.sm,
+  },
+  postFooterText: {
+    ...typography.caption,
+  },
+  primaryButton: {
+    minHeight: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.primary,
+    borderRadius: radius.pill,
+    paddingHorizontal: spacing.lg,
+    ...shadow.sm,
+  },
+  primaryButtonText: {
+    ...typography.body,
+    color: '#FFFFFF',
+    fontWeight: '700',
+  },
+  secondaryButton: {
+    minHeight: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.surfaceMuted,
+    borderRadius: radius.pill,
+    borderWidth: 1,
+    borderColor: colors.border,
+    paddingHorizontal: spacing.lg,
+  },
+  secondaryButtonText: {
+    ...typography.body,
+    color: colors.textPrimary,
+    fontWeight: '700',
+  },
+  heroActionButton: {
+    flex: 1,
+  },
+  signOutButton: {
+    marginHorizontal: spacing.lg,
+    marginTop: spacing.sm,
+    minHeight: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: radius.pill,
+    borderWidth: 1,
+    borderColor: '#DC2626',
+    backgroundColor: 'transparent',
+  },
+  signOutText: {
+    ...typography.body,
+    color: '#DC2626',
+    fontWeight: '700',
+  },
+});

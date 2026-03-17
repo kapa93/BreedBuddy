@@ -125,6 +125,10 @@ export function PostDetailScreen() {
     commentMutation.mutate();
   };
 
+  const handleAuthorPress = (authorId: string) => {
+    navigation.navigate("UserProfile", { userId: authorId });
+  };
+
   const deleteMutation = useMutation({
     mutationFn: () => deletePost(postId, user!.id),
     onSuccess: () => {
@@ -210,17 +214,22 @@ export function PostDetailScreen() {
         >
           <View style={styles.card}>
             <View style={styles.header}>
-              <DogAvatar
-                imageUrl={post.author_dog_image_url}
-                name={post.author_dog_name ?? post.author_name}
-                size={48}
-              />
-              <View style={styles.headerText}>
-                <Text style={styles.authorName}>{formatAuthorDisplay(post.author_name, post.author_dog_name)}</Text>
-                <Text style={styles.meta}>
-                  {breedLabel} · {typeLabel} · {tagLabel}
-                </Text>
-              </View>
+              <Pressable
+                style={styles.authorPressable}
+                onPress={() => handleAuthorPress(post.author_id)}
+              >
+                <DogAvatar
+                  imageUrl={post.author_dog_image_url}
+                  name={post.author_dog_name ?? post.author_name}
+                  size={48}
+                />
+                <View style={styles.headerText}>
+                  <Text style={styles.authorName}>{formatAuthorDisplay(post.author_name, post.author_dog_name)}</Text>
+                  <Text style={styles.meta}>
+                    {breedLabel} · {typeLabel} · {tagLabel}
+                  </Text>
+                </View>
+              </Pressable>
               {user?.id === post.author_id && (
                 <>
                   <Pressable
@@ -354,6 +363,7 @@ export function PostDetailScreen() {
                 body={c.content_text}
                 avatarUri={c.author_dog_image_url}
                 timestamp={formatRelativeTime(c.created_at)}
+                onAuthorPress={() => handleAuthorPress(c.author_id)}
               />
             ))}
           </View>
@@ -412,6 +422,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: spacing.md,
+  },
+  authorPressable: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
   },
   headerText: { flex: 1, marginLeft: spacing.md },
   menuBtn: { padding: spacing.xs },

@@ -9,6 +9,7 @@ import type { PostWithDetails, ReactionEnum } from "@/types";
 type Props = {
   item: PostWithDetails;
   onPostPress: (postId: string) => void;
+  onAuthorPress?: (userId: string) => void;
   onReactionSelect: (postId: string, reaction: ReactionEnum | null) => void;
   onReactionMenuOpenChange: (open: boolean) => void;
   onRsvpToggle?: (postId: string, rsvped: boolean) => void;
@@ -20,6 +21,7 @@ type Props = {
 function FeedItemInner({
   item,
   onPostPress,
+  onAuthorPress,
   onReactionSelect,
   onReactionMenuOpenChange,
   onRsvpToggle,
@@ -32,6 +34,10 @@ function FeedItemInner({
     (reaction: ReactionEnum | null) => onReactionSelect(item.id, reaction),
     [item.id, onReactionSelect]
   );
+  const handleAuthorPress = useCallback(
+    (userId: string) => onAuthorPress?.(userId),
+    [onAuthorPress]
+  );
   const handleRsvpToggle = useCallback(
     (postId: string, rsvped: boolean) => onRsvpToggle?.(postId, rsvped),
     [onRsvpToggle]
@@ -43,6 +49,7 @@ function FeedItemInner({
         <MeetupCard
           post={item}
           onPress={handlePress}
+          onAuthorPress={handleAuthorPress}
           onReactionSelect={handleReactionSelect}
           onReactionMenuOpenChange={onReactionMenuOpenChange}
           onRsvpToggle={handleRsvpToggle}
@@ -59,6 +66,7 @@ function FeedItemInner({
       <QuestionCard
         data={postToQuestionCardData(item)}
         onPress={handlePress}
+        onAuthorPress={handleAuthorPress}
         onReactionSelect={handleReactionSelect}
         onReactionMenuOpenChange={onReactionMenuOpenChange}
         currentUserId={currentUserId}

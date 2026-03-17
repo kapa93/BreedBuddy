@@ -24,6 +24,7 @@ export type HomeStackParamList = {
   PostDetail: { postId: string };
   CreatePost: { breed: BreedEnum };
   EditPost: { postId: string };
+  UserProfile: { userId: string };
 };
 
 export type ExploreStackParamList = {
@@ -33,6 +34,7 @@ export type ExploreStackParamList = {
   PostDetail: { postId: string };
   CreatePost: { breed: BreedEnum };
   EditPost: { postId: string };
+  UserProfile: { userId: string };
 };
 
 export type CreateStackParamList = {
@@ -48,4 +50,6 @@ export type ProfileStackParamList = {
   ProfileMain: undefined;
   EditProfile: undefined;
   EditDog: { dogId?: string };
+  PostDetail: { postId: string };
+  UserProfile: { userId: string };
 };

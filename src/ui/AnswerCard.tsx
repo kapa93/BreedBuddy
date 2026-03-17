@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { colors, radius, shadow, spacing, typography } from "../theme";
 import { Avatar } from "./Avatar";
 import { ReactionPill } from "./ReactionPill";
@@ -10,18 +10,21 @@ type Props = {
   avatarUri?: string | null;
   timestamp?: string;
   helpfulCount?: number;
+  onAuthorPress?: () => void;
 };
 
-export function AnswerCard({ author, body, avatarUri, timestamp, helpfulCount = 0 }: Props) {
+export function AnswerCard({ author, body, avatarUri, timestamp, helpfulCount = 0, onAuthorPress }: Props) {
   return (
     <View style={styles.card}>
       <View style={styles.header}>
-        <Avatar
-          size={40}
-          source={avatarUri ? { uri: avatarUri } : undefined}
-          fallback={author?.[0]?.toUpperCase() ?? "🐶"}
-        />
-        <Text style={styles.author}>{author}</Text>
+        <Pressable style={styles.authorPressable} disabled={!onAuthorPress} onPress={onAuthorPress}>
+          <Avatar
+            size={40}
+            source={avatarUri ? { uri: avatarUri } : undefined}
+            fallback={author?.[0]?.toUpperCase() ?? "🐶"}
+          />
+          <Text style={styles.author}>{author}</Text>
+        </Pressable>
         {timestamp ? <Text style={styles.timestamp}>{timestamp}</Text> : null}
       </View>
       <Text style={styles.body}>{body}</Text>
@@ -38,6 +41,7 @@ export function AnswerCard({ author, body, avatarUri, timestamp, helpfulCount = 
 const styles = StyleSheet.create({
   card: { backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border, borderRadius: radius.lg, padding: spacing.lg, marginBottom: spacing.md, ...shadow.sm },
   header: { flexDirection: "row", alignItems: "center", marginBottom: spacing.sm },
+  authorPressable: { flex: 1, flexDirection: "row", alignItems: "center" },
   author: { ...typography.subtitle, flex: 1, marginLeft: spacing.md },
   timestamp: { ...typography.caption },
   body: { ...typography.body },

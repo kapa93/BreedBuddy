@@ -19,11 +19,17 @@ import { CreatePostScreen } from '@/screens/CreatePostScreen';
 import { EditPostScreen } from '@/screens/EditPostScreen';
 import { EditProfileScreen } from '@/screens/EditProfileScreen';
 import { EditDogScreen } from '@/screens/EditDogScreen';
+import { UserProfileScreen } from '@/screens/UserProfileScreen';
 import { BreedBuddyTabBar } from './BreedBuddyTabBar';
 import { SearchScreen } from '@/screens/SearchScreen';
 import { AnimatedStackHeader } from '@/components/AnimatedStackHeader';
 import { useScrollDirection } from '@/context/ScrollDirectionContext';
 import { colors } from '@/theme';
+import type {
+  ExploreStackParamList,
+  HomeStackParamList,
+  ProfileStackParamList,
+} from './types';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
@@ -44,7 +50,7 @@ function AuthNavigator() {
 }
 
 function HomeTab() {
-  const Stack = createNativeStackNavigator();
+  const Stack = createNativeStackNavigator<HomeStackParamList>();
   return (
     <Stack.Navigator
       screenOptions={{
@@ -58,12 +64,13 @@ function HomeTab() {
       <Stack.Screen name="PostDetail" component={PostDetailScreen} options={{ title: 'Post' }} />
       <Stack.Screen name="CreatePost" component={CreatePostScreen} options={{ title: 'Create Post' }} />
       <Stack.Screen name="EditPost" component={EditPostScreen} options={{ title: 'Edit Post' }} />
+      <Stack.Screen name="UserProfile" component={UserProfileScreen} options={{ title: 'Profile' }} />
     </Stack.Navigator>
   );
 }
 
 function ExploreTab() {
-  const Stack = createNativeStackNavigator();
+  const Stack = createNativeStackNavigator<ExploreStackParamList>();
   return (
     <Stack.Navigator
       screenOptions={{
@@ -78,6 +85,7 @@ function ExploreTab() {
       <Stack.Screen name="PostDetail" component={PostDetailScreen} options={{ title: 'Post' }} />
       <Stack.Screen name="CreatePost" component={CreatePostScreen} options={{ title: 'Create Post' }} />
       <Stack.Screen name="EditPost" component={EditPostScreen} options={{ title: 'Edit Post' }} />
+      <Stack.Screen name="UserProfile" component={UserProfileScreen} options={{ title: 'Profile' }} />
     </Stack.Navigator>
   );
 }
@@ -102,7 +110,7 @@ function CreateTab() {
 }
 
 function ProfileTab() {
-  const Stack = createNativeStackNavigator();
+  const Stack = createNativeStackNavigator<ProfileStackParamList>();
   return (
     <Stack.Navigator
       screenOptions={{
@@ -120,6 +128,8 @@ function ProfileTab() {
           title: route.params?.dogId ? 'Edit Dog' : 'Add Dog',
         })}
       />
+      <Stack.Screen name="PostDetail" component={PostDetailScreen} options={{ title: 'Post' }} />
+      <Stack.Screen name="UserProfile" component={UserProfileScreen} options={{ title: 'Profile' }} />
     </Stack.Navigator>
   );
 }

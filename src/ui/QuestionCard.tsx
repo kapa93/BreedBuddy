@@ -12,6 +12,7 @@ import type { ReactionEnum } from "@/types";
 type Props = {
   data: QuestionCardData;
   onPress?: () => void;
+  onAuthorPress?: (authorId: string) => void;
   onReactionSelect?: (reaction: ReactionEnum | null) => void;
   onReactionMenuOpenChange?: (open: boolean) => void;
   currentUserId?: string | null;
@@ -23,7 +24,7 @@ function getBarksText(count: number) {
   return count === 1 ? "1 Bark" : `${count} Barks`;
 }
 
-const QuestionCardInner = ({ data, onPress, onReactionSelect, onReactionMenuOpenChange, currentUserId, onEdit, onDelete }: Props) => {
+const QuestionCardInner = ({ data, onPress, onAuthorPress, onReactionSelect, onReactionMenuOpenChange, currentUserId, onEdit, onDelete }: Props) => {
   const [menuVisible, setMenuVisible] = useState(false);
   const [menuLayout, setMenuLayout] = useState({ x: 0, y: 0, width: 0, height: 0 });
   const menuBtnRef = useRef<View>(null);
@@ -50,15 +51,24 @@ const QuestionCardInner = ({ data, onPress, onReactionSelect, onReactionMenuOpen
   const content = (
     <View style={styles.card}>
       <View style={styles.header}>
-        <Avatar
-          size={42}
-          source={data.authorAvatarUri ? { uri: data.authorAvatarUri } : undefined}
-          fallback={data.author?.[0]?.toUpperCase() ?? "🐶"}
-        />
-        <View style={styles.headerText}>
-          <Text style={styles.author}>{data.author}</Text>
-          <Text style={styles.meta}>{data.authorMeta ?? "Question • 1h ago"}</Text>
-        </View>
+        <Pressable
+          style={styles.authorPressable}
+          disabled={!onAuthorPress || !data.authorId}
+          onPress={(event) => {
+            event.stopPropagation();
+            if (data.authorId) onAuthorPress?.(data.authorId);
+          }}
+        >
+          <Avatar
+            size={42}
+            source={data.authorAvatarUri ? { uri: data.authorAvatarUri } : undefined}
+            fallback={data.author?.[0]?.toUpperCase() ?? "🐶"}
+          />
+          <View style={styles.headerText}>
+            <Text style={styles.author}>{data.author}</Text>
+            <Text style={styles.meta}>{data.authorMeta ?? "Question • 1h ago"}</Text>
+          </View>
+        </Pressable>
         {showMenu && (
           <Pressable
             ref={menuBtnRef}
@@ -152,6 +162,7 @@ export const QuestionCard = React.memo(QuestionCardInner);
 const styles = StyleSheet.create({
   card: { backgroundColor: colors.surface, borderRadius: radius.lg, padding: spacing.lg, borderWidth: 1, borderColor: colors.border, marginBottom: spacing.sm, ...shadow.sm },
   header: { flexDirection: "row", alignItems: "center" },
+  authorPressable: { flex: 1, flexDirection: "row", alignItems: "center" },
   headerText: { flex: 1, marginLeft: spacing.md },
   author: { ...typography.subtitle, fontSize: 18 },
   meta: { ...typography.caption },

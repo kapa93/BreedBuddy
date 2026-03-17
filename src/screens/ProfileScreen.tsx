@@ -1,32 +1,12 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Alert,
-  ActivityIndicator,
-} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useAuthStore } from '@/store/authStore';
-import { getProfile, updateProfile } from '@/api/auth';
-import { getDogsByOwner, deleteDog } from '@/api/dogs';
-import { signOut } from '@/api/auth';
-import { uploadProfileImage, pickImages } from '@/lib/imageUpload';
-import { DogAvatar } from '@/components/DogAvatar';
-import { useStackHeaderHeight } from '@/hooks/useStackHeaderHeight';
-import { ScreenWithWallpaper } from '@/components/ScreenWithWallpaper';
-import { shadow } from '@/theme';
-import {
-  AGE_GROUP_LABELS,
-  BREED_LABELS,
-  COMPATIBILITY_ANSWER_LABELS,
-  ENERGY_LEVEL_LABELS,
-  PLAY_STYLE_LABELS,
-} from '@/utils/breed';
+import { Alert } from 'react-native';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { signOut, updateProfile } from '@/api/auth';
+import { deleteDog } from '@/api/dogs';
+import { UserProfileContent } from '@/components/UserProfileContent';
+import { pickImages, uploadProfileImage } from '@/lib/imageUpload';
 import type { ProfileStackParamList } from '@/navigation/types';
+import { useAuthStore } from '@/store/authStore';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type ProfileNav = NativeStackNavigationProp<ProfileStackParamList, 'ProfileMain'>;
@@ -35,25 +15,17 @@ export function ProfileScreen({ navigation }: { navigation: ProfileNav }) {
   const { user, signOut: clearSession } = useAuthStore();
   const userId = user?.id ?? '';
   const queryClient = useQueryClient();
-  const headerHeight = useStackHeaderHeight();
-
-  const { data: profile } = useQuery({
-    queryKey: ['profile', userId],
-    queryFn: () => getProfile(userId),
-    enabled: !!userId,
-  });
-
-  const { data: dogs } = useQuery({
-    queryKey: ['dogs', userId],
-    queryFn: () => getDogsByOwner(userId),
-    enabled: !!userId,
-  });
+  if (!userId) return null;
 
   const deleteMutation = useMutation({
     mutationFn: (dogId: string) => deleteDog(dogId, userId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['dogs', userId] });
-      queryClient.invalidateQueries({ queryKey: ['dog', userId] });
+      queryClient.invalidateQueries({ queryKey: ['feed'] });
+      queryClient.invalidateQueries({ queryKey: ['post'] });
+      queryClient.invalidateQueries({ queryKey: ['search'] });
+      queryClient.invalidateQueries({ queryKey: ['comments'] });
+      queryClient.invalidateQueries({ queryKey: ['userPosts', userId] });
     },
   });
 
@@ -71,7 +43,7 @@ export function ProfileScreen({ navigation }: { navigation: ProfileNav }) {
     ]);
   };
 
-  const handleDeleteDog = (dogName: string, dogId: string) => {
+  const handleDeleteDog = (dogId: string, dogName: string) => {
     Alert.alert('Remove dog', `Remove ${dogName} from your profile?`, [
       { text: 'Cancel', style: 'cancel' },
       {
@@ -89,6 +61,10 @@ export function ProfileScreen({ navigation }: { navigation: ProfileNav }) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['profile', userId] });
+      queryClient.invalidateQueries({ queryKey: ['feed'] });
+      queryClient.invalidateQueries({ queryKey: ['post'] });
+      queryClient.invalidateQueries({ queryKey: ['search'] });
+      queryClient.invalidateQueries({ queryKey: ['comments'] });
     },
     onError: (err: Error) => Alert.alert('Error', err.message),
   });
@@ -104,328 +80,19 @@ export function ProfileScreen({ navigation }: { navigation: ProfileNav }) {
     }
   };
 
-  const primaryDog = dogs?.[0];
-
   return (
-    <ScreenWithWallpaper>
-      <ScrollView style={styles.container} contentContainerStyle={{ paddingTop: headerHeight, paddingBottom: 55 }}>
-      <View style={styles.header}>
-        <TouchableOpacity
-          onPress={handleChangePhoto}
-          disabled={photoMutation.isPending}
-          style={styles.avatarTouchable}
-          activeOpacity={0.7}
-        >
-          <View style={styles.avatarWrapper}>
-            <DogAvatar
-              imageUrl={profile?.profile_image_url ?? primaryDog?.dog_image_url}
-              name={profile?.name ?? primaryDog?.name}
-              size={92}
-              roundedSquare
-            />
-            {photoMutation.isPending ? (
-              <View style={styles.avatarOverlay}>
-                <ActivityIndicator color="#FFF" size="small" />
-              </View>
-            ) : (
-              <View style={styles.avatarBadge}>
-                <Ionicons name="camera" size={16} color="#FFF" />
-              </View>
-            )}
-          </View>
-        </TouchableOpacity>
-        <Text style={styles.name}>{profile?.name ?? 'User'}</Text>
-        {profile?.city ? (
-          <Text style={styles.city}>{profile.city}</Text>
-        ) : null}
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Account</Text>
-        <Text style={styles.email}>{profile?.email}</Text>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>My Dogs</Text>
-        {dogs && dogs.length > 0 ? (
-          dogs.map((dog) => (
-            <View key={dog.id} style={styles.dogCard}>
-              <View style={styles.dogCardLeft}>
-                <DogAvatar
-                  imageUrl={dog.dog_image_url}
-                  name={dog.name}
-                  size={48}
-                />
-                <View style={styles.dogCardInfo}>
-                  <Text style={styles.dogName}>{dog.name}</Text>
-                  <Text style={styles.dogMeta}>{BREED_LABELS[dog.breed]}</Text>
-                  <Text style={styles.dogMeta}>
-                    {AGE_GROUP_LABELS[dog.age_group]} · {ENERGY_LEVEL_LABELS[dog.energy_level]}
-                  </Text>
-                  {(dog.dog_friendliness != null ||
-                    dog.play_style ||
-                    dog.good_with_puppies ||
-                    dog.good_with_large_dogs ||
-                    dog.good_with_small_dogs ||
-                    dog.temperament_notes) ? (
-                    <View style={styles.personalitySection}>
-                      <Text style={styles.personalityTitle}>Play & Personality</Text>
-                      <View style={styles.personalityChips}>
-                        {dog.dog_friendliness != null ? (
-                          <View style={styles.personalityChip}>
-                            <Text style={styles.personalityChipText}>Friendliness {dog.dog_friendliness}/5</Text>
-                          </View>
-                        ) : null}
-                        {dog.play_style ? (
-                          <View style={styles.personalityChip}>
-                            <Text style={styles.personalityChipText}>Play style: {PLAY_STYLE_LABELS[dog.play_style]}</Text>
-                          </View>
-                        ) : null}
-                        {dog.good_with_puppies ? (
-                          <View style={styles.personalityChip}>
-                            <Text style={styles.personalityChipText}>
-                              Puppies: {COMPATIBILITY_ANSWER_LABELS[dog.good_with_puppies]}
-                            </Text>
-                          </View>
-                        ) : null}
-                        {dog.good_with_large_dogs ? (
-                          <View style={styles.personalityChip}>
-                            <Text style={styles.personalityChipText}>
-                              Large dogs: {COMPATIBILITY_ANSWER_LABELS[dog.good_with_large_dogs]}
-                            </Text>
-                          </View>
-                        ) : null}
-                        {dog.good_with_small_dogs ? (
-                          <View style={styles.personalityChip}>
-                            <Text style={styles.personalityChipText}>
-                              Small dogs: {COMPATIBILITY_ANSWER_LABELS[dog.good_with_small_dogs]}
-                            </Text>
-                          </View>
-                        ) : null}
-                      </View>
-                      {dog.temperament_notes ? (
-                        <Text style={styles.personalityNotes}>{dog.temperament_notes}</Text>
-                      ) : null}
-                    </View>
-                  ) : null}
-                </View>
-              </View>
-              <View style={styles.dogCardActions}>
-                <TouchableOpacity
-                  style={styles.dogActionBtn}
-                  onPress={() => navigation.navigate('EditDog', { dogId: dog.id })}
-                  hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-                >
-                  <Ionicons name="pencil-outline" size={20} color="#2563EB" />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.dogActionBtn}
-                  onPress={() => handleDeleteDog(dog.name, dog.id)}
-                  disabled={deleteMutation.isPending}
-                  hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-                >
-                  <Ionicons name="trash-outline" size={20} color="#EF4444" />
-                </TouchableOpacity>
-              </View>
-            </View>
-          ))
-        ) : (
-          <Text style={styles.noDogs}>No dogs added yet</Text>
-        )}
-      </View>
-
-      <TouchableOpacity
-        style={styles.btn}
-        onPress={() => navigation.navigate('EditProfile')}
-      >
-        <Text style={styles.btnText}>Edit Profile</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.btn}
-        onPress={() => navigation.navigate('EditDog', {})}
-      >
-        <Text style={styles.btnText}>Add Dog</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={[styles.btn, styles.signOutBtn]}
-        onPress={handleSignOut}
-      >
-        <Text style={styles.signOutText}>Sign out</Text>
-      </TouchableOpacity>
-    </ScrollView>
-    </ScreenWithWallpaper>
+    <UserProfileContent
+      profileUserId={userId}
+      viewerUserId={userId}
+      showPrivateAccountInfo
+      onOpenPost={(postId) => navigation.navigate('PostDetail', { postId })}
+      onEditProfile={() => navigation.navigate('EditProfile')}
+      onAddDog={() => navigation.navigate('EditDog', {})}
+      onEditDog={(dogId) => navigation.navigate('EditDog', { dogId })}
+      onDeleteDog={handleDeleteDog}
+      onChangePhoto={handleChangePhoto}
+      onSignOut={handleSignOut}
+      isPhotoUpdating={photoMutation.isPending}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'transparent',
-  },
-  header: {
-    alignItems: 'center',
-    paddingVertical: 32,
-    backgroundColor: '#FFF',
-    borderBottomWidth: 1,
-    borderBottomColor: '#E5E7EB',
-    ...shadow.sm,
-  },
-  avatarTouchable: {
-    alignSelf: 'center',
-  },
-  avatarWrapper: {
-    width: 92,
-    height: 92,
-    position: 'relative',
-    borderRadius: 16,
-    overflow: 'hidden',
-  },
-  avatarOverlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    borderRadius: 16,
-    backgroundColor: 'rgba(0,0,0,0.4)',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  avatarBadge: {
-    position: 'absolute',
-    bottom: 0,
-    right: 0,
-    width: 28,
-    height: 28,
-    borderRadius: 14,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  name: {
-    fontSize: 22,
-    fontWeight: '700',
-    color: '#1a1a1a',
-    marginTop: 12,
-  },
-  city: {
-    fontSize: 14,
-    color: '#6b7280',
-    marginTop: 4,
-  },
-  section: {
-    padding: 20,
-    backgroundColor: '#FFF',
-    marginTop: 12,
-    marginHorizontal: 16,
-    borderRadius: 12,
-    ...shadow.sm,
-  },
-  sectionTitle: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: '#9ca3af',
-    marginBottom: 12,
-    textTransform: 'uppercase',
-  },
-  email: {
-    fontSize: 15,
-    color: '#374151',
-  },
-  dogCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: 12,
-  },
-  dogCardLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-  },
-  dogCardInfo: {
-    marginLeft: 12,
-  },
-  dogName: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#1a1a1a',
-  },
-  dogMeta: {
-    fontSize: 13,
-    color: '#6b7280',
-    marginTop: 2,
-  },
-  personalitySection: {
-    marginTop: 8,
-    gap: 6,
-  },
-  personalityTitle: {
-    fontSize: 12,
-    fontWeight: '700',
-    color: '#4b5563',
-    textTransform: 'uppercase',
-  },
-  personalityChips: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 6,
-  },
-  personalityChip: {
-    backgroundColor: '#eef2ff',
-    borderRadius: 999,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-  },
-  personalityChipText: {
-    fontSize: 12,
-    color: '#3730a3',
-    fontWeight: '600',
-  },
-  personalityNotes: {
-    fontSize: 12,
-    color: '#4b5563',
-    lineHeight: 18,
-  },
-  dogCardActions: {
-    flexDirection: 'row',
-    gap: 4,
-    alignItems: 'center',
-  },
-  dogActionBtn: {
-    padding: 6,
-  },
-  noDogs: {
-    fontSize: 14,
-    color: '#9ca3af',
-    fontStyle: 'italic',
-  },
-  btn: {
-    marginHorizontal: 16,
-    marginTop: 12,
-    padding: 16,
-    backgroundColor: '#FFF',
-    borderRadius: 12,
-    alignItems: 'center',
-    ...shadow.sm,
-  },
-  btnText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#2563EB',
-  },
-  signOutBtn: {
-    marginTop: 24,
-    marginBottom: 32,
-    backgroundColor: 'transparent',
-    borderWidth: 1,
-    borderColor: '#EF4444',
-  },
-  signOutText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#EF4444',
-  },
-});

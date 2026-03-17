@@ -30,6 +30,7 @@ function formatMeetupDateTime(iso: string): string {
 type Props = {
   post: PostWithDetails;
   onPress?: () => void;
+  onAuthorPress?: (authorId: string) => void;
   onReactionSelect?: (reaction: ReactionEnum | null) => void;
   onReactionMenuOpenChange?: (open: boolean) => void;
   onRsvpToggle?: (postId: string, rsvped: boolean) => void;
@@ -45,6 +46,7 @@ function getBarksText(count: number) {
 export function MeetupCard({
   post,
   onPress,
+  onAuthorPress,
   onReactionSelect,
   onReactionMenuOpenChange,
   onRsvpToggle,
@@ -91,15 +93,24 @@ export function MeetupCard({
       </View>
 
       <View style={styles.header}>
-        <Avatar
-          size={42}
-          source={post.author_dog_image_url ? { uri: post.author_dog_image_url } : undefined}
-          fallback={post.author_name?.[0]?.toUpperCase() ?? "🐶"}
-        />
-        <View style={styles.headerText}>
-          <Text style={styles.author}>{formatAuthorDisplay(post.author_name, post.author_dog_name)}</Text>
-          <Text style={styles.meta}>{formatRelativeTime(post.created_at)}</Text>
-        </View>
+        <Pressable
+          style={styles.authorPressable}
+          disabled={!onAuthorPress}
+          onPress={(event) => {
+            event.stopPropagation();
+            onAuthorPress?.(post.author_id);
+          }}
+        >
+          <Avatar
+            size={42}
+            source={post.author_dog_image_url ? { uri: post.author_dog_image_url } : undefined}
+            fallback={post.author_name?.[0]?.toUpperCase() ?? "🐶"}
+          />
+          <View style={styles.headerText}>
+            <Text style={styles.author}>{formatAuthorDisplay(post.author_name, post.author_dog_name)}</Text>
+            <Text style={styles.meta}>{formatRelativeTime(post.created_at)}</Text>
+          </View>
+        </Pressable>
         {showMenu && (
           <Pressable ref={menuBtnRef} hitSlop={12} onPress={openMenu} style={styles.menuBtn}>
             <Ionicons name="ellipsis-horizontal" size={20} color={colors.textMuted} />
@@ -243,6 +254,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
+  authorPressable: { flex: 1, flexDirection: "row", alignItems: "center" },
   headerText: { flex: 1, marginLeft: spacing.md },
   author: { ...typography.subtitle, fontSize: 18 },
   meta: { ...typography.caption },

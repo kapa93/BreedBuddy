@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Dimensions,
+  Pressable,
 } from 'react-native';
 import { PostWithDetails } from '../types';
 import { DogAvatar } from './DogAvatar';
@@ -21,9 +22,10 @@ interface PostCardProps {
   post: PostWithDetails;
   onPress: () => void;
   onReactionSelect: (reaction: import('@/types').ReactionEnum | null) => void;
+  onAuthorPress?: (authorId: string) => void;
 }
 
-export function PostCard({ post, onPress, onReactionSelect }: PostCardProps) {
+export function PostCard({ post, onPress, onReactionSelect, onAuthorPress }: PostCardProps) {
   const breedLabel = BREED_LABELS[post.breed] ?? post.breed;
   const typeLabel = POST_TYPE_LABELS[post.type] ?? post.type;
   const tagLabel = POST_TAG_LABELS[post.tag] ?? post.tag;
@@ -35,19 +37,28 @@ export function PostCard({ post, onPress, onReactionSelect }: PostCardProps) {
       activeOpacity={0.9}
     >
       <View style={styles.header}>
-        <DogAvatar
-          imageUrl={post.author_dog_image_url}
-          name={post.author_dog_name ?? post.author_name}
-          size={40}
-        />
-        <View style={styles.headerText}>
-          <Text style={styles.authorName} numberOfLines={1}>
-            {formatAuthorDisplay(post.author_name, post.author_dog_name)}
-          </Text>
-          <Text style={styles.meta}>
-            {breedLabel} · {typeLabel} · {tagLabel}
-          </Text>
-        </View>
+        <Pressable
+          style={styles.authorPressable}
+          disabled={!onAuthorPress}
+          onPress={(event) => {
+            event.stopPropagation();
+            onAuthorPress?.(post.author_id);
+          }}
+        >
+          <DogAvatar
+            imageUrl={post.author_dog_image_url}
+            name={post.author_dog_name ?? post.author_name}
+            size={40}
+          />
+          <View style={styles.headerText}>
+            <Text style={styles.authorName} numberOfLines={1}>
+              {formatAuthorDisplay(post.author_name, post.author_dog_name)}
+            </Text>
+            <Text style={styles.meta}>
+              {breedLabel} · {typeLabel} · {tagLabel}
+            </Text>
+          </View>
+        </Pressable>
       </View>
 
       {post.content_text ? (
@@ -101,6 +112,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: spacing.md,
+  },
+  authorPressable: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   headerText: {
     flex: 1,

@@ -322,6 +322,11 @@ export function HomeScreen({
     [navigation]
   );
 
+  const handleAuthorPress = useCallback(
+    (authorId: string) => navigation.navigate("UserProfile", { userId: authorId }),
+    [navigation]
+  );
+
   const handleDeletePost = useCallback(
     (postId: string) => {
       Alert.alert(
@@ -355,6 +360,7 @@ export function HomeScreen({
       <FeedItem
         item={item}
         onPostPress={handlePostPress}
+        onAuthorPress={handleAuthorPress}
         onReactionSelect={handleReactionSelect}
         onReactionMenuOpenChange={setReactionMenuOpen}
         onRsvpToggle={handleRsvpToggle}
@@ -365,6 +371,7 @@ export function HomeScreen({
     ),
     [
       handlePostPress,
+      handleAuthorPress,
       handleReactionSelect,
       setReactionMenuOpen,
       handleRsvpToggle,

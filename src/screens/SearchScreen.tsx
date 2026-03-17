@@ -153,6 +153,7 @@ export function SearchScreen() {
               post={item}
               onPress={() => navigation.navigate('PostDetail', { postId: item.id })}
               onReactionSelect={handleReactionSelect(item)}
+              onAuthorPress={(authorId) => navigation.navigate('UserProfile', { userId: authorId })}
             />
           )}
           contentContainerStyle={styles.list}

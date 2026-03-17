@@ -49,7 +49,10 @@ export function BreedFeedScreen() {
   const { scrollDirection } = useScrollDirection();
   const headerHeight = useStackHeaderHeight();
   const breedParam = (route.params as { breed?: BreedEnum })?.breed;
-  const navigation = useNavigation<{ navigate: (s: string, p?: object) => void }>();
+  const navigation = useNavigation<{
+    navigate: (s: string, p?: object) => void;
+    setParams: (params: { breed?: BreedEnum }) => void;
+  }>();
   const { user } = useAuthStore();
   const { feedFilter, setFeedFilter } = useUIStore();
   const queryClient = useQueryClient();
@@ -181,6 +184,11 @@ export function BreedFeedScreen() {
     [navigation]
   );
 
+  const handleAuthorPress = useCallback(
+    (authorId: string) => navigation.navigate("UserProfile", { userId: authorId }),
+    [navigation]
+  );
+
   const handleDeletePost = useCallback(
     (postId: string) => {
       Alert.alert(
@@ -214,6 +222,7 @@ export function BreedFeedScreen() {
       <FeedItem
         item={item}
         onPostPress={handlePostPress}
+        onAuthorPress={handleAuthorPress}
         onReactionSelect={handleReactionSelect}
         onReactionMenuOpenChange={setReactionMenuOpen}
         onRsvpToggle={handleRsvpToggle}
@@ -224,6 +233,7 @@ export function BreedFeedScreen() {
     ),
     [
       handlePostPress,
+      handleAuthorPress,
       handleReactionSelect,
       setReactionMenuOpen,
       handleRsvpToggle,

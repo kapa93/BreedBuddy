@@ -197,6 +197,31 @@ export async function getPostById(
   return enriched[0] ?? null;
 }
 
+export async function getRecentPostsByAuthor(
+  authorId: string,
+  limit = 5,
+  userId: string | null = null
+): Promise<PostWithDetails[]> {
+  const { data, error } = await supabase
+    .from('posts')
+    .select(
+      `
+      *,
+      profiles:author_id (id, name),
+      post_images (image_url, sort_order),
+      post_reactions (user_id, reaction_type)
+    `
+    )
+    .eq('author_id', authorId)
+    .order('created_at', { ascending: false })
+    .limit(limit);
+
+  if (error) throw error;
+
+  const rawPosts = (data ?? []) as RawPostRow[];
+  return enrichPosts(rawPosts, userId);
+}
+
 export type CreateMeetupDetails = {
   location_name: string;
   start_time: string; // ISO datetime string
