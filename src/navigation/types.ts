@@ -21,6 +21,7 @@ export type MainTabParamList = {
 export type HomeStackParamList = {
   HomeFeed: undefined;
   DogBeachNow: undefined;
+  DogProfile: { dogId: string };
   PostDetail: { postId: string };
   CreatePost: { breed: BreedEnum };
   EditPost: { postId: string };
@@ -31,6 +32,7 @@ export type ExploreStackParamList = {
   ExploreList: undefined;
   BreedFeed: { breed: BreedEnum };
   SearchMain: undefined;
+  DogProfile: { dogId: string };
   PostDetail: { postId: string };
   CreatePost: { breed: BreedEnum };
   EditPost: { postId: string };
@@ -50,6 +52,7 @@ export type ProfileStackParamList = {
   ProfileMain: undefined;
   EditProfile: undefined;
   EditDog: { dogId?: string };
+  DogProfile: { dogId: string };
   PostDetail: { postId: string };
   UserProfile: { userId: string };
 };

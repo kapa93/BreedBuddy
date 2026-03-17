@@ -19,6 +19,7 @@ import { CreatePostScreen } from '@/screens/CreatePostScreen';
 import { EditPostScreen } from '@/screens/EditPostScreen';
 import { EditProfileScreen } from '@/screens/EditProfileScreen';
 import { EditDogScreen } from '@/screens/EditDogScreen';
+import { DogProfileScreen } from '@/screens/DogProfileScreen';
 import { UserProfileScreen } from '@/screens/UserProfileScreen';
 import { BreedBuddyTabBar } from './BreedBuddyTabBar';
 import { SearchScreen } from '@/screens/SearchScreen';
@@ -61,6 +62,7 @@ function HomeTab() {
     >
       <Stack.Screen name="HomeFeed" component={HomeScreen} options={{ title: 'BreedBuddy' }} />
       <Stack.Screen name="DogBeachNow" component={DogBeachNowScreen} options={{ title: 'Dog Beach Now' }} />
+      <Stack.Screen name="DogProfile" component={DogProfileScreen} options={{ title: 'Dog' }} />
       <Stack.Screen name="PostDetail" component={PostDetailScreen} options={{ title: 'Post' }} />
       <Stack.Screen name="CreatePost" component={CreatePostScreen} options={{ title: 'Create Post' }} />
       <Stack.Screen name="EditPost" component={EditPostScreen} options={{ title: 'Edit Post' }} />
@@ -82,6 +84,7 @@ function ExploreTab() {
       <Stack.Screen name="ExploreList" component={ExploreScreen} options={{ title: 'Explore' }} />
       <Stack.Screen name="BreedFeed" component={BreedFeedScreen} options={({ route }: { route: { params?: { breed?: string } } }) => ({ title: (route.params?.breed ?? 'Feed').replace(/_/g, ' ') })} />
       <Stack.Screen name="SearchMain" component={SearchScreen} options={{ title: 'Search' }} />
+      <Stack.Screen name="DogProfile" component={DogProfileScreen} options={{ title: 'Dog' }} />
       <Stack.Screen name="PostDetail" component={PostDetailScreen} options={{ title: 'Post' }} />
       <Stack.Screen name="CreatePost" component={CreatePostScreen} options={{ title: 'Create Post' }} />
       <Stack.Screen name="EditPost" component={EditPostScreen} options={{ title: 'Edit Post' }} />
@@ -128,6 +131,7 @@ function ProfileTab() {
           title: route.params?.dogId ? 'Edit Dog' : 'Add Dog',
         })}
       />
+      <Stack.Screen name="DogProfile" component={DogProfileScreen} options={{ title: 'Dog' }} />
       <Stack.Screen name="PostDetail" component={PostDetailScreen} options={{ title: 'Post' }} />
       <Stack.Screen name="UserProfile" component={UserProfileScreen} options={{ title: 'Profile' }} />
     </Stack.Navigator>

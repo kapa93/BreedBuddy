@@ -30,6 +30,8 @@ export type PlayStyleEnum = 'gentle' | 'chase' | 'wrestle' | 'independent' | 'mi
 
 export type CompatibilityAnswerEnum = 'yes' | 'no' | 'unsure';
 
+export type DogInteractionSourceType = 'dog_beach' | 'meetup' | 'manual';
+
 export type ReactionEnum =
   | 'LIKE'
   | 'LOVE'
@@ -131,6 +133,21 @@ export interface ActiveDogBeachCheckin extends DogLocationCheckin {
   dog_play_style: PlayStyleEnum | null;
   dog_image_url: string | null;
   owner_name: string | null;
+}
+
+export interface DogInteraction {
+  id: string;
+  dog_id_1: string;
+  dog_id_2: string;
+  created_by_user_id: string;
+  location_name: string | null;
+  source_type: DogInteractionSourceType | null;
+  created_at: string;
+}
+
+export interface DogMetSummary extends Dog {
+  latest_interaction_at: string;
+  interaction_count: number;
 }
 
 export interface Post {

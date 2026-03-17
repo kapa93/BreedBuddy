@@ -32,6 +32,12 @@ export function useUserProfile({
     enabled: shouldLoad,
   });
 
+  const viewerDogsQuery = useQuery({
+    queryKey: ['dogs', viewerUserId ?? null],
+    queryFn: () => getDogsByOwner(viewerUserId!),
+    enabled: !!viewerUserId,
+  });
+
   const postsQuery = useQuery({
     queryKey: ['userPosts', profileUserId, viewerUserId ?? null, recentPostsLimit],
     queryFn: () => getRecentPostsByAuthor(profileUserId, recentPostsLimit, viewerUserId ?? null),
@@ -52,20 +58,24 @@ export function useUserProfile({
     joinedBreedsQuery,
     profile: profileQuery.data ?? null,
     dogs: dogsQuery.data ?? [],
+    viewerDogs: viewerDogsQuery.data ?? [],
     posts: postsQuery.data ?? [],
     joinedBreeds: joinedBreedsQuery.data ?? [],
     profileLoading: profileQuery.isLoading,
     dogsLoading: dogsQuery.isLoading,
+    viewerDogsLoading: viewerDogsQuery.isLoading,
     postsLoading: postsQuery.isLoading,
     joinedBreedsLoading: joinedBreedsQuery.isLoading,
     isLoading:
       profileQuery.isLoading ||
       dogsQuery.isLoading ||
+      viewerDogsQuery.isLoading ||
       postsQuery.isLoading ||
       joinedBreedsQuery.isLoading,
     error:
       profileQuery.error ??
       dogsQuery.error ??
+      viewerDogsQuery.error ??
       postsQuery.error ??
       joinedBreedsQuery.error ??
       null,
@@ -73,6 +83,7 @@ export function useUserProfile({
       Promise.all([
         profileQuery.refetch(),
         dogsQuery.refetch(),
+        ...(viewerUserId ? [viewerDogsQuery.refetch()] : []),
         postsQuery.refetch(),
         ...(includeJoinedBreeds && isOwnProfile ? [joinedBreedsQuery.refetch()] : []),
       ]),

@@ -8,6 +8,8 @@ import {
   View,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { DogsMetSection } from '@/components/DogsMetSection';
+import { MetThisDogButton } from '@/components/MetThisDogButton';
 import { DogAvatar } from '@/components/DogAvatar';
 import { ProfileDogCard } from '@/components/ProfileDogCard';
 import { ScreenWithWallpaper } from '@/components/ScreenWithWallpaper';
@@ -26,6 +28,7 @@ type Props = {
   viewerUserId?: string | null;
   showPrivateAccountInfo?: boolean;
   onOpenPost?: (postId: string) => void;
+  onOpenDogProfile?: (dogId: string) => void;
   onEditProfile?: () => void;
   onAddDog?: () => void;
   onEditDog?: (dogId: string) => void;
@@ -83,6 +86,7 @@ export function UserProfileContent({
   viewerUserId,
   showPrivateAccountInfo = false,
   onOpenPost,
+  onOpenDogProfile,
   onEditProfile,
   onAddDog,
   onEditDog,
@@ -96,6 +100,7 @@ export function UserProfileContent({
     isOwnProfile,
     profile,
     dogs,
+    viewerDogs,
     posts,
     joinedBreeds,
     dogsLoading,
@@ -235,11 +240,26 @@ export function UserProfileContent({
                 <ProfileDogCard
                   key={dog.id}
                   dog={dog}
+                  onPress={onOpenDogProfile ? () => onOpenDogProfile(dog.id) : undefined}
                   onEdit={canManageProfile && onEditDog ? () => onEditDog(dog.id) : undefined}
                   onDelete={
                     canManageProfile && onDeleteDog
                       ? () => onDeleteDog(dog.id, dog.name)
                       : undefined
+                  }
+                  footer={
+                    <>
+                      <MetThisDogButton
+                        viewerUserId={viewerUserId}
+                        viewerDogs={viewerDogs}
+                        targetDog={dog}
+                      />
+                      <DogsMetSection
+                        dogId={dog.id}
+                        onOpenDogProfile={onOpenDogProfile}
+                        title="Friends"
+                      />
+                    </>
                   }
                 />
               ))}

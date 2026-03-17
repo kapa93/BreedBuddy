@@ -86,6 +86,7 @@ export function ProfileScreen({ navigation }: { navigation: ProfileNav }) {
       viewerUserId={userId}
       showPrivateAccountInfo
       onOpenPost={(postId) => navigation.navigate('PostDetail', { postId })}
+      onOpenDogProfile={(dogId) => navigation.navigate('DogProfile', { dogId })}
       onEditProfile={() => navigation.navigate('EditProfile')}
       onAddDog={() => navigation.navigate('EditDog', {})}
       onEditDog={(dogId) => navigation.navigate('EditDog', { dogId })}

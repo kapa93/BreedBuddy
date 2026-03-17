@@ -65,6 +65,7 @@ export function UserProfileScreen({ route, navigation }: Props) {
       profileUserId={profileUserId}
       viewerUserId={viewerUserId}
       onOpenPost={(postId) => navigation.navigate('PostDetail', { postId })}
+      onOpenDogProfile={(dogId) => navigation.navigate('DogProfile', { dogId })}
       onEditProfile={isOwnProfile ? () => navigateToProfileTab('EditProfile') : undefined}
       onAddDog={isOwnProfile ? () => navigateToProfileTab('EditDog', {}) : undefined}
       onEditDog={isOwnProfile ? (dogId) => navigateToProfileTab('EditDog', { dogId }) : undefined}

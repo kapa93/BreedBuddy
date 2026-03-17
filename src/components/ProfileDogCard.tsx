@@ -17,6 +17,8 @@ type Props = {
   showDetails?: boolean;
   onEdit?: () => void;
   onDelete?: () => void;
+  onPress?: () => void;
+  footer?: React.ReactNode;
 };
 
 function DetailChip({ label }: { label: string }) {
@@ -27,7 +29,7 @@ function DetailChip({ label }: { label: string }) {
   );
 }
 
-export function ProfileDogCard({ dog, showDetails = true, onEdit, onDelete }: Props) {
+export function ProfileDogCard({ dog, showDetails = true, onEdit, onDelete, onPress, footer }: Props) {
   const compatibilityChips = [
     dog.dog_friendliness != null ? `Friendliness ${dog.dog_friendliness}/5` : null,
     dog.play_style ? `Play style: ${PLAY_STYLE_LABELS[dog.play_style]}` : null,
@@ -36,8 +38,8 @@ export function ProfileDogCard({ dog, showDetails = true, onEdit, onDelete }: Pr
     dog.good_with_small_dogs ? `Small dogs: ${COMPATIBILITY_ANSWER_LABELS[dog.good_with_small_dogs]}` : null,
   ].filter(Boolean) as string[];
 
-  return (
-    <View style={styles.card}>
+  const content = (
+    <>
       <View style={styles.headerRow}>
         <View style={styles.identityRow}>
           <DogAvatar imageUrl={dog.dog_image_url} name={dog.name} size={68} roundedSquare />
@@ -81,7 +83,19 @@ export function ProfileDogCard({ dog, showDetails = true, onEdit, onDelete }: Pr
           ) : null}
         </>
       ) : null}
-    </View>
+
+      {footer ? <View style={styles.footer}>{footer}</View> : null}
+    </>
+  );
+
+  if (!onPress) {
+    return <View style={styles.card}>{content}</View>;
+  }
+
+  return (
+    <Pressable onPress={onPress} style={({ pressed }) => [styles.card, pressed ? styles.pressed : null]}>
+      {content}
+    </Pressable>
   );
 }
 
@@ -94,6 +108,9 @@ const styles = StyleSheet.create({
     padding: spacing.lg,
     gap: spacing.md,
     ...shadow.sm,
+  },
+  pressed: {
+    opacity: 0.94,
   },
   headerRow: {
     flexDirection: 'row',
@@ -153,5 +170,8 @@ const styles = StyleSheet.create({
   },
   notes: {
     ...typography.bodyMuted,
+  },
+  footer: {
+    gap: spacing.sm,
   },
 });

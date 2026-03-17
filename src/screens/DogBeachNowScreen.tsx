@@ -2,6 +2,8 @@ import React, { useMemo } from 'react';
 import { Alert, FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { DOG_BEACH } from '@/config/dogBeach';
+import { MetThisDogButton } from '@/components/MetThisDogButton';
 import { DogAvatar } from '@/components/DogAvatar';
 import { ScreenWithWallpaper } from '@/components/ScreenWithWallpaper';
 import { useStackHeaderHeight } from '@/hooks/useStackHeaderHeight';
@@ -17,7 +19,13 @@ import { useAuthStore } from '@/store/authStore';
 import { BREED_LABELS, formatRelativeTime, PLAY_STYLE_LABELS } from '@/utils/breed';
 import { colors, radius, shadow, spacing, typography } from '@/theme';
 
-export function DogBeachNowScreen() {
+type Props = {
+  navigation: {
+    navigate: (screen: string, params?: object) => void;
+  };
+};
+
+export function DogBeachNowScreen({ navigation }: Props) {
   const { user } = useAuthStore();
   const queryClient = useQueryClient();
   const headerHeight = useStackHeaderHeight();
@@ -157,22 +165,38 @@ export function DogBeachNowScreen() {
               contentContainerStyle={styles.listContent}
               renderItem={({ item }) => (
                 <View style={styles.row}>
-                  <DogAvatar imageUrl={item.dog_image_url} name={item.dog_name} size={44} />
-                  <View style={styles.rowText}>
-                    <View style={styles.nameRow}>
-                      <Text style={styles.dogName}>{item.dog_name}</Text>
-                      {item.dog_play_style ? (
-                        <View style={styles.playStyleChip}>
-                          <Text style={styles.playStyleChipText}>{PLAY_STYLE_LABELS[item.dog_play_style]}</Text>
-                        </View>
-                      ) : null}
+                  <Pressable
+                    onPress={() => navigation.navigate('DogProfile', { dogId: item.dog_id })}
+                    style={styles.rowIdentity}
+                  >
+                    <DogAvatar imageUrl={item.dog_image_url} name={item.dog_name} size={44} />
+                    <View style={styles.rowText}>
+                      <View style={styles.nameRow}>
+                        <Text style={styles.dogName}>{item.dog_name}</Text>
+                        {item.dog_play_style ? (
+                          <View style={styles.playStyleChip}>
+                            <Text style={styles.playStyleChipText}>{PLAY_STYLE_LABELS[item.dog_play_style]}</Text>
+                          </View>
+                        ) : null}
+                      </View>
+                      <Text style={styles.rowMeta}>
+                        {BREED_LABELS[item.dog_breed]}
+                        {item.owner_name ? ` • ${item.owner_name}` : ''}
+                      </Text>
                     </View>
-                    <Text style={styles.rowMeta}>
-                      {BREED_LABELS[item.dog_breed]}
-                      {item.owner_name ? ` • ${item.owner_name}` : ''}
-                    </Text>
-                  </View>
-                  <Text style={styles.rowTime}>{formatRelativeTime(item.created_at)}</Text>
+                  </Pressable>
+
+                  <View style={styles.rowSide}>
+                    <Text style={styles.rowTime}>{formatRelativeTime(item.created_at)}</Text>
+                    <MetThisDogButton
+                      viewerUserId={user?.id ?? null}
+                      viewerDogs={dogs}
+                      targetDog={{ id: item.dog_id, name: item.dog_name }}
+                      sourceType="dog_beach"
+                      locationName={DOG_BEACH.locationName}
+                      compact
+                    />
+                    </View>
                 </View>
               )}
             />
@@ -251,6 +275,11 @@ const styles = StyleSheet.create({
     marginBottom: spacing.sm,
     ...shadow.sm,
   },
+  rowIdentity: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   rowText: { flex: 1, marginLeft: spacing.md },
   nameRow: {
     flexDirection: 'row',
@@ -271,5 +300,10 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   rowMeta: { ...typography.caption, marginTop: spacing.xxs },
-  rowTime: { ...typography.caption, alignSelf: 'flex-start', marginTop: 2, marginRight: 5 },
+  rowSide: {
+    alignItems: 'flex-end',
+    gap: spacing.xs,
+    marginLeft: spacing.sm,
+  },
+  rowTime: { ...typography.caption, marginTop: 2 },
 });

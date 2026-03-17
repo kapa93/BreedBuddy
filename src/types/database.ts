@@ -37,6 +37,8 @@ export type PlayStyleEnum = 'gentle' | 'chase' | 'wrestle' | 'independent' | 'mi
 
 export type CompatibilityAnswerEnum = 'yes' | 'no' | 'unsure';
 
+export type DogInteractionSourceTypeEnum = 'dog_beach' | 'meetup' | 'manual';
+
 export type ReactionEnum =
   | 'LIKE'
   | 'LOVE'
@@ -157,6 +159,35 @@ export interface Database {
           created_at?: string;
           expires_at?: string;
           ended_at?: string | null;
+        };
+      };
+      dog_interactions: {
+        Row: {
+          id: string;
+          dog_id_1: string;
+          dog_id_2: string;
+          created_by_user_id: string;
+          location_name: string | null;
+          source_type: DogInteractionSourceTypeEnum | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          dog_id_1: string;
+          dog_id_2: string;
+          created_by_user_id: string;
+          location_name?: string | null;
+          source_type?: DogInteractionSourceTypeEnum | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          dog_id_1?: string;
+          dog_id_2?: string;
+          created_by_user_id?: string;
+          location_name?: string | null;
+          source_type?: DogInteractionSourceTypeEnum | null;
+          created_at?: string;
         };
       };
       posts: {
