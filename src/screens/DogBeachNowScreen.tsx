@@ -9,11 +9,11 @@ import { ScreenWithWallpaper } from '@/components/ScreenWithWallpaper';
 import { useStackHeaderHeight } from '@/hooks/useStackHeaderHeight';
 import { getDogsByOwner } from '@/api/dogs';
 import {
-  createDogBeachCheckin,
-  endDogBeachCheckin,
+  createDogBeachCheckins,
+  endDogBeachCheckins,
   getActiveDogBeachCheckins,
   getDogBeachBreedCounts,
-  getMyActiveDogBeachCheckin,
+  getMyActiveDogBeachCheckins,
 } from '@/api/locationCheckins';
 import { useAuthStore } from '@/store/authStore';
 import { BREED_LABELS, formatRelativeTime, PLAY_STYLE_LABELS } from '@/utils/breed';
@@ -42,18 +42,18 @@ export function DogBeachNowScreen({ navigation }: Props) {
     refetchInterval: 60_000,
   });
 
-  const { data: myActiveCheckin } = useQuery({
-    queryKey: ['dogBeachMyCheckin', user?.id],
-    queryFn: () => getMyActiveDogBeachCheckin(user!.id),
+  const { data: myActiveCheckins = [] } = useQuery({
+    queryKey: ['dogBeachMyCheckins', user?.id],
+    queryFn: () => getMyActiveDogBeachCheckins(user!.id),
     enabled: !!user?.id,
     refetchInterval: 60_000,
   });
 
   const createMutation = useMutation({
-    mutationFn: (dogId: string) => createDogBeachCheckin(user!.id, dogId),
+    mutationFn: (dogIds: string[]) => createDogBeachCheckins(user!.id, dogIds),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['dogBeachActiveCheckins'] });
-      queryClient.invalidateQueries({ queryKey: ['dogBeachMyCheckin', user?.id] });
+      queryClient.invalidateQueries({ queryKey: ['dogBeachMyCheckins', user?.id] });
     },
     onError: () => {
       Alert.alert('Could not check in', 'Please try again in a moment.');
@@ -61,10 +61,10 @@ export function DogBeachNowScreen({ navigation }: Props) {
   });
 
   const endMutation = useMutation({
-    mutationFn: (checkinId: string) => endDogBeachCheckin(checkinId, user!.id),
+    mutationFn: (checkinIds: string[]) => endDogBeachCheckins(checkinIds, user!.id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['dogBeachActiveCheckins'] });
-      queryClient.invalidateQueries({ queryKey: ['dogBeachMyCheckin', user?.id] });
+      queryClient.invalidateQueries({ queryKey: ['dogBeachMyCheckins', user?.id] });
     },
     onError: () => {
       Alert.alert('Could not end check-in', 'Please try again in a moment.');
@@ -72,24 +72,41 @@ export function DogBeachNowScreen({ navigation }: Props) {
   });
 
   const breedCounts = useMemo(() => getDogBeachBreedCounts(activeCheckins), [activeCheckins]);
+  const checkedInDogIds = useMemo(
+    () => new Set(myActiveCheckins.map((checkin) => checkin.dog_id)),
+    [myActiveCheckins]
+  );
+  const availableDogsToCheckIn = useMemo(
+    () => dogs.filter((dog) => !checkedInDogIds.has(dog.id)),
+    [dogs, checkedInDogIds]
+  );
+  const allDogsLabel = availableDogsToCheckIn.length === 2 ? 'Both dogs' : 'All my dogs';
 
   const handleCheckIn = () => {
     if (dogs.length === 0) {
       Alert.alert('No dog profile', 'Add a dog profile before checking in.');
       return;
     }
-    if (dogs.length === 1) {
-      createMutation.mutate(dogs[0].id);
+    if (availableDogsToCheckIn.length === 0) {
+      Alert.alert('All set', 'All of your dogs are already checked in.');
+      return;
+    }
+    if (availableDogsToCheckIn.length === 1) {
+      createMutation.mutate([availableDogsToCheckIn[0].id]);
       return;
     }
 
     Alert.alert(
-      'Choose a dog',
-      'Which dog is at the beach right now?',
+      'Choose dogs',
+      'Which of your dogs are at the beach right now?',
       [
-        ...dogs.map((dog) => ({
+        {
+          text: allDogsLabel,
+          onPress: () => createMutation.mutate(availableDogsToCheckIn.map((dog) => dog.id)),
+        },
+        ...availableDogsToCheckIn.map((dog) => ({
           text: dog.name,
-          onPress: () => createMutation.mutate(dog.id),
+          onPress: () => createMutation.mutate([dog.id]),
         })),
         { text: 'Cancel', style: 'cancel' as const },
       ]
@@ -97,8 +114,8 @@ export function DogBeachNowScreen({ navigation }: Props) {
   };
 
   const handleEndCheckin = () => {
-    if (!myActiveCheckin) return;
-    endMutation.mutate(myActiveCheckin.id);
+    if (myActiveCheckins.length === 0) return;
+    endMutation.mutate(myActiveCheckins.map((checkin) => checkin.id));
   };
 
   return (
@@ -120,14 +137,30 @@ export function DogBeachNowScreen({ navigation }: Props) {
 
           <View style={styles.statusCard}>
             <Text style={styles.statusTitle}>Your status</Text>
-            {myActiveCheckin ? (
+            {myActiveCheckins.length > 0 ? (
               <>
-                <Text style={styles.statusText}>You are currently checked in.</Text>
+                <Text style={styles.statusText}>
+                  {myActiveCheckins.length === 1
+                    ? 'You currently have 1 dog checked in.'
+                    : `You currently have ${myActiveCheckins.length} dogs checked in.`}
+                </Text>
+                {availableDogsToCheckIn.length > 0 ? (
+                  <Pressable
+                    onPress={createMutation.isPending ? undefined : handleCheckIn}
+                    style={({ pressed }) => [styles.checkinBtn, pressed && styles.pressed, createMutation.isPending && styles.disabledBtn]}
+                  >
+                    <Text style={styles.checkinBtnText}>
+                      {availableDogsToCheckIn.length === 1 ? 'Check In Another Dog' : `Check In ${allDogsLabel}`}
+                    </Text>
+                  </Pressable>
+                ) : null}
                 <Pressable
                   onPress={handleEndCheckin}
                   style={({ pressed }) => [styles.endBtn, pressed && styles.pressed, endMutation.isPending && styles.disabledBtn]}
                 >
-                  <Text style={styles.endBtnText}>End Check-In</Text>
+                  <Text style={styles.endBtnText}>
+                    {myActiveCheckins.length === 1 ? 'End Check-In' : 'End All Check-Ins'}
+                  </Text>
                 </Pressable>
               </>
             ) : (

@@ -20,9 +20,9 @@ import { rsvpMeetup, unrsvpMeetup } from "@/api/meetups";
 import { getDogsByOwner } from "@/api/dogs";
 import { getJoinedBreeds, joinBreedFeed, leaveBreedFeed } from "@/api/breedJoins";
 import {
-  createDogBeachCheckin,
+  createDogBeachCheckins,
   getActiveDogBeachCheckins,
-  getMyActiveDogBeachCheckin,
+  getMyActiveDogBeachCheckins,
 } from '@/api/locationCheckins';
 import { setReaction } from "@/api/reactions";
 import { BreedHero } from "@/ui/BreedHero";
@@ -76,7 +76,7 @@ export function HomeScreen({
   const forceNearby = __DEV__ && DOG_BEACH.debugForceNearby;
   const dogBeachAlertTranslateY = useSharedValue(0);
 
-  const { data: dogs } = useQuery({
+  const { data: dogs = [] } = useQuery({
     queryKey: ["dogs", user?.id],
     queryFn: () => getDogsByOwner(user!.id),
     enabled: !!user?.id,
@@ -95,9 +95,9 @@ export function HomeScreen({
     refetchInterval: 60_000,
   });
 
-  const { data: myDogBeachCheckin } = useQuery({
-    queryKey: ['dogBeachMyCheckin', user?.id],
-    queryFn: () => getMyActiveDogBeachCheckin(user!.id),
+  const { data: myDogBeachCheckins = [] } = useQuery({
+    queryKey: ['dogBeachMyCheckins', user?.id],
+    queryFn: () => getMyActiveDogBeachCheckins(user!.id),
     enabled: !!user?.id,
     refetchInterval: 60_000,
   });
@@ -110,7 +110,10 @@ export function HomeScreen({
       : defaultBreed;
 
   const isJoined = joinedBreeds.includes(breed);
-  const showNearbyCheckinCard = locationChecked && isNearDogBeach && !myDogBeachCheckin;
+  const myDogBeachCheckinDogIds = new Set(myDogBeachCheckins.map((checkin) => checkin.dog_id));
+  const availableDogsForBeachCheckIn = dogs.filter((dog) => !myDogBeachCheckinDogIds.has(dog.id));
+  const showNearbyCheckinCard =
+    locationChecked && isNearDogBeach && availableDogsForBeachCheckIn.length > 0;
 
   const joinMutation = useMutation({
     mutationFn: (b: import("@/types").BreedEnum) => joinBreedFeed(user!.id, b),
@@ -127,10 +130,10 @@ export function HomeScreen({
   });
 
   const checkinMutation = useMutation({
-    mutationFn: (dogId: string) => createDogBeachCheckin(user!.id, dogId),
+    mutationFn: (dogIds: string[]) => createDogBeachCheckins(user!.id, dogIds),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['dogBeachActiveCheckins'] });
-      queryClient.invalidateQueries({ queryKey: ['dogBeachMyCheckin', user?.id] });
+      queryClient.invalidateQueries({ queryKey: ['dogBeachMyCheckins', user?.id] });
     },
     onError: () => {
       Alert.alert('Could not check in', 'Please try again in a moment.');
@@ -220,22 +223,30 @@ export function HomeScreen({
       Alert.alert('No dog profile', 'Add a dog profile before checking in.');
       return;
     }
-    if (dogs.length === 1) {
-      checkinMutation.mutate(dogs[0].id);
+    if (availableDogsForBeachCheckIn.length === 0) {
+      Alert.alert('All set', 'All of your dogs are already checked in.');
+      return;
+    }
+    if (availableDogsForBeachCheckIn.length === 1) {
+      checkinMutation.mutate([availableDogsForBeachCheckIn[0].id]);
       return;
     }
     Alert.alert(
-      'Choose a dog',
-      'Which dog is at the beach right now?',
+      'Choose dogs',
+      'Which of your dogs are at the beach right now?',
       [
-        ...dogs.map((dog) => ({
+        {
+          text: availableDogsForBeachCheckIn.length === 2 ? 'Both dogs' : 'All my dogs',
+          onPress: () => checkinMutation.mutate(availableDogsForBeachCheckIn.map((dog) => dog.id)),
+        },
+        ...availableDogsForBeachCheckIn.map((dog) => ({
           text: dog.name,
-          onPress: () => checkinMutation.mutate(dog.id),
+          onPress: () => checkinMutation.mutate([dog.id]),
         })),
         { text: 'Cancel', style: 'cancel' as const },
       ]
     );
-  }, [dogs, checkinMutation]);
+  }, [availableDogsForBeachCheckIn, checkinMutation, dogs]);
 
   const sort = "newest";
   const typeFilter = feedFilter === "QUESTION" || feedFilter === "UPDATE_STORY" || feedFilter === "TIP" || feedFilter === "MEETUP" ? feedFilter : null;

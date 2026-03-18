@@ -1,12 +1,33 @@
 import { supabase } from '@/lib/supabase';
 import type { Dog, DogInteraction, DogInteractionSourceType, DogMetSummary } from '@/types';
+import { buildDogsMetSummaries, RAPID_DUPLICATE_WINDOW_MS, toCanonicalDogPair } from '@/api/dogInteractions.helpers';
 
-const RAPID_DUPLICATE_WINDOW_MS = 5 * 60_000;
+export async function createDogInteractions({
+  dogIds,
+  metDogId,
+  createdByUserId,
+  locationName = null,
+  sourceType = 'manual',
+}: {
+  dogIds: string[];
+  metDogId: string;
+  createdByUserId: string;
+  locationName?: string | null;
+  sourceType?: DogInteractionSourceType;
+}): Promise<Array<{ interaction: DogInteraction; wasDuplicate: boolean }>> {
+  const uniqueDogIds = Array.from(new Set(dogIds.filter((dogId) => dogId !== metDogId)));
 
-function toCanonicalPair(dogIdA: string, dogIdB: string) {
-  return dogIdA < dogIdB
-    ? { dog_id_1: dogIdA, dog_id_2: dogIdB }
-    : { dog_id_1: dogIdB, dog_id_2: dogIdA };
+  return Promise.all(
+    uniqueDogIds.map((dogId) =>
+      createDogInteraction({
+        dogId,
+        metDogId,
+        createdByUserId,
+        locationName,
+        sourceType,
+      })
+    )
+  );
 }
 
 export async function createDogInteraction({
@@ -26,7 +47,7 @@ export async function createDogInteraction({
     throw new Error('A dog cannot meet itself.');
   }
 
-  const pair = toCanonicalPair(dogId, metDogId);
+  const pair = toCanonicalDogPair(dogId, metDogId);
   const duplicateCutoff = new Date(Date.now() - RAPID_DUPLICATE_WINDOW_MS).toISOString();
 
   const { data: existingRecent, error: existingError } = await supabase
@@ -77,37 +98,13 @@ export async function getDogsMetByDog(dogId: string): Promise<DogMetSummary[]> {
 
   const interactions = (data ?? []) as DogInteraction[];
   if (interactions.length === 0) return [];
-
-  const summaryByOtherDogId = new Map<
-    string,
-    {
-      latest_interaction_at: string;
-      interaction_count: number;
-    }
-  >();
-
-  for (const interaction of interactions) {
-    const otherDogId = interaction.dog_id_1 === dogId ? interaction.dog_id_2 : interaction.dog_id_1;
-    const existing = summaryByOtherDogId.get(otherDogId);
-
-    if (!existing) {
-      summaryByOtherDogId.set(otherDogId, {
-        latest_interaction_at: interaction.created_at,
-        interaction_count: 1,
-      });
-      continue;
-    }
-
-    summaryByOtherDogId.set(otherDogId, {
-      latest_interaction_at:
-        interaction.created_at > existing.latest_interaction_at
-          ? interaction.created_at
-          : existing.latest_interaction_at,
-      interaction_count: existing.interaction_count + 1,
-    });
-  }
-
-  const otherDogIds = Array.from(summaryByOtherDogId.keys());
+  const otherDogIds = Array.from(
+    new Set(
+      interactions.map((interaction) =>
+        interaction.dog_id_1 === dogId ? interaction.dog_id_2 : interaction.dog_id_1
+      )
+    )
+  );
   const { data: dogsData, error: dogsError } = await supabase
     .from('dogs')
     .select('*')
@@ -115,20 +112,9 @@ export async function getDogsMetByDog(dogId: string): Promise<DogMetSummary[]> {
 
   if (dogsError) throw dogsError;
 
-  const dogsById = new Map((dogsData ?? []).map((dog) => [dog.id, dog as Dog]));
-
-  return otherDogIds
-    .map((otherDogId) => {
-      const dog = dogsById.get(otherDogId);
-      const summary = summaryByOtherDogId.get(otherDogId);
-      if (!dog || !summary) return null;
-
-      return {
-        ...dog,
-        latest_interaction_at: summary.latest_interaction_at,
-        interaction_count: summary.interaction_count,
-      } satisfies DogMetSummary;
-    })
-    .filter((dog): dog is DogMetSummary => dog !== null)
-    .sort((a, b) => b.latest_interaction_at.localeCompare(a.latest_interaction_at));
+  return buildDogsMetSummaries({
+    dogId,
+    interactions,
+    dogs: (dogsData ?? []) as Dog[],
+  });
 }

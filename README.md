@@ -49,6 +49,7 @@ Create `.env` (or `.env.local`) in the project root:
 ```
 EXPO_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 EXPO_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 ```
 
 Get these from Supabase Dashboard → Settings → API.
@@ -60,6 +61,34 @@ npx expo start
 ```
 
 Then press `i` for iOS simulator or `a` for Android emulator.
+
+## Testing
+
+Run the automated test suite:
+
+```bash
+npm test
+```
+
+Run in watch mode:
+
+```bash
+npm run test:watch
+```
+
+Seed reusable dog interaction QA data:
+
+```bash
+npm run seed:dog-interactions
+```
+
+Reset only the seeded dog interaction rows and Dog Beach check-ins:
+
+```bash
+npm run seed:dog-interactions:reset
+```
+
+See `docs/dog-interactions-qa.md` for the manual QA checklist and the seeded test accounts.
 
 ## Project Structure
 

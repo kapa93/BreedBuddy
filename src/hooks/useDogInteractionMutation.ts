@@ -1,14 +1,16 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createDogInteraction } from '@/api/dogInteractions';
+import { createDogInteractions } from '@/api/dogInteractions';
 
 export function useDogInteractionMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: createDogInteraction,
+    mutationFn: createDogInteractions,
     onSuccess: (_result, variables) => {
       queryClient.invalidateQueries({ queryKey: ['dogsMet'] });
-      queryClient.invalidateQueries({ queryKey: ['dog', variables.dogId] });
+      variables.dogIds.forEach((dogId) => {
+        queryClient.invalidateQueries({ queryKey: ['dog', dogId] });
+      });
       queryClient.invalidateQueries({ queryKey: ['dog', variables.metDogId] });
     },
   });

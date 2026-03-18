@@ -63,6 +63,11 @@ export async function getActiveDogBeachCheckins(): Promise<ActiveDogBeachCheckin
 }
 
 export async function getMyActiveDogBeachCheckin(userId: string): Promise<DogLocationCheckin | null> {
+  const rows = await getMyActiveDogBeachCheckins(userId);
+  return rows[0] ?? null;
+}
+
+export async function getMyActiveDogBeachCheckins(userId: string): Promise<DogLocationCheckin[]> {
   const { data, error } = await supabase
     .from('dog_location_checkins')
     .select('*')
@@ -70,48 +75,62 @@ export async function getMyActiveDogBeachCheckin(userId: string): Promise<DogLoc
     .eq('location_key', DOG_BEACH.locationKey)
     .is('ended_at', null)
     .gt('expires_at', new Date().toISOString())
-    .order('created_at', { ascending: false })
-    .limit(1)
-    .maybeSingle();
+    .order('created_at', { ascending: false });
 
   if (error) throw error;
-  return (data as DogLocationCheckin | null) ?? null;
+  return (data ?? []) as DogLocationCheckin[];
 }
 
 export async function createDogBeachCheckin(userId: string, dogId: string): Promise<DogLocationCheckin> {
+  const rows = await createDogBeachCheckins(userId, [dogId]);
+  return rows[0];
+}
+
+export async function createDogBeachCheckins(userId: string, dogIds: string[]): Promise<DogLocationCheckin[]> {
+  const uniqueDogIds = Array.from(new Set(dogIds));
+  if (uniqueDogIds.length === 0) return [];
+
   const now = new Date();
   const expiresAt = new Date(now.getTime() + DOG_BEACH.defaultCheckInDurationMinutes * 60_000);
 
-  // Clean up any existing open rows first so partial unique indexes stay satisfied.
+  // Clean up any existing open rows for these dogs so partial unique indexes stay satisfied.
   const { error: cleanupError } = await supabase
     .from('dog_location_checkins')
     .update({ ended_at: now.toISOString() })
     .eq('user_id', userId)
     .eq('location_key', DOG_BEACH.locationKey)
+    .in('dog_id', uniqueDogIds)
     .is('ended_at', null);
   if (cleanupError) throw cleanupError;
 
   const { data, error } = await supabase
     .from('dog_location_checkins')
-    .insert({
-      user_id: userId,
-      dog_id: dogId,
-      location_key: DOG_BEACH.locationKey,
-      location_name: DOG_BEACH.locationName,
-      expires_at: expiresAt.toISOString(),
-    })
-    .select('*')
-    .single();
+    .insert(
+      uniqueDogIds.map((dogId) => ({
+        user_id: userId,
+        dog_id: dogId,
+        location_key: DOG_BEACH.locationKey,
+        location_name: DOG_BEACH.locationName,
+        expires_at: expiresAt.toISOString(),
+      }))
+    )
+    .select('*');
 
   if (error) throw error;
-  return data as DogLocationCheckin;
+  return (data ?? []) as DogLocationCheckin[];
 }
 
 export async function endDogBeachCheckin(checkinId: string, userId: string): Promise<void> {
+  await endDogBeachCheckins([checkinId], userId);
+}
+
+export async function endDogBeachCheckins(checkinIds: string[], userId: string): Promise<void> {
+  if (checkinIds.length === 0) return;
+
   const { error } = await supabase
     .from('dog_location_checkins')
     .update({ ended_at: new Date().toISOString() })
-    .eq('id', checkinId)
+    .in('id', checkinIds)
     .eq('user_id', userId)
     .is('ended_at', null);
   if (error) throw error;

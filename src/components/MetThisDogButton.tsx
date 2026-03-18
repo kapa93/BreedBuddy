@@ -24,15 +24,16 @@ export function MetThisDogButton({
   const mutation = useDogInteractionMutation();
 
   const availableViewerDogs = viewerDogs.filter((dog) => dog.id !== targetDog.id);
+  const allDogsLabel = availableViewerDogs.length === 2 ? 'Both dogs' : 'All my dogs';
 
-  const handleCreate = (dogId: string) => {
+  const handleCreate = (dogIds: string[]) => {
     if (!viewerUserId) {
       Alert.alert('Sign in required', 'Please sign in before tracking dogs met.');
       return;
     }
 
     mutation.mutate({
-      dogId,
+      dogIds,
       metDogId: targetDog.id,
       createdByUserId: viewerUserId,
       sourceType,
@@ -47,7 +48,7 @@ export function MetThisDogButton({
     }
 
     if (availableViewerDogs.length === 1) {
-      handleCreate(availableViewerDogs[0].id);
+      handleCreate([availableViewerDogs[0].id]);
       return;
     }
 
@@ -55,9 +56,13 @@ export function MetThisDogButton({
       'Which of your dogs?',
       `Which of your dogs met ${targetDog.name}?`,
       [
+        {
+          text: allDogsLabel,
+          onPress: () => handleCreate(availableViewerDogs.map((dog) => dog.id)),
+        },
         ...availableViewerDogs.map((dog) => ({
           text: dog.name,
-          onPress: () => handleCreate(dog.id),
+          onPress: () => handleCreate([dog.id]),
         })),
         { text: 'Cancel', style: 'cancel' as const },
       ]
