@@ -9,7 +9,7 @@ import { ScrollDirectionProvider } from '@/context/ScrollDirectionContext';
 import { colors } from '@/theme';
 import { supabase } from '@/lib/supabase';
 import { useAuthStore } from '@/store/authStore';
-import { AUTH_CALLBACK_URL } from '@/api/auth';
+import { isAuthCallbackUrl } from '@/api/auth';
 
 function parseAuthParamsFromUrl(url: string): { access_token?: string; refresh_token?: string } {
   const hashIndex = url.indexOf('#');
@@ -27,7 +27,7 @@ function parseAuthParamsFromUrl(url: string): { access_token?: string; refresh_t
 }
 
 function handleAuthUrl(url: string) {
-  if (!url.startsWith(AUTH_CALLBACK_URL.split('#')[0])) return;
+  if (!isAuthCallbackUrl(url)) return;
   const { access_token, refresh_token } = parseAuthParamsFromUrl(url);
   if (access_token && refresh_token) {
     supabase.auth.setSession({ access_token, refresh_token }).then(({ data }) => {

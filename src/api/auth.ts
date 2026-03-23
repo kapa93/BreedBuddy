@@ -1,7 +1,16 @@
+import * as Linking from 'expo-linking';
 import { supabase } from '@/lib/supabase';
 import type { Profile } from '@/types';
 
-const AUTH_CALLBACK_URL = 'breedbuddy://auth/callback';
+const AUTH_CALLBACK_PATH = 'auth/callback';
+
+export function getAuthCallbackUrl() {
+  return Linking.createURL(AUTH_CALLBACK_PATH);
+}
+
+export function isAuthCallbackUrl(url: string) {
+  return url.startsWith(getAuthCallbackUrl().split('#')[0]);
+}
 
 export async function signUp(email: string, password: string, name: string, city?: string) {
   const { data: authData, error: authError } = await supabase.auth.signUp({
@@ -9,7 +18,7 @@ export async function signUp(email: string, password: string, name: string, city
     password,
     options: {
       data: { name, city },
-      emailRedirectTo: AUTH_CALLBACK_URL,
+      emailRedirectTo: getAuthCallbackUrl(),
     },
   });
 
@@ -27,8 +36,6 @@ export async function signUp(email: string, password: string, name: string, city
   return authData;
 }
 
-export { AUTH_CALLBACK_URL };
-
 export async function signIn(email: string, password: string) {
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) throw error;
@@ -37,7 +44,11 @@ export async function signIn(email: string, password: string) {
 
 export async function signOut() {
   const { error } = await supabase.auth.signOut();
-  if (error) throw error;
+  if (error) {
+    // If the global sign out fails (e.g. user was deleted in Supabase),
+    // fall back to clearing just the local session so the user can always log out.
+    await supabase.auth.signOut({ scope: 'local' });
+  }
 }
 
 export async function getProfile(userId: string): Promise<Profile | null> {

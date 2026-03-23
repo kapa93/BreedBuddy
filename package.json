@@ -28,6 +28,7 @@
     "expo-crypto": "~55.0.9",
     "expo-haptics": "~55.0.8",
     "expo-image-picker": "~55.0.12",
+    "expo-linking": "~55.0.8",
     "expo-location": "~55.1.2",
     "expo-status-bar": "~55.0.4",
     "lucide-react-native": "^0.577.0",

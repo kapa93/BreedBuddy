@@ -142,6 +142,11 @@ export function UserProfileContent({
           <Pressable style={styles.primaryButton} onPress={() => void refetchAll()}>
             <Text style={styles.primaryButtonText}>Try Again</Text>
           </Pressable>
+          {onSignOut && (
+            <Pressable style={styles.signOutButton} onPress={onSignOut}>
+              <Text style={styles.signOutText}>Sign Out</Text>
+            </Pressable>
+          )}
         </View>
       </ScreenWithWallpaper>
     );
@@ -153,6 +158,11 @@ export function UserProfileContent({
         <View style={styles.centeredState}>
           <Text style={styles.stateTitle}>Profile not found</Text>
           <Text style={styles.stateText}>This member profile isn&apos;t available.</Text>
+          {onSignOut && (
+            <Pressable style={styles.signOutButton} onPress={onSignOut}>
+              <Text style={styles.signOutText}>Sign Out</Text>
+            </Pressable>
+          )}
         </View>
       </ScreenWithWallpaper>
     );

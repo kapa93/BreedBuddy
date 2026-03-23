@@ -2,7 +2,13 @@ import type { BreedEnum } from '@/types';
 
 export type RootStackParamList = {
   Auth: undefined;
+  Onboarding: undefined;
   Main: undefined;
+};
+
+export type OnboardingStackParamList = {
+  OnboardingWelcome: undefined;
+  EditDog: { dogId?: string; fromOnboarding?: boolean };
 };
 
 export type AuthStackParamList = {
@@ -51,7 +57,7 @@ export type SearchStackParamList = {
 export type ProfileStackParamList = {
   ProfileMain: undefined;
   EditProfile: undefined;
-  EditDog: { dogId?: string };
+  EditDog: { dogId?: string; fromOnboarding?: boolean };
   DogProfile: { dogId: string };
   PostDetail: { postId: string };
   UserProfile: { userId: string };

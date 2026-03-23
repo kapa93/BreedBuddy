@@ -36,8 +36,11 @@ export function ProfileScreen({ navigation }: { navigation: ProfileNav }) {
         text: 'Sign out',
         style: 'destructive',
         onPress: async () => {
-          await signOut();
-          clearSession();
+          try {
+            await signOut();
+          } finally {
+            clearSession();
+          }
         },
       },
     ]);

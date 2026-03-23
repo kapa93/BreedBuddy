@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  View,
   Text,
   TextInput,
   TouchableOpacity,
@@ -42,10 +41,12 @@ export function SignUpScreen() {
     try {
       const authData = await signUp(email, password, name.trim(), city.trim() || undefined);
       useAuthStore.getState().setSession(authData.session ?? null);
-      if (!authData.session) {
+      if (authData.session) {
+        useAuthStore.getState().setNeedsOnboarding(true);
+      } else {
         setError('');
         (navigation as any).navigate('SignIn', {
-          message: 'Check your email to confirm your account, then sign in.',
+          message: 'Account created. Sign in to continue.',
         });
       }
     } catch (err: unknown) {

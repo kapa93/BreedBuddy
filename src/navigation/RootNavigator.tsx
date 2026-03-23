@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import { supabase } from '@/lib/supabase';
 import { useAuthStore } from '@/store/authStore';
-import type { RootStackParamList, AuthStackParamList, MainTabParamList } from './types';
+import type { RootStackParamList, AuthStackParamList, MainTabParamList, OnboardingStackParamList } from './types';
 import { SignInScreen } from '@/screens/SignInScreen';
 import { SignUpScreen } from '@/screens/SignUpScreen';
 import { HomeScreen } from '@/screens/HomeScreen';
@@ -19,6 +19,7 @@ import { CreatePostScreen } from '@/screens/CreatePostScreen';
 import { EditPostScreen } from '@/screens/EditPostScreen';
 import { EditProfileScreen } from '@/screens/EditProfileScreen';
 import { EditDogScreen } from '@/screens/EditDogScreen';
+import { OnboardingScreen } from '@/screens/OnboardingScreen';
 import { DogProfileScreen } from '@/screens/DogProfileScreen';
 import { UserProfileScreen } from '@/screens/UserProfileScreen';
 import { BreedBuddyTabBar } from './BreedBuddyTabBar';
@@ -34,6 +35,7 @@ import type {
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
+const OnboardingStack = createNativeStackNavigator<OnboardingStackParamList>();
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
 function AuthNavigator() {
@@ -138,6 +140,29 @@ function ProfileTab() {
   );
 }
 
+function OnboardingNavigator() {
+  return (
+    <OnboardingStack.Navigator
+      screenOptions={{
+        contentStyle: { backgroundColor: colors.background },
+        headerTransparent: true,
+        header: (props) => <AnimatedStackHeader {...props} animateOnScroll={false} />,
+      }}
+    >
+      <OnboardingStack.Screen
+        name="OnboardingWelcome"
+        component={OnboardingScreen}
+        options={{ headerShown: false }}
+      />
+      <OnboardingStack.Screen
+        name="EditDog"
+        component={EditDogScreen}
+        options={{ title: 'Add Dog' }}
+      />
+    </OnboardingStack.Navigator>
+  );
+}
+
 function MainTabs() {
   const { scrollDirection } = useScrollDirection();
   const tabBarStyle = React.useMemo(
@@ -169,7 +194,7 @@ function MainTabs() {
 }
 
 export function RootNavigator() {
-  const { session, setSession, user } = useAuthStore();
+  const { session, setSession, user, needsOnboarding } = useAuthStore();
   const [loading, setLoading] = React.useState(true);
 
   useEffect(() => {
@@ -208,7 +233,11 @@ export function RootNavigator() {
         }}
       >
         {session && user ? (
-          <RootStack.Screen name="Main" component={MainTabs} />
+          needsOnboarding ? (
+            <RootStack.Screen name="Onboarding" component={OnboardingNavigator} />
+          ) : (
+            <RootStack.Screen name="Main" component={MainTabs} />
+          )
         ) : (
           <RootStack.Screen name="Auth" component={AuthNavigator} />
         )}

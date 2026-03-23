@@ -40,12 +40,13 @@ import type {
 } from '@/types';
 import { useStackHeaderHeight } from '@/hooks/useStackHeaderHeight';
 import { colors, shadow } from '@/theme';
-import type { ProfileStackParamList } from '@/navigation/types';
+import type { ProfileStackParamList, OnboardingStackParamList } from '@/navigation/types';
 
 export function EditDogScreen() {
   const navigation = useNavigation();
-  const route = useRoute<RouteProp<ProfileStackParamList, 'EditDog'>>();
+  const route = useRoute<RouteProp<ProfileStackParamList | OnboardingStackParamList, 'EditDog'>>();
   const dogId = route.params?.dogId;
+  const fromOnboarding = route.params?.fromOnboarding ?? false;
   const { user } = useAuthStore();
   const queryClient = useQueryClient();
   const headerHeight = useStackHeaderHeight();
@@ -187,7 +188,11 @@ export function EditDogScreen() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['dogs', user?.id] });
       queryClient.invalidateQueries({ queryKey: ['dog', user?.id] });
-      navigation.goBack();
+      if (fromOnboarding) {
+        useAuthStore.getState().setNeedsOnboarding(false);
+      } else {
+        navigation.goBack();
+      }
     },
     onError: (err: Error) => setError(err.message),
   });

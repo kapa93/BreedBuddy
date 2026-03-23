@@ -15,7 +15,7 @@ export async function pickImages(maxCount = 5): Promise<ImagePickResult[]> {
   }
 
   const result = await ImagePicker.launchImageLibraryAsync({
-    mediaTypes: ImagePicker.MediaTypeOptions.Images,
+    mediaTypes: 'images',
     allowsMultipleSelection: true,
     selectionLimit: maxCount,
     quality: 0.8,
