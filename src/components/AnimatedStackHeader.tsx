@@ -80,7 +80,7 @@ export function AnimatedStackHeader({
         headerStyle={[
           options.headerStyle,
           {
-            backgroundColor: colors.background,
+            backgroundColor: colors.surface,
             height: headerHeight,
             borderBottomWidth: 0,
             elevation: 0,

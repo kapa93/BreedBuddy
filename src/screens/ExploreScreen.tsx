@@ -62,26 +62,35 @@ export function ExploreScreen({
               onPress={() => navigation.navigate("BreedFeed", { breed: item.breed })}
             >
               {({ pressed }) => (
-                <ImageBackground
-                  style={[styles.card, pressed && styles.pressed]}
-                  imageStyle={[
-                    styles.cardImage,
-                    item.breed === "AUSTRALIAN_SHEPHERD" && styles.aussieCardImage,
-                    item.breed === "FRENCH_BULLDOG" && styles.frenchieCardImage,
-                    item.breed === "HUSKY" && styles.huskyCardImage,
-                  ]}
-                  source={item.image}
-                  resizeMode="cover"
-                >
-                  <View style={styles.overlay} />
-                  <Text style={styles.cardLabel}>
-                    {item.breed === "AUSTRALIAN_SHEPHERD"
-                      ? "Aussie"
-                      : item.breed === "FRENCH_BULLDOG"
-                        ? "Frenchie"
-                        : item.label}
-                  </Text>
-                </ImageBackground>
+                <View style={styles.cardShadow}>
+                  <ImageBackground
+                    style={[styles.card, pressed && styles.pressed]}
+                    imageStyle={[
+                      styles.cardImage,
+                      item.breed === "AUSTRALIAN_SHEPHERD" && styles.aussieCardImage,
+                      item.breed === "FRENCH_BULLDOG" && styles.frenchieCardImage,
+                      item.breed === "GOLDEN_RETRIEVER" && styles.goldenCardImage,
+                      item.breed === "HUSKY" && styles.huskyCardImage,
+                      item.breed === "LABRADOR_RETRIEVER" && styles.labCardImage,
+                      item.breed === "PIT_BULL" && styles.pitbullCardImage,
+                    ]}
+                    source={item.image}
+                    resizeMode="cover"
+                  >
+                    <View style={styles.overlay} />
+                    <Text style={styles.cardLabel}>
+                      {item.breed === "AUSTRALIAN_SHEPHERD"
+                        ? "Aussie"
+                        : item.breed === "FRENCH_BULLDOG"
+                          ? "Frenchie"
+                          : item.breed === "GOLDEN_RETRIEVER"
+                            ? "Golden"
+                            : item.breed === "LABRADOR_RETRIEVER"
+                              ? "Labrador"
+                          : item.label}
+                    </Text>
+                  </ImageBackground>
+                </View>
               )}
             </Pressable>
           ))}
@@ -115,14 +124,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.sm,
+    marginTop: 15,
   },
   title: {
     ...typography.titleXL,
+    fontSize: 26,
+    lineHeight: 30,
   },
   subtitle: {
     ...typography.bodyMuted,
-    marginTop: spacing.xs,
-    marginBottom: spacing.lg,
+    marginTop: 3,
+    marginBottom: 25,
     textAlign: "center",
   },
   gridWrap: {
@@ -146,17 +158,34 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     padding: spacing.md,
   },
+  cardShadow: {
+    borderRadius: radius.xl,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.18,
+    shadowRadius: 8,
+    elevation: 6,
+  },
   cardImage: {
     borderRadius: radius.xl,
   },
   aussieCardImage: {
-    transform: [{ scale: 1.15 }, { translateX: 10 }, { translateY: 5 }],
+    transform: [{ scale: 1.15 }, { translateX: 10 }, { translateY: 3 }],
   },
   frenchieCardImage: {
     transform: [{ scale: 1.75 }, { translateX: 11 }, { translateY: -1 }],
   },
+  goldenCardImage: {
+    transform: [{ scale: 1.3 }, { translateX: 10 }, { translateY: 5 }],
+  },
   huskyCardImage: {
-    transform: [{ scale: 1.3 }, { translateX: 5 }, { translateY: 15 }],
+    transform: [{ scale: 1.6 }, { translateX: 5 }, { translateY: 15 }],
+  },
+  labCardImage: {
+    transform: [{ scale: 1.4 }, { translateX: 7 }, { translateY: 11 }],
+  },
+  pitbullCardImage: {
+    transform: [{ scale: 1.3 }, { translateX: 6 }, { translateY: 4 }],
   },
   overlay: {
     position: "absolute",
@@ -169,11 +198,12 @@ const styles = StyleSheet.create({
   cardLabel: {
     fontSize: 20,
     lineHeight: 20,
+    letterSpacing: 0.4,
     fontWeight: "800",
     color: colors.surface,
-    textAlign: "right",
+    textAlign: "left",
     width: "100%",
-    paddingRight: 5,
+    paddingLeft: 5,
     zIndex: 1,
   },
   pressed: { opacity: 0.92 },

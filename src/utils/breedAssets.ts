@@ -6,7 +6,7 @@ import { BREED_LABELS } from "@/utils/breed";
 /** Local breed images for pack grid (assets/breeds) */
 const BREED_PACK_IMAGES: Record<BreedEnum, ImageSourcePropType> = {
   AUSTRALIAN_SHEPHERD: require("../../assets/breeds/aussie-head.png"),
-  HUSKY: require("../../assets/breeds/husky.jpg"),
+  HUSKY: require("../../assets/breeds/husky.png"),
   GOLDEN_RETRIEVER: require("../../assets/breeds/golden.png"),
   FRENCH_BULLDOG: require("../../assets/breeds/frenchie.png"),
   PIT_BULL: require("../../assets/breeds/pitbull.png"),
