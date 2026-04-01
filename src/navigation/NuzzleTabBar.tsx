@@ -94,15 +94,14 @@ export function NuzzleTabBar({ state, navigation }: BottomTabBarProps) {
   const createButtonPress = useSharedValue(0);
   const createButtonScale = useSharedValue(1);
   const prevIndexRef = useRef(state.index);
-  // Scroll-based hide: animate translateY when scrolling down (always visible on Explore)
+  // Scroll-based hide: animate translateY when scrolling down
   const translateY = useSharedValue(0);
-  const isExplore = state.routeNames[state.index] === "Explore";
   useEffect(() => {
-    const shouldHide = !isExplore && scrollDirection === "down";
+    const shouldHide = scrollDirection === "down";
     translateY.value = withTiming(shouldHide ? TAB_BAR_HIDE_OFFSET : 0, {
       duration: 220,
     });
-  }, [scrollDirection, isExplore]);
+  }, [scrollDirection]);
 
   const animatedBarStyle = useAnimatedStyle(() => {
     const opacity = interpolate(

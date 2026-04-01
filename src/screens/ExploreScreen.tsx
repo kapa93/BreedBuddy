@@ -11,9 +11,8 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { getPackItems } from "@/utils/breedAssets";
-import { useScrollDirectionUpdater } from "@/context/ScrollDirectionContext";
+import { useScrollDirection, useScrollDirectionUpdater } from "@/context/ScrollDirectionContext";
 import { useStackHeaderHeight } from "@/hooks/useStackHeaderHeight";
-import { ScreenWithWallpaper } from "@/components/ScreenWithWallpaper";
 import { colors, radius, spacing, typography } from "@/theme";
 
 const CARD_GAP = spacing.md;
@@ -27,16 +26,21 @@ export function ExploreScreen({
 }) {
   const { width } = useWindowDimensions();
   const { onScroll } = useScrollDirectionUpdater();
+  const { scrollDirection } = useScrollDirection();
   const headerHeight = useStackHeaderHeight();
   const cardWidth = (width - H_PADDING * 2 - CARD_GAP * (NUM_COLUMNS - 1)) / NUM_COLUMNS;
   const packItems = getPackItems();
 
   return (
-    <ScreenWithWallpaper>
+    <View style={styles.screen}>
       <SafeAreaView style={styles.safe} edges={["left", "right"]}>
       <ScrollView
         style={styles.container}
-        contentContainerStyle={[styles.content, { paddingTop: headerHeight }]}
+        contentContainerStyle={[
+          styles.content,
+          { paddingTop: headerHeight },
+          scrollDirection === "down" && styles.contentBarHidden,
+        ]}
         showsVerticalScrollIndicator={false}
         onScroll={onScroll}
         scrollEventThrottle={16}
@@ -63,6 +67,7 @@ export function ExploreScreen({
                   imageStyle={[
                     styles.cardImage,
                     item.breed === "AUSTRALIAN_SHEPHERD" && styles.aussieCardImage,
+                    item.breed === "FRENCH_BULLDOG" && styles.frenchieCardImage,
                     item.breed === "HUSKY" && styles.huskyCardImage,
                   ]}
                   source={item.image}
@@ -70,7 +75,11 @@ export function ExploreScreen({
                 >
                   <View style={styles.overlay} />
                   <Text style={styles.cardLabel}>
-                    {item.breed === "AUSTRALIAN_SHEPHERD" ? "Aussie" : item.label}
+                    {item.breed === "AUSTRALIAN_SHEPHERD"
+                      ? "Aussie"
+                      : item.breed === "FRENCH_BULLDOG"
+                        ? "Frenchie"
+                        : item.label}
                   </Text>
                 </ImageBackground>
               )}
@@ -80,17 +89,21 @@ export function ExploreScreen({
         </View>
       </ScrollView>
       </SafeAreaView>
-    </ScreenWithWallpaper>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  screen: { flex: 1, backgroundColor: colors.background },
   safe: { flex: 1 },
   container: { flex: 1 },
   content: {
     paddingHorizontal: H_PADDING,
     paddingTop: spacing.sm,
     paddingBottom: spacing.xxxl,
+  },
+  contentBarHidden: {
+    paddingBottom: spacing.sm,
   },
   header: {
     alignItems: "center",
@@ -137,7 +150,10 @@ const styles = StyleSheet.create({
     borderRadius: radius.xl,
   },
   aussieCardImage: {
-    transform: [{ scale: 1.3 }, { translateX: 10 }, { translateY: 5 }],
+    transform: [{ scale: 1.15 }, { translateX: 10 }, { translateY: 5 }],
+  },
+  frenchieCardImage: {
+    transform: [{ scale: 1.75 }, { translateX: 11 }, { translateY: -1 }],
   },
   huskyCardImage: {
     transform: [{ scale: 1.3 }, { translateX: 5 }, { translateY: 15 }],

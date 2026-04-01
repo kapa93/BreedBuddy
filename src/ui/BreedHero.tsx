@@ -2,6 +2,8 @@ import React from "react";
 import { ImageBackground, ImageSourcePropType, StyleSheet, Text, View, Pressable } from "react-native";
 import { colors, radius, spacing, typography } from "../theme";
 
+const HERO_HEIGHT = 230;
+
 export function BreedHero({
   title,
   image,
@@ -47,18 +49,18 @@ export function BreedHero({
 }
 
 const styles = StyleSheet.create({
-  hero: { height: 210, borderRadius: radius.xl, overflow: "hidden", padding: spacing.xl, justifyContent: "space-between", marginBottom: spacing.lg },
+  hero: { height: HERO_HEIGHT, overflow: "hidden", padding: spacing.xl, justifyContent: "space-between" },
   heroCompact: { marginBottom: 0 },
-  image: { borderRadius: radius.xl },
+  image: {},
   overlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: "rgba(0,0,0,0.25)",
   },
-  topRow: { flexDirection: "row", justifyContent: "flex-start" },
+  topRow: { flexDirection: "row", justifyContent: "flex-start", marginTop: 2 },
   joinedPill: { backgroundColor: "rgba(255, 255, 255, 0.88)", borderRadius: radius.lg, paddingHorizontal: spacing.lg, paddingVertical: spacing.sm },
   joinedPillPressed: { opacity: 0.85 },
   joinedText: { fontSize: 15, fontWeight: "700", color: "#2E3834" },
   titleWrap: {},
   titlePressed: { opacity: 0.9 },
-  title: { ...typography.titleXL, color: "#FFFFFF", maxWidth: "72%", marginBottom: spacing.xxs },
+  title: { ...typography.titleXL, fontSize: 32, lineHeight: 37, color: "#FFFFFF", maxWidth: "72%", marginBottom: spacing.xxs },
 });

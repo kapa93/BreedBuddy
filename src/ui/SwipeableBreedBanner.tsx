@@ -17,6 +17,7 @@ import { colors, radius, shadow, spacing, typography } from "@/theme";
 import type { BreedEnum } from "@/types";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
+const HERO_HEIGHT = 230;
 
 type Props = {
   breeds: BreedEnum[];
@@ -61,7 +62,7 @@ export function SwipeableBreedBanner({
   if (breeds.length === 0) return null;
 
   return (
-    <View style={[styles.container, { width: SCREEN_WIDTH, marginHorizontal: -spacing.lg }]}>
+    <View style={[styles.container, { width: SCREEN_WIDTH }]}>
       <ScrollView
         ref={scrollRef}
         horizontal
@@ -139,14 +140,12 @@ export function SwipeableBreedBanner({
 
 const styles = StyleSheet.create({
   container: {
-    height: 210,
-    marginBottom: spacing.lg,
+    height: HERO_HEIGHT,
   },
   scrollContent: {},
   page: {
     width: SCREEN_WIDTH,
-    height: 210,
-    paddingHorizontal: spacing.lg,
+    height: HERO_HEIGHT,
     justifyContent: "center",
   },
   dotsRow: {

@@ -80,7 +80,7 @@ function ExploreTab() {
       screenOptions={{
         contentStyle: { backgroundColor: colors.background },
         headerTransparent: true,
-        header: (props) => <AnimatedStackHeader {...props} animateOnScroll={false} />,
+        header: (props) => <AnimatedStackHeader {...props} animateOnScroll />,
       }}
     >
       <Stack.Screen name="ExploreList" component={ExploreScreen} options={{ title: 'Explore' }} />

@@ -342,8 +342,8 @@ export function BreedFeedScreen() {
 const styles = StyleSheet.create({
   safe: { flex: 1 },
   container: { flex: 1 },
-  heroSection: { paddingHorizontal: spacing.lg, marginTop: spacing.lg, marginBottom: spacing.sm },
-  tabsSection: { paddingLeft: spacing.lg, paddingRight: 0, marginTop: -spacing.xs, marginBottom: spacing.sm },
+  heroSection: { marginBottom: 20 },
+  tabsSection: { paddingLeft: spacing.lg, paddingRight: 0, marginTop: -spacing.xs, marginBottom: spacing.xs },
   cardWrap: { paddingHorizontal: spacing.lg, marginBottom: spacing.sm },
   listContent: { paddingBottom: spacing.xxxl },
   listContentBarHidden: { paddingBottom: spacing.sm },

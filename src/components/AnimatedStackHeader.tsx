@@ -26,7 +26,7 @@ export function AnimatedStackHeader({
 }: Props) {
   const { width, height: screenHeight } = useWindowDimensions();
   const insets = useSafeAreaInsets();
-  const headerHeight = 39 + insets.top; // 39 = 5px shorter than default (44)
+  const headerHeight = 44 + insets.top; // 39 = 5px shorter than default (44)
   const { scrollDirection } = useScrollDirection();
   const translateY = useSharedValue(0);
 
@@ -69,7 +69,7 @@ export function AnimatedStackHeader({
         headerTitle={() => (
           <Image
             source={require("../../assets/breeds/nuzzle-logo.png")}
-            style={{ width: 166, height: 38, marginTop: 0 }}
+            style={{ width: 172, height: 40, marginTop: -9 }}
             resizeMode="contain"
           />
         )}
