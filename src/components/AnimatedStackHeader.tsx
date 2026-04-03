@@ -15,10 +15,18 @@ import type { NativeStackHeaderProps } from "@react-navigation/native-stack";
 const HEADER_HIDE_OFFSET = 120;
 const HEADER_ANIM_DURATION = 220;
 
-type Props = NativeStackHeaderProps & { animateOnScroll?: boolean };
+type Props = NativeStackHeaderProps & {
+  animateOnScroll?: boolean;
+  includeTopInset?: boolean;
+  baseHeaderHeight?: number;
+  titleImageMarginTop?: number;
+};
 
 export function AnimatedStackHeader({
   animateOnScroll = false,
+  includeTopInset = true,
+  baseHeaderHeight = 44,
+  titleImageMarginTop = -9,
   options,
   route,
   navigation,
@@ -26,7 +34,8 @@ export function AnimatedStackHeader({
 }: Props) {
   const { width, height: screenHeight } = useWindowDimensions();
   const insets = useSafeAreaInsets();
-  const headerHeight = 44 + insets.top; // 39 = 5px shorter than default (44)
+  const topInset = includeTopInset ? insets.top : 0;
+  const headerHeight = baseHeaderHeight + topInset;
   const { scrollDirection } = useScrollDirection();
   const translateY = useSharedValue(0);
 
@@ -49,6 +58,14 @@ export function AnimatedStackHeader({
     };
   });
 
+  const defaultHeaderTitle = () => (
+    <Image
+      source={require("../../assets/breeds/nuzzle-logo.png")}
+      style={{ width: 178.79, height: 41.58, marginTop: titleImageMarginTop }}
+      resizeMode="contain"
+    />
+  );
+
   return (
     <View
       style={{
@@ -68,7 +85,7 @@ export function AnimatedStackHeader({
           top: 0,
           left: 0,
           right: 0,
-          height: insets.top,
+          height: topInset,
           backgroundColor: colors.surface,
           zIndex: 0,
         }}
@@ -77,17 +94,12 @@ export function AnimatedStackHeader({
         <Header
           layout={{ width, height: screenHeight }}
           title={getHeaderTitle(options, route.name)}
-          headerTitle={() => (
-            <Image
-              source={require("../../assets/breeds/nuzzle-logo.png")}
-              style={{ width: 178.79, height: 41.58, marginTop: -9 }}
-              resizeMode="contain"
-            />
-          )}
+          headerTitle={options.headerTitle ?? defaultHeaderTitle}
           headerLeft={options.headerLeft}
           headerRight={options.headerRight}
           headerTransparent={false}
           headerTintColor={options.headerTintColor}
+          headerStatusBarHeight={topInset}
           headerStyle={[
             options.headerStyle,
             {

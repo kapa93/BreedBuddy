@@ -4,6 +4,7 @@ export type RootStackParamList = {
   Auth: undefined;
   Onboarding: undefined;
   Main: undefined;
+  CreatePostModal: { breed?: BreedEnum; initialType?: PostTypeEnum } | undefined;
 };
 
 export type OnboardingStackParamList = {

@@ -180,7 +180,7 @@ export function NuzzleTabBar({ state, navigation }: BottomTabBarProps) {
             return (
               <View key={item.key} style={styles.centerWrap}>
                 <AnimatedPressable
-                  onPress={() => navigation.navigate("Create")}
+                  onPress={() => navigation.getParent()?.navigate("CreatePostModal" as never)}
                   onPressIn={() => {
                     createButtonPress.value = withTiming(
                       1,

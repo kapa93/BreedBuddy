@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, Text, ActivityIndicator, StyleSheet, Pressable } from 'react-native';
 import { supabase } from '@/lib/supabase';
 import { useAuthStore } from '@/store/authStore';
 import type { RootStackParamList, AuthStackParamList, MainTabParamList, OnboardingStackParamList } from './types';
@@ -27,6 +27,7 @@ import { SearchScreen } from '@/screens/SearchScreen';
 import { AnimatedStackHeader } from '@/components/AnimatedStackHeader';
 import { useScrollDirection } from '@/context/ScrollDirectionContext';
 import { colors } from '@/theme';
+import { Ionicons } from '@expo/vector-icons';
 import type {
   ExploreStackParamList,
   HomeStackParamList,
@@ -95,23 +96,8 @@ function ExploreTab() {
   );
 }
 
-function CreateTab() {
-  const Stack = createNativeStackNavigator();
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        contentStyle: { backgroundColor: colors.background },
-        headerTransparent: true,
-        header: (props) => <AnimatedStackHeader {...props} animateOnScroll />,
-      }}
-    >
-      <Stack.Screen
-        name="CreatePost"
-        component={CreatePostScreen}
-        options={{ title: 'Pawst' }}
-      />
-    </Stack.Navigator>
-  );
+function EmptyCreateTab() {
+  return <View style={{ flex: 1, backgroundColor: colors.background }} />;
 }
 
 function ProfileTab() {
@@ -186,7 +172,7 @@ function MainTabs() {
     >
       <Tab.Screen name="Home" component={HomeTab} />
       <Tab.Screen name="Explore" component={ExploreTab} />
-      <Tab.Screen name="Create" component={CreateTab} />
+      <Tab.Screen name="Create" component={EmptyCreateTab} />
       <Tab.Screen name="Notifications" component={NotificationsScreen} />
       <Tab.Screen name="Profile" component={ProfileTab} />
     </Tab.Navigator>
@@ -236,11 +222,57 @@ export function RootNavigator() {
           needsOnboarding ? (
             <RootStack.Screen name="Onboarding" component={OnboardingNavigator} />
           ) : (
-            <RootStack.Screen
-              name="Main"
-              component={MainTabs}
-              options={{ animation: onboardingDog ? 'none' : 'default' }}
-            />
+            <>
+              <RootStack.Screen
+                name="Main"
+                component={MainTabs}
+                options={{ animation: onboardingDog ? 'none' : 'default' }}
+              />
+              <RootStack.Screen
+                name="CreatePostModal"
+                component={CreatePostScreen}
+                options={{
+                  title: 'Pawst',
+                  headerShown: true,
+                  headerTransparent: true,
+                  contentStyle: {
+                    backgroundColor: colors.background,
+                    borderTopLeftRadius: 28,
+                    borderTopRightRadius: 28,
+                    overflow: 'hidden',
+                  },
+                  header: (props) => (
+                    <AnimatedStackHeader
+                      {...props}
+                      options={{
+                        ...props.options,
+                        headerTitle: () => (
+                          <Text style={styles.modalHeaderTitle}>New post</Text>
+                        ),
+                        headerLeft: () => null,
+                        headerRight: () => (
+                          <Pressable
+                            onPress={() => props.navigation.goBack()}
+                            hitSlop={8}
+                            style={styles.modalCloseButton}
+                            accessibilityRole="button"
+                            accessibilityLabel="Close create post modal"
+                          >
+                            <Ionicons name="close" size={27} color="#111827" />
+                          </Pressable>
+                        ),
+                      }}
+                      animateOnScroll={false}
+                      includeTopInset={false}
+                      baseHeaderHeight={58}
+                      titleImageMarginTop={3}
+                    />
+                  ),
+                  presentation: 'modal',
+                  animation: 'slide_from_bottom',
+                }}
+              />
+            </>
           )
         ) : (
           <RootStack.Screen name="Auth" component={AuthNavigator} />
@@ -261,5 +293,15 @@ const styles = StyleSheet.create({
     marginTop: 12,
     fontSize: 16,
     color: '#5B6A61',
+  },
+  modalCloseButton: {
+    paddingHorizontal: 5,
+    paddingVertical: 3,
+    marginRight: 8,
+  },
+  modalHeaderTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    color: '#111827',
   },
 });
