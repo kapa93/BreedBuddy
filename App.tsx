@@ -1,15 +1,42 @@
 import 'react-native-url-polyfill/auto';
 import React, { useEffect } from 'react';
-import { Linking, View, StyleSheet } from 'react-native';
+import { Linking, View, StyleSheet, Text, TextInput, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import {
+  Lato_400Regular,
+  Lato_700Bold,
+  Lato_900Black,
+  useFonts,
+} from '@expo-google-fonts/lato';
 import { RootNavigator } from '@/navigation/RootNavigator';
 import { ScrollDirectionProvider } from '@/context/ScrollDirectionContext';
 import { colors } from '@/theme';
 import { supabase } from '@/lib/supabase';
 import { useAuthStore } from '@/store/authStore';
 import { isAuthCallbackUrl } from '@/api/auth';
+
+type ComponentWithDefaultStyle = {
+  defaultProps?: { style?: unknown };
+};
+
+const defaultFontFamily =
+  Platform.OS === 'web' ? "'Lato', sans-serif" : 'Lato_400Regular';
+
+function applyGlobalDefaultFont() {
+  const textDefaultStyle = { fontFamily: defaultFontFamily };
+  const applyStyle = (component: ComponentWithDefaultStyle) => {
+    const currentDefaultStyle = component.defaultProps?.style;
+    component.defaultProps = {
+      ...component.defaultProps,
+      style: StyleSheet.flatten([currentDefaultStyle, textDefaultStyle]),
+    };
+  };
+
+  applyStyle(Text as unknown as ComponentWithDefaultStyle);
+  applyStyle(TextInput as unknown as ComponentWithDefaultStyle);
+}
 
 function parseAuthParamsFromUrl(url: string): { access_token?: string; refresh_token?: string } {
   const hashIndex = url.indexOf('#');
@@ -46,6 +73,16 @@ const queryClient = new QueryClient({
 });
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    Lato_400Regular,
+    Lato_700Bold,
+    Lato_900Black,
+  });
+
+  useEffect(() => {
+    if (fontsLoaded) applyGlobalDefaultFont();
+  }, [fontsLoaded]);
+
   useEffect(() => {
     Linking.getInitialURL().then((url) => {
       if (url) handleAuthUrl(url);
@@ -53,6 +90,8 @@ export default function App() {
     const sub = Linking.addEventListener('url', ({ url }) => handleAuthUrl(url));
     return () => sub.remove();
   }, []);
+
+  if (!fontsLoaded) return null;
 
   return (
     <QueryClientProvider client={queryClient}>

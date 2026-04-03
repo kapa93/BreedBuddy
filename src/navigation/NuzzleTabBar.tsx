@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, Pressable, StyleSheet } from "react-native";
+import { View, Pressable, StyleSheet, Platform } from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -275,7 +275,9 @@ const styles = StyleSheet.create({
   },
   labelActive: {
     color: colors.primary,
-    fontWeight: "700",
+    ...(Platform.OS === "web"
+      ? { fontFamily: "'Lato', sans-serif", fontWeight: "700" as const }
+      : { fontFamily: "Lato_700Bold" as const }),
   },
   labelInactive: {
     color: colors.textMuted,

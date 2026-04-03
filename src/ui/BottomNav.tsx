@@ -1,5 +1,5 @@
 import React from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View, Platform } from "react-native";
 import { colors, shadow, spacing, typography } from "../theme";
 
 type Item = { key: string; label: string; icon: string };
@@ -35,9 +35,21 @@ const styles = StyleSheet.create({
   centerWrap: { alignItems: "center", flex: 1, marginTop: -spacing.xl },
   centerButton: { width: 52, height: 52, borderRadius: 26, backgroundColor: colors.primary, alignItems: "center", justifyContent: "center", ...shadow.sm },
   centerIcon: { color: "#FFFFFF", fontSize: 22, fontWeight: "800" },
-  centerText: { ...typography.caption, marginTop: spacing.xs, color: colors.textPrimary, fontWeight: "700" },
+  centerText: {
+    ...typography.caption,
+    marginTop: spacing.xs,
+    color: colors.textPrimary,
+    ...(Platform.OS === "web"
+      ? { fontFamily: "'Lato', sans-serif", fontWeight: "700" as const }
+      : { fontFamily: "Lato_700Bold" as const }),
+  },
   icon: { fontSize: 22, color: colors.textMuted },
   iconActive: { color: colors.primary },
   label: { ...typography.caption, marginTop: spacing.xs },
-  labelActive: { color: colors.primary, fontWeight: "700" },
+  labelActive: {
+    color: colors.primary,
+    ...(Platform.OS === "web"
+      ? { fontFamily: "'Lato', sans-serif", fontWeight: "700" as const }
+      : { fontFamily: "Lato_700Bold" as const }),
+  },
 });

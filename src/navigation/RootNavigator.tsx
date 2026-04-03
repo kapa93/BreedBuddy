@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { View, Text, ActivityIndicator, StyleSheet, Pressable } from 'react-native';
+import { View, Text, ActivityIndicator, StyleSheet, Pressable, Platform } from 'react-native';
 import { supabase } from '@/lib/supabase';
 import { useAuthStore } from '@/store/authStore';
 import type { RootStackParamList, AuthStackParamList, MainTabParamList, OnboardingStackParamList } from './types';
@@ -300,8 +300,10 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   modalHeaderTitle: {
+    ...(Platform.OS === 'web'
+      ? { fontFamily: "'Lato', sans-serif", fontWeight: '700' as const }
+      : { fontFamily: 'Lato_700Bold' as const }),
     fontSize: 20,
-    fontWeight: '700',
     color: '#111827',
   },
 });

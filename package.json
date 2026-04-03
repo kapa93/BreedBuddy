@@ -14,6 +14,7 @@
     "seed:dog-interactions:reset": "tsx scripts/seedDogInteractions.ts --reset"
   },
   "dependencies": {
+    "@expo-google-fonts/lato": "^0.4.1",
     "@expo/vector-icons": "^15.0.2",
     "@react-native-async-storage/async-storage": "2.2.0",
     "@react-native-community/datetimepicker": "8.6.0",

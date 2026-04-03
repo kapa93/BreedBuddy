@@ -7,6 +7,7 @@ import {
   useWindowDimensions,
   Pressable,
   ImageBackground,
+  Platform,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
@@ -199,7 +200,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     lineHeight: 20,
     letterSpacing: 0.4,
-    fontWeight: "800",
+    ...(Platform.OS === "web"
+      ? { fontFamily: "'Lato', sans-serif", fontWeight: "700" as const }
+      : { fontFamily: "Lato_700Bold" as const }),
     color: colors.surface,
     textAlign: "left",
     width: "100%",
