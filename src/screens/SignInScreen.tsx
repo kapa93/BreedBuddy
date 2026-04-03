@@ -6,8 +6,9 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   StyleSheet,
-  KeyboardAvoidingView,
+  Keyboard,
   Platform,
   ActivityIndicator,
 } from 'react-native';
@@ -44,6 +45,7 @@ export function SignInScreen() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
   const marqueeX = useSharedValue(0);
 
   useEffect(() => {
@@ -65,6 +67,23 @@ export function SignInScreen() {
       cancelAnimation(marqueeX);
     };
   }, [marqueeX]);
+
+  useEffect(() => {
+    const showEvent = Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow';
+    const hideEvent = Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide';
+
+    const showSub = Keyboard.addListener(showEvent, e => {
+      setKeyboardHeight(e.endCoordinates.height);
+    });
+    const hideSub = Keyboard.addListener(hideEvent, () => {
+      setKeyboardHeight(0);
+    });
+
+    return () => {
+      showSub.remove();
+      hideSub.remove();
+    };
+  }, []);
 
   const marqueeStyle = useAnimatedStyle(() => ({
     transform: [{ translateX: marqueeX.value }],
@@ -91,10 +110,8 @@ export function SignInScreen() {
 
   return (
     <ScreenWithWallpaper>
-      <KeyboardAvoidingView
-        style={styles.container}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-      >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={styles.container}>
       <View style={styles.contentShiftUp}>
         <Image
           source={require('../../assets/dog-linear.png')}
@@ -156,7 +173,12 @@ export function SignInScreen() {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.marqueeViewport}>
+      <View
+        style={[
+          styles.marqueeViewport,
+          keyboardHeight > 0 ? styles.marqueeHidden : null,
+        ]}
+      >
         <Animated.View style={[styles.marqueeTrack, marqueeStyle]}>
           <Image
             source={require('../../assets/dog-friends.png')}
@@ -170,7 +192,8 @@ export function SignInScreen() {
           />
         </Animated.View>
       </View>
-    </KeyboardAvoidingView>
+    </View>
+    </TouchableWithoutFeedback>
     </ScreenWithWallpaper>
   );
 }
@@ -208,6 +231,9 @@ const styles = StyleSheet.create({
     bottom: 45,
     height: 220,
     overflow: 'hidden',
+  },
+  marqueeHidden: {
+    opacity: 0,
   },
   marqueeTrack: {
     flexDirection: 'row',

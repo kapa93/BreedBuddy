@@ -116,6 +116,7 @@ export function EditProfileScreen() {
         placeholderTextColor="#9ca3af"
         value={city}
         onChangeText={setCity}
+        autoCapitalize="words"
       />
       {error ? <Text style={styles.error}>{error}</Text> : null}
       <TouchableOpacity

@@ -616,7 +616,7 @@ export function HomeScreen({
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.background },
+  screen: { flex: 1, backgroundColor: colors.surface },
   safe: { flex: 1 },
   container: { flex: 1 },
   dogBeachAlertOverlay: {

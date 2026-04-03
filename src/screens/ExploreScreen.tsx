@@ -103,7 +103,7 @@ export function ExploreScreen({
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.background },
+  screen: { flex: 1, backgroundColor: colors.surface },
   safe: { flex: 1 },
   container: { flex: 1 },
   content: {
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.sm,
-    marginTop: 15,
+    marginTop: 20,
   },
   title: {
     ...typography.titleXL,
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   subtitle: {
     ...typography.bodyMuted,
     marginTop: 3,
-    marginBottom: 25,
+    marginBottom: 30,
     textAlign: "center",
   },
   gridWrap: {
