@@ -5,11 +5,12 @@ import { StatusBar } from 'expo-status-bar';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {
-  Lato_400Regular,
-  Lato_700Bold,
-  Lato_900Black,
+  Inter_400Regular,
+  Inter_600SemiBold,
+  Inter_700Bold,
+  Inter_800ExtraBold,
   useFonts,
-} from '@expo-google-fonts/lato';
+} from '@expo-google-fonts/inter';
 import { RootNavigator } from '@/navigation/RootNavigator';
 import { ScrollDirectionProvider } from '@/context/ScrollDirectionContext';
 import { colors } from '@/theme';
@@ -22,10 +23,14 @@ type ComponentWithDefaultStyle = {
 };
 
 const defaultFontFamily =
-  Platform.OS === 'web' ? "'Lato', sans-serif" : 'Lato_400Regular';
+  Platform.OS === 'web' ? "'Inter', sans-serif" : 'Inter_400Regular';
+const defaultLetterSpacing = -0.12;
 
 function applyGlobalDefaultFont() {
-  const textDefaultStyle = { fontFamily: defaultFontFamily };
+  const textDefaultStyle = {
+    fontFamily: defaultFontFamily,
+    letterSpacing: defaultLetterSpacing,
+  };
   const applyStyle = (component: ComponentWithDefaultStyle) => {
     const currentDefaultStyle = component.defaultProps?.style;
     component.defaultProps = {
@@ -74,9 +79,10 @@ const queryClient = new QueryClient({
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    Lato_400Regular,
-    Lato_700Bold,
-    Lato_900Black,
+    Inter_400Regular,
+    Inter_600SemiBold,
+    Inter_700Bold,
+    Inter_800ExtraBold,
   });
 
   useEffect(() => {

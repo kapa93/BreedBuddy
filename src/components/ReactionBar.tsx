@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Dimensions,
+  Platform,
 } from "react-native";
 import * as Haptics from "expo-haptics";
 import { Bone } from "lucide-react-native";
@@ -79,7 +80,7 @@ export function ReactionBar({ reactions, userReaction, onSelect, onMenuOpenChang
           {showBone ? (
             <View style={styles.iconWrap} pointerEvents="none">
               <Bone
-                size={22}
+                size={18}
                 color={userReaction ? colors.primary : colors.textSecondary}
               />
             </View>
@@ -174,24 +175,19 @@ const styles = StyleSheet.create({
   pressed: {
     opacity: 0.7,
   },
-  iconWrap: { marginRight: spacing.xxs },
+  iconWrap: { marginRight: 3 },
   emoji: {
     fontSize: 18,
-    marginRight: spacing.xs,
-  },
-  label: {
-    ...typography.bodyMuted,
-    fontWeight: "600",
-  },
-  labelActive: {
-    color: colors.primary,
-  },
-  labelInactive: {
-    color: colors.textSecondary,
+    marginRight: 3,
   },
   count: {
     ...typography.bodyMuted,
-    marginLeft: 2,
+    fontSize: 14,
+    lineHeight: 18,
+    marginLeft: 1,
+    ...(Platform.OS === "web"
+      ? { fontFamily: "'Inter', sans-serif", fontWeight: "700" as const }
+      : { fontFamily: "Inter_700Bold" }),
   },
   countActive: {
     color: colors.primary,

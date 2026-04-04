@@ -197,12 +197,21 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.25)",
   },
   cardLabel: {
-    fontSize: 20,
+    fontSize: 19.5,
     lineHeight: 20,
     letterSpacing: 0.4,
-    ...(Platform.OS === "web"
-      ? { fontFamily: "'Lato', sans-serif", fontWeight: "700" as const }
-      : { fontFamily: "Lato_700Bold" as const }),
+    ...Platform.select({
+      ios: { fontFamily: "System", fontWeight: "700" as const },
+      android: { fontFamily: "sans-serif", fontWeight: "700" as const },
+      default: {
+        fontFamily:
+          'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+        fontWeight: "700" as const,
+      },
+    }),
+    textShadowColor: "rgba(0,0,0,0.4)",
+    textShadowOffset: { width: 0, height: 0.75 },
+    textShadowRadius: 1.5,
     color: colors.surface,
     textAlign: "left",
     width: "100%",

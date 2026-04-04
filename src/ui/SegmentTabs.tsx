@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Pressable, ScrollView, StyleSheet } from "react-native";
+import { Platform, Pressable, ScrollView, StyleSheet } from "react-native";
 import Animated, {
   interpolateColor,
   useAnimatedStyle,
@@ -105,5 +105,12 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 4,
   },
-  label: { ...typography.bodyMuted, fontWeight: "700" },
+  label: {
+    ...typography.caption,
+    fontSize: 14,
+    lineHeight: 19,
+    ...(Platform.OS === "web"
+      ? { fontFamily: "'Inter', sans-serif", fontWeight: "600" as const }
+      : { fontFamily: "Inter_600SemiBold" as const }),
+  },
 });

@@ -276,8 +276,8 @@ const styles = StyleSheet.create({
   labelActive: {
     color: colors.primary,
     ...(Platform.OS === "web"
-      ? { fontFamily: "'Lato', sans-serif", fontWeight: "700" as const }
-      : { fontFamily: "Lato_700Bold" as const }),
+      ? { fontFamily: "'Inter', sans-serif", fontWeight: "700" as const }
+      : { fontFamily: "Inter_700Bold" as const }),
   },
   labelInactive: {
     color: colors.textMuted,

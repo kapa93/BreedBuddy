@@ -1,6 +1,6 @@
 import React from "react";
-import { ImageBackground, ImageSourcePropType, StyleSheet, Text, View, Pressable } from "react-native";
-import { colors, radius, spacing, typography } from "../theme";
+import { ImageBackground, ImageSourcePropType, Platform, StyleSheet, Text, View, Pressable } from "react-native";
+import { colors, radius, spacing } from "../theme";
 
 const HERO_HEIGHT = 230;
 
@@ -62,5 +62,24 @@ const styles = StyleSheet.create({
   joinedText: { fontSize: 15, fontWeight: "700", color: "#2E3834" },
   titleWrap: {},
   titlePressed: { opacity: 0.9 },
-  title: { ...typography.titleXL, fontSize: 32, lineHeight: 37, color: "#FFFFFF", maxWidth: "72%", marginBottom: spacing.xxs },
+  title: {
+    fontSize: 32,
+    lineHeight: 37,
+    letterSpacing: 0.3,
+    ...Platform.select({
+      ios: { fontFamily: "System", fontWeight: "700" as const },
+      android: { fontFamily: "sans-serif", fontWeight: "700" as const },
+      default: {
+        fontFamily:
+          'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+        fontWeight: "700" as const,
+      },
+    }),
+    textShadowColor: "rgba(0,0,0,0.4)",
+    textShadowOffset: { width: 0, height: 0.75 },
+    textShadowRadius: 1.5,
+    color: "#FFFFFF",
+    maxWidth: "72%",
+    marginBottom: spacing.xxs,
+  },
 });

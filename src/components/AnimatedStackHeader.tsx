@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Image, useWindowDimensions, View } from "react-native";
+import { Image, StyleSheet, useWindowDimensions, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { getHeaderTitle, Header } from "@react-navigation/elements";
 import Animated, {
@@ -20,6 +20,8 @@ type Props = NativeStackHeaderProps & {
   includeTopInset?: boolean;
   baseHeaderHeight?: number;
   titleImageMarginTop?: number;
+  /** Light bottom border instead of drop shadow */
+  bottomSeparator?: boolean;
 };
 
 export function AnimatedStackHeader({
@@ -27,6 +29,7 @@ export function AnimatedStackHeader({
   includeTopInset = true,
   baseHeaderHeight = 44,
   titleImageMarginTop = -9,
+  bottomSeparator = false,
   options,
   route,
   navigation,
@@ -105,15 +108,25 @@ export function AnimatedStackHeader({
             {
               backgroundColor: colors.surface,
               height: headerHeight,
-              borderBottomWidth: 0,
-              elevation: 4,
-              shadowColor: "#000",
-              shadowOffset: { width: 0, height: 1 },
-              shadowOpacity: 0.08,
-              shadowRadius: 3,
+              ...(bottomSeparator
+                ? {
+                    borderBottomWidth: StyleSheet.hairlineWidth,
+                    borderBottomColor: colors.border,
+                    elevation: 0,
+                    shadowOpacity: 0,
+                    shadowRadius: 0,
+                  }
+                : {
+                    borderBottomWidth: 0,
+                    elevation: 4,
+                    shadowColor: "#000",
+                    shadowOffset: { width: 0, height: 1 },
+                    shadowOpacity: 0.08,
+                    shadowRadius: 3,
+                  }),
             },
           ]}
-          headerShadowVisible
+          headerShadowVisible={!bottomSeparator}
           headerTitleAlign={options.headerTitleAlign}
           back={back}
         />

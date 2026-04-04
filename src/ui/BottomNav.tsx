@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
     marginTop: spacing.xs,
     color: colors.textPrimary,
     ...(Platform.OS === "web"
-      ? { fontFamily: "'Lato', sans-serif", fontWeight: "700" as const }
-      : { fontFamily: "Lato_700Bold" as const }),
+      ? { fontFamily: "'Inter', sans-serif", fontWeight: "700" as const }
+      : { fontFamily: "Inter_700Bold" as const }),
   },
   icon: { fontSize: 22, color: colors.textMuted },
   iconActive: { color: colors.primary },
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   labelActive: {
     color: colors.primary,
     ...(Platform.OS === "web"
-      ? { fontFamily: "'Lato', sans-serif", fontWeight: "700" as const }
-      : { fontFamily: "Lato_700Bold" as const }),
+      ? { fontFamily: "'Inter', sans-serif", fontWeight: "700" as const }
+      : { fontFamily: "Inter_700Bold" as const }),
   },
 });

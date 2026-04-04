@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
-import { Pressable, StyleSheet, Text, View, Modal, TouchableOpacity, Dimensions } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { Pressable, StyleSheet, Text, View, Modal, TouchableOpacity, Dimensions, Platform } from "react-native";
+import { FontAwesome6, Ionicons } from "@expo/vector-icons";
 import Animated, { interpolateColor, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { colors, radius, shadow, spacing, typography } from "../theme";
 import { Avatar } from "./Avatar";
@@ -80,9 +80,14 @@ const QuestionCardInner = ({ data, onPress, onAuthorPress, onReactionSelect, onR
           />
           <View style={styles.headerText}>
             <Text style={styles.author}>{data.author}</Text>
-            <Text style={styles.meta}>{data.authorMeta ?? "Question • 1h ago"}</Text>
+            <Text style={styles.meta}>{data.authorMeta ?? "—"}</Text>
           </View>
         </Pressable>
+        {!!data.badge && (
+          <View style={styles.headerTag}>
+            <TagChip label={data.badge} tone={data.badgeTone ?? "neutral"} />
+          </View>
+        )}
         {showMenu && (
           <Pressable
             ref={menuBtnRef}
@@ -126,12 +131,6 @@ const QuestionCardInner = ({ data, onPress, onAuthorPress, onReactionSelect, onR
         </Modal>
       )}
 
-      {!!data.badge && (
-        <View style={styles.badges}>
-          <TagChip label={data.badge} tone={data.badgeTone ?? "neutral"} />
-        </View>
-      )}
-
       <Text style={styles.title}>{data.title}</Text>
       {!!data.preview && <Text style={styles.preview}>{data.preview}</Text>}
       {!!data.images?.length && <ImageStrip images={data.images} />}
@@ -167,7 +166,10 @@ const QuestionCardInner = ({ data, onPress, onAuthorPress, onReactionSelect, onR
           }}
           style={[styles.answersPill, commentPillAnimatedStyle]}
         >
-          <Text style={styles.answersText}>💬 {getBarksText(data.answerCount ?? 0)}</Text>
+          <View style={styles.answersPillRow}>
+            <FontAwesome6 name="comment" size={16} color={colors.textSecondary} />
+            <Text style={styles.answersText}>{getBarksText(data.answerCount ?? 0)}</Text>
+          </View>
         </AnimatedPressable>
       </View>
     </View>
@@ -187,12 +189,13 @@ export const QuestionCard = React.memo(QuestionCardInner);
 
 const styles = StyleSheet.create({
   card: { backgroundColor: colors.surface, borderRadius: radius.lg, padding: spacing.lg, borderWidth: 1, borderColor: colors.border, marginBottom: spacing.sm, ...shadow.sm },
-  header: { flexDirection: "row", alignItems: "center" },
-  authorPressable: { flex: 1, flexDirection: "row", alignItems: "center" },
-  headerText: { flex: 1, marginLeft: spacing.md },
-  author: { ...typography.subtitle, fontSize: 18 },
+  header: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
+  authorPressable: { flex: 1, flexDirection: "row", alignItems: "center", minWidth: 0 },
+  headerText: { flex: 1, marginLeft: spacing.md, minWidth: 0 },
+  author: { ...typography.subtitle, fontSize: 16, lineHeight: 23 },
   meta: { ...typography.caption },
-  menuBtn: { padding: spacing.xs },
+  headerTag: { flexShrink: 0, justifyContent: "center" },
+  menuBtn: { flexShrink: 0, padding: spacing.xs },
   modalOverlay: {
     flex: 1,
     backgroundColor: "rgba(0,0,0,0.2)",
@@ -220,12 +223,19 @@ const styles = StyleSheet.create({
   menuItemDanger: {},
   menuItemText: { ...typography.body, fontWeight: "600" },
   menuItemTextDanger: { color: "#DC2626" },
-  badges: { flexDirection: "row", alignItems: "center", marginTop: spacing.md, flexWrap: "wrap", gap: spacing.sm },
-  title: { ...typography.titleMD, marginTop: spacing.md },
-  preview: { ...typography.bodyMuted, marginTop: spacing.sm },
+  title: { ...typography.titleMD, fontSize: 21, lineHeight: 28, marginTop: spacing.md },
+  preview: { ...typography.bodyMuted, marginTop: spacing.sm, color: colors.textSupporting },
   actionRow: { flexDirection: "row", alignItems: "center", marginTop: spacing.md, gap: spacing.sm, flexWrap: "wrap" },
   answersPill: { height: 36, justifyContent: "center", backgroundColor: colors.surfaceMuted, borderRadius: radius.pill, borderWidth: 1, borderColor: colors.border, paddingHorizontal: spacing.md },
-  answersText: { ...typography.bodyMuted, fontWeight: "700", fontSize: 14 },
+  answersPillRow: { flexDirection: "row", alignItems: "center", gap: spacing.xs },
+  answersText: {
+    ...typography.bodyMuted,
+    fontSize: 14,
+    lineHeight: 18,
+    ...(Platform.OS === "web"
+      ? { fontFamily: "'Inter', sans-serif", fontWeight: "700" as const }
+      : { fontFamily: "Inter_700Bold" }),
+  },
   pressed: { opacity: 0.95 },
   reactionPlaceholder: { marginTop: spacing.sm },
   reactionPlaceholderText: { ...typography.bodyMuted, fontSize: 14 },

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import { colors, radius, spacing, typography } from "../theme";
 
 type Tone = "neutral" | "question" | "tip" | "story";
@@ -20,6 +20,17 @@ export function TagChip({ label, tone = "neutral" }: { label: string; tone?: Ton
 }
 
 const styles = StyleSheet.create({
-  chip: { paddingHorizontal: spacing.md, paddingVertical: spacing.sm, borderRadius: radius.pill, alignSelf: "flex-start" },
-  label: { ...typography.caption, fontWeight: "700" },
+  chip: {
+    paddingHorizontal: 13,
+    paddingTop: spacing.xs,
+    paddingBottom: spacing.xs + 1,
+    borderRadius: radius.pill,
+    alignSelf: "flex-start",
+  },
+  label: {
+    ...typography.caption,
+    ...(Platform.OS === "web"
+      ? { fontFamily: "'Inter', sans-serif", fontWeight: "700" as const }
+      : { fontFamily: "Inter_700Bold" }),
+  },
 });

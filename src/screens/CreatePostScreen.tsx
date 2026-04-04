@@ -28,16 +28,18 @@ import { Ionicons } from '@expo/vector-icons';
 
 type CreatePostRoute = {
   CreatePost: { breed?: BreedEnum; initialType?: PostTypeEnum };
+  CreatePostModal: { breed?: BreedEnum; initialType?: PostTypeEnum } | undefined;
 };
 
-function latoByWeight(weight: '400' | '500' | '600' | '700' | '800') {
+function interByWeight(weight: '400' | '500' | '600' | '700' | '800') {
   if (Platform.OS === 'web') {
-    return { fontFamily: "'Lato', sans-serif", fontWeight: weight as const };
+    return { fontFamily: "'Inter', sans-serif", fontWeight: weight };
   }
 
-  if (weight === '800') return { fontFamily: 'Lato_900Black' as const };
-  if (weight === '700' || weight === '600') return { fontFamily: 'Lato_700Bold' as const };
-  return { fontFamily: 'Lato_400Regular' as const };
+  if (weight === '800') return { fontFamily: 'Inter_800ExtraBold' as const };
+  if (weight === '700') return { fontFamily: 'Inter_700Bold' as const };
+  if (weight === '600') return { fontFamily: 'Inter_600SemiBold' as const };
+  return { fontFamily: 'Inter_400Regular' as const };
 }
 
 function formatDateTime(d: Date): string {
@@ -56,7 +58,7 @@ function formatDateTimeDisplay(d: Date): string {
 
 export function CreatePostScreen() {
   const navigation = useNavigation();
-  const route = useRoute<RouteProp<CreatePostRoute, 'CreatePost'>>();
+  const route = useRoute<RouteProp<CreatePostRoute, 'CreatePost' | 'CreatePostModal'>>();
   const { user } = useAuthStore();
 
   const { data: dogs } = useQuery({
@@ -66,7 +68,10 @@ export function CreatePostScreen() {
   });
 
   const breed = route.params?.breed ?? dogs?.[0]?.breed ?? 'GOLDEN_RETRIEVER';
-  const headerHeight = useStackHeaderHeight();
+  const headerHeight = useStackHeaderHeight({
+    createPostSheetModal: route.name === 'CreatePostModal',
+    createPostPushed: route.name === 'CreatePost',
+  });
   const queryClient = useQueryClient();
 
   const [content, setContent] = useState('');
@@ -200,8 +205,10 @@ export function CreatePostScreen() {
 
   if (!user) return null;
 
+  const screenBg = route.name === 'CreatePostModal' ? colors.surface : colors.background;
+
   return (
-    <View style={styles.screen}>
+    <View style={[styles.screen, { backgroundColor: screenBg }]}>
       <ScrollView style={styles.container} contentContainerStyle={[styles.content, { paddingTop: headerHeight }]}>
         <Text style={styles.label}>Breed</Text>
         <Text style={styles.breedValue}>{BREED_LABELS[breed]}</Text>
@@ -387,12 +394,12 @@ export function CreatePostScreen() {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.background },
+  screen: { flex: 1 },
   container: { flex: 1 },
   content: { padding: 16, paddingBottom: 90 },
-  label: { ...latoByWeight('600'), fontSize: 14, color: '#374151', marginBottom: 8, marginTop: 16 },
-  optionalLabel: { ...latoByWeight('500'), color: '#6b7280' },
-  breedValue: { ...latoByWeight('400'), fontSize: 16, color: '#1f2937', marginBottom: 8 },
+  label: { ...interByWeight('600'), fontSize: 14, color: '#374151', marginBottom: 8, marginTop: 16 },
+  optionalLabel: { ...interByWeight('500'), color: '#6b7280' },
+  breedValue: { ...interByWeight('400'), fontSize: 16, color: '#1f2937', marginBottom: 8 },
   chipRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   tagScroll: { marginBottom: 8, maxHeight: 44 },
   chip: {
@@ -420,10 +427,10 @@ const styles = StyleSheet.create({
   tagChipSelected: {
     backgroundColor: colors.primary,
   },
-  chipText: { ...latoByWeight('400'), fontSize: 14, color: '#374151' },
-  chipTextSelected: { ...latoByWeight('600'), color: '#FFF' },
+  chipText: { ...interByWeight('400'), fontSize: 14, color: '#374151' },
+  chipTextSelected: { ...interByWeight('600'), color: '#FFF' },
   input: {
-    ...latoByWeight('400'),
+    ...interByWeight('400'),
     borderWidth: 1,
     borderColor: '#d1d5db',
     borderRadius: 12,
@@ -446,12 +453,12 @@ const styles = StyleSheet.create({
     ...shadow.sm,
     marginBottom: 8,
   },
-  dateButtonText: { ...latoByWeight('400'), fontSize: 16, color: '#1f2937' },
+  dateButtonText: { ...interByWeight('400'), fontSize: 16, color: '#1f2937' },
   imageRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 8 },
   thumb: { width: 72, height: 72, borderRadius: 8, overflow: 'hidden', backgroundColor: '#e5e7eb', position: 'relative', ...shadow.sm },
   thumbImage: { width: 72, height: 72 },
   removeOverlay: { position: 'absolute', top: 0, right: 0, width: 24, height: 24, backgroundColor: 'rgba(0,0,0,0.5)', borderRadius: 12, alignItems: 'center', justifyContent: 'center' },
-  removeText: { ...latoByWeight('700'), fontSize: 18, color: '#fff' },
+  removeText: { ...interByWeight('700'), fontSize: 18, color: '#fff' },
   addImage: {
     width: 72,
     height: 72,
@@ -463,8 +470,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     ...shadow.sm,
   },
-  addImageText: { ...latoByWeight('400'), fontSize: 14, color: '#6b7280' },
-  error: { ...latoByWeight('400'), color: '#ef4444', marginTop: 12, fontSize: 14 },
+  addImageText: { ...interByWeight('400'), fontSize: 14, color: '#6b7280' },
+  error: { ...interByWeight('400'), color: '#ef4444', marginTop: 12, fontSize: 14 },
   submit: {
     backgroundColor: colors.primary,
     padding: 16,
@@ -478,5 +485,5 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   submitDisabled: { opacity: 0.7 },
-  submitText: { ...latoByWeight('600'), color: '#FFF', fontSize: 16 },
+  submitText: { ...interByWeight('600'), color: '#FFF', fontSize: 16 },
 });

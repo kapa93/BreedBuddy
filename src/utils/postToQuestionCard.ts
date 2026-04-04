@@ -17,7 +17,7 @@ export function postToQuestionCardData(post: PostWithDetails): QuestionCardData 
     id: post.id,
     author: formatAuthorDisplay(post.author_name, post.author_dog_name),
     authorId: post.author_id,
-    authorMeta: `${POST_TAG_LABELS[post.tag]} • ${formatRelativeTime(post.created_at)}`,
+    authorMeta: formatRelativeTime(post.created_at),
     authorAvatarUri: post.author_dog_image_url,
     breedKey: BREED_TO_COLOR[post.breed],
     badge: POST_TAG_LABELS[post.tag],

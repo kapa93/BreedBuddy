@@ -7,8 +7,9 @@ import {
   Modal,
   TouchableOpacity,
   Dimensions,
+  Platform,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome6, Ionicons } from "@expo/vector-icons";
 import Animated, { interpolateColor, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { Avatar } from "@/ui/Avatar";
 import { ReactionBar } from "@/components/ReactionBar";
@@ -239,7 +240,10 @@ export function MeetupCard({
           }}
           style={[styles.answersPill, commentPillAnimatedStyle]}
         >
-          <Text style={styles.answersText}>💬 {getBarksText(post.comment_count ?? 0)}</Text>
+          <View style={styles.answersPillRow}>
+            <FontAwesome6 name="comment" size={16} color={colors.textSecondary} />
+            <Text style={styles.answersText}>{getBarksText(post.comment_count ?? 0)}</Text>
+          </View>
         </AnimatedPressable>
       </View>
     </View>
@@ -282,7 +286,7 @@ const styles = StyleSheet.create({
   },
   authorPressable: { flex: 1, flexDirection: "row", alignItems: "center" },
   headerText: { flex: 1, marginLeft: spacing.md },
-  author: { ...typography.subtitle, fontSize: 18 },
+  author: { ...typography.subtitle, fontSize: 17, lineHeight: 23 },
   meta: { ...typography.caption },
   menuBtn: { padding: spacing.xs },
   modalOverlay: {
@@ -312,8 +316,8 @@ const styles = StyleSheet.create({
   menuItemDanger: {},
   menuItemText: { ...typography.body, fontWeight: "600" },
   menuItemTextDanger: { color: "#DC2626" },
-  title: { ...typography.titleMD, marginTop: spacing.sm },
-  preview: { ...typography.bodyMuted, marginTop: spacing.xs },
+  title: { ...typography.titleMD, fontSize: 21, lineHeight: 28, marginTop: spacing.sm },
+  preview: { ...typography.bodyMuted, marginTop: spacing.xs, color: colors.textSupporting },
   meetupDetails: {
     marginTop: spacing.md,
     padding: spacing.md,
@@ -371,6 +375,14 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
     paddingHorizontal: spacing.md,
   },
-  answersText: { ...typography.bodyMuted, fontWeight: "700", fontSize: 14 },
+  answersPillRow: { flexDirection: "row", alignItems: "center", gap: spacing.xs },
+  answersText: {
+    ...typography.bodyMuted,
+    fontSize: 14,
+    lineHeight: 18,
+    ...(Platform.OS === "web"
+      ? { fontFamily: "'Inter', sans-serif", fontWeight: "700" as const }
+      : { fontFamily: "Inter_700Bold" }),
+  },
   pressed: { opacity: 0.95 },
 });

@@ -3,12 +3,12 @@ import { colors } from "./colors";
 
 function fontByWeight(weight: "500" | "700" | "800"): TextStyle {
   if (Platform.OS === "web") {
-    return { fontFamily: "'Lato', sans-serif", fontWeight: weight };
+    return { fontFamily: "'Inter', sans-serif", fontWeight: weight };
   }
 
-  if (weight === "800") return { fontFamily: "Lato_900Black" };
-  if (weight === "700") return { fontFamily: "Lato_700Bold" };
-  return { fontFamily: "Lato_400Regular" };
+  if (weight === "800") return { fontFamily: "Inter_800ExtraBold" };
+  if (weight === "700") return { fontFamily: "Inter_700Bold" };
+  return { fontFamily: "Inter_400Regular" };
 }
 
 export const typography: Record<string, TextStyle> = {

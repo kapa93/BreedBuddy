@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { View, Text, ActivityIndicator, StyleSheet, Pressable, Platform } from 'react-native';
+import { View, Text, ActivityIndicator, StyleSheet, Platform } from 'react-native';
 import { supabase } from '@/lib/supabase';
 import { useAuthStore } from '@/store/authStore';
 import type { RootStackParamList, AuthStackParamList, MainTabParamList, OnboardingStackParamList } from './types';
@@ -27,7 +27,10 @@ import { SearchScreen } from '@/screens/SearchScreen';
 import { AnimatedStackHeader } from '@/components/AnimatedStackHeader';
 import { useScrollDirection } from '@/context/ScrollDirectionContext';
 import { colors } from '@/theme';
-import { Ionicons } from '@expo/vector-icons';
+import {
+  CREATE_POST_SHEET_MODAL_HEADER_HEIGHT,
+  CREATE_POST_STACK_HEADER_BAR,
+} from '@/hooks/useStackHeaderHeight';
 import type {
   ExploreStackParamList,
   HomeStackParamList,
@@ -67,7 +70,21 @@ function HomeTab() {
       <Stack.Screen name="DogBeachNow" component={DogBeachNowScreen} options={{ title: 'Dog Beach Now' }} />
       <Stack.Screen name="DogProfile" component={DogProfileScreen} options={{ title: 'Dog' }} />
       <Stack.Screen name="PostDetail" component={PostDetailScreen} options={{ title: 'Post' }} />
-      <Stack.Screen name="CreatePost" component={CreatePostScreen} options={{ title: 'Create Post' }} />
+      <Stack.Screen
+        name="CreatePost"
+        component={CreatePostScreen}
+        options={{
+          title: 'Create Post',
+          header: (props) => (
+            <AnimatedStackHeader
+              {...props}
+              animateOnScroll
+              bottomSeparator
+              baseHeaderHeight={CREATE_POST_STACK_HEADER_BAR}
+            />
+          ),
+        }}
+      />
       <Stack.Screen name="EditPost" component={EditPostScreen} options={{ title: 'Edit Post' }} />
       <Stack.Screen name="UserProfile" component={UserProfileScreen} options={{ title: 'Profile' }} />
     </Stack.Navigator>
@@ -89,7 +106,21 @@ function ExploreTab() {
       <Stack.Screen name="SearchMain" component={SearchScreen} options={{ title: 'Search' }} />
       <Stack.Screen name="DogProfile" component={DogProfileScreen} options={{ title: 'Dog' }} />
       <Stack.Screen name="PostDetail" component={PostDetailScreen} options={{ title: 'Post' }} />
-      <Stack.Screen name="CreatePost" component={CreatePostScreen} options={{ title: 'Create Post' }} />
+      <Stack.Screen
+        name="CreatePost"
+        component={CreatePostScreen}
+        options={{
+          title: 'Create Post',
+          header: (props) => (
+            <AnimatedStackHeader
+              {...props}
+              animateOnScroll
+              bottomSeparator
+              baseHeaderHeight={CREATE_POST_STACK_HEADER_BAR}
+            />
+          ),
+        }}
+      />
       <Stack.Screen name="EditPost" component={EditPostScreen} options={{ title: 'Edit Post' }} />
       <Stack.Screen name="UserProfile" component={UserProfileScreen} options={{ title: 'Profile' }} />
     </Stack.Navigator>
@@ -236,7 +267,7 @@ export function RootNavigator() {
                   headerShown: true,
                   headerTransparent: true,
                   contentStyle: {
-                    backgroundColor: colors.background,
+                    backgroundColor: colors.surface,
                     borderTopLeftRadius: 28,
                     borderTopRightRadius: 28,
                     overflow: 'hidden',
@@ -246,26 +277,25 @@ export function RootNavigator() {
                       {...props}
                       options={{
                         ...props.options,
+                        headerTitleAlign: 'center',
                         headerTitle: () => (
-                          <Text style={styles.modalHeaderTitle}>New post</Text>
+                          <View style={styles.modalHeaderTitleBlock}>
+                            <View
+                              style={styles.modalSheetGrabber}
+                              accessibilityLabel="Sheet"
+                              accessibilityHint="Swipe down to close"
+                            />
+                            <Text style={styles.modalHeaderTitle}>New post</Text>
+                          </View>
                         ),
                         headerLeft: () => null,
-                        headerRight: () => (
-                          <Pressable
-                            onPress={() => props.navigation.goBack()}
-                            hitSlop={8}
-                            style={styles.modalCloseButton}
-                            accessibilityRole="button"
-                            accessibilityLabel="Close create post modal"
-                          >
-                            <Ionicons name="close" size={27} color="#111827" />
-                          </Pressable>
-                        ),
+                        headerRight: () => null,
                       }}
                       animateOnScroll={false}
                       includeTopInset={false}
-                      baseHeaderHeight={58}
+                      baseHeaderHeight={CREATE_POST_SHEET_MODAL_HEADER_HEIGHT}
                       titleImageMarginTop={3}
+                      bottomSeparator
                     />
                   ),
                   presentation: 'modal',
@@ -294,16 +324,23 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#5B6A61',
   },
-  modalCloseButton: {
-    paddingHorizontal: 5,
-    paddingVertical: 3,
-    marginRight: 8,
+  modalHeaderTitleBlock: {
+    alignItems: 'center',
+    paddingTop: 4,
+    paddingBottom: 2,
+  },
+  modalSheetGrabber: {
+    width: 37,
+    height: 2,
+    borderRadius: 2,
+    backgroundColor: 'rgba(60, 60, 67, 0.75)',
+    marginBottom: 11,
   },
   modalHeaderTitle: {
     ...(Platform.OS === 'web'
-      ? { fontFamily: "'Lato', sans-serif", fontWeight: '700' as const }
-      : { fontFamily: 'Lato_700Bold' as const }),
-    fontSize: 20,
+      ? { fontFamily: "'Inter', sans-serif", fontWeight: '700' as const }
+      : { fontFamily: 'Inter_700Bold' as const }),
+    fontSize: 19,
     color: '#111827',
   },
 });
