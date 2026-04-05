@@ -73,19 +73,7 @@ export async function createCommentWithNotification(
   postId: string,
   authorId: string,
   contentText: string,
-  postAuthorId: string
+  _postAuthorId: string
 ) {
-  const comment = await createComment(postId, authorId, contentText);
-
-  if (postAuthorId !== authorId) {
-    await supabase.from('notifications').insert({
-      user_id: postAuthorId,
-      actor_id: authorId,
-      type: 'COMMENT',
-      post_id: postId,
-      comment_id: comment.id,
-    });
-  }
-
-  return comment;
+  return createComment(postId, authorId, contentText);
 }

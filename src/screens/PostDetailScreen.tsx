@@ -35,7 +35,6 @@ import { PrimaryButton } from "@/ui/PrimaryButton";
 import { formatAuthorDisplay, formatRelativeTime } from "@/utils/breed";
 import { BREED_LABELS, POST_TYPE_LABELS, POST_TAG_LABELS, MEETUP_KIND_LABELS } from "@/utils/breed";
 import { commentSchema } from "@/utils/validation";
-import { ScreenWithWallpaper } from "@/components/ScreenWithWallpaper";
 import { useScrollDirection } from "@/context/ScrollDirectionContext";
 import { useStackHeaderHeight } from "@/hooks/useStackHeaderHeight";
 import { colors, radius, shadow, spacing, typography } from "@/theme";
@@ -194,11 +193,11 @@ export function PostDetailScreen() {
 
   if (isLoading || !post) {
     return (
-      <ScreenWithWallpaper>
+      <View style={styles.screenRoot}>
         <View style={styles.centered}>
           <Text style={styles.loadingText}>Loading...</Text>
         </View>
-      </ScreenWithWallpaper>
+      </View>
     );
   }
 
@@ -207,7 +206,7 @@ export function PostDetailScreen() {
   const tagLabel = POST_TAG_LABELS[post.tag] ?? post.tag;
 
   return (
-    <ScreenWithWallpaper>
+    <View style={styles.screenRoot}>
       <SafeAreaView style={styles.safe}>
         <KeyboardAvoidingView
         style={styles.container}
@@ -278,7 +277,7 @@ export function PostDetailScreen() {
             {post.title ? (
               <Text style={styles.title}>{post.title}</Text>
             ) : null}
-            <Text style={styles.content}>{post.content_text}</Text>
+            <Text style={post.title ? styles.body : styles.content}>{post.content_text}</Text>
 
             {post.images && post.images.length > 0 ? (
               <View style={styles.images}>
@@ -402,11 +401,12 @@ export function PostDetailScreen() {
       </KeyboardAvoidingView>
 
       </SafeAreaView>
-    </ScreenWithWallpaper>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  screenRoot: { flex: 1, backgroundColor: colors.surface },
   safe: { flex: 1 },
   container: { flex: 1 },
   centered: {
@@ -469,6 +469,15 @@ const styles = StyleSheet.create({
   meta: { ...typography.caption, marginTop: spacing.xxs },
   title: { ...typography.titleMD, marginBottom: spacing.sm },
   content: { ...typography.body, marginBottom: spacing.md },
+  body: {
+    ...typography.bodyMuted,
+    marginBottom: spacing.md,
+    fontSize: 14,
+    lineHeight: 20,
+    ...(Platform.OS === "web"
+      ? { fontFamily: "'Inter', sans-serif", fontWeight: "400" as const }
+      : { fontFamily: "Inter_400Regular" as const }),
+  },
   images: { marginBottom: spacing.md },
   meetupBlock: {
     marginBottom: spacing.md,
@@ -529,7 +538,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     padding: spacing.md,
     backgroundColor: colors.surface,
-    borderTopWidth: 1,
+    borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: colors.border,
     gap: spacing.sm,
   },

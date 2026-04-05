@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { Pressable, StyleSheet, Text, View, Modal, TouchableOpacity, Dimensions, Platform } from "react-native";
 import { FontAwesome6, Ionicons } from "@expo/vector-icons";
 import Animated, { interpolateColor, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
-import { colors, radius, shadow, spacing, typography } from "../theme";
+import { colors, radius, spacing, typography } from "../theme";
 import { Avatar } from "./Avatar";
 import { ImageStrip } from "./ImageStrip";
 import { ReactionBar } from "@/components/ReactionBar";
@@ -188,11 +188,11 @@ const QuestionCardInner = ({ data, onPress, onAuthorPress, onReactionSelect, onR
 export const QuestionCard = React.memo(QuestionCardInner);
 
 const styles = StyleSheet.create({
-  card: { backgroundColor: colors.surface, borderRadius: radius.lg, padding: spacing.lg, borderWidth: 1, borderColor: colors.border, marginBottom: spacing.sm, ...shadow.sm },
+  card: {},
   header: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
   authorPressable: { flex: 1, flexDirection: "row", alignItems: "center", minWidth: 0 },
   headerText: { flex: 1, marginLeft: spacing.md, minWidth: 0 },
-  author: { ...typography.subtitle, fontSize: 16, lineHeight: 23 },
+  author: { ...typography.subtitle, fontSize: 16, lineHeight: 22 },
   meta: { ...typography.caption },
   headerTag: { flexShrink: 0, justifyContent: "center" },
   menuBtn: { flexShrink: 0, padding: spacing.xs },
@@ -223,8 +223,25 @@ const styles = StyleSheet.create({
   menuItemDanger: {},
   menuItemText: { ...typography.body, fontWeight: "600" },
   menuItemTextDanger: { color: "#DC2626" },
-  title: { ...typography.titleMD, fontSize: 21, lineHeight: 28, marginTop: spacing.md },
-  preview: { ...typography.bodyMuted, marginTop: spacing.sm, color: colors.textSupporting },
+  title: {
+    ...typography.titleMD,
+    fontSize: 21,
+    lineHeight: 28,
+    marginTop: spacing.md,
+    ...(Platform.OS === "web"
+      ? { fontFamily: "'Inter', sans-serif", fontWeight: "600" as const }
+      : { fontFamily: "Inter_600SemiBold" as const }),
+  },
+  preview: {
+    ...typography.bodyMuted,
+    marginTop: spacing.sm,
+    fontSize: 14,
+    lineHeight: 20,
+    color: colors.textSupporting,
+    ...(Platform.OS === "web"
+      ? { fontFamily: "'Inter', sans-serif", fontWeight: "400" as const }
+      : { fontFamily: "Inter_400Regular" as const }),
+  },
   actionRow: { flexDirection: "row", alignItems: "center", marginTop: spacing.md, gap: spacing.sm, flexWrap: "wrap" },
   answersPill: { height: 36, justifyContent: "center", backgroundColor: colors.surfaceMuted, borderRadius: radius.pill, borderWidth: 1, borderColor: colors.border, paddingHorizontal: spacing.md },
   answersPillRow: { flexDirection: "row", alignItems: "center", gap: spacing.xs },

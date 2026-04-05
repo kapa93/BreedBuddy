@@ -105,7 +105,7 @@ export function CreatePostScreen() {
         type,
         tag: isMeetup ? 'PLAYDATE' : tag,
         breed,
-        title: isMeetup ? title.trim() || null : undefined,
+        title: title.trim() || undefined,
         meetup_details: isMeetup
           ? {
               location_name: locationName.trim(),
@@ -180,7 +180,7 @@ export function CreatePostScreen() {
         type,
         tag: isMeetup ? 'PLAYDATE' : tag,
         breed,
-        title: isMeetup ? title.trim() || undefined : undefined,
+        title: title.trim() || undefined,
         meetup_details: isMeetup
           ? {
               location_name: locationName.trim(),
@@ -257,7 +257,7 @@ export function CreatePostScreen() {
               value={title}
               onChangeText={setTitle}
             />
-            <Text style={styles.label}>Description</Text>
+            <Text style={styles.label}>Body</Text>
             <TextInput
               style={[styles.input, styles.textArea]}
               placeholder="What should attendees know?"
@@ -344,7 +344,15 @@ export function CreatePostScreen() {
           </>
         ) : (
           <>
-            <Text style={styles.label}>What's on your mind?</Text>
+            <Text style={styles.label}>Title</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Add a short headline"
+              placeholderTextColor="#9ca3af"
+              value={title}
+              onChangeText={setTitle}
+            />
+            <Text style={styles.label}>Body</Text>
             <TextInput
               style={[styles.input, styles.textArea]}
               placeholder="Share a question, update, or tip..."

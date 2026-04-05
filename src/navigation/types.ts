@@ -25,6 +25,11 @@ export type MainTabParamList = {
   Profile: undefined;
 };
 
+export type NotificationsStackParamList = {
+  NotificationsMain: undefined;
+  PostDetail: { postId: string };
+};
+
 export type HomeStackParamList = {
   HomeFeed: undefined;
   DogBeachNow: undefined;

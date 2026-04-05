@@ -3,7 +3,7 @@ import { View, StyleSheet } from "react-native";
 import { QuestionCard } from "@/ui/QuestionCard";
 import { MeetupCard } from "@/components/MeetupCard";
 import { postToQuestionCardData } from "@/utils/postToQuestionCard";
-import { spacing } from "@/theme";
+import { colors, spacing } from "@/theme";
 import type { PostWithDetails, ReactionEnum } from "@/types";
 
 type Props = {
@@ -95,5 +95,10 @@ function feedItemPropsAreEqual(prev: Props, next: Props): boolean {
 export const FeedItem = React.memo(FeedItemInner, feedItemPropsAreEqual);
 
 const styles = StyleSheet.create({
-  cardWrap: { paddingHorizontal: spacing.lg, marginBottom: spacing.sm },
+  cardWrap: {
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.lg,
+    borderBottomWidth: 1.5,
+    borderBottomColor: colors.border,
+  },
 });

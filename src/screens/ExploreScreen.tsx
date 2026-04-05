@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.25)",
   },
   cardLabel: {
-    fontSize: 19.5,
+    fontSize: 19,
     lineHeight: 20,
     letterSpacing: 0.4,
     ...Platform.select({

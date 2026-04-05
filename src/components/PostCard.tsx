@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Pressable,
+  Platform,
 } from 'react-native';
 import Animated, { interpolateColor, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { PostWithDetails } from '../types';
@@ -33,6 +34,8 @@ export function PostCard({ post, onPress, onReactionSelect, onAuthorPress }: Pos
   const breedLabel = BREED_LABELS[post.breed] ?? post.breed;
   const typeLabel = POST_TYPE_LABELS[post.type] ?? post.type;
   const tagLabel = POST_TAG_LABELS[post.tag] ?? post.tag;
+  const title = post.title ?? post.content_text.slice(0, 80) + (post.content_text.length > 80 ? '…' : '');
+  const preview = post.title ? post.content_text : undefined;
 
   const commentPillAnimatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: 1 - commentButtonPress.value * 0.06 }],
@@ -74,9 +77,13 @@ export function PostCard({ post, onPress, onReactionSelect, onAuthorPress }: Pos
         </Pressable>
       </View>
 
-      {post.content_text ? (
-        <Text style={styles.content} numberOfLines={4}>
-          {post.content_text}
+      <Text style={styles.title} numberOfLines={3}>
+        {title}
+      </Text>
+
+      {preview ? (
+        <Text style={styles.preview} numberOfLines={4}>
+          {preview}
         </Text>
       ) : null}
 
@@ -149,7 +156,16 @@ const styles = StyleSheet.create({
   },
   authorName: { ...typography.subtitle },
   meta: { ...typography.caption, marginTop: spacing.xxs },
-  content: { ...typography.body, marginBottom: spacing.md },
+  title: { ...typography.titleMD, marginBottom: spacing.xs },
+  preview: {
+    ...typography.bodyMuted,
+    marginBottom: spacing.md,
+    fontSize: 14,
+    lineHeight: 20,
+    ...(Platform.OS === 'web'
+      ? { fontFamily: "'Inter', sans-serif", fontWeight: '400' as const }
+      : { fontFamily: 'Inter_400Regular' as const }),
+  },
   images: { marginBottom: spacing.md },
   footer: {
     flexDirection: 'row',

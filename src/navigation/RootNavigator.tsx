@@ -34,6 +34,7 @@ import {
 import type {
   ExploreStackParamList,
   HomeStackParamList,
+  NotificationsStackParamList,
   ProfileStackParamList,
 } from './types';
 
@@ -131,6 +132,26 @@ function EmptyCreateTab() {
   return <View style={{ flex: 1, backgroundColor: colors.background }} />;
 }
 
+function NotificationsTab() {
+  const Stack = createNativeStackNavigator<NotificationsStackParamList>();
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        contentStyle: { backgroundColor: colors.background },
+        headerTransparent: true,
+        header: (props) => <AnimatedStackHeader {...props} animateOnScroll />,
+      }}
+    >
+      <Stack.Screen
+        name="NotificationsMain"
+        component={NotificationsScreen}
+        options={{ title: 'Notifications' }}
+      />
+      <Stack.Screen name="PostDetail" component={PostDetailScreen} options={{ title: 'Post' }} />
+    </Stack.Navigator>
+  );
+}
+
 function ProfileTab() {
   const Stack = createNativeStackNavigator<ProfileStackParamList>();
   return (
@@ -204,7 +225,7 @@ function MainTabs() {
       <Tab.Screen name="Home" component={HomeTab} />
       <Tab.Screen name="Explore" component={ExploreTab} />
       <Tab.Screen name="Create" component={EmptyCreateTab} />
-      <Tab.Screen name="Notifications" component={NotificationsScreen} />
+      <Tab.Screen name="Notifications" component={NotificationsTab} />
       <Tab.Screen name="Profile" component={ProfileTab} />
     </Tab.Navigator>
   );

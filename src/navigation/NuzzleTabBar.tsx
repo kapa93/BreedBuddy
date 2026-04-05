@@ -1,19 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, Pressable, StyleSheet, Platform } from "react-native";
+import { View, Pressable, StyleSheet, Text } from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
-  useAnimatedProps,
   withTiming,
   interpolate,
   interpolateColor,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import { useQuery } from "@tanstack/react-query";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { DogPawIcon } from "@/assets/DogPawIcon";
+import { getNotifications } from "@/api/notifications";
 import { useScrollDirection } from "@/context/ScrollDirectionContext";
-import { colors, spacing, typography } from "@/theme";
+import { useAuthStore } from "@/store/authStore";
+import { colors, shadow, spacing } from "@/theme";
 
 const TAB_CONFIG = [
   { key: "Home", label: "Home", icon: "house" as const },
@@ -27,67 +29,59 @@ const INDICATOR_ANIMATION = { duration: 60 };
 const WRAP_PADDING_H = spacing.md;
 const TAB_BAR_HIDE_OFFSET = 120;
 const CREATE_BUTTON_PRESS_ANIMATION = { duration: 180 };
-const TAB_COLOR_ANIMATION = { duration: 140 };
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
-const AnimatedFontAwesome6 = Animated.createAnimatedComponent(FontAwesome6);
+
+const TAB_ICON_COLOR = "#000000";
 
 function TabBarItem({
   icon,
-  label,
+  accessibilityLabel,
   isActive,
   onPress,
+  badgeCount,
 }: {
   icon: "house" | "compass" | "bell" | "user";
-  label: string;
+  accessibilityLabel: string;
   isActive: boolean;
   onPress: () => void;
+  badgeCount?: number;
 }) {
-  const activeProgress = useSharedValue(isActive ? 1 : 0);
-
-  useEffect(() => {
-    activeProgress.value = withTiming(isActive ? 1 : 0, TAB_COLOR_ANIMATION);
-  }, [isActive, activeProgress]);
-
-  const iconAnimatedProps = useAnimatedProps(() => ({
-    color: interpolateColor(
-      activeProgress.value,
-      [0, 1],
-      [colors.textMuted, colors.primary]
-    ),
-  }));
-
-  const labelAnimatedStyle = useAnimatedStyle(() => ({
-    color: interpolateColor(
-      activeProgress.value,
-      [0, 1],
-      [colors.textMuted, colors.primary]
-    ),
-  }));
+  const badgeLabel =
+    badgeCount && badgeCount > 0
+      ? badgeCount > 99
+        ? "99+"
+        : badgeCount.toString()
+      : null;
 
   return (
-    <Pressable onPress={onPress} style={styles.item}>
-      <AnimatedFontAwesome6
-        name={icon}
-        size={22}
-        animatedProps={iconAnimatedProps as unknown as object}
-        color={isActive ? colors.primary : colors.textMuted}
-        solid={isActive}
-      />
-      <Animated.Text
-        style={[
-          styles.label,
-          isActive ? styles.labelActive : styles.labelInactive,
-          labelAnimatedStyle,
-        ]}
-      >
-        {label}
-      </Animated.Text>
+    <Pressable
+      accessibilityRole="button"
+      accessibilityLabel={accessibilityLabel}
+      accessibilityState={{ selected: isActive }}
+      onPress={onPress}
+      style={styles.item}
+    >
+      <View style={styles.iconWrap}>
+        <FontAwesome6
+          name={icon}
+          size={22}
+          style={styles.tabIcon}
+          color={TAB_ICON_COLOR}
+          solid={isActive}
+        />
+        {badgeLabel ? (
+          <View style={styles.badge}>
+            <Text style={styles.badgeText}>{badgeLabel}</Text>
+          </View>
+        ) : null}
+      </View>
     </Pressable>
   );
 }
 
 export function NuzzleTabBar({ state, navigation }: BottomTabBarProps) {
   const insets = useSafeAreaInsets();
+  const user = useAuthStore((s) => s.user);
   const { scrollDirection, setScrollDirection } = useScrollDirection();
   const [wrapWidth, setWrapWidth] = useState(0);
   const indicatorLeft = useSharedValue(0);
@@ -149,6 +143,16 @@ export function NuzzleTabBar({ state, navigation }: BottomTabBarProps) {
     transform: [{ scale: createButtonScale.value }],
   }));
 
+  const { data: unreadCount = 0 } = useQuery({
+    queryKey: ["notifications", user?.id],
+    queryFn: () => getNotifications(user!.id),
+    enabled: !!user?.id,
+    select: (notifications) =>
+      notifications.reduce((count, notification) => {
+        return notification.read_at ? count : count + 1;
+      }, 0),
+  });
+
   return (
     <Animated.View
       style={[
@@ -180,6 +184,8 @@ export function NuzzleTabBar({ state, navigation }: BottomTabBarProps) {
             return (
               <View key={item.key} style={styles.centerWrap}>
                 <AnimatedPressable
+                  accessibilityRole="button"
+                  accessibilityLabel="Create post"
                   onPress={() => navigation.getParent()?.navigate("CreatePostModal" as never)}
                   onPressIn={() => {
                     createButtonPress.value = withTiming(
@@ -213,8 +219,9 @@ export function NuzzleTabBar({ state, navigation }: BottomTabBarProps) {
             <TabBarItem
               key={item.key}
               icon={item.icon as "house" | "compass" | "bell" | "user"}
-              label={item.label}
+              accessibilityLabel={item.label}
               isActive={isActive}
+              badgeCount={item.key === "Notifications" ? unreadCount : undefined}
               onPress={() => navigation.navigate(item.key)}
             />
           );
@@ -239,48 +246,53 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     paddingHorizontal: WRAP_PADDING_H,
     paddingTop: spacing.sm,
-    paddingBottom: spacing.lg,
+    paddingBottom: spacing.lg + 20,
     overflow: "visible",
-    shadowColor: "#000",
+    ...shadow.sm,
     shadowOffset: { width: 0, height: -2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 4,
-    elevation: 8,
   },
   item: {
     alignItems: "center",
+    justifyContent: "center",
     flex: 1,
     marginTop: -spacing.sm,
     marginBottom: 1,
-    paddingTop: spacing.sm,
+    paddingVertical: spacing.sm,
     transform: [{ translateY: 1 }],
+  },
+  iconWrap: {
+    position: "relative",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  tabIcon: {
+    transform: [{ translateY: 4 }],
+  },
+  badge: {
+    position: "absolute",
+    top: -3,
+    right: -15,
+    minWidth: 18,
+    height: 18,
+    paddingHorizontal: 4,
+    borderRadius: 9,
+    backgroundColor: "#DC2626",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  badgeText: {
+    color: "#FFFFFF",
+    fontSize: 10,
+    fontWeight: "700",
+    lineHeight: 12,
   },
   indicator: {
     position: "absolute",
     top: 0,
     left: 0,
     height: 3,
-    backgroundColor: colors.primary,
+    backgroundColor: TAB_ICON_COLOR,
     borderRadius: 2,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: -2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 4,
-    elevation: 4,
-  },
-  label: {
-    ...typography.caption,
-    fontSize: 11,
-    marginTop: 0,
-  },
-  labelActive: {
-    color: colors.primary,
-    ...(Platform.OS === "web"
-      ? { fontFamily: "'Inter', sans-serif", fontWeight: "700" as const }
-      : { fontFamily: "Inter_700Bold" as const }),
-  },
-  labelInactive: {
-    color: colors.textMuted,
   },
   centerWrap: {
     flex: 1,
@@ -288,7 +300,7 @@ const styles = StyleSheet.create({
   },
   centerButton: {
     position: "absolute",
-    bottom: 7,
+    bottom: -7,
     left: "50%",
     marginLeft: -27.5,
     width: 55,
@@ -297,10 +309,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
     alignItems: "center",
     justifyContent: "center",
-    shadowColor: colors.primary,
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.3,
-    shadowRadius: 6,
-    elevation: 8,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.12,
+    shadowRadius: 5,
+    elevation: 5,
   },
 });

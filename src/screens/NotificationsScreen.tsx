@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,12 +7,17 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from 'react-native';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { getNotifications, markNotificationRead, markAllNotificationsRead } from '@/api/notifications';
 import { useAuthStore } from '@/store/authStore';
 import { ScreenWithWallpaper } from '@/components/ScreenWithWallpaper';
+import { useScrollDirection, useScrollDirectionUpdater } from '@/context/ScrollDirectionContext';
+import { useStackHeaderHeight } from '@/hooks/useStackHeaderHeight';
 import { formatRelativeTime } from '@/utils/breed';
+import { spacing, typography } from '@/theme';
 
 type NotificationItem = {
   id: string;
@@ -28,6 +33,14 @@ export function NotificationsScreen() {
   const navigation = useNavigation<any>();
   const user = useAuthStore((s) => s.user);
   const queryClient = useQueryClient();
+  const tabBarHeight = useBottomTabBarHeight();
+  const headerHeight = useStackHeaderHeight();
+  const { scrollDirection, setScrollDirection } = useScrollDirection();
+  const { onScroll } = useScrollDirectionUpdater();
+
+  useEffect(() => {
+    setScrollDirection('up');
+  }, [setScrollDirection]);
 
   const { data: notifications, isLoading } = useQuery({
     queryKey: ['notifications', user?.id],
@@ -60,9 +73,13 @@ export function NotificationsScreen() {
   if (!user) {
     return (
       <ScreenWithWallpaper>
-        <View style={styles.centered}>
-          <Text style={styles.emptyText}>Sign in to see notifications</Text>
-        </View>
+        <SafeAreaView style={styles.safe} edges={['left', 'right']}>
+          <View style={[styles.container, { paddingTop: headerHeight }]}>
+            <View style={styles.centered}>
+              <Text style={styles.emptyText}>Sign in to see notifications</Text>
+            </View>
+          </View>
+        </SafeAreaView>
       </ScreenWithWallpaper>
     );
   }
@@ -70,67 +87,92 @@ export function NotificationsScreen() {
   if (isLoading) {
     return (
       <ScreenWithWallpaper>
-        <View style={styles.centered}>
-          <ActivityIndicator size="large" color="#6366f1" />
-        </View>
+        <SafeAreaView style={styles.safe} edges={['left', 'right']}>
+          <View style={[styles.container, { paddingTop: headerHeight }]}>
+            <View style={styles.centered}>
+              <ActivityIndicator size="large" color="#6366f1" />
+            </View>
+          </View>
+        </SafeAreaView>
       </ScreenWithWallpaper>
     );
   }
 
   return (
     <ScreenWithWallpaper>
-      <View style={styles.container}>
-      {unreadCount > 0 && (
-        <TouchableOpacity
-          style={styles.markAllBtn}
-          onPress={() => markAllReadMutation.mutate()}
-          disabled={markAllReadMutation.isPending}
-        >
-          <Text style={styles.markAllText}>Mark all as read</Text>
-        </TouchableOpacity>
-      )}
-
-      {items.length === 0 ? (
-        <View style={styles.centered}>
-          <Text style={styles.emptyText}>No notifications yet</Text>
-        </View>
-      ) : (
-        <FlatList
-          data={items}
-          keyExtractor={(i) => i.id}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              style={[styles.item, !item.read_at && styles.itemUnread]}
-              onPress={() => {
-                if (!item.read_at) markReadMutation.mutate({ id: item.id });
-                navigation.navigate('PostDetail', { postId: item.post_id });
-              }}
-            >
-              <Text style={styles.itemText}>
-                <Text style={styles.actorName}>{item.actor_name ?? 'Someone'}</Text>
-                {item.type === 'COMMENT' ? ' commented on your post' : ' reacted to your post'}
-              </Text>
-              {item.content_preview ? (
-                <Text style={styles.preview} numberOfLines={1}>
-                  "{item.content_preview}..."
-                </Text>
-              ) : null}
-              <Text style={styles.time}>{formatRelativeTime(item.created_at)}</Text>
-            </TouchableOpacity>
+      <SafeAreaView style={styles.safe} edges={['left', 'right']}>
+        <View style={[styles.container, { paddingTop: headerHeight }]}>
+          <Text style={styles.headerTitle}>Notifications</Text>
+          {items.length === 0 ? (
+            <View style={styles.centered}>
+              <Text style={styles.emptyText}>No notifications yet</Text>
+            </View>
+          ) : (
+            <FlatList
+              data={items}
+              keyExtractor={(i) => i.id}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  style={[styles.item, !item.read_at && styles.itemUnread]}
+                  onPress={() => {
+                    if (!item.read_at) markReadMutation.mutate({ id: item.id });
+                    navigation.navigate('PostDetail', { postId: item.post_id });
+                  }}
+                >
+                  <Text style={styles.itemText}>
+                    <Text style={styles.actorName}>{item.actor_name ?? 'Someone'}</Text>
+                    {item.type === 'COMMENT' ? ' commented on your post' : ' reacted to your post'}
+                  </Text>
+                  {item.content_preview ? (
+                    <Text style={styles.preview} numberOfLines={1}>
+                      "{item.content_preview}..."
+                    </Text>
+                  ) : null}
+                  <Text style={styles.time}>{formatRelativeTime(item.created_at)}</Text>
+                </TouchableOpacity>
+              )}
+              ListHeaderComponent={
+                <View style={styles.listHeader}>
+                  {unreadCount > 0 ? (
+                    <TouchableOpacity
+                      style={styles.markAllBtn}
+                      onPress={() => markAllReadMutation.mutate()}
+                      disabled={markAllReadMutation.isPending}
+                    >
+                      <Text style={styles.markAllText}>Mark all as read</Text>
+                    </TouchableOpacity>
+                  ) : null}
+                </View>
+              }
+              contentContainerStyle={[styles.list, { paddingBottom: tabBarHeight + 24 }]}
+              onScroll={onScroll}
+              scrollEventThrottle={16}
+              showsVerticalScrollIndicator={false}
+            />
           )}
-          contentContainerStyle={styles.list}
-        />
-      )}
-    </View>
+        </View>
+      </SafeAreaView>
     </ScreenWithWallpaper>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  markAllBtn: { padding: 16, alignItems: 'flex-end' },
+  safe: { flex: 1 },
+  container: { flex: 1, paddingTop: 8 },
+  headerTitle: {
+    ...typography.titleXL,
+    fontSize: 26,
+    lineHeight: 30,
+    alignSelf: 'flex-start',
+    marginLeft: 20,
+    marginBottom: spacing.xs,
+    marginTop: 35,
+    color: '#111827',
+  },
+  listHeader: { minHeight: 18, justifyContent: 'center' },
+  markAllBtn: { paddingHorizontal: 16, paddingVertical: 4, alignItems: 'flex-end' },
   markAllText: { color: '#6366f1', fontWeight: '600', fontSize: 14 },
-  list: { paddingBottom: 24 },
+  list: { paddingTop: 0 },
   item: {
     backgroundColor: '#fff',
     padding: 16,

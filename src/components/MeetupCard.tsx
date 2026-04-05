@@ -260,15 +260,7 @@ export function MeetupCard({
 }
 
 const styles = StyleSheet.create({
-  card: {
-    backgroundColor: colors.surface,
-    borderRadius: radius.lg,
-    padding: spacing.lg,
-    borderWidth: 2,
-    borderColor: colors.primary,
-    borderLeftWidth: 6,
-    ...shadow.sm,
-  },
+  card: {},
   meetupBadge: {
     flexDirection: "row",
     alignItems: "center",
@@ -286,7 +278,7 @@ const styles = StyleSheet.create({
   },
   authorPressable: { flex: 1, flexDirection: "row", alignItems: "center" },
   headerText: { flex: 1, marginLeft: spacing.md },
-  author: { ...typography.subtitle, fontSize: 17, lineHeight: 23 },
+  author: { ...typography.subtitle, fontSize: 17, lineHeight: 22 },
   meta: { ...typography.caption },
   menuBtn: { padding: spacing.xs },
   modalOverlay: {
@@ -316,7 +308,15 @@ const styles = StyleSheet.create({
   menuItemDanger: {},
   menuItemText: { ...typography.body, fontWeight: "600" },
   menuItemTextDanger: { color: "#DC2626" },
-  title: { ...typography.titleMD, fontSize: 21, lineHeight: 28, marginTop: spacing.sm },
+  title: {
+    ...typography.titleMD,
+    fontSize: 21,
+    lineHeight: 28,
+    marginTop: spacing.sm,
+    ...(Platform.OS === "web"
+      ? { fontFamily: "'Inter', sans-serif", fontWeight: "600" as const }
+      : { fontFamily: "Inter_600SemiBold" as const }),
+  },
   preview: { ...typography.bodyMuted, marginTop: spacing.xs, color: colors.textSupporting },
   meetupDetails: {
     marginTop: spacing.md,
