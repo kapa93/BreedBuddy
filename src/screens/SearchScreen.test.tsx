@@ -77,7 +77,7 @@ describe('SearchScreen', () => {
   const useQueryClientMock = useQueryClient as jest.Mock;
   const useNavigationMock = useNavigation as jest.Mock;
   const useRouteMock = useRoute as jest.Mock;
-  const useAuthStoreMock = useAuthStore as jest.Mock;
+  const useAuthStoreMock = useAuthStore as unknown as jest.Mock;
 
   beforeEach(() => {
     jest.clearAllMocks();
