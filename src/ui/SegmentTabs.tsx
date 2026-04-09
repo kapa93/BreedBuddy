@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import { Platform, Pressable, ScrollView, StyleSheet } from "react-native";
+import { Platform, Pressable, ScrollView, StyleSheet, View } from "react-native";
 import Animated, {
   interpolateColor,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-import { colors, radius, shadow, spacing, typography } from "../theme";
+import { colors, radius, spacing, typography } from "../theme";
 
 const TAB_ANIMATION = { duration: 140 };
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
@@ -33,11 +33,6 @@ function SegmentTabItem({
       activeProgress.value,
       [0, 1],
       [colors.surface, colors.primary]
-    ),
-    borderColor: interpolateColor(
-      activeProgress.value,
-      [0, 1],
-      [colors.border, colors.primary]
     ),
   }));
 
@@ -66,44 +61,68 @@ function SegmentTabItem({
 
 export function SegmentTabs({ tabs, activeTab, onChange }: { tabs: string[]; activeTab: string; onChange: (tab: string) => void }) {
   return (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.row}>
-      {tabs.map((tab, i) => {
-        const active = tab === activeTab;
-        const isLast = i === tabs.length - 1;
-        return (
-          <SegmentTabItem
-            key={tab}
-            tab={tab}
-            active={active}
-            isLast={isLast}
-            onPress={() => onChange(tab)}
-          />
-        );
-      })}
-    </ScrollView>
+    <View style={styles.barWrap}>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={styles.scroll}
+        contentContainerStyle={styles.row}
+      >
+        {tabs.map((tab, i) => {
+          const active = tab === activeTab;
+          const isLast = i === tabs.length - 1;
+          return (
+            <SegmentTabItem
+              key={tab}
+              tab={tab}
+              active={active}
+              isLast={isLast}
+              onPress={() => onChange(tab)}
+            />
+          );
+        })}
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  row: { paddingBottom: spacing.sm },
+  barWrap: {
+    backgroundColor: colors.background,
+    zIndex: 1,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  scroll: {
+    backgroundColor: "transparent",
+  },
+  row: {
+    paddingTop: spacing.sm + 5,
+    paddingBottom: spacing.sm + 5,
+    paddingHorizontal: spacing.lg,
+  },
   tab: {
     backgroundColor: colors.surface,
-    borderWidth: 1,
-    borderColor: colors.border,
-    borderRadius: radius.pill,
+    borderRadius: radius.xs,
     paddingHorizontal: spacing.lg,
     paddingVertical: spacing.sm,
-    ...shadow.sm,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.15,
+    shadowRadius: 1,
+    elevation: 1,
   },
-  tabGap: { marginRight: spacing.xxs },
+  tabGap: { marginRight: spacing.sm },
   tabActive: {
     backgroundColor: colors.primary,
-    borderColor: colors.primary,
     shadowColor: colors.primaryDark,
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 4,
+    shadowRadius: 2,
+    elevation: 2,
   },
   label: {
     ...typography.caption,

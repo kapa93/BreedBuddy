@@ -104,7 +104,14 @@ function ExploreTab() {
       }}
     >
       <Stack.Screen name="ExploreList" component={ExploreScreen} options={{ title: 'Explore' }} />
-      <Stack.Screen name="BreedFeed" component={BreedFeedScreen} options={({ route }: { route: { params?: { breed?: string } } }) => ({ title: (route.params?.breed ?? 'Feed').replace(/_/g, ' ') })} />
+      <Stack.Screen
+        name="BreedFeed"
+        component={BreedFeedScreen}
+        options={({ route }: { route: { params?: { breed?: string } } }) => ({
+          title: (route.params?.breed ?? 'Feed').replace(/_/g, ' '),
+          contentStyle: { backgroundColor: colors.surface },
+        })}
+      />
       <Stack.Screen name="SearchMain" component={SearchScreen} options={{ title: 'Search' }} />
       <Stack.Screen name="DogProfile" component={DogProfileScreen} options={{ title: 'Dog' }} />
       <Stack.Screen name="PostDetail" component={PostDetailScreen} options={{ title: 'Post' }} />

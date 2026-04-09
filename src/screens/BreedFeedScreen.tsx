@@ -24,8 +24,7 @@ import { getBreedHeroImageSource } from "@/utils/breedAssets";
 import { BREED_LABELS } from "@/utils/breed";
 import { useScrollDirection, useScrollDirectionUpdater } from "@/context/ScrollDirectionContext";
 import { useStackHeaderHeight } from "@/hooks/useStackHeaderHeight";
-import { ScreenWithWallpaper } from "@/components/ScreenWithWallpaper";
-import { colors, radius, spacing, typography } from "@/theme";
+import { colors, spacing, typography } from "@/theme";
 import type { PostWithDetails, BreedEnum, ReactionEnum } from "@/types";
 import type { FeedFilter } from "@/store/uiStore";
 
@@ -274,7 +273,7 @@ export function BreedFeedScreen() {
 
   const renderHeader = useMemo(() => (
     <>
-      <View style={styles.heroSection}>
+      <View>
         {showSwipeable ? (
           <SwipeableBreedBanner
             breeds={joinedBreeds}
@@ -303,7 +302,7 @@ export function BreedFeedScreen() {
   ), [showSwipeable, joinedBreeds, breed, isJoined, tabKey, handleJoinPress, handleJoinPressForBreed, setFeedFilter]);
 
   return (
-    <ScreenWithWallpaper>
+    <View style={styles.screen}>
       <SafeAreaView style={styles.safe} edges={["left", "right"]}>
         <View style={styles.container}>
           <FlatList
@@ -335,15 +334,15 @@ export function BreedFeedScreen() {
         />
         </View>
       </SafeAreaView>
-    </ScreenWithWallpaper>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  screen: { flex: 1, backgroundColor: colors.surface },
   safe: { flex: 1 },
   container: { flex: 1 },
-  heroSection: { marginBottom: 20 },
-  tabsSection: { paddingLeft: spacing.lg, paddingRight: 0, marginTop: -spacing.xs, marginBottom: spacing.xs },
+  tabsSection: { marginBottom: spacing.xs },
   cardWrap: { paddingHorizontal: spacing.lg, marginBottom: spacing.sm },
   listContent: { paddingBottom: spacing.xxxl },
   listContentBarHidden: { paddingBottom: spacing.sm },

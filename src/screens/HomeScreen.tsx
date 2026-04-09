@@ -446,7 +446,7 @@ export function HomeScreen({
           </ScrollView>
         </View>
       )}
-      <View style={styles.heroSection}>
+      <View>
         {joinedBreeds.length >= 1 ? (
           <SwipeableBreedBanner
             breeds={joinedBreeds}
@@ -702,8 +702,7 @@ const styles = StyleSheet.create({
   },
   breedChipText: { ...typography.bodyMuted, fontWeight: "700" },
   breedChipTextSelected: { color: "#FFFFFF" },
-  heroSection: { marginBottom: 20 },
-  tabsSection: { paddingLeft: spacing.lg, paddingRight: 0, marginTop: -spacing.xs, marginBottom: spacing.xs },
+  tabsSection: { marginBottom: spacing.xs },
   listContent: { paddingBottom: spacing.xxxl },
   listContentBarHidden: { paddingBottom: spacing.sm },
 });
