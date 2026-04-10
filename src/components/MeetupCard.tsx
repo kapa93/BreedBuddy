@@ -453,8 +453,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 18,
     ...(Platform.OS === "web"
-      ? { fontFamily: "'Inter', sans-serif", fontWeight: "700" as const }
-      : { fontFamily: "Inter_700Bold" }),
+      ? { fontFamily: "'Inter', sans-serif", fontWeight: "600" as const }
+      : { fontFamily: "Inter_600SemiBold" as const }),
   },
   pressed: { opacity: 0.95 },
 });

@@ -12,7 +12,6 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { getPackItems } from "@/utils/breedAssets";
-import { useScrollDirection, useScrollDirectionUpdater } from "@/context/ScrollDirectionContext";
 import { useStackHeaderHeight } from "@/hooks/useStackHeaderHeight";
 import { colors, radius, spacing, typography } from "@/theme";
 
@@ -26,8 +25,6 @@ export function ExploreScreen({
   navigation: { navigate: (s: string, p?: object) => void };
 }) {
   const { width } = useWindowDimensions();
-  const { onScroll } = useScrollDirectionUpdater();
-  const { scrollDirection } = useScrollDirection();
   const headerHeight = useStackHeaderHeight();
   const cardWidth = (width - H_PADDING * 2 - CARD_GAP * (NUM_COLUMNS - 1)) / NUM_COLUMNS;
   const packItems = getPackItems();
@@ -40,11 +37,8 @@ export function ExploreScreen({
         contentContainerStyle={[
           styles.content,
           { paddingTop: headerHeight },
-          scrollDirection === "down" && styles.contentBarHidden,
         ]}
         showsVerticalScrollIndicator={false}
-        onScroll={onScroll}
-        scrollEventThrottle={16}
       >
         <View style={styles.header}>
           <View style={styles.titleWrap}>
@@ -70,8 +64,12 @@ export function ExploreScreen({
                       styles.cardImage,
                       item.breed === "AUSTRALIAN_SHEPHERD" && styles.aussieCardImage,
                       item.breed === "FRENCH_BULLDOG" && styles.frenchieCardImage,
+                      item.breed === "GERMAN_SHEPHERD" && styles.germanCardImage,
+                      item.breed === "GOLDEN_DOODLE" && styles.goldenDoodleCardImage,
                       item.breed === "GOLDEN_RETRIEVER" && styles.goldenCardImage,
                       item.breed === "HUSKY" && styles.huskyCardImage,
+                      item.breed === "MIXED_BREED" && styles.mixedBreedCardImage,
+                      item.breed === "LABRADOODLE" && styles.labradoodleCardImage,
                       item.breed === "LABRADOR_RETRIEVER" && styles.labCardImage,
                       item.breed === "PIT_BULL" && styles.pitbullCardImage,
                     ]}
@@ -79,7 +77,16 @@ export function ExploreScreen({
                     resizeMode="cover"
                   >
                     <View style={styles.overlay} />
-                    <Text style={styles.cardLabel}>
+                    <Text
+                      style={[
+                        styles.cardLabel,
+                        item.breed === "GERMAN_SHEPHERD" && styles.germanCardLabel,
+                        item.breed === "GOLDEN_DOODLE" && styles.goldenDoodleCardLabel,
+                      ]}
+                      numberOfLines={item.breed === "GERMAN_SHEPHERD" ? 2 : 1}
+                      adjustsFontSizeToFit={item.breed === "GOLDEN_DOODLE"}
+                      minimumFontScale={0.8}
+                    >
                       {item.breed === "AUSTRALIAN_SHEPHERD"
                         ? "Aussie"
                         : item.breed === "FRENCH_BULLDOG"
@@ -97,6 +104,7 @@ export function ExploreScreen({
           ))}
           </View>
         </View>
+        <Text style={styles.comingSoonText}>More breeds coming soon!</Text>
       </ScrollView>
       </SafeAreaView>
     </View>
@@ -110,10 +118,7 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: H_PADDING,
     paddingTop: spacing.sm,
-    paddingBottom: spacing.xxxl,
-  },
-  contentBarHidden: {
-    paddingBottom: spacing.sm,
+    paddingBottom: spacing.xxxl + 75,
   },
   header: {
     alignItems: "center",
@@ -141,6 +146,12 @@ const styles = StyleSheet.create({
   gridWrap: {
     alignItems: "center",
     marginLeft: 10,
+  },
+  comingSoonText: {
+    ...typography.bodyMuted,
+    textAlign: "center",
+    marginTop: spacing.sm + 2,
+    letterSpacing: 0.2,
   },
   grid: {
     flexDirection: "row",
@@ -176,14 +187,26 @@ const styles = StyleSheet.create({
   frenchieCardImage: {
     transform: [{ scale: 1.75 }, { translateX: 11 }, { translateY: -1 }],
   },
+  germanCardImage: {
+    transform: [{ scale: 1.35 }, { translateX: 9 }, { translateY: 7 }],
+  },
   goldenCardImage: {
     transform: [{ scale: 1.3 }, { translateX: 10 }, { translateY: 5 }],
+  },
+  goldenDoodleCardImage: {
+    transform: [{ scale: 1.25 }, { translateX: 12 }, { translateY: 6 }],
   },
   huskyCardImage: {
     transform: [{ scale: 1.6 }, { translateX: 5 }, { translateY: 15 }],
   },
+  mixedBreedCardImage: {
+    transform: [{ scale: 1.25 }, { translateX: 8 }, { translateY: 15 }],
+  },
   labCardImage: {
     transform: [{ scale: 1.4 }, { translateX: 7 }, { translateY: 11 }],
+  },
+  labradoodleCardImage: {
+    transform: [{ scale: 1.35 }, { translateX: 8 }, { translateY: 5 }],
   },
   pitbullCardImage: {
     transform: [{ scale: 1.3 }, { translateX: 6 }, { translateY: 4 }],
@@ -217,6 +240,18 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingLeft: 5,
     zIndex: 1,
+  },
+  germanCardLabel: {
+    fontSize: 18,
+    lineHeight: 18,
+    position: "relative",
+    top: 8,
+  },
+  goldenDoodleCardLabel: {
+    fontSize: 17,
+    lineHeight: 18,
+    position: "relative",
+    bottom: 1,
   },
   pressed: { opacity: 0.92 },
 });

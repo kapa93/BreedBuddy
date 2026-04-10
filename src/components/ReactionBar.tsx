@@ -83,7 +83,7 @@ export function ReactionBar({ reactions, userReaction, onSelect, onMenuOpenChang
           {showBone ? (
             <View style={styles.iconWrap} pointerEvents="none">
               <Bone
-                size={18}
+                size={20}
                 color={userReaction ? colors.primary : colors.textSecondary}
               />
             </View>

@@ -88,13 +88,9 @@ export function SegmentTabs({ tabs, activeTab, onChange }: { tabs: string[]; act
 
 const styles = StyleSheet.create({
   barWrap: {
-    backgroundColor: colors.background,
     zIndex: 1,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: colors.border,
   },
   scroll: {
     backgroundColor: "transparent",

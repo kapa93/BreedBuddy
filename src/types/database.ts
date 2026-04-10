@@ -8,11 +8,15 @@ export type Json =
 
 export type BreedEnum =
   | 'AUSTRALIAN_SHEPHERD'
+  | 'GERMAN_SHEPHERD'
   | 'HUSKY'
+  | 'GOLDEN_DOODLE'
   | 'GOLDEN_RETRIEVER'
+  | 'MIXED_BREED'
   | 'FRENCH_BULLDOG'
   | 'PIT_BULL'
-  | 'LABRADOR_RETRIEVER';
+  | 'LABRADOR_RETRIEVER'
+  | 'LABRADOODLE';
 
 export type PostTypeEnum = 'QUESTION' | 'UPDATE_STORY' | 'TIP';
 

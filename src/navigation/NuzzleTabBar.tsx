@@ -199,6 +199,7 @@ export function NuzzleTabBar({ state, navigation }: BottomTabBarProps) {
                 <AnimatedPressable
                   accessibilityRole="button"
                   accessibilityLabel="Create post"
+                  hitSlop={6}
                   onPress={() => navigation.getParent()?.navigate("CreatePostModal" as never)}
                   onPressIn={() => {
                     createButtonPress.value = withTiming(
@@ -222,7 +223,7 @@ export function NuzzleTabBar({ state, navigation }: BottomTabBarProps) {
                   }}
                   style={[styles.centerButton, centerButtonAnimatedStyle]}
                 >
-                  <DogPawIcon size={28} color="#FFFFFF" />
+                  <DogPawIcon size={24} color="#FFFFFF" />
                 </AnimatedPressable>
               </View>
             );
@@ -323,12 +324,12 @@ const styles = StyleSheet.create({
   },
   centerButton: {
     position: "absolute",
-    bottom: -7,
+    bottom: -10,
     left: "50%",
-    marginLeft: -27.5,
-    width: 55,
-    height: 52,
-    borderRadius: 20,
+    marginLeft: -24.5,
+    width: 49,
+    height: 46,
+    borderRadius: 18,
     backgroundColor: colors.primary,
     alignItems: "center",
     justifyContent: "center",

@@ -1,0 +1,5 @@
+-- Add new doodle breeds as first-class breed/feed options
+ALTER TYPE breed_enum ADD VALUE IF NOT EXISTS 'GOLDEN_DOODLE';
+ALTER TYPE breed_enum ADD VALUE IF NOT EXISTS 'LABRADOODLE';
+ALTER TYPE breed_enum ADD VALUE IF NOT EXISTS 'GERMAN_SHEPHERD';
+ALTER TYPE breed_enum ADD VALUE IF NOT EXISTS 'MIXED_BREED';

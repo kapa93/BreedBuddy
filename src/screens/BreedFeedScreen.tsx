@@ -22,7 +22,6 @@ import { SegmentTabs } from "@/ui/SegmentTabs";
 import { FeedItem } from "@/components/FeedItem";
 import { getBreedHeroImageSource } from "@/utils/breedAssets";
 import { BREED_LABELS } from "@/utils/breed";
-import { useScrollDirection, useScrollDirectionUpdater } from "@/context/ScrollDirectionContext";
 import { useStackHeaderHeight } from "@/hooks/useStackHeaderHeight";
 import { colors, spacing, typography } from "@/theme";
 import type { PostWithDetails, BreedEnum, ReactionEnum } from "@/types";
@@ -44,8 +43,6 @@ const FILTER_TO_TAB = (f: FeedFilter): TabKey =>
 
 export function BreedFeedScreen() {
   const route = useRoute();
-  const { onScroll } = useScrollDirectionUpdater();
-  const { scrollDirection } = useScrollDirection();
   const headerHeight = useStackHeaderHeight();
   const breedParam = (route.params as { breed?: BreedEnum })?.breed;
   const navigation = useNavigation<{
@@ -310,8 +307,6 @@ export function BreedFeedScreen() {
           keyExtractor={(item) => item.id}
           ListHeaderComponent={renderHeader}
           scrollEnabled={!reactionMenuOpen}
-          onScroll={onScroll}
-          scrollEventThrottle={16}
           initialNumToRender={8}
           maxToRenderPerBatch={8}
           windowSize={11}
@@ -328,7 +323,6 @@ export function BreedFeedScreen() {
             styles.listContent,
             { paddingTop: headerHeight },
             (!posts || posts.length === 0) && styles.emptyList,
-            scrollDirection === "down" && styles.listContentBarHidden,
           ]}
           showsVerticalScrollIndicator={false}
         />
@@ -345,7 +339,6 @@ const styles = StyleSheet.create({
   tabsSection: { marginBottom: spacing.xs },
   cardWrap: { paddingHorizontal: spacing.lg, marginBottom: spacing.sm },
   listContent: { paddingBottom: spacing.xxxl },
-  listContentBarHidden: { paddingBottom: spacing.sm },
   emptyList: { flexGrow: 1 },
   empty: {
     padding: spacing.xxxl,

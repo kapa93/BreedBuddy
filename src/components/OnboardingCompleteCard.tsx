@@ -5,6 +5,7 @@ import { colors } from '@/theme';
 const PACK_NAMES: Record<string, string> = {
   AUSTRALIAN_SHEPHERD: 'Aussie',
   HUSKY: 'Husky',
+  GOLDEN_DOODLE: 'Golden Doodle',
   GOLDEN_RETRIEVER: 'Golden',
   FRENCH_BULLDOG: 'Frenchie',
   PIT_BULL: 'Pit Bull',

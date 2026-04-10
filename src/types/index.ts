@@ -1,11 +1,15 @@
 // Enums matching Supabase schema
 export type BreedEnum =
   | 'AUSTRALIAN_SHEPHERD'
+  | 'GERMAN_SHEPHERD'
   | 'HUSKY'
+  | 'GOLDEN_DOODLE'
   | 'GOLDEN_RETRIEVER'
+  | 'MIXED_BREED'
   | 'FRENCH_BULLDOG'
   | 'PIT_BULL'
-  | 'LABRADOR_RETRIEVER';
+  | 'LABRADOR_RETRIEVER'
+  | 'LABRADOODLE';
 
 export type PostTypeEnum = 'QUESTION' | 'UPDATE_STORY' | 'TIP' | 'MEETUP';
 
@@ -42,11 +46,15 @@ export type ReactionEnum =
 
 export const BREEDS: BreedEnum[] = [
   'AUSTRALIAN_SHEPHERD',
+  'GERMAN_SHEPHERD',
   'HUSKY',
+  'GOLDEN_DOODLE',
   'GOLDEN_RETRIEVER',
+  'MIXED_BREED',
   'FRENCH_BULLDOG',
   'PIT_BULL',
   'LABRADOR_RETRIEVER',
+  'LABRADOODLE',
 ];
 
 export const POST_TYPES: PostTypeEnum[] = ['QUESTION', 'UPDATE_STORY', 'TIP', 'MEETUP'];
@@ -278,11 +286,15 @@ export interface CommentWithAuthor extends Comment {
 // Display helpers
 export const BREED_LABELS: Record<BreedEnum, string> = {
   AUSTRALIAN_SHEPHERD: 'Australian Shepherd',
+  GERMAN_SHEPHERD: 'German Shepherd',
   HUSKY: 'Husky',
+  GOLDEN_DOODLE: 'Golden Doodle',
   GOLDEN_RETRIEVER: 'Golden Retriever',
+  MIXED_BREED: 'Mixed Breed',
   FRENCH_BULLDOG: 'French Bulldog',
   PIT_BULL: 'Pit Bull',
   LABRADOR_RETRIEVER: 'Labrador Retriever',
+  LABRADOODLE: 'Labradoodle',
 };
 
 export const POST_TYPE_LABELS: Record<PostTypeEnum, string> = {

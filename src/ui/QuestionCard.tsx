@@ -209,7 +209,7 @@ const QuestionCardInner = ({ data, onPress, onAuthorPress, onReactionSelect, onR
           style={[styles.answersPill, commentPillAnimatedStyle]}
         >
           <View style={styles.answersPillRow}>
-            <FontAwesome6 name="comment" size={16} color={colors.textSecondary} />
+            <FontAwesome6 name="comment" size={17} color={colors.textSecondary} />
             <Text style={styles.answersText}>{getBarksText(data.answerCount ?? 0)}</Text>
           </View>
         </AnimatedPressable>
@@ -331,8 +331,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 18,
     ...(Platform.OS === "web"
-      ? { fontFamily: "'Inter', sans-serif", fontWeight: "700" as const }
-      : { fontFamily: "Inter_700Bold" }),
+      ? { fontFamily: "'Inter', sans-serif", fontWeight: "600" as const }
+      : { fontFamily: "Inter_600SemiBold" as const }),
   },
   pressed: { opacity: 0.95 },
   reactionPlaceholder: { marginTop: spacing.sm },
