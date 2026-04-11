@@ -64,11 +64,19 @@ export const BREED_HERO_IMAGES: Record<BreedEnum, string> = {
 
 /** Local asset for Australian Shepherd feed banner */
 const AUSSIE_FEED_IMAGE = require("../../assets/banners/aussie-hero.jpg");
+const HUSKY_FEED_IMAGE = require("../../assets/banners/husky-hero.jpg");
+const PUG_FEED_IMAGE = require("../../assets/banners/pug-hero.jpg");
 
-/** Get breed hero image source - uses local asset for Australian Shepherd, URI for others */
+/** Get breed hero image source - uses local assets for selected breeds, URI for others */
 export function getBreedHeroImageSource(breed: BreedEnum) {
   if (breed === "AUSTRALIAN_SHEPHERD") {
     return AUSSIE_FEED_IMAGE;
+  }
+  if (breed === "HUSKY") {
+    return HUSKY_FEED_IMAGE;
+  }
+  if (breed === "PUG") {
+    return PUG_FEED_IMAGE;
   }
   return { uri: BREED_HERO_IMAGES[breed] } as const;
 }
@@ -77,6 +85,16 @@ export function getBreedHeroImageStyle(breed: BreedEnum): StyleProp<ImageStyle> 
   if (breed === "AUSTRALIAN_SHEPHERD") {
     return {
       transform: [{ scale: 1.3 }, { translateY: -21 }],
+    };
+  }
+  if (breed === "HUSKY") {
+    return {
+      transform: [{ scale: 1.45 }, { translateY: 10 }, { translateX: -15 }],
+    };
+  }
+  if (breed === "PUG") {
+    return {
+      transform: [{ scale: 1.24 }, { translateY: -6 }, { translateX: -10 }],
     };
   }
   return undefined;
