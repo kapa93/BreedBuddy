@@ -10,7 +10,7 @@ type Props = {
 export function ScreenWithWallpaper({ children, style, showOverlay = false }: Props) {
   return (
     <ImageBackground
-      source={require("../../assets/dog-app-wallpaper.png")}
+      source={require("../../assets/dog-app-wallpaper.jpg")}
       style={[styles.background, style]}
       resizeMode="cover"
     >

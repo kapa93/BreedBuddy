@@ -17,7 +17,6 @@ import { ScreenWithWallpaper } from '@/components/ScreenWithWallpaper';
 import { useScrollDirection, useScrollDirectionUpdater } from '@/context/ScrollDirectionContext';
 import { useStackHeaderHeight } from '@/hooks/useStackHeaderHeight';
 import { formatRelativeTime } from '@/utils/breed';
-import { spacing, typography } from '@/theme';
 
 type NotificationItem = {
   id: string;
@@ -102,7 +101,6 @@ export function NotificationsScreen() {
     <ScreenWithWallpaper>
       <SafeAreaView style={styles.safe} edges={['left', 'right']}>
         <View style={[styles.container, { paddingTop: headerHeight }]}>
-          <Text style={styles.headerTitle}>Notifications</Text>
           {items.length === 0 ? (
             <View style={styles.centered}>
               <Text style={styles.emptyText}>No notifications yet</Text>
@@ -159,16 +157,6 @@ export function NotificationsScreen() {
 const styles = StyleSheet.create({
   safe: { flex: 1 },
   container: { flex: 1, paddingTop: 8 },
-  headerTitle: {
-    ...typography.titleXL,
-    fontSize: 26,
-    lineHeight: 30,
-    alignSelf: 'flex-start',
-    marginLeft: 20,
-    marginBottom: spacing.xs,
-    marginTop: 35,
-    color: '#111827',
-  },
   listHeader: { minHeight: 18, justifyContent: 'center' },
   markAllBtn: { paddingHorizontal: 16, paddingVertical: 4, alignItems: 'flex-end' },
   markAllText: { color: '#6366f1', fontWeight: '600', fontSize: 14 },
@@ -186,5 +174,5 @@ const styles = StyleSheet.create({
   preview: { fontSize: 13, color: '#6b7280', marginTop: 4, fontStyle: 'italic' },
   time: { fontSize: 12, color: '#9ca3af', marginTop: 4 },
   centered: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  emptyText: { fontSize: 16, color: '#6b7280' },
+  emptyText: { fontSize: 16, color: '#6b7280', position: 'relative', top: -40 },
 });

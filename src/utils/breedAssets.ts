@@ -73,6 +73,7 @@ const MIXED_BREED_FEED_IMAGE = require("../../assets/banners/mixed-breed-hero.jp
 const LABRADOODLE_FEED_IMAGE = require("../../assets/banners/labradoodle-hero.jpg");
 const GOLDEN_DOODLE_FEED_IMAGE = require("../../assets/banners/golden-doodle-hero.jpg");
 const GOLDEN_RETRIEVER_FEED_IMAGE = require("../../assets/banners/golden-hero.jpg");
+const DACHSHUND_FEED_IMAGE = require("../../assets/banners/dachshund-hero.jpg");
 
 /** Get breed hero image source - uses local assets for selected breeds, URI for others */
 export function getBreedHeroImageSource(breed: BreedEnum) {
@@ -105,6 +106,9 @@ export function getBreedHeroImageSource(breed: BreedEnum) {
   }
   if (breed === "GOLDEN_RETRIEVER") {
     return GOLDEN_RETRIEVER_FEED_IMAGE;
+  }
+  if (breed === "DACHSHUND") {
+    return DACHSHUND_FEED_IMAGE;
   }
   return { uri: BREED_HERO_IMAGES[breed] } as const;
 }
@@ -158,6 +162,11 @@ export function getBreedHeroImageStyle(breed: BreedEnum): StyleProp<ImageStyle> 
   if (breed === "GOLDEN_RETRIEVER") {
     return {
       transform: [{ scale: 1.2 }, { translateY: -8 }, { translateX: -6 }],
+    };
+  }
+  if (breed === "DACHSHUND") {
+    return {
+      transform: [{ scale: 1.1 }, { translateY: -2 }, { translateX: 15 }],
     };
   }
   return undefined;
