@@ -14,6 +14,7 @@ import * as Location from 'expo-location';
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { useAuthStore } from "@/store/authStore";
+import { useOnboardingStore } from '@/store/onboardingStore';
 import { OnboardingCompleteCard } from "@/components/OnboardingCompleteCard";
 import { CreatePostPromptCard } from "@/components/CreatePostPromptCard";
 import { MeetupPromptCard } from "@/components/MeetupPromptCard";
@@ -67,13 +68,15 @@ export function HomeScreen({
 }) {
   const {
     user,
+  } = useAuthStore();
+  const {
     onboardingDog,
     dismissOnboardingCard,
     showPostPrompt,
     dismissPostPrompt,
     showMeetupPrompt,
     dismissMeetupPrompt,
-  } = useAuthStore();
+  } = useOnboardingStore();
   const { onScroll } = useScrollDirectionUpdater();
   const { scrollDirection } = useScrollDirection();
   const headerHeight = useStackHeaderHeight();

@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, Text, ActivityIndicator, StyleSheet, Platform } from 'react-native';
 import { supabase } from '@/lib/supabase';
 import { useAuthStore } from '@/store/authStore';
+import { useOnboardingStore } from '@/store/onboardingStore';
 import type { RootStackParamList, AuthStackParamList, MainTabParamList, OnboardingStackParamList } from './types';
 import { SignInScreen } from '@/screens/SignInScreen';
 import { SignUpScreen } from '@/screens/SignUpScreen';
@@ -242,7 +243,8 @@ function MainTabs() {
 }
 
 export function RootNavigator() {
-  const { session, setSession, user, needsOnboarding, onboardingDog } = useAuthStore();
+  const { session, setSession, user } = useAuthStore();
+  const { hasHydrated, needsOnboarding, onboardingDog } = useOnboardingStore();
   const [loading, setLoading] = React.useState(true);
 
   useEffect(() => {
@@ -258,7 +260,7 @@ export function RootNavigator() {
     return () => subscription.unsubscribe();
   }, [setSession]);
 
-  if (loading) {
+  if (loading || !hasHydrated) {
     return (
       <View style={styles.loading}>
         <ActivityIndicator size="large" color={colors.primary} />

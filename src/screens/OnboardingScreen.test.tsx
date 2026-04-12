@@ -2,11 +2,11 @@ jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn(),
 }));
 
-jest.mock('@/store/authStore', () => {
+jest.mock('@/store/onboardingStore', () => {
   const setNeedsOnboarding = jest.fn();
-  const useAuthStore = jest.fn(() => ({})) as jest.Mock & { getState: jest.Mock };
-  useAuthStore.getState = jest.fn(() => ({ setNeedsOnboarding }));
-  return { useAuthStore };
+  const useOnboardingStore = jest.fn(() => ({})) as jest.Mock & { getState: jest.Mock };
+  useOnboardingStore.getState = jest.fn(() => ({ setNeedsOnboarding }));
+  return { useOnboardingStore };
 });
 
 jest.mock('@/components/ScreenWithWallpaper', () => {
@@ -21,16 +21,16 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react-native';
 import { useNavigation } from '@react-navigation/native';
 import { OnboardingScreen } from '@/screens/OnboardingScreen';
-import { useAuthStore } from '@/store/authStore';
+import { useOnboardingStore } from '@/store/onboardingStore';
 
 describe('OnboardingScreen', () => {
   const navigate = jest.fn();
-  const setNeedsOnboarding = (useAuthStore.getState as jest.Mock)().setNeedsOnboarding as jest.Mock;
+  const setNeedsOnboarding = (useOnboardingStore.getState as jest.Mock)().setNeedsOnboarding as jest.Mock;
 
   beforeEach(() => {
     jest.clearAllMocks();
     (useNavigation as jest.Mock).mockReturnValue({ navigate });
-    (useAuthStore.getState as jest.Mock).mockReturnValue({ setNeedsOnboarding });
+    (useOnboardingStore.getState as jest.Mock).mockReturnValue({ setNeedsOnboarding });
   });
 
   it('renders the welcome heading and supporting copy', () => {

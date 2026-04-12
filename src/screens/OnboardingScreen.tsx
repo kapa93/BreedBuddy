@@ -8,7 +8,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ScreenWithWallpaper } from '@/components/ScreenWithWallpaper';
-import { useAuthStore } from '@/store/authStore';
+import { useOnboardingStore } from '@/store/onboardingStore';
 import { colors } from '@/theme';
 import type { OnboardingStackParamList } from '@/navigation/types';
 
@@ -18,7 +18,7 @@ export function OnboardingScreen() {
   const navigation = useNavigation<OnboardingNav>();
 
   const handleSkip = () => {
-    useAuthStore.getState().setNeedsOnboarding(false);
+    useOnboardingStore.getState().setNeedsOnboarding(false);
   };
 
   const handleAddDog = () => {

@@ -19,6 +19,7 @@ import { createDog, updateDog, getDogById } from '@/api/dogs';
 import { joinBreedFeed } from '@/api/breedJoins';
 import { uploadDogImage, pickImages } from '@/lib/imageUpload';
 import { useAuthStore } from '@/store/authStore';
+import { useOnboardingStore } from '@/store/onboardingStore';
 import { dogSchema } from '@/utils/validation';
 import {
   BREEDS,
@@ -194,7 +195,7 @@ export function EditDogScreen() {
           joinBreedFeed(user.id, breed as BreedEnum).catch(() => {});
           queryClient.invalidateQueries({ queryKey: ['joinedBreeds', user.id] });
         }
-        useAuthStore.getState().completeOnboarding(name, breed);
+        useOnboardingStore.getState().completeOnboarding(name, breed);
       } else {
         navigation.goBack();
       }
