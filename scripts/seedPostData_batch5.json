@@ -1,0 +1,403 @@
+{
+  "breeds": [
+    {
+      "breed": "FRENCH BULLDOG",
+      "authors": [
+        {
+          "author_name": "Nina Cho",
+          "dog_name": "Archie",
+          "voice_note": "Second frenchie, very practical about the health realities. Not alarmist, just consistent. Knows what happens when you skip maintenance and does not skip maintenance."
+        },
+        {
+          "author_name": "Ryan Okafor",
+          "dog_name": "Potato",
+          "voice_note": "First frenchie, Potato is 8 months, Ryan is charmed and slightly bewildered. Has a good sense of humor about the breed's opinions on everything."
+        },
+        {
+          "author_name": "Claire Davis",
+          "dog_name": "Gus",
+          "voice_note": "Mid-level owner, Gus is 3, dealing with ongoing skin allergies. Thoughtful and resourceful. Has tried a lot of things and keeps track of what worked."
+        },
+        {
+          "author_name": "Tommy Chen",
+          "dog_name": "Millie",
+          "voice_note": "SD local, active lifestyle, has learned to work with Millie's limits rather than against them. Practical and brief."
+        },
+        {
+          "author_name": "Wendy Osei",
+          "dog_name": "Pascal",
+          "voice_note": "Second frenchie, experienced, warm and helpful. Knows the breed well and shares things she wishes she'd known earlier."
+        },
+        {
+          "author_name": "Greg Fischer",
+          "dog_name": "Bertie",
+          "voice_note": "Previous dog was a bigger, more compliant breed. The adjustment to Bertie's sense of self-governance has been funny and ongoing."
+        }
+      ],
+      "posts": [
+        {
+          "author_name": "Nina Cho",
+          "dog_name": "Archie",
+          "type": "tip",
+          "tag": "grooming",
+          "title": "Clean those bat ears weekly – they collect everything",
+          "content_text": "Archie gets buildup fast because of how his ears sit. They trap dust, debris, wax. We do a quick wipe with a dry cotton ball every week and it takes about two minutes. My first frenchie I didn't know to do this and she had two ear infections before I figured it out.\n\nOnce it's in the routine it's nothing. Before it's in the routine, it's a vet bill.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Nina Cho",
+          "dog_name": "Archie",
+          "type": "question",
+          "tag": "health",
+          "title": "Anyone switched to limited ingredient food for frenchie skin issues?",
+          "content_text": "Archie has had skin sensitivity since he was young — red patches between his toes, occasional itching. Vet has suggested a limited ingredient or hydrolyzed protein diet to rule out food allergies. Has anyone gone through this process with a frenchie?\n\nHow long before you saw a difference and what did you land on?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Nina Cho",
+          "dog_name": "Archie",
+          "type": "story",
+          "tag": "general",
+          "title": "Archie versus the 10-minute morning walk",
+          "content_text": "The route to the park is 10 minutes. Archie is done at minute six. Not tired — just done. He sits down on the sidewalk and looks at me like I've made a serious error in judgment. We turn around. Every day.\n\nHe is four years old and has the constitution of a Victorian convalescent. I love him completely.",
+          "has_images": true,
+          "image_briefs": [
+            "French Bulldog sitting stubbornly on a sidewalk mid-walk, looking up at owner with complete indignation"
+          ]
+        },
+        {
+          "author_name": "Ryan Okafor",
+          "dog_name": "Potato",
+          "type": "question",
+          "tag": "puppy",
+          "title": "Potato screams when I pick him up – is this a frenchie thing?",
+          "content_text": "I reach for him in a completely normal way and he makes a sound like I'm ending him. No injury, vet says he's fine, the drama is just intense. I've asked other frenchie owners and they all immediately started laughing.\n\nDoes this ever stop? Or do I just have a theatrical dog?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Ryan Okafor",
+          "dog_name": "Potato",
+          "type": "question",
+          "tag": "general",
+          "title": "Is this a frenchie thing or is Potato just like this?",
+          "content_text": "He refuses to acknowledge it's morning until I've sat next to him on the couch for at least five minutes. Not touched him, just sat there. If I don't do this he stares at me. He started this at around five months and it has only become more non-negotiable.\n\nPosting a photo of the morning stare. Please tell me others have this.",
+          "has_images": true,
+          "image_briefs": [
+            "French Bulldog sitting on a couch with a very serious unblinking stare aimed directly at the camera, clearly waiting for something"
+          ]
+        },
+        {
+          "author_name": "Ryan Okafor",
+          "dog_name": "Potato",
+          "type": "tip",
+          "tag": "food",
+          "title": "Slow feeder bowl helped Potato's gas situation more than anything else",
+          "content_text": "Potato was eating so fast he was inhaling air and the results were impressive in the worst way. Switched to a slow feeder bowl and within a week the constant air-swallowing farts dropped a lot. He still has some frenchie-standard digestive opinions but the volume is more manageable.\n\nWorth trying before you go down a food allergy investigation path.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Claire Davis",
+          "dog_name": "Gus",
+          "type": "question",
+          "tag": "health",
+          "title": "Managing frenchie skin allergies without a full elimination diet – possible?",
+          "content_text": "Gus has had itchy paws, a red belly, and occasional hot spots since he was about 18 months. Vet confirmed environmental and possibly food allergies. We've done one elimination diet and it helped somewhat but was never fully conclusive.\n\nAre people managing this with supplements, specific proteins, or something else? I feel like I've been in a permanent trial-and-error loop for a year.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Claire Davis",
+          "dog_name": "Gus",
+          "type": "story",
+          "tag": "general",
+          "title": "Gus decided his dog bed was for other dogs",
+          "content_text": "Gus had a perfectly good dog bed. He used it twice. Since then his position has been that his bed is the left couch cushion, specifically with the throw pillow. The dog bed sits in the corner looking dejected.\n\nEvery morning he stands at the couch and waits to be lifted up, even though I've watched him make the jump alone at least a dozen times. The couch is his and I am staff.",
+          "has_images": true,
+          "image_briefs": [
+            "French Bulldog sitting possessively on a couch cushion next to a throw pillow, looking completely settled and unbothered"
+          ]
+        },
+        {
+          "author_name": "Tommy Chen",
+          "dog_name": "Millie",
+          "type": "tip",
+          "tag": "behavior",
+          "title": "Two short walks at the cool ends of the day – frenchies don't do midday heat",
+          "content_text": "Millie can handle about 20–25 minutes in decent weather. In SD summers she can barely handle 15 if it's past 8am. Two short walks at dawn and dusk has been our routine for two years and it works.\n\nDon't let anyone make you feel like you're under-exercising them. Frenchies genuinely don't need or want a five-mile run.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Tommy Chen",
+          "dog_name": "Millie",
+          "type": "meetup",
+          "tag": "local",
+          "title": "Frenchie beach morning at Coronado – Sunday 7:30am",
+          "content_text": "Taking Millie to Coronado Dog Beach this Sunday morning around 7:30. Early enough that the sand is cool and it's not crowded. She mostly sits near the water and judges other dogs but she loves the outing.\n\nIf you have a frenchie or brachycephalic breed and want to meet up, we'll be near the south end.",
+          "has_images": true,
+          "image_briefs": [
+            "French Bulldog sitting on wet sand at a beach in early morning light, looking out toward the water with dignified curiosity"
+          ]
+        },
+        {
+          "author_name": "Wendy Osei",
+          "dog_name": "Pascal",
+          "type": "tip",
+          "tag": "grooming",
+          "title": "The tail pocket is easy to forget and hard to ignore when you do",
+          "content_text": "Pascal has a tight screw tail and the fold underneath gets red and irritated if I skip cleaning it. I didn't even know frenchies had this until his first groomer brought it up. It's a small fold right under the tail that traps moisture — clean it like a face fold, dry cotton, completely dried after.\n\nOnce a week minimum. Easy to miss, annoying when you do.",
+          "has_images": true,
+          "image_briefs": [
+            "French Bulldog tail area showing the characteristic screw tail and the fold beneath it, dog relaxed on a grooming mat"
+          ]
+        },
+        {
+          "author_name": "Wendy Osei",
+          "dog_name": "Pascal",
+          "type": "question",
+          "tag": "health",
+          "title": "Is anyone proactively screening their frenchie for IVDD?",
+          "content_text": "Pascal is two and I've been reading that frenchies are one of the higher-risk chondrodystrophic breeds for spinal issues. Our vet hasn't brought it up on their own. I'm wondering if there's a standard screening protocol people do or if it's mostly monitor-for-symptoms until something happens.\n\nI know it's more associated with dachshunds but frenchies are on the list too and I want to be thoughtful about it.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Wendy Osei",
+          "dog_name": "Pascal",
+          "type": "story",
+          "tag": "general",
+          "title": "Pascal found a bug and I thought something was wrong with him",
+          "content_text": "He was frozen in the middle of the living room, staring at something on the floor. Completely rigid, wouldn't respond to his name. I was convinced something was neurologically wrong. I got close and it was a small beetle, also frozen, possibly terrified.\n\nThey stared at each other for four minutes. The beetle eventually walked away. Pascal looked at me with what I can only describe as relief.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Greg Fischer",
+          "dog_name": "Bertie",
+          "type": "question",
+          "tag": "training",
+          "title": "How do you establish yourself with a frenchie who has strong opinions?",
+          "content_text": "My previous dog was a lab. The lab listened. Bertie listens to Bertie. He's sweet, he's affectionate, never aggressive — he's just completely unimpressed by authority. Treats help but only when he's in the mood.\n\nHow do other frenchie owners approach training with a dog who seems to be genuinely evaluating whether compliance is worth it?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Greg Fischer",
+          "dog_name": "Bertie",
+          "type": "meetup",
+          "tag": "playdate",
+          "title": "Frenchie meetup at Grape Street Dog Park – Saturday morning",
+          "content_text": "Taking Bertie to Grape Street Saturday around 8am. He's social with other small dogs and does well in the small dog area. Looking for other frenchie or flat-face breed owners to meet up with.\n\nComment if you're coming.",
+          "has_images": false,
+          "image_briefs": []
+        }
+      ]
+    },
+    {
+      "breed": "PIT BULL",
+      "authors": [
+        {
+          "author_name": "Jasmine Ward",
+          "dog_name": "Duke",
+          "voice_note": "Third pit bull, experienced and knowledgeable. Advocates for the breed through quality ownership rather than rhetoric. Knows the challenges and navigates them practically."
+        },
+        {
+          "author_name": "Marcus Bell",
+          "dog_name": "Ruthie",
+          "voice_note": "Ruthie is a rescue, 2 years in, working through leash reactivity. Patient and methodical. Approaches the work like a slow project he's committed to."
+        },
+        {
+          "author_name": "Tanya Cruz",
+          "dog_name": "Peanut",
+          "voice_note": "Newer owner, Peanut is a puppy, SD local. Excited about early socialization and doing everything right from the start."
+        },
+        {
+          "author_name": "Owen Rhys",
+          "dog_name": "Clyde",
+          "voice_note": "Experienced, runs structured training with Clyde. Practical, confident, brief. Believes in building the dog's skill set systematically."
+        },
+        {
+          "author_name": "Sofia Espinoza",
+          "dog_name": "Margot",
+          "voice_note": "Works from home, Margot is her second pit, SD local. Thoughtful and warm. Writes about Margot with a lot of quiet pride."
+        },
+        {
+          "author_name": "Darren Webb",
+          "dog_name": "Bruno",
+          "voice_note": "Navigating breed-restricted housing as a renter. Practical about the reality without being bitter about it. Bruno is an exceptionally well-behaved dog."
+        },
+        {
+          "author_name": "Keiko Nakamura",
+          "dog_name": "Hank",
+          "voice_note": "Casual but consistent owner, Hank is a brindle pit who's been with her four years. Writes warmly and a little wryly about life with him."
+        }
+      ],
+      "posts": [
+        {
+          "author_name": "Jasmine Ward",
+          "dog_name": "Duke",
+          "type": "tip",
+          "tag": "training",
+          "title": "A well-trained pit is the most effective response to breed bias",
+          "content_text": "This is my third pit and what I've found is that the most practical advocacy is just having a dog who holds a sit, walks nicely on leash, and has a reliable recall. Duke gets compliments from people who admit they were nervous when they first saw him. That shift happens because he gives them nothing to be nervous about.\n\nInvest heavily in the basics. It matters more with this breed than most.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Jasmine Ward",
+          "dog_name": "Duke",
+          "type": "question",
+          "tag": "socialization",
+          "title": "How do you handle it when another dog escalates toward yours?",
+          "content_text": "Duke is solid — trained, predictable, not the problem. The problem is other dogs going after him and owners who then look at me like it was my dog's fault. He holds it together but I'm always wondering if I'm managing these situations correctly.\n\nWhat's your approach when your pit is behaving and the other dog isn't?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Jasmine Ward",
+          "dog_name": "Duke",
+          "type": "story",
+          "tag": "general",
+          "title": "Duke passed his Canine Good Citizen test today",
+          "content_text": "Three months of consistent work and he passed every element. The evaluator mentioned afterward that he was one of the calmest dogs she'd tested in a while. I'm not going to pretend I wasn't emotional.\n\nFor anyone wondering if the work is worth it — it is. Whatever breed you have. The CGC process teaches you as much as it teaches the dog.",
+          "has_images": true,
+          "image_briefs": [
+            "Pit bull sitting proudly outdoors wearing a bandana, CGC ribbon visible near his collar, looking calm and composed"
+          ]
+        },
+        {
+          "author_name": "Marcus Bell",
+          "dog_name": "Ruthie",
+          "type": "question",
+          "tag": "behavior",
+          "title": "Ruthie has leash reactivity toward other dogs – where do I start?",
+          "content_text": "She's completely fine with other dogs in person — she's met plenty and plays well. But on leash with a dog approaching, she loses it. Lunging, barking, can't refocus until the other dog has passed. She's 60 lbs and it's a lot to manage.\n\nIs this leash frustration or true reactivity? And what has actually worked for people starting from this point?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Marcus Bell",
+          "dog_name": "Ruthie",
+          "type": "tip",
+          "tag": "gear",
+          "title": "Front-clip harness is non-negotiable for a strong dog",
+          "content_text": "Ruthie is 60 lbs and was pulling me all over the place before we switched to a front-clip harness. The redirect when she pulls makes walks manageable while we continue working on training. It's not a substitute but it keeps both of us safe in the meantime.\n\nWe use the Ruffwear Front Range. Holds up well and fits the wider chest.",
+          "has_images": true,
+          "image_briefs": [
+            "Pit bull wearing a well-fitted front-clip harness on a suburban sidewalk, looking up at owner with a loose relaxed leash"
+          ]
+        },
+        {
+          "author_name": "Tanya Cruz",
+          "dog_name": "Peanut",
+          "type": "question",
+          "tag": "puppy",
+          "title": "How much socialization is the right amount for a pit puppy?",
+          "content_text": "Peanut is 14 weeks and I want to socialize her as much as possible but I've also read that overstimulation at this age can backfire. Dog parks, puppy classes, street walks — trying to figure out the right pace for a breed where early socialization really matters.\n\nWhat did your schedule look like at this age?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Tanya Cruz",
+          "dog_name": "Peanut",
+          "type": "story",
+          "tag": "puppy",
+          "title": "Peanut met a cat today and handled it better than expected",
+          "content_text": "My neighbor has an outdoor cat with zero fear of dogs. They met through the fence — Peanut went still, did a slow sniff, then tried a play bow. The cat hissed and walked off. Peanut looked confused but stayed calm and didn't amp up about it.\n\nI know prey drive can develop later but this was a good first data point. Starting careful introductions early feels like the right move.",
+          "has_images": true,
+          "image_briefs": [
+            "Pit bull puppy looking through a wooden fence at a cat on the other side, tail up in curiosity, soft gentle posture"
+          ]
+        },
+        {
+          "author_name": "Owen Rhys",
+          "dog_name": "Clyde",
+          "type": "tip",
+          "tag": "training",
+          "title": "Impulse control first – everything else builds from it",
+          "content_text": "Before we worked on anything specific, I spent two months on just impulse control with Clyde: leave it, wait at thresholds, no forward movement on leash unless released. It sounds basic but a pit with solid impulse control is a genuinely different dog to manage in the real world.\n\nIf you're new to the breed and unsure where to start, start there.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Owen Rhys",
+          "dog_name": "Clyde",
+          "type": "question",
+          "tag": "behavior",
+          "title": "Clyde is dog-selective – how do you handle group settings?",
+          "content_text": "He likes some dogs and is indifferent to others. The ones he's indifferent to he mostly ignores. Occasionally he'll get tense with a specific dog and I'll pull him out. He's never started anything but I stay aware.\n\nHow do people with dog-selective pits handle dog parks or group meetups? Do you skip them or is there a way to make it work?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Owen Rhys",
+          "dog_name": "Clyde",
+          "type": "meetup",
+          "tag": "playdate",
+          "title": "Structured pit meet at Grape Street – Sunday 8am",
+          "content_text": "Taking Clyde to Grape Street Dog Park this Sunday morning. Looking for other pit or similar-breed owners who are actively managing their dogs — not looking for chaos, looking for a casual meet where owners are paying attention.\n\nDM me if you're interested so we can coordinate slightly before showing up.",
+          "has_images": true,
+          "image_briefs": [
+            "Pit bull sitting calmly on a park path next to owner's feet, looking composed and relaxed, green park background"
+          ]
+        },
+        {
+          "author_name": "Sofia Espinoza",
+          "dog_name": "Margot",
+          "type": "story",
+          "tag": "behavior",
+          "title": "Margot is a better judge of people than I am",
+          "content_text": "She warms up to almost everyone within five minutes. But there have been two people in four years where she stayed distant, stayed close between me and them, and just wouldn't relax. She didn't growl or bark — she just didn't let go of something I couldn't see.\n\nBoth times my gut said the same thing hers did. I've learned to trust that.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Sofia Espinoza",
+          "dog_name": "Margot",
+          "type": "meetup",
+          "tag": "local",
+          "title": "Sunday morning walk at Balboa Park – pit owners welcome",
+          "content_text": "I do a regular Sunday walk at Balboa Park with Margot, usually starting around 8am from the 6th Avenue entrance. She's friendly and well-managed. I just like walking with other large dog owners who are invested in their dogs.\n\nIf you have a pit or similar and want to join occasionally, let me know.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Darren Webb",
+          "dog_name": "Bruno",
+          "type": "question",
+          "tag": "general",
+          "title": "How do you find pit-friendly rental housing in San Diego?",
+          "content_text": "Bruno has a CGC title. He has never been in any kind of trouble. We've been turned down by three apartments this year because of his breed.\n\nDoes anyone have actual strategies that work — specific property management companies, how to present your dog during the application process, anything practical? I'm not looking for validation, I'm looking for what's actually worked.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Darren Webb",
+          "dog_name": "Bruno",
+          "type": "tip",
+          "tag": "general",
+          "title": "Build a dog resume before apartment hunting",
+          "content_text": "After getting rejected twice, I put together a one-page document for Bruno: CGC certification, vet reference, previous landlord reference, a professional photo. Not every landlord cares but it changes the conversation with the ones who might be on the fence.\n\nA few have told us it made a real difference. Takes about an hour to put together and it's the kind of thing that carries forward.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Keiko Nakamura",
+          "dog_name": "Hank",
+          "type": "question",
+          "tag": "general",
+          "title": "People cross the street when they see Hank and I'm not sure how to feel about it",
+          "content_text": "Hank is a 55-lb brindle pit who is afraid of plastic bags and sleeps with a stuffed duck. He has never once done anything threatening in four years. But I watch people cross the street when we're coming.\n\nIs this something you get used to? I'm not angry, it's just a little deflating sometimes. Attaching a photo so you can see what kind of dangerous animal we're dealing with.",
+          "has_images": true,
+          "image_briefs": [
+            "Brindle pit bull sitting on a sidewalk next to a small stuffed animal toy, looking sweet and docile, completely harmless energy"
+          ]
+        }
+      ]
+    }
+  ]
+}

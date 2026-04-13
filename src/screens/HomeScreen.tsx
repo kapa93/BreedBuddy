@@ -408,9 +408,10 @@ export function HomeScreen({
   );
 
   const renderFeedItem = useCallback(
-    ({ item }: { item: PostWithDetails }) => (
+    ({ item, index }: { item: PostWithDetails; index: number }) => (
       <FeedItem
         item={item}
+        showBottomBorder={index < (posts?.length ?? 0) - 1}
         onPostPress={handlePostPress}
         onAuthorPress={handleAuthorPress}
         onReactionSelect={handleReactionSelect}
@@ -429,6 +430,7 @@ export function HomeScreen({
       handleRsvpToggle,
       handleEditPost,
       handleDeletePost,
+      posts?.length,
       user?.id,
     ]
   );

@@ -1,0 +1,398 @@
+{
+  "breeds": [
+    {
+      "breed": "GOLDEN DOODLE",
+      "authors": [
+        {
+          "author_name": "Camille Brooks",
+          "dog_name": "Fig",
+          "voice_note": "Second goldendoodle, very experienced, slightly tired of the 'they don't shed' conversation. Knows the grooming reality inside and out and is helpful about it without being preachy."
+        },
+        {
+          "author_name": "Tyler Park",
+          "dog_name": "Waffles",
+          "voice_note": "Got Waffles for allergy reasons, still figuring out the reality gap. Cheerful and honest about what he didn't expect."
+        },
+        {
+          "author_name": "Priya Shah",
+          "dog_name": "Clementine",
+          "voice_note": "Mid-level owner, Clementine is 3, dealing with the jumping and energy that hasn't fully settled. Curious and slightly frustrated in a fond way."
+        },
+        {
+          "author_name": "Kevin Marsh",
+          "dog_name": "Ziggy",
+          "voice_note": "SD local, mini goldendoodle, very active. Brief and practical. Takes Ziggy everywhere and knows the breed well."
+        },
+        {
+          "author_name": "Jess Nakamura",
+          "dog_name": "Otto",
+          "voice_note": "Social, loves dog parks, Otto is a standard goldendoodle who has zero concept of personal space. Jess is working on it with humor."
+        },
+        {
+          "author_name": "Diane Wu",
+          "dog_name": "Hazel",
+          "voice_note": "First-time dog owner, Hazel is 10 months, learning everything from scratch. Warm, earnest, asking the beginner questions others are too proud to ask."
+        }
+      ],
+      "posts": [
+        {
+          "author_name": "Camille Brooks",
+          "dog_name": "Fig",
+          "type": "question",
+          "tag": "grooming",
+          "title": "How often is everyone actually taking their doodle to the groomer?",
+          "content_text": "Fig needs a full groom every 6–8 weeks or she starts matting at the armpits and behind her ears. At $100+ a session that's a real line item. I've been trying to do maintenance brushing between appointments but I can never quite stay ahead of it.\n\nHow often are people going, and is anyone doing meaningful upkeep at home to stretch the time between visits?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Camille Brooks",
+          "dog_name": "Fig",
+          "type": "story",
+          "tag": "general",
+          "title": "What they don't tell you about goldendoodle coats",
+          "content_text": "Fig came home looking like a cloud and I thought she was low-maintenance because the breeder said 'minimal shedding.' Two years in: she gets groomed every seven weeks, she mats if I skip three days of brushing, and the groomer charges more than my own haircuts.\n\nShe's worth every bit of it. But I was not prepared for this.",
+          "has_images": true,
+          "image_briefs": [
+            "Fluffy golden doodle sitting on a grooming table mid-haircut, coat partially trimmed, looking patient"
+          ]
+        },
+        {
+          "author_name": "Camille Brooks",
+          "dog_name": "Fig",
+          "type": "tip",
+          "tag": "grooming",
+          "title": "Slicker brush then metal comb – in that order, every time",
+          "content_text": "The routine that finally stopped the matting cycle for us: slicker brush first to detangle, then a metal comb through every section to find anything you missed. Bathing a matted coat just tightens the knots, so this has to happen before the bath.\n\nIf you're not using a metal comb to check your work, you're probably leaving mats behind. Takes about 20 minutes and saves emergency grooming fees.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Tyler Park",
+          "dog_name": "Waffles",
+          "type": "story",
+          "tag": "general",
+          "title": "Got a goldendoodle because my wife is allergic. Update:",
+          "content_text": "Waffles sheds. Not like a lab sheds, not like a husky sheds — but he sheds. There is hair on things. My wife's allergist says some people do fine with doodles and some don't, and ours is firmly in the 'don't' camp. She takes an antihistamine now.\n\nWaffles doesn't know any of this and is doing great.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Tyler Park",
+          "dog_name": "Waffles",
+          "type": "tip",
+          "tag": "health",
+          "title": "Check your doodle's ears every week",
+          "content_text": "Waffles has had two ear infections this year. Vet explained that the wavy coat combined with floppy ears creates a warm, moist environment that bacteria like. Weekly checks and keeping the hair around the ear canal trimmed has made a real difference.\n\nNot a fun task but it's faster than three rounds of antibiotics.",
+          "has_images": true,
+          "image_briefs": [
+            "Close-up of a golden doodle's floppy ear being gently lifted for inspection, dog looks relaxed and unbothered"
+          ]
+        },
+        {
+          "author_name": "Priya Shah",
+          "dog_name": "Clementine",
+          "type": "question",
+          "tag": "behavior",
+          "title": "Clementine jumps on everyone and I cannot get it to stop",
+          "content_text": "She is three years old and she still launches herself at any human who enters the house. Kids, elderly guests, the delivery driver — doesn't matter. Once she's through the initial greeting she's fine, but that first moment is a lot.\n\nI've done 'off,' I've done turn your back, I've done treats for four paws on the floor. It works in practice sessions and falls apart the moment she gets excited. What finally stuck for people?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Priya Shah",
+          "dog_name": "Clementine",
+          "type": "question",
+          "tag": "general",
+          "title": "At what age did your doodle actually calm down?",
+          "content_text": "People kept telling me Clementine would mellow when she turned 2. Then 3. She's 3. Still a tornado. I love her but she is exhausting in a very specific way.\n\nIs there a typical age range where goldendoodles settle or is it just individual? I'm not looking for a fix, just curious what other people's timelines looked like.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Priya Shah",
+          "dog_name": "Clementine",
+          "type": "tip",
+          "tag": "training",
+          "title": "Mental work tires this breed out faster than running does",
+          "content_text": "Clementine runs for an hour and still wants to wrestle. Clementine does 20 minutes of nose work and is genuinely done. The poodle brain in a doodle needs actual jobs.\n\nScatter feeding in the yard, sniff walks where you let them lead, short training sessions — any of these burn more real energy than fetch. We do 15 minutes of scatter feeding most mornings and it sets a better tone for the whole day.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Kevin Marsh",
+          "dog_name": "Ziggy",
+          "type": "story",
+          "tag": "beach",
+          "title": "Ziggy at Dog Beach is exactly what you'd expect",
+          "content_text": "He swam until I made him stop. Found three other doodles and they formed some kind of pack. Rolled in something unidentified near the rocks. Ate half a sandcastle a kid had abandoned nearby.\n\nMini doodles are deceptively athletic. He was out there with dogs twice his size and kept up the whole time.",
+          "has_images": true,
+          "image_briefs": [
+            "Small golden doodle mid-run on a sandy beach, coat wet from ocean water, mouth wide open in pure joy"
+          ]
+        },
+        {
+          "author_name": "Kevin Marsh",
+          "dog_name": "Ziggy",
+          "type": "meetup",
+          "tag": "beach",
+          "title": "Mini doodle beach morning – OB Dog Beach Saturday",
+          "content_text": "Taking Ziggy to OB Dog Beach this Saturday around 8am. He's great with other dogs, especially similarly-sized ones. If you have a mini or medium doodle and want to meet up, we'll be near the south end.\n\nLow key, no agenda, just a beach morning.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Jess Nakamura",
+          "dog_name": "Otto",
+          "type": "tip",
+          "tag": "behavior",
+          "title": "A tired goldendoodle is a non-jumping goldendoodle",
+          "content_text": "Otto is a big dog with no sense of personal space. We tried every training method for the jumping and the thing that helped most was just running him before guests arrive. Twenty minutes of fetch or a fast walk right before anyone comes over and his greeting enthusiasm is about 70% lower.\n\nTraining still matters. But don't set them up to fail by expecting impulse control on a full tank.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Jess Nakamura",
+          "dog_name": "Otto",
+          "type": "question",
+          "tag": "socialization",
+          "title": "Otto doesn't understand that not everyone wants him in their face",
+          "content_text": "He approaches strangers like he's been personally invited. Most people love it. Some people don't, and those interactions get awkward fast. Is there a way to teach a dog to read the room, or is this just goldendoodle energy that I need to manage by positioning?\n\nOpen to any approaches people have tried.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Jess Nakamura",
+          "dog_name": "Otto",
+          "type": "meetup",
+          "tag": "playdate",
+          "title": "Doodle playdate at Morley Field – Sunday morning",
+          "content_text": "Bringing Otto to Morley Field Sunday around 9am. He's big, friendly, and vaccinated. Looking for other social dogs — doodles, labs, friendly mixes welcome. The off-leash area there is usually pretty relaxed on Sunday mornings.\n\nComment or DM if you're planning to come.",
+          "has_images": true,
+          "image_briefs": [
+            "Golden doodle mid-leap at a grassy off-leash park, chasing another dog, big goofy open-mouth expression"
+          ]
+        },
+        {
+          "author_name": "Diane Wu",
+          "dog_name": "Hazel",
+          "type": "question",
+          "tag": "training",
+          "title": "First dog ever – how do I know if I should hire a trainer?",
+          "content_text": "Hazel is 10 months and I'm a first-time dog owner. She's sweet but very distracted on walks, pulls a lot, and completely ignores me if she spots something interesting. I've watched videos, tried treats, and I feel like I'm doing something wrong.\n\nAt what point do you stop trying to figure it out yourself and hire someone? I don't want to wait too long if I'm reinforcing bad habits.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Diane Wu",
+          "dog_name": "Hazel",
+          "type": "question",
+          "tag": "grooming",
+          "title": "Is this a normal doodle haircut or did I find a bad groomer?",
+          "content_text": "Took Hazel for her first professional groom last week. She came back looking... uneven. One side is shorter than the other and around her face it looks patchy. I don't have a reference point since this is my first dog and first groom.\n\nPosting a photo — is this within normal range or should I find someone new?",
+          "has_images": true,
+          "image_briefs": [
+            "Golden doodle with an uneven post-grooming haircut, coat noticeably different lengths on each side, owner's hand gently holding her face for the photo"
+          ]
+        }
+      ]
+    },
+    {
+      "breed": "GOLDEN RETRIEVER",
+      "authors": [
+        {
+          "author_name": "Ana Delgado",
+          "dog_name": "Biscoff",
+          "voice_note": "Third golden, experienced and warm, SD local. Knows the breed deeply and cares about long-term health. Practical and affectionate in tone."
+        },
+        {
+          "author_name": "Garrett Moore",
+          "dog_name": "Humphrey",
+          "voice_note": "Newer owner, Humphrey is 1 year old. Dealing with mouthiness and outdoor distraction. Good energy, honest about what isn't working."
+        },
+        {
+          "author_name": "Yuki Tanaka",
+          "dog_name": "Oatmeal",
+          "voice_note": "Works from home, Oatmeal is 5 and settled. Observational and warm. Writes about the quiet, funny daily moments of golden ownership."
+        },
+        {
+          "author_name": "Sam Okafor",
+          "dog_name": "Chester",
+          "voice_note": "Chester is 8, starting to slow down. Sam writes about him with a lot of affection and a little quiet heaviness. Experienced, thoughtful, not looking for advice — sharing."
+        },
+        {
+          "author_name": "Brooke Ellis",
+          "dog_name": "Sunny",
+          "voice_note": "SD local, beach-oriented, takes Sunny to Dog Beach regularly. Social and practical. Knows Dog Beach dynamics well."
+        },
+        {
+          "author_name": "Mia Russo",
+          "dog_name": "Wellington",
+          "voice_note": "New owner, Wellington is a 4-month-old puppy. Excited and slightly overwhelmed. Asks the questions every new puppy owner has."
+        }
+      ],
+      "posts": [
+        {
+          "author_name": "Ana Delgado",
+          "dog_name": "Biscoff",
+          "type": "question",
+          "tag": "health",
+          "title": "Golden owners – are you doing any proactive cancer screening?",
+          "content_text": "Biscoff is 5 and I've been reading more about the elevated cancer rates in goldens, especially American-bred lines. My vet mentioned it but didn't go deep. I'm wondering if people are doing anything beyond a standard yearly exam — blood panels, imaging, anything.\n\nOr is it mostly a wait-and-watch approach? I'd rather be proactive if there's something reasonable to do.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Ana Delgado",
+          "dog_name": "Biscoff",
+          "type": "story",
+          "tag": "general",
+          "title": "Biscoff found the garden and carried a zucchini for 20 minutes",
+          "content_text": "He pulled a zucchini out of the raised bed, carried it around the yard, brought it to me, then took it back. Just walked around with it, gentle as anything. Didn't chew it, didn't destroy it. Just had it.\n\nHe is exactly the dog this breed is supposed to be and moments like this remind me why I keep getting goldens.",
+          "has_images": true,
+          "image_briefs": [
+            "Golden Retriever proudly carrying a large zucchini in his mouth across a backyard, tail mid-wag, looking very pleased"
+          ]
+        },
+        {
+          "author_name": "Ana Delgado",
+          "dog_name": "Biscoff",
+          "type": "tip",
+          "tag": "training",
+          "title": "Teach 'go get your toy' before people arrive at the door",
+          "content_text": "Biscoff needs something in his mouth at greetings or he mouths hands and jumps. The fix that actually worked: teaching him to find a toy when the doorbell rings. He sprints to get it, comes back to show the guest, and everyone's happy.\n\nThis is my third golden and the best doorbell protocol I've found. Redirect the retrieve instinct instead of fighting it.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Garrett Moore",
+          "dog_name": "Humphrey",
+          "type": "question",
+          "tag": "puppy",
+          "title": "Humphrey is 9 months and still mouthing everything – is this late?",
+          "content_text": "Not hard biting, no breaking skin, but constant mouthing of hands, arms, clothing, leashes. I thought this settled down around 6 months. We've done bite inhibition work, lots of redirection, timeouts. He's 9 months now and still at it.\n\nIs this normal for goldens or did I miss a window somewhere?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Garrett Moore",
+          "dog_name": "Humphrey",
+          "type": "question",
+          "tag": "training",
+          "title": "When did your golden start listening reliably outside?",
+          "content_text": "Humphrey listens great inside. The second we're outdoors — other dogs, smells, people — he checks out completely. I know he understands the commands because he does them at home.\n\nAt what point in training did it start clicking outside? Not giving up, just trying to calibrate my expectations.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Garrett Moore",
+          "dog_name": "Humphrey",
+          "type": "tip",
+          "tag": "behavior",
+          "title": "Flirt pole before walks cut our leash pulling in half",
+          "content_text": "Humphrey was dragging me on every single walk. Tried gentle leaders, treat-based loose leash work, management tools — nothing stuck. Someone suggested burning energy with a flirt pole for 15 minutes first. First week, pulling dropped by half.\n\nNot a replacement for training but if your dog is already over-threshold before you even start, exercise first. Posting a photo of what a post-flirt-pole golden actually looks like.",
+          "has_images": true,
+          "image_briefs": [
+            "Golden Retriever lying flat on a lawn completely wiped out but happy, panting with eyes soft and half-closed"
+          ]
+        },
+        {
+          "author_name": "Yuki Tanaka",
+          "dog_name": "Oatmeal",
+          "type": "story",
+          "tag": "general",
+          "title": "Oatmeal has a very specific way of placing her orders",
+          "content_text": "She puts her paw on my knee. Not urgently — very gently, like she's placing an order. If I don't respond she lifts it and replaces it, same spot, same pressure. This happens maybe 15 times a day.\n\nShe has fully figured out that it works and she is exploiting it without any shame.",
+          "has_images": true,
+          "image_briefs": [
+            "Golden Retriever with her paw gently resting on a person's knee, looking up with soft patient eyes"
+          ]
+        },
+        {
+          "author_name": "Yuki Tanaka",
+          "dog_name": "Oatmeal",
+          "type": "tip",
+          "tag": "food",
+          "title": "Use mealtimes as quick training sessions – golden brains like it",
+          "content_text": "Oatmeal would work for food indefinitely. I started doing 2–3 minutes of obedience work before every meal — sits, downs, place, whatever we're working on. By the time the bowl lands, she's focused and has actually earned it.\n\nSmall thing but it's kept her sharp at 5 without needing long formal sessions.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Sam Okafor",
+          "dog_name": "Chester",
+          "type": "story",
+          "tag": "health",
+          "title": "Chester is 8 now and everything is a little slower",
+          "content_text": "We still do our walks but they're shorter. He still wants to fetch but stops sooner. He sleeps more and sometimes I hear him creak getting up from his bed in the morning. The vet says he's doing well for his age.\n\nThis is the part of having a golden that nobody talks about enough. They're with you for maybe 10–12 years and the last few look different than the first. I'm grateful for every single one.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Sam Okafor",
+          "dog_name": "Chester",
+          "type": "question",
+          "tag": "health",
+          "title": "Managing hip stiffness in an older golden – what's actually helped?",
+          "content_text": "Chester has started showing stiffness after rest, especially in his hips and back legs. He's on joint supplements and we've slowed down the mileage. Looking for what else people have found useful — specific supplements, changes to sleep setup, swimming, anything.\n\nHe's 8, otherwise healthy. Just want to keep him comfortable.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Brooke Ellis",
+          "dog_name": "Sunny",
+          "type": "question",
+          "tag": "beach",
+          "title": "Does your golden hit a wall at Dog Beach and get weird?",
+          "content_text": "Sunny is great at Dog Beach but around the 90-minute mark she starts getting nippy and over-stimulated. Like she can't read social cues anymore. I've started leaving before she gets there but I'm curious if others notice this and whether there's anything to do about it besides just managing the duration.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Brooke Ellis",
+          "dog_name": "Sunny",
+          "type": "tip",
+          "tag": "behavior",
+          "title": "Leave before the meltdown, not during it",
+          "content_text": "Staying at Dog Beach until Sunny's behavior deteriorated meant she went home on an aroused, overstimulated note. Now I leave when things are still good — she's engaged but not frantic. Shorter visits with better endings have made a real difference in how she behaves on the drive home and into the next day.\n\nEnd on a high, even if it feels early.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Brooke Ellis",
+          "dog_name": "Sunny",
+          "type": "meetup",
+          "tag": "beach",
+          "title": "Golden meetup at Dog Beach – Saturday morning",
+          "content_text": "Taking Sunny to Dog Beach Saturday around 8am. She does especially well with her own breed so would love to meet other golden owners. We'll be near the north end.\n\nCome say hi.",
+          "has_images": true,
+          "image_briefs": [
+            "Two golden retrievers running together on an off-leash beach, both mid-sprint, ocean and morning light in background"
+          ]
+        },
+        {
+          "author_name": "Mia Russo",
+          "dog_name": "Wellington",
+          "type": "question",
+          "tag": "puppy",
+          "title": "Wellington's fur is still really light at 4 months – does it change?",
+          "content_text": "Wellington is 4 months and his coat is very fluffy and almost cream-colored. I was expecting more gold. The breeder said the color would deepen but I'm curious when that usually happens and whether some just stay light.\n\nPosting a photo because he is very cute and I also need some reassurance.",
+          "has_images": true,
+          "image_briefs": [
+            "Cream-colored golden retriever puppy with very fluffy cottony coat, sitting on grass looking up at camera"
+          ]
+        },
+        {
+          "author_name": "Mia Russo",
+          "dog_name": "Wellington",
+          "type": "meetup",
+          "tag": "playdate",
+          "title": "Puppy playdate for goldens or friendly mixes – North Park",
+          "content_text": "Wellington needs friends. He's 4 months, fully vaccinated, and absolutely full of it. Looking for other puppy owners or calm adult dogs for a backyard playdate in North Park. Nothing formal — just some socialization time.\n\nDM if interested.",
+          "has_images": false,
+          "image_briefs": []
+        }
+      ]
+    }
+  ]
+}

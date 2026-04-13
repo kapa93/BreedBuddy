@@ -1,0 +1,2383 @@
+{
+  "breeds": [
+    {
+      "breed": "AUSTRALIAN SHEPHERD",
+      "authors": [
+        {
+          "author_name": "Maya Torres",
+          "dog_name": "Rigby",
+          "voice_note": "Experienced aussie owner, hikes regularly around San Diego. Slightly competitive about her dog's training. Knows what she's doing but still hits walls."
+        },
+        {
+          "author_name": "Jake Finneran",
+          "dog_name": "Clover",
+          "voice_note": "New aussie owner, slightly overwhelmed, researches everything. Earnest and genuine. Asks the questions every new owner has but is too embarrassed to google."
+        },
+        {
+          "author_name": "Sarah Kim",
+          "dog_name": "Biscuit",
+          "voice_note": "Casual, warm, works from home. Biscuit has become an unofficial coworker. More observational than advice-seeking."
+        },
+        {
+          "author_name": "Brendan Walsh",
+          "dog_name": "Pepper",
+          "voice_note": "Experienced, trainer-minded. Practical and direct. Has owned aussies before and knows the breed well. Gets straight to the point."
+        },
+        {
+          "author_name": "Lena Oduya",
+          "dog_name": "Wren",
+          "voice_note": "Thoughtful and sincere. Deals with some health challenges with Wren. Shares personal moments without oversharing."
+        },
+        {
+          "author_name": "Chris Deluca",
+          "dog_name": "Koda",
+          "voice_note": "Ocean Beach local, very active outdoorsy lifestyle. Writes casually and briefly. Koda gets a ton of outdoor time and Chris wants to find a crew."
+        }
+      ],
+      "posts": [
+        {
+          "author_name": "Maya Torres",
+          "dog_name": "Rigby",
+          "type": "story",
+          "tag": "PLAYDATE",
+          "title": "Took Rigby to Dog Beach for the first time",
+          "content_text": "Rigby absolutely lost his mind at Dog Beach. First five minutes he just stood at the water's edge barking at the waves like he was personally offended by them. Then some golden retriever ran past and he was off.\n\nSpent the whole time doing laps between the water and the sand. He slept for like four hours when we got home, which honestly was the goal.",
+          "has_images": true,
+          "image_briefs": [
+            "Australian Shepherd running along the shoreline at Dog Beach, ears flat, looking back at camera, wet sand and waves in background"
+          ]
+        },
+        {
+          "author_name": "Jake Finneran",
+          "dog_name": "Clover",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Clover started circling my toddler in the yard – herding instinct or something to fix?",
+          "content_text": "Clover has started circling my toddler when he runs around outside. No snapping or growling — just nudging him and cutting in front. I know aussies are bred to herd but I genuinely can't tell if this needs correcting early or if it's harmless.\n\nPosting a photo. She looks extremely focused and has no idea she's doing anything unusual.",
+          "has_images": true,
+          "image_briefs": [
+            "Australian Shepherd puppy standing attentively in a suburban backyard near a small child's legs, looking up with intense focus"
+          ]
+        },
+        {
+          "author_name": "Brendan Walsh",
+          "dog_name": "Pepper",
+          "type": "tip",
+          "tag": "TRAINING",
+          "title": "'place' was one of the better things we taught Pepper early on",
+          "content_text": "One thing I wish I had worked on sooner with Pepper was really proofing the 'place' command. Guests at the door, doorbell going off, just needing five minutes of quiet — having a dog who genuinely wants to go there makes a real difference.\n\nWe started with very short durations and built up slowly. One of the more useful things we put time into in year one.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Chris Deluca",
+          "dog_name": "Koda",
+          "type": "meetup",
+          "tag": "PLAYDATE",
+          "title": "Aussie run at OB Dog Beach – Saturday morning",
+          "content_text": "Taking Koda down to OB Dog Beach this Saturday around 8am if anyone wants to bring their aussie or herding mix. Usually pretty chill at that hour before it fills up. We'll be near the south end.\n\nNo pressure, just throwing it out there.",
+          "has_images": true,
+          "image_briefs": [
+            "Australian Shepherd standing at the water's edge of an off-leash beach, looking out toward the ocean, warm morning light"
+          ]
+        },
+        {
+          "author_name": "Sarah Kim",
+          "dog_name": "Biscuit",
+          "type": "story",
+          "tag": "BEHAVIOR",
+          "title": "Biscuit decided my WFH setup is his personal nap station",
+          "content_text": "I've been working from home most days and at some point Biscuit just fully claimed the spot under my desk. Not asking, just existing there. I'm not complaining — he's warm and stays quiet as long as I'm not on video calls.\n\nThe second I unmute he lifts his head like he's about to contribute something to the meeting.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Lena Oduya",
+          "dog_name": "Wren",
+          "type": "question",
+          "tag": "HEALTH",
+          "title": "Vet flagged possible hip dysplasia at age 3 – anyone been through this?",
+          "content_text": "Got some concerning news at our last vet visit. Wren is only three and the X-rays are showing early signs of hip dysplasia. Vet said it's not uncommon in the breed but I wasn't expecting it this young.\n\nHas anyone been through this with their aussie? What does long-term management look like? Any supplements or lifestyle changes that genuinely helped?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Maya Torres",
+          "dog_name": "Rigby",
+          "type": "question",
+          "tag": "TRAINING",
+          "title": "How do you handle recall near other dogs?",
+          "content_text": "Rigby has great recall in the backyard and at quieter parks, but the second there are other dogs around it's like I don't exist. I've tried high value treats, I've tried the long line, nothing seems to stick when he's in that zone.\n\nAnyone else dealt with this? What finally worked?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Jake Finneran",
+          "dog_name": "Clover",
+          "type": "question",
+          "tag": "PUPPY",
+          "title": "How much exercise is too much for a 5-month-old aussie?",
+          "content_text": "We got Clover about two months ago and I've been reading conflicting stuff about exercise limits at this age. Some sources say 5 minutes per month of age, others suggest aussies need way more or they go sideways.\n\nShe seems totally fine but I don't want to cause joint issues. What were you all actually doing at 5 months?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Maya Torres",
+          "dog_name": "Rigby",
+          "type": "tip",
+          "tag": "BEHAVIOR",
+          "title": "Puzzle feeders actually helped with Rigby's zoomies",
+          "content_text": "I was skeptical but adding a puzzle feeder to Rigby's morning routine made a noticeable difference in his overall settleability. He still needs physical exercise but the mental drain from working for his food takes some of the edge off.\n\nWe've been doing it about six weeks and the random indoor zoomies have dropped a lot. Not a fix for everything but it helped us.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Brendan Walsh",
+          "dog_name": "Pepper",
+          "type": "tip",
+          "tag": "BEHAVIOR",
+          "title": "rotating toys sounds obvious but it actually made a difference for Pepper",
+          "content_text": "Pepper loses interest in toys within 48 hours if they are always out. I rotate now — about 5 available at a time, swap every few days. Toys she has had for months feel interesting again.\n\nSame idea with puzzle feeders. Novelty matters more than I expected. Does not cost anything extra.",
+          "has_images": true,
+          "image_briefs": [
+            "Assortment of dog toys sorted into small groups on a living room rug, organized neatly like they're ready to be rotated out"
+          ]
+        },
+        {
+          "author_name": "Jake Finneran",
+          "dog_name": "Clover",
+          "type": "tip",
+          "tag": "TRAINING",
+          "title": "Frozen lick mats changed crate training for us",
+          "content_text": "Clover was not into the crate at first. Like, at all. Someone in an aussie group suggested frozen lick mats — I used plain peanut butter and a bit of banana — and it genuinely shifted things within about a week.\n\nShe now goes in on her own sometimes when she's tired. I know every dog is different but if you're in crate training hell right now, try it.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Sarah Kim",
+          "dog_name": "Biscuit",
+          "type": "question",
+          "tag": "GROOMING",
+          "title": "Best brush for double coat shedding season?",
+          "content_text": "Biscuit is blowing his coat right now and I am losing my mind. I've tried a slicker brush, a deshedding rake, and a Furminator, and somehow there is still hair on every surface in my apartment.\n\nIs there a brush that actually makes a visible difference? Or is this just the reality I need to accept for the next six weeks?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Brendan Walsh",
+          "dog_name": "Pepper",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Pepper shifts into this whole watchful mode when strangers come inside",
+          "content_text": "Pepper is completely fine with people outside — parks, the street, anywhere public. But put a stranger inside the house and she is in a different gear. Not aggressive, just very switched on. She will bark once or twice and then quietly keep tabs.\n\nShe is four so I do not think this is going away on its own. Is this just an aussie trait or is there something worth actually working on?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Lena Oduya",
+          "dog_name": "Wren",
+          "type": "story",
+          "tag": "PLAYDATE",
+          "title": "Morning hike at Mission Trails with Wren",
+          "content_text": "We did the Visitor Center loop at Mission Trails this morning, got there early enough that it was still cool out. Wren was in absolute heaven — so many smells, so much terrain to process.\n\nShe tried to herd a jogger at the turnaround point, which was mortifying, but he laughed it off. We'll probably be back next weekend.",
+          "has_images": true,
+          "image_briefs": [
+            "Australian Shepherd on a dry dirt trail in a Southern California park, on leash, looking off into brushy terrain with alert ears"
+          ]
+        },
+        {
+          "author_name": "Chris Deluca",
+          "dog_name": "Koda",
+          "type": "meetup",
+          "tag": "PLAYDATE",
+          "title": "Anyone run Fiesta Island with their aussie?",
+          "content_text": "Koda and I go to Fiesta Island a couple mornings a week and I've been meaning to find other aussie owners to run with. Flat, open, great for off-leash if you haven't been.\n\nWe usually go Tuesday and Thursday around 7:30. Hit me up if you're interested.",
+          "has_images": false,
+          "image_briefs": []
+        }
+      ]
+    },
+    {
+      "breed": "DACHSHUND",
+      "authors": [
+        {
+          "author_name": "Priya Mehta",
+          "dog_name": "Pretzel",
+          "voice_note": "Experienced dachshund owner, very health-conscious about IVDD and back care. Gives practical but cautious advice. Earnest and a little intense about breed health."
+        },
+        {
+          "author_name": "Derek Nolan",
+          "dog_name": "Frank",
+          "voice_note": "Casual and a bit funny, newer owner. Frank is a chaos agent. Derek writes like he's still adjusting to having a dachshund and finding it both stressful and hilarious."
+        },
+        {
+          "author_name": "Olivia Chen",
+          "dog_name": "Bao",
+          "voice_note": "Younger owner, attentive, Bao is her first dog. Thoughtful about training and socialization. Writes with a gentle curiosity."
+        },
+        {
+          "author_name": "Marcus Webb",
+          "dog_name": "Trudy",
+          "voice_note": "No-nonsense, practical, this is his third dachshund. Gives blunt, experienced advice. Doesn't sugarcoat. Has seen it all."
+        },
+        {
+          "author_name": "Jen Gallagher",
+          "dog_name": "Mochi",
+          "voice_note": "San Diego local, social, goes to dog beach regularly. Enthusiastic and community-oriented. Mochi is small and a little dramatic."
+        },
+        {
+          "author_name": "Ray Castillo",
+          "dog_name": "Señor",
+          "voice_note": "Older guy, second dachshund, Señor is seven and slowing down a bit. Warm and observational. Writes with a quiet affection for the breed."
+        },
+        {
+          "author_name": "Tara Singh",
+          "dog_name": "Pickles",
+          "voice_note": "Brand new dachshund owner, 14-week-old puppy, slightly overwhelmed. Asks the panicked questions every new owner has but is too deep in it to Google properly."
+        }
+      ],
+      "posts": [
+        {
+          "author_name": "Tara Singh",
+          "dog_name": "Pickles",
+          "type": "question",
+          "tag": "PUPPY",
+          "title": "Is my dachshund puppy normal or just feral",
+          "content_text": "Pickles is 14 weeks old and she is absolutely unhinged. Bites everything, full zoomies at 11pm, cries the second I leave the room, digs at the carpet like she's searching for buried treasure.\n\nIs this just puppy behavior or is there something specifically dachshund about this? Please tell me this calms down. Posting a photo because words alone don't do it justice.",
+          "has_images": true,
+          "image_briefs": [
+            "Dachshund puppy sitting in the middle of a partially chewed dog bed, looking slightly unhinged, mouth open"
+          ]
+        },
+        {
+          "author_name": "Derek Nolan",
+          "dog_name": "Frank",
+          "type": "story",
+          "tag": "BEHAVIOR",
+          "title": "Frank has claimed the couch arm as his surveillance tower",
+          "content_text": "Frank is somehow always exactly 10% taller than he needs to be. He's started using the couch arm as a watchtower — just perched up there monitoring the street like a gargoyle. I've tried moving him. He just gets back up.\n\nI've fully accepted this is his spot now. He looks completely ridiculous but honestly the commitment is kind of impressive.",
+          "has_images": true,
+          "image_briefs": [
+            "Miniature dachshund perched on the arm of a living room couch, looking out a window with a very serious expression"
+          ]
+        },
+        {
+          "author_name": "Priya Mehta",
+          "dog_name": "Pretzel",
+          "type": "tip",
+          "tag": "HEALTH",
+          "title": "Ramps over stairs – I waited too long and regret it",
+          "content_text": "I spent way too long convincing myself Pretzel was fine jumping off the couch. She's small, how bad could it be? Turns out pretty bad. IVDD is real and even low-impact repetitive jumping adds up over years.\n\nWe have ramps to the couch and bed now. She figured both out in a few days with treat luring. I just wish I'd done it sooner instead of waiting until I got nervous.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Jen Gallagher",
+          "dog_name": "Mochi",
+          "type": "meetup",
+          "tag": "PLAYDATE",
+          "title": "Small dog beach morning at OB – anyone in?",
+          "content_text": "Thinking about putting together a small dog meetup at OB Dog Beach next Sunday around 9am. It can get overwhelming for little guys when big dogs are running full speed, so I'd love to find a small crew of dachshund or small breed owners to go with.\n\nComment if you're interested and I'll share more details.",
+          "has_images": true,
+          "image_briefs": [
+            "Group of small dogs running on wet sand at an off-leash dog beach, owners standing in the background chatting"
+          ]
+        },
+        {
+          "author_name": "Marcus Webb",
+          "dog_name": "Trudy",
+          "type": "tip",
+          "tag": "TRAINING",
+          "title": "dachshunds operate on their own timeline – three dogs in and I still remind myself of this",
+          "content_text": "Trudy is my third dachshund. They are not like labs or goldens. They understand what you want — they just do not always feel like doing it right now. That is not exactly stubbornness, it is just the breed.\n\nShort sessions, high value treats, a lot of patience. If you are coming from a more biddable breed this is a real adjustment, but it works.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Olivia Chen",
+          "dog_name": "Bao",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Bao gets nervous around bigger dogs – is slow exposure the right approach?",
+          "content_text": "Bao is totally fine with other small dogs but around anything medium or larger she gets stiff, sometimes barks, sometimes just tries to hide behind me. She's not aggressive — just clearly uncomfortable.\n\nI've been doing slow, neutral-ground exposure and there's some progress but it's really slow going. Is there a more specific approach that worked for your small dog?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Priya Mehta",
+          "dog_name": "Pretzel",
+          "type": "story",
+          "tag": "BEHAVIOR",
+          "title": "Pretzel vs. the backyard sprinklers",
+          "content_text": "The backyard sprinklers came on while Pretzel was outside this morning and she absolutely lost it. Full sprint back to the door, sat there glaring at the yard, would not go back out until I walked out first and showed her it was done.\n\nShe is four and a half years old. She has never once been harmed by water in her entire life. Absolutely unhinged dog.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Ray Castillo",
+          "dog_name": "Señor",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Señor started resource guarding his bed – how to handle this in an older dog?",
+          "content_text": "Señor is seven and has never done this before. In the last month he's started growling if my other dog gets near his sleeping spot. They've coexisted fine for three years and nothing in the house has changed.\n\nI'm not panicking but I want to address it before it escalates. Anyone dealt with sudden onset resource guarding in an older dog?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Priya Mehta",
+          "dog_name": "Pretzel",
+          "type": "question",
+          "tag": "HEALTH",
+          "title": "Anyone have a vet rec for dachshund back issues in SD?",
+          "content_text": "Pretzel has been showing some stiffness in her back legs after longer walks — nothing dramatic, she's still moving fine, but I want to be proactive before it becomes something. Our regular vet is great but I'm wondering if there's a specialist with more dachshund or IVDD experience in the area.\n\nMission Valley or North Park would be ideal but I'll travel. Any referrals appreciated.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Derek Nolan",
+          "dog_name": "Frank",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Is Frank's barking ever going to calm down?",
+          "content_text": "Frank barks at everything. The mailman, delivery trucks, leaves blowing past the window, me when I take too long getting his food ready. He's 18 months now and I keep hearing it gets better with age.\n\nI'm not seeing any sign of improvement. Any realistic advice? Or is this just what living with a dachshund is?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Olivia Chen",
+          "dog_name": "Bao",
+          "type": "tip",
+          "tag": "GEAR",
+          "title": "Switched Bao to a harness a few months ago and won't go back",
+          "content_text": "I know the harness-vs-collar thing gets repeated a lot in dachshund spaces but it's worth repeating — the way they pull and jerk on leash can stress the neck and spine over time, and dachshunds are already working with a vulnerable back.\n\nBao wears the Puppia soft harness and it fits her long body really well. Made the switch and haven't thought twice about it since.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Marcus Webb",
+          "dog_name": "Trudy",
+          "type": "tip",
+          "tag": "HEALTH",
+          "title": "Keeping Trudy lean has made a bigger difference than anything else",
+          "content_text": "Even a pound or two of extra weight puts real stress on a dachshund's spine. Trudy is nine now and I credit her staying mobile to keeping her at a healthy weight her whole life. Measured food, no table scraps, treats counted toward her daily intake.\n\nBoring stuff but it genuinely matters more for this breed than most.",
+          "has_images": true,
+          "image_briefs": [
+            "Dachshund sitting on a scale at a vet office, looking up at the camera with a slightly patient expression"
+          ]
+        },
+        {
+          "author_name": "Ray Castillo",
+          "dog_name": "Señor",
+          "type": "meetup",
+          "tag": "PLAYDATE",
+          "title": "Evening walk at Sunset Cliffs – looking for small dog company",
+          "content_text": "I take Señor along Sunset Cliffs a couple evenings a week, usually around 6:30. It's a beautiful route and not too hot at that hour. He's a slow walker these days — seven years old, bum knee — but he loves the smells and the people.\n\nIf you have a small dog and want some company, let me know.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Marcus Webb",
+          "dog_name": "Trudy",
+          "type": "question",
+          "tag": "HEALTH",
+          "title": "Has swimming actually worked as low-impact exercise for your dachshund?",
+          "content_text": "My vet mentioned swimming as a good option for dachshunds managing back issues — keeps them active without the impact. Trudy has never been a water dog though.\n\nHas anyone actually introduced a reluctant dachshund to swimming? Did you use a life jacket? Pool or beach? Curious what the reality was like, especially at an older age.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Jen Gallagher",
+          "dog_name": "Mochi",
+          "type": "story",
+          "tag": "PLAYDATE",
+          "title": "Mochi's first trip to Dog Beach",
+          "content_text": "She hated it. Absolutely hated it. First she sat down and refused to walk. Then a golden retriever came over to say hi and she barked until it left. Then she found a piece of seaweed and was obsessed with it for 20 minutes.\n\nThen she fell asleep on my lap on the drive home. It was a disaster and also kind of perfect. We're going back.",
+          "has_images": true,
+          "image_briefs": [
+            "Small dachshund standing on wet sand at an off-leash beach, looking uncertain, wind slightly lifting her ears"
+          ]
+        }
+      ]
+    },
+    {
+      "breed": "GERMAN SHEPHERD",
+      "authors": [
+        {
+          "author_name": "Nadia Reyes",
+          "dog_name": "Ares",
+          "voice_note": "Experienced GSD owner, takes training seriously, slightly intense about it. Knows working dog lines and expects a lot from Ares. Not without humor."
+        },
+        {
+          "author_name": "Owen Garrett",
+          "dog_name": "Zelda",
+          "voice_note": "First-time GSD owner, works from home, was not fully prepared for a velcro dog. Charmed by it but also processing. Asks a lot of questions."
+        },
+        {
+          "author_name": "Teresa Vong",
+          "dog_name": "Bruno",
+          "voice_note": "Mid-level owner, practical, has a good relationship with Bruno but navigates his guarding instincts with patience. Dry and observational in how she writes."
+        },
+        {
+          "author_name": "Marcus Holt",
+          "dog_name": "Nora",
+          "voice_note": "SD local, experienced GSD owner, goes to Fiesta Island regularly. Direct, helpful, and brief. Knows his breed."
+        },
+        {
+          "author_name": "Simone Laurent",
+          "dog_name": "Kiefer",
+          "voice_note": "Second GSD, experienced and warm. Originally from France, now in San Diego. Practical but affectionate in tone."
+        },
+        {
+          "author_name": "Dan Whitfield",
+          "dog_name": "Ghost",
+          "voice_note": "Casual outdoorsy guy, big dog owner, less structured than some. Ghost gets plenty of exercise. Dan is easygoing and writes like it."
+        }
+      ],
+      "posts": [
+        {
+          "author_name": "Nadia Reyes",
+          "dog_name": "Ares",
+          "type": "story",
+          "tag": "ADULT",
+          "title": "Ares turned 2 and finally looks like a real dog",
+          "content_text": "There's a GSD teenage phase nobody warns you about. Huge ears, long legs, none of it proportional. Ares looked like spare parts for most of his first year.\n\nHit his second birthday and something clicked. He filled out, his coat got dense, and he finally looks like the dog I thought I was getting. Attaching a photo as proof that it does end.",
+          "has_images": true,
+          "image_briefs": [
+            "Two-year-old German Shepherd sitting outdoors looking alert and confident, full coat, well-proportioned"
+          ]
+        },
+        {
+          "author_name": "Owen Garrett",
+          "dog_name": "Zelda",
+          "type": "question",
+          "tag": "PUPPY",
+          "title": "Zelda's ears won't both stand up at the same time",
+          "content_text": "She's 5 months and one ear is up and one is usually flopped. Sometimes they switch. Sometimes both stand for an hour and then both fold. I've been told this is normal during teething but it's been going on for two months.\n\nStill within the normal range or should I be doing something? Posting a photo because it's also kind of adorable.",
+          "has_images": true,
+          "image_briefs": [
+            "German Shepherd puppy with one ear upright and one flopped over, looking directly at camera with wide curious eyes"
+          ]
+        },
+        {
+          "author_name": "Teresa Vong",
+          "dog_name": "Bruno",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Bruno barks at the door even with people he knows",
+          "content_text": "My neighbor comes over once a week and has for two years. Bruno has met her probably 80 times. Every single time she rings the bell he loses it. Once she's inside he's completely calm and friendly — it's just that initial moment at the door.\n\nI've tried having her give treats, I've worked on 'quiet,' nothing has stuck. Is this purely territorial or is there a specific approach that's helped others?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Marcus Holt",
+          "dog_name": "Nora",
+          "type": "meetup",
+          "tag": "PLAYDATE",
+          "title": "GSD meetup at Fiesta Island – Sunday morning",
+          "content_text": "Taking Nora to Fiesta Island this Sunday around 8am if any other GSD owners want to meet up. She does well with dogs she's been introduced to gradually so figured a low-key group walk would be a good format. Off-leash area is solid out there.\n\nLmk if you're coming.",
+          "has_images": true,
+          "image_briefs": [
+            "German Shepherd running off-leash on a flat open field near water, tongue out, warm morning light"
+          ]
+        },
+        {
+          "author_name": "Nadia Reyes",
+          "dog_name": "Ares",
+          "type": "question",
+          "tag": "TRAINING",
+          "title": "Ares knows every command but decides when he feels like doing them",
+          "content_text": "He knows everything we've worked on — sit, down, place, heel, all of it. But there are days, especially when something interesting is happening nearby, where he just deliberates. Like he's doing a cost-benefit analysis on whether to comply.\n\nAnyone else deal with this? How do you handle it without turning every session into a standoff?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Dan Whitfield",
+          "dog_name": "Ghost",
+          "type": "story",
+          "tag": "PLAYDATE",
+          "title": "Ghost at Dog Beach – nervous big dog does okay",
+          "content_text": "Ghost is 85 lbs and moves like he knows it. I was unsure how he'd handle Dog Beach — too many variables — but he was actually solid. Slow to warm up, sat near the water for about 20 minutes before deciding to go in, then wouldn't leave.\n\nThere's something about watching a big dog figure out ocean waves for the first time that's pretty good.",
+          "has_images": true,
+          "image_briefs": [
+            "Large German Shepherd standing chest-deep in ocean surf at an off-leash beach, looking calm and satisfied"
+          ]
+        },
+        {
+          "author_name": "Nadia Reyes",
+          "dog_name": "Ares",
+          "type": "tip",
+          "tag": "BEHAVIOR",
+          "title": "GSDs learn your schedule – lean into it",
+          "content_text": "Ares figured out my morning routine within the first few months and he uses it to organize himself. He knows when my alarm goes off, when walks happen, when things settle down. If I deviate without warning, he gets antsy.\n\nI stopped fighting it and built consistency around it instead. A predictable daily structure reduces their background stress in a way that nothing else quite replicates.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Owen Garrett",
+          "dog_name": "Zelda",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Zelda follows me to every room including the bathroom – sweet or something to look at?",
+          "content_text": "Zelda follows me everywhere. Bathroom, kitchen, out to the mailbox and back. I work from home and she is within arm's reach at all times unless she is sleeping. It is endearing and also slightly claustrophobic.\n\nJust wondering whether this is standard GSD velcro behavior or whether it edges into anxiety and I should be doing something about it.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Marcus Holt",
+          "dog_name": "Nora",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "on-leash intros with Nora are always a whole production – what has helped?",
+          "content_text": "Nora is selective with new dogs. She's totally fine with dogs she knows but meeting a stranger on leash means stiffness, posturing, and a few tense minutes before she settles. It usually resolves but it makes any dog park feel like a gamble.\n\nAnyone found an approach that makes first introductions smoother for a GSD?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Teresa Vong",
+          "dog_name": "Bruno",
+          "type": "story",
+          "tag": "BEHAVIOR",
+          "title": "Bruno spent the whole afternoon as a leaning post",
+          "content_text": "I have a standing desk and Bruno decided it was his personal resting spot. He spent most of the afternoon with his chin resting on my forearm while I tried to type. Every time I gently moved him he just shifted and moved with me.\n\nGot maybe three focused hours of work in. Not actually complaining. He was warm and somehow I had better posture than usual.",
+          "has_images": true,
+          "image_briefs": [
+            "German Shepherd resting his chin on a person's forearm at a standing desk, looking up with soft relaxed eyes"
+          ]
+        },
+        {
+          "author_name": "Owen Garrett",
+          "dog_name": "Zelda",
+          "type": "tip",
+          "tag": "TRAINING",
+          "title": "Start crate training before you think you need it",
+          "content_text": "I skipped crate training with Zelda because she seemed fine without it early on. Then I had to board her. She was completely unprepared and it was stressful for everyone involved.\n\nDoing it now at 10 months and it's going okay but it would have been so much easier at 8 weeks. Just get it out of the way from the start.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Simone Laurent",
+          "dog_name": "Kiefer",
+          "type": "tip",
+          "tag": "GROOMING",
+          "title": "Two blow-out seasons a year – get ahead of them or regret it",
+          "content_text": "Kiefer goes through two major coat dumps a year and if I'm not ready, everything I own turns gray. What's helped: daily brushing in the two weeks before the blow-out peaks, a good undercoat rake (not a Furminator — an actual wide-toothed rake), and one professional deshed bath at the start of each season.\n\nThe rest of the year is manageable. Those two windows are not.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Dan Whitfield",
+          "dog_name": "Ghost",
+          "type": "question",
+          "tag": "FOOD",
+          "title": "What are you feeding a large GSD without destroying your budget?",
+          "content_text": "Ghost is 85 lbs and we've gone through several kibbles trying to find something that works — coat, digestion, energy. Currently on Purina Pro Plan and it's been fine but I'm curious what other GSD owners are running with and whether anyone's noticed a real difference in coat or energy from switching.\n\nNot specifically looking for raw diet recommendations, just curious what's working.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Marcus Holt",
+          "dog_name": "Nora",
+          "type": "tip",
+          "tag": "HEALTH",
+          "title": "Get hip X-rays before you see any symptoms",
+          "content_text": "I have had Nora's hips screened twice so far — no issues, but GSDs are one of the higher-risk breeds and knowing early changes how you manage exercise and weight over time.\n\nA lot of vets will do OFA-style screening starting around 2 years. Worth asking about if it has not come up at your appointments yet.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Simone Laurent",
+          "dog_name": "Kiefer",
+          "type": "meetup",
+          "tag": "PLAYDATE",
+          "title": "Morning walks at Lake Murray – looking for company",
+          "content_text": "I take Kiefer around Lake Murray on Saturday mornings, usually around 7:30 before it gets crowded. Good trail, not too many bikes, nice length for a longer leashed walk.\n\nIf you have a GSD or another large dog and want to join occasionally, feel free to reach out.",
+          "has_images": false,
+          "image_briefs": []
+        }
+      ]
+    },
+    {
+      "breed": "HUSKY",
+      "authors": [
+        {
+          "author_name": "Kim Tran",
+          "dog_name": "Loki",
+          "voice_note": "Experienced husky owner, second husky, San Diego local. Has learned every lesson the hard way and is now a pragmatic, useful voice in the community."
+        },
+        {
+          "author_name": "Ben Castilla",
+          "dog_name": "Sasha",
+          "voice_note": "Newer owner who got a husky because he's active. Now discovering the gap between 'active' and 'husky active.' Still figuring it out, mostly with humor."
+        },
+        {
+          "author_name": "Adrienne Park",
+          "dog_name": "Mako",
+          "voice_note": "Mid-level husky owner, loves the breed but very upfront about the challenges. Dry sense of humor. Writes like someone who's accepted reality."
+        },
+        {
+          "author_name": "Josh Coleman",
+          "dog_name": "Yukon",
+          "voice_note": "Experienced, owns two huskies, gives practical no-fluff advice. Has tried everything and knows what works."
+        },
+        {
+          "author_name": "Rachel Torres",
+          "dog_name": "Nova",
+          "voice_note": "Newer owner who moved to SD from a colder state. Navigating husky life in a warmer climate and dealing with Nova's very loud separation feelings."
+        },
+        {
+          "author_name": "Eric Bowen",
+          "dog_name": "Diesel",
+          "voice_note": "Trail runner, outdoorsy, Diesel is his running partner. Brief and practical. Diesel gets a lot of miles."
+        }
+      ],
+      "posts": [
+        {
+          "author_name": "Adrienne Park",
+          "dog_name": "Mako",
+          "type": "story",
+          "tag": "BEHAVIOR",
+          "title": "Mako's first experience with snow was not what I expected",
+          "content_text": "Drove up to Big Bear last winter and let Mako out into about six inches of snow. I expected some kind of ancestral awakening — a dog coming home. Instead he stood at the edge of it for a full minute, sniffed it, and looked back at me like I'd made an error.\n\nThen he went completely feral. Rolled in it, sprinted in circles, wouldn't get back in the car for 45 minutes. So not an awakening — just chaos. Which is on brand.",
+          "has_images": true,
+          "image_briefs": [
+            "Husky rolling joyfully in snow on a mountain hillside, ears back, completely covered in white powder"
+          ]
+        },
+        {
+          "author_name": "Kim Tran",
+          "dog_name": "Loki",
+          "type": "question",
+          "tag": "TRAINING",
+          "title": "Has anyone actually gotten reliable recall on a husky?",
+          "content_text": "Loki has solid recall inside and in the fenced yard. The moment she's in open space — any open space — it's like I don't exist. We've worked on it consistently for two years and I still won't take her off leash anywhere without a fence.\n\nIs this just what huskies are, or is there something specific that's actually worked for people?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Ben Castilla",
+          "dog_name": "Sasha",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Sasha talks back – is this just a husky thing?",
+          "content_text": "When I tell Sasha no she makes this sound that is genuinely indistinguishable from arguing with me. Long drawn-out vocalizations, direct eye contact. I grew up with labs and I have never experienced anything like this.\n\nIs this normal? Do they all do it? Is there any way to train around it or do I just accept the commentary?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Kim Tran",
+          "dog_name": "Loki",
+          "type": "meetup",
+          "tag": "PLAYDATE",
+          "title": "Husky play morning at Grape Street – Saturday 8:30",
+          "content_text": "Bringing Loki to Grape Street Dog Park this Saturday around 8:30am. She does best with other high-energy dogs and Saturdays early tend to be less chaotic before the crowds arrive.\n\nWould love to meet other husky owners. She is friendly, vaccinated, and very loud.",
+          "has_images": true,
+          "image_briefs": [
+            "Husky running at full speed inside a fenced dog park, tongue out, motion blur on background"
+          ]
+        },
+        {
+          "author_name": "Eric Bowen",
+          "dog_name": "Diesel",
+          "type": "story",
+          "tag": "BEHAVIOR",
+          "title": "Diesel ran 12 miles and could have kept going",
+          "content_text": "Took Diesel on a longer trail run through Cuyamaca State Park — about 12 miles total. I was done at mile 10. He was still pulling forward, still scanning the terrain, still had reserves I didn't.\n\nGot back to the car and he ate his food and looked at me like we'd done a warm-up. I need to either train harder or get a shorter dog.",
+          "has_images": true,
+          "image_briefs": [
+            "Husky running alongside a person on a dry mountain trail, fully in stride, happy open-mouth expression"
+          ]
+        },
+        {
+          "author_name": "Rachel Torres",
+          "dog_name": "Nova",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Nova howls every time we leave – neighbor left a note",
+          "content_text": "Nova doesn't bark — she howls. Full wolf mode the moment the front door closes. Our downstairs neighbor left a note. We've started departure training and I leave a frozen Kong every time, but progress is slow.\n\nAnyone dealt with this specifically? Not sure if it's separation anxiety or just standard husky vocals that I need to train around.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Kim Tran",
+          "dog_name": "Loki",
+          "type": "tip",
+          "tag": "TRAINING",
+          "title": "The off-leash mistake I made with my first husky",
+          "content_text": "Loki is my second husky and I made this mistake with my first one. They will sprint away from you the moment something catches their nose, and recall alone is not going to bring them back. It is not defiance — it is how they are wired.\n\nLong line or fenced area has been our only reliable option. I know some owners have made off-leash work through months of consistent training, but it was not something I was willing to gamble on a second time.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Ben Castilla",
+          "dog_name": "Sasha",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Sasha is 14 months and still actively destroying things – at what point does this end?",
+          "content_text": "Sasha has destroyed: one throw pillow, three socks, a corner of my IKEA couch, and the rubber weather stripping off my back door. She is 14 months. I have chew toys, puzzle feeders, a flirt pole, and we do at least an hour of exercise a day.\n\nLooking for a realistic timeline here, not just 'be consistent.' At what point does this actually taper off?",
+          "has_images": true,
+          "image_briefs": [
+            "Husky sitting in the middle of a destroyed throw pillow with stuffing everywhere, looking completely unrepentant"
+          ]
+        },
+        {
+          "author_name": "Adrienne Park",
+          "dog_name": "Mako",
+          "type": "question",
+          "tag": "HEALTH",
+          "title": "Managing a husky in San Diego heat – what's your summer routine?",
+          "content_text": "Mako is completely different once June hits. Refuses to walk after 9am, pants heavily if we're out more than 20 minutes in the heat, basically shuts down until evening. I know huskies aren't built for this climate — I just want to make sure I'm handling it correctly.\n\nWhat does your summer routine actually look like from June through September?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Ben Castilla",
+          "dog_name": "Sasha",
+          "type": "story",
+          "tag": "BEHAVIOR",
+          "title": "Sasha found the gap in my fence I didn't know existed",
+          "content_text": "Came home from work to find my neighbor standing in my driveway holding Sasha by the collar. She'd been in his backyard for an hour. I had no idea there was a loose board at the back of my fence, but Sasha absolutely knew — had clearly been monitoring it and waited for her moment.\n\nThe patch is done. I did a full fence audit. She is sitting in the yard right now looking at me like she's already found the next one.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Josh Coleman",
+          "dog_name": "Yukon",
+          "type": "tip",
+          "tag": "BEHAVIOR",
+          "title": "Two huskies is actually easier in some ways",
+          "content_text": "Got a second husky 18 months ago and people thought I was losing my mind. But Yukon and Kira burn each other out in ways I simply cannot match. They play hard for an hour and both crash.\n\nSolo husky energy is relentless. Two seems chaotic but they self-regulate in ways one dog never will. I sleep better now than I did with just one.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Rachel Torres",
+          "dog_name": "Nova",
+          "type": "tip",
+          "tag": "GROOMING",
+          "title": "Almost shaved Nova for summer heat – glad I didn't",
+          "content_text": "A groomer suggested shaving Nova for the summer heat and I almost agreed. Someone talked me out of it. The double coat actually insulates against heat as well as cold — shaving disrupts that and can permanently affect the coat texture.\n\nKeeping it well-brushed so air can move through is what actually helps. Matting is the problem, not the coat itself.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Josh Coleman",
+          "dog_name": "Yukon",
+          "type": "question",
+          "tag": "GROOMING",
+          "title": "How often are you bathing your husky and with what?",
+          "content_text": "Yukon has that self-cleaning double coat tendency but he still needs actual baths. We do once a month but I feel like the undercoat doesn't fully release without more regular washing.\n\nAnyone have a specific routine or shampoo that helps with coat management? Bonus if there's something that helps with the smell between baths.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Eric Bowen",
+          "dog_name": "Diesel",
+          "type": "meetup",
+          "tag": "PLAYDATE",
+          "title": "Trail run at Los Peñasquitos Canyon – looking for running dogs",
+          "content_text": "Taking Diesel through Los Peñasquitos Canyon on Sunday morning, probably 6–8 miles depending on pace. Looking for one or two other owners with dogs that can handle a sustained run — huskies, malamutes, high-energy mixes welcome.\n\nStarting around 7am at the Mercy Road trailhead. Let me know if you're in.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Josh Coleman",
+          "dog_name": "Yukon",
+          "type": "tip",
+          "tag": "GEAR",
+          "title": "Front-clip harness made loose leash walking actually possible",
+          "content_text": "Yukon is 65 lbs and used to drag me on every walk. Tried a prong collar, didn't love it. Tried a head halter, he hated it. Ended up on the Ruffwear Front Range and the difference in the first week was real.\n\nThe front clip redirects instead of punishing and it fits a husky's wide chest well. Still working on the training side but this helped immediately.",
+          "has_images": true,
+          "image_briefs": [
+            "Husky wearing a well-fitted front-clip harness standing on a sidewalk, leash loose, looking up at owner"
+          ]
+        }
+      ]
+    },
+    {
+      "breed": "GOLDEN DOODLE",
+      "authors": [
+        {
+          "author_name": "Camille Brooks",
+          "dog_name": "Fig",
+          "voice_note": "Second goldendoodle, very experienced, slightly tired of the 'they don't shed' conversation. Knows the grooming reality inside and out and is helpful about it without being preachy."
+        },
+        {
+          "author_name": "Tyler Park",
+          "dog_name": "Waffles",
+          "voice_note": "Got Waffles for allergy reasons, still figuring out the reality gap. Cheerful and honest about what he didn't expect."
+        },
+        {
+          "author_name": "Priya Shah",
+          "dog_name": "Clementine",
+          "voice_note": "Mid-level owner, Clementine is 3, dealing with the jumping and energy that hasn't fully settled. Curious and slightly frustrated in a fond way."
+        },
+        {
+          "author_name": "Kevin Marsh",
+          "dog_name": "Ziggy",
+          "voice_note": "SD local, mini goldendoodle, very active. Brief and practical. Takes Ziggy everywhere and knows the breed well."
+        },
+        {
+          "author_name": "Jess Nakamura",
+          "dog_name": "Otto",
+          "voice_note": "Social, loves dog parks, Otto is a standard goldendoodle who has zero concept of personal space. Jess is working on it with humor."
+        },
+        {
+          "author_name": "Diane Wu",
+          "dog_name": "Hazel",
+          "voice_note": "First-time dog owner, Hazel is 10 months, learning everything from scratch. Warm, earnest, asking the beginner questions others are too proud to ask."
+        }
+      ],
+      "posts": [
+        {
+          "author_name": "Tyler Park",
+          "dog_name": "Waffles",
+          "type": "story",
+          "tag": "HEALTH",
+          "title": "Got a goldendoodle because my wife is allergic. Update:",
+          "content_text": "Waffles sheds. Not like a lab sheds, not like a husky sheds — but he sheds. There is hair on things. My wife's allergist says some people do fine with doodles and some don't, and ours is firmly in the 'don't' camp. She takes an antihistamine now.\n\nWaffles doesn't know any of this and is doing great.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Camille Brooks",
+          "dog_name": "Fig",
+          "type": "question",
+          "tag": "GROOMING",
+          "title": "How often is everyone actually taking their doodle to the groomer?",
+          "content_text": "Fig needs a full groom every 6–8 weeks or she starts matting at the armpits and behind her ears. At $100+ a session that's a real line item. I've been trying to do maintenance brushing between appointments but I can never quite stay ahead of it.\n\nHow often are people going, and is anyone doing meaningful upkeep at home to stretch the time between visits?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Kevin Marsh",
+          "dog_name": "Ziggy",
+          "type": "story",
+          "tag": "PLAYDATE",
+          "title": "Ziggy at Dog Beach is exactly what you'd expect",
+          "content_text": "He swam until I made him stop. Found three other doodles and they formed some kind of pack. Rolled in something unidentified near the rocks. Ate half a sandcastle a kid had abandoned nearby.\n\nMini doodles are deceptively athletic. He was out there with dogs twice his size and kept up the whole time.",
+          "has_images": true,
+          "image_briefs": [
+            "Small golden doodle mid-run on a sandy beach, coat wet from ocean water, mouth wide open in pure joy"
+          ]
+        },
+        {
+          "author_name": "Jess Nakamura",
+          "dog_name": "Otto",
+          "type": "tip",
+          "tag": "BEHAVIOR",
+          "title": "Running Otto before guests arrive cut the jumping way down",
+          "content_text": "Otto is a big dog with no concept of personal space. We tried every training approach for the jumping and the thing that helped most was just running him before people arrive. Twenty minutes of fetch right before and his greeting energy drops way down.\n\nTraining still matters but expecting impulse control on a full tank was not working for us.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Priya Shah",
+          "dog_name": "Clementine",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Clementine jumps on everyone and I cannot get it to stop",
+          "content_text": "She is three years old and she still launches herself at any human who enters the house. Kids, elderly guests, the delivery driver — doesn't matter. Once she's through the initial greeting she's fine, but that first moment is a lot.\n\nI've done 'off,' I've done turn your back, I've done treats for four paws on the floor. It works in practice sessions and falls apart the moment she gets excited. What finally stuck for people?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Tyler Park",
+          "dog_name": "Waffles",
+          "type": "tip",
+          "tag": "HEALTH",
+          "title": "Check your doodle's ears every week",
+          "content_text": "Waffles has had two ear infections this year. Vet explained that the wavy coat combined with floppy ears creates a warm, moist environment that bacteria like. Weekly checks and keeping the hair around the ear canal trimmed has made a real difference.\n\nNot a fun task but it's faster than three rounds of antibiotics.",
+          "has_images": true,
+          "image_briefs": [
+            "Close-up of a golden doodle's floppy ear being gently lifted for inspection, dog looks relaxed and unbothered"
+          ]
+        },
+        {
+          "author_name": "Camille Brooks",
+          "dog_name": "Fig",
+          "type": "story",
+          "tag": "GROOMING",
+          "title": "What they don't tell you about goldendoodle coats",
+          "content_text": "Fig came home looking like a cloud and I thought she was low-maintenance because the breeder said 'minimal shedding.' Two years in: she gets groomed every seven weeks, she mats if I skip three days of brushing, and the groomer charges more than my own haircuts.\n\nShe's worth every bit of it. But I was not prepared for this.",
+          "has_images": true,
+          "image_briefs": [
+            "Fluffy golden doodle sitting on a grooming table mid-haircut, coat partially trimmed, looking patient"
+          ]
+        },
+        {
+          "author_name": "Diane Wu",
+          "dog_name": "Hazel",
+          "type": "question",
+          "tag": "TRAINING",
+          "title": "First dog ever – how do I know if I should hire a trainer?",
+          "content_text": "Hazel is 10 months and I'm a first-time dog owner. She's sweet but very distracted on walks, pulls a lot, and completely ignores me if she spots something interesting. I've watched videos, tried treats, and I feel like I'm doing something wrong.\n\nAt what point do you stop trying to figure it out yourself and hire someone? I don't want to wait too long if I'm reinforcing bad habits.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Priya Shah",
+          "dog_name": "Clementine",
+          "type": "tip",
+          "tag": "TRAINING",
+          "title": "Mental work tires this breed out faster than running does",
+          "content_text": "Clementine runs for an hour and still wants to wrestle. Clementine does 20 minutes of nose work and is genuinely done. The poodle brain in a doodle needs actual jobs.\n\nScatter feeding in the yard, sniff walks where you let them lead, short training sessions — any of these burn more real energy than fetch. We do 15 minutes of scatter feeding most mornings and it sets a better tone for the whole day.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Jess Nakamura",
+          "dog_name": "Otto",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Otto doesn't understand that not everyone wants him in their face",
+          "content_text": "He approaches strangers like he's been personally invited. Most people love it. Some people don't, and those interactions get awkward fast. Is there a way to teach a dog to read the room, or is this just goldendoodle energy that I need to manage by positioning?\n\nOpen to any approaches people have tried.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Kevin Marsh",
+          "dog_name": "Ziggy",
+          "type": "meetup",
+          "tag": "PLAYDATE",
+          "title": "Mini doodle beach morning – OB Dog Beach Saturday",
+          "content_text": "Taking Ziggy to OB Dog Beach this Saturday around 8am. He's great with other dogs, especially similarly-sized ones. If you have a mini or medium doodle and want to meet up, we'll be near the south end.\n\nLow key, no agenda, just a beach morning.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Camille Brooks",
+          "dog_name": "Fig",
+          "type": "tip",
+          "tag": "GROOMING",
+          "title": "Slicker brush then metal comb – in that order, every time",
+          "content_text": "The routine that finally stopped the mat cycle: slicker brush first to detangle, then a metal comb through every section to find anything you missed. Bathing a matted coat just tightens the knots, so this has to happen before the bath.\n\nIf you are not finishing with a metal comb, you are probably leaving hidden mats behind. Takes about 20 minutes and has saved us several emergency grooming visits.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Priya Shah",
+          "dog_name": "Clementine",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "At what age did your doodle actually calm down?",
+          "content_text": "People kept telling me Clementine would mellow when she turned 2. Then 3. She's 3. Still a tornado. I love her but she is exhausting in a very specific way.\n\nIs there a typical age range where goldendoodles settle or is it just individual? I'm not looking for a fix, just curious what other people's timelines looked like.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Jess Nakamura",
+          "dog_name": "Otto",
+          "type": "meetup",
+          "tag": "PLAYDATE",
+          "title": "Doodle playdate at Morley Field – Sunday morning",
+          "content_text": "Bringing Otto to Morley Field Sunday around 9am. He's big, friendly, and vaccinated. Looking for other social dogs — doodles, labs, friendly mixes welcome. The off-leash area there is usually pretty relaxed on Sunday mornings.\n\nComment or DM if you're planning to come.",
+          "has_images": true,
+          "image_briefs": [
+            "Golden doodle mid-leap at a grassy off-leash park, chasing another dog, big goofy open-mouth expression"
+          ]
+        },
+        {
+          "author_name": "Diane Wu",
+          "dog_name": "Hazel",
+          "type": "question",
+          "tag": "GROOMING",
+          "title": "Hazel's first groom came back looking uneven – is this within normal range?",
+          "content_text": "Took Hazel for her first professional groom last week. She came back looking... uneven. One side is shorter than the other and around her face it looks patchy. I don't have a reference point since this is my first dog and first groom.\n\nPosting a photo — is this within normal range or should I find someone new?",
+          "has_images": true,
+          "image_briefs": [
+            "Golden doodle with an uneven post-grooming haircut, coat noticeably different lengths on each side, owner's hand gently holding her face for the photo"
+          ]
+        }
+      ]
+    },
+    {
+      "breed": "GOLDEN RETRIEVER",
+      "authors": [
+        {
+          "author_name": "Ana Delgado",
+          "dog_name": "Biscoff",
+          "voice_note": "Third golden, experienced and warm, SD local. Knows the breed deeply and cares about long-term health. Practical and affectionate in tone."
+        },
+        {
+          "author_name": "Garrett Moore",
+          "dog_name": "Humphrey",
+          "voice_note": "Newer owner, Humphrey is 1 year old. Dealing with mouthiness and outdoor distraction. Good energy, honest about what isn't working."
+        },
+        {
+          "author_name": "Yuki Tanaka",
+          "dog_name": "Oatmeal",
+          "voice_note": "Works from home, Oatmeal is 5 and settled. Observational and warm. Writes about the quiet, funny daily moments of golden ownership."
+        },
+        {
+          "author_name": "Sam Okafor",
+          "dog_name": "Chester",
+          "voice_note": "Chester is 8, starting to slow down. Sam writes about him with a lot of affection and a little quiet heaviness. Experienced, thoughtful, not looking for advice — sharing."
+        },
+        {
+          "author_name": "Brooke Ellis",
+          "dog_name": "Sunny",
+          "voice_note": "SD local, beach-oriented, takes Sunny to Dog Beach regularly. Social and practical. Knows Dog Beach dynamics well."
+        },
+        {
+          "author_name": "Mia Russo",
+          "dog_name": "Wellington",
+          "voice_note": "New owner, Wellington is a 4-month-old puppy. Excited and slightly overwhelmed. Asks the questions every new puppy owner has."
+        }
+      ],
+      "posts": [
+        {
+          "author_name": "Ana Delgado",
+          "dog_name": "Biscoff",
+          "type": "story",
+          "tag": "BEHAVIOR",
+          "title": "Biscoff found the garden and carried a zucchini for 20 minutes",
+          "content_text": "He pulled a zucchini out of the raised bed, carried it around the yard, brought it to me, then took it back. Just walked around with it, gentle as anything. Didn't chew it, didn't destroy it. Just had it.\n\nHe is exactly the dog this breed is supposed to be and moments like this remind me why I keep getting goldens.",
+          "has_images": true,
+          "image_briefs": [
+            "Golden Retriever proudly carrying a large zucchini in his mouth across a backyard, tail mid-wag, looking very pleased"
+          ]
+        },
+        {
+          "author_name": "Mia Russo",
+          "dog_name": "Wellington",
+          "type": "question",
+          "tag": "PUPPY",
+          "title": "Wellington's fur is still really light at 4 months – does it change?",
+          "content_text": "Wellington is 4 months and his coat is very fluffy and almost cream-colored. I was expecting more gold. The breeder said the color would deepen but I'm curious when that usually happens and whether some just stay light.\n\nPosting a photo because he is very cute and I also need some reassurance.",
+          "has_images": true,
+          "image_briefs": [
+            "Cream-colored golden retriever puppy with very fluffy cottony coat, sitting on grass looking up at camera"
+          ]
+        },
+        {
+          "author_name": "Garrett Moore",
+          "dog_name": "Humphrey",
+          "type": "tip",
+          "tag": "BEHAVIOR",
+          "title": "Flirt pole before walks cut our leash pulling in half",
+          "content_text": "Humphrey was dragging me on every single walk. Tried gentle leaders, treat-based loose leash work, management tools — nothing stuck. Someone suggested burning energy with a flirt pole for 15 minutes first. First week, pulling dropped by half.\n\nNot a replacement for training but if your dog is already over-threshold before you even start, exercise first. Posting a photo of what a post-flirt-pole golden actually looks like.",
+          "has_images": true,
+          "image_briefs": [
+            "Golden Retriever lying flat on a lawn completely wiped out but happy, panting with eyes soft and half-closed"
+          ]
+        },
+        {
+          "author_name": "Brooke Ellis",
+          "dog_name": "Sunny",
+          "type": "meetup",
+          "tag": "PLAYDATE",
+          "title": "Golden meetup at Dog Beach – Saturday morning",
+          "content_text": "Taking Sunny to Dog Beach Saturday around 8am. She does especially well with her own breed so would love to meet other golden owners. We'll be near the north end.\n\nCome say hi.",
+          "has_images": true,
+          "image_briefs": [
+            "Two golden retrievers running together on an off-leash beach, both mid-sprint, ocean and morning light in background"
+          ]
+        },
+        {
+          "author_name": "Yuki Tanaka",
+          "dog_name": "Oatmeal",
+          "type": "story",
+          "tag": "BEHAVIOR",
+          "title": "Oatmeal has a very specific way of placing her orders",
+          "content_text": "She puts her paw on my knee. Not urgently — very gently, like she's placing an order. If I don't respond she lifts it and replaces it, same spot, same pressure. This happens maybe 15 times a day.\n\nShe has fully figured out that it works and she is exploiting it without any shame.",
+          "has_images": true,
+          "image_briefs": [
+            "Golden Retriever with her paw gently resting on a person's knee, looking up with soft patient eyes"
+          ]
+        },
+        {
+          "author_name": "Sam Okafor",
+          "dog_name": "Chester",
+          "type": "story",
+          "tag": "HEALTH",
+          "title": "Chester is 8 now and everything is a little slower",
+          "content_text": "We still do our walks but they're shorter. He still wants to fetch but stops sooner. He sleeps more and sometimes I hear him creak getting up from his bed in the morning. The vet says he's doing well for his age.\n\nThis is the part of having a golden that nobody talks about enough. They're with you for maybe 10–12 years and the last few look different than the first. I'm grateful for every single one.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Ana Delgado",
+          "dog_name": "Biscoff",
+          "type": "question",
+          "tag": "HEALTH",
+          "title": "Golden owners – are you doing any proactive cancer screening?",
+          "content_text": "Biscoff is 5 and I've been reading more about the elevated cancer rates in goldens, especially American-bred lines. My vet mentioned it but didn't go deep. I'm wondering if people are doing anything beyond a standard yearly exam — blood panels, imaging, anything.\n\nOr is it mostly a wait-and-watch approach? I'd rather be proactive if there's something reasonable to do.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Garrett Moore",
+          "dog_name": "Humphrey",
+          "type": "question",
+          "tag": "PUPPY",
+          "title": "Humphrey is 9 months and still mouthing everything – did I miss a window?",
+          "content_text": "Not hard biting, no breaking skin, but constant mouthing of hands, arms, clothing, leashes. I thought this settled down around 6 months. We've done bite inhibition work, lots of redirection, timeouts. He's 9 months now and still at it.\n\nIs this normal for goldens or did I miss a window somewhere?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Brooke Ellis",
+          "dog_name": "Sunny",
+          "type": "question",
+          "tag": "PLAYDATE",
+          "title": "Does your golden hit a wall at Dog Beach and get weird?",
+          "content_text": "Sunny is great at Dog Beach but around the 90-minute mark she starts getting nippy and over-stimulated. Like she can't read social cues anymore. I've started leaving before she gets there but I'm curious if others notice this and whether there's anything to do about it besides just managing the duration.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Yuki Tanaka",
+          "dog_name": "Oatmeal",
+          "type": "tip",
+          "tag": "FOOD",
+          "title": "Use mealtimes as quick training sessions – golden brains like it",
+          "content_text": "Oatmeal would work for food indefinitely. I started doing 2–3 minutes of obedience work before every meal — sits, downs, place, whatever we're working on. By the time the bowl lands, she's focused and has actually earned it.\n\nSmall thing but it's kept her sharp at 5 without needing long formal sessions.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Ana Delgado",
+          "dog_name": "Biscoff",
+          "type": "tip",
+          "tag": "TRAINING",
+          "title": "Teach 'go get your toy' before people arrive at the door",
+          "content_text": "Biscoff needs something in his mouth at greetings or he mouths hands and jumps. The fix that actually worked: teaching him to find a toy when the doorbell rings. He sprints to get it, comes back to show the guest, and everyone's happy.\n\nThis is my third golden and the best doorbell protocol I've found. Redirect the retrieve instinct instead of fighting it.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Garrett Moore",
+          "dog_name": "Humphrey",
+          "type": "question",
+          "tag": "TRAINING",
+          "title": "At what point did your golden actually start paying attention outside?",
+          "content_text": "Humphrey listens well inside. Outside — other dogs, smells, people walking past — he completely checks out. I know he understands the commands because he does them at home without any issue.\n\nI am not giving up, just trying to figure out when this typically clicks. Was there a specific age or training milestone that marked the shift for you?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Sam Okafor",
+          "dog_name": "Chester",
+          "type": "question",
+          "tag": "HEALTH",
+          "title": "Managing hip stiffness in an older golden – what's actually helped?",
+          "content_text": "Chester has started showing stiffness after rest, especially in his hips and back legs. He's on joint supplements and we've slowed down the mileage. Looking for what else people have found useful — specific supplements, changes to sleep setup, swimming, anything.\n\nHe's 8, otherwise healthy. Just want to keep him comfortable.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Brooke Ellis",
+          "dog_name": "Sunny",
+          "type": "tip",
+          "tag": "BEHAVIOR",
+          "title": "Leave before the meltdown, not during it",
+          "content_text": "Staying at Dog Beach until Sunny's behavior fell apart meant she went home overstimulated and it bled into the next day. Now I leave when things are still going well — she is having fun but not frantic. Shorter visits with better endings made a real difference for us.\n\nLeaving when it still feels early is basically the whole strategy.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Mia Russo",
+          "dog_name": "Wellington",
+          "type": "meetup",
+          "tag": "PLAYDATE",
+          "title": "Puppy playdate for goldens or friendly mixes – North Park",
+          "content_text": "Wellington needs friends. He's 4 months, fully vaccinated, and absolutely full of it. Looking for other puppy owners or calm adult dogs for a backyard playdate in North Park. Nothing formal — just some socialization time.\n\nDM if interested.",
+          "has_images": false,
+          "image_briefs": []
+        }
+      ]
+    },
+    {
+      "breed": "MIXED BREED",
+      "authors": [
+        {
+          "author_name": "Paloma Reyes",
+          "dog_name": "Fennel",
+          "voice_note": "Adopted Fennel from a rescue in Chula Vista, warm and community-oriented without being preachy. Fennel is some kind of hound-lab-boxer mix. Paloma advocates for rescues but keeps it grounded."
+        },
+        {
+          "author_name": "Cal Nguyen",
+          "dog_name": "Desi",
+          "voice_note": "Got a DNA test that completely upended what he thought Desi was. Casual, funny, slightly fascinated by the whole thing."
+        },
+        {
+          "author_name": "Rosie Flanagan",
+          "dog_name": "Huck",
+          "voice_note": "Third rescue, experienced and practical. Huck is a medium-energy mystery mix. Rosie knows how to fill in the blanks on a dog with no history."
+        },
+        {
+          "author_name": "Jordan Price",
+          "dog_name": "Maple",
+          "voice_note": "First dog, adopted Maple as an adult. Earnest and thoughtful about navigating unknowns. Maple was listed as lab mix and is clearly not a lab."
+        },
+        {
+          "author_name": "Naomi Stern",
+          "dog_name": "Beets",
+          "voice_note": "Longtime rescue advocate, Beets was a stray for two years before the shelter. Direct and warm. Writes about rescue timelines honestly."
+        },
+        {
+          "author_name": "Theo Park",
+          "dog_name": "Gravel",
+          "voice_note": "SD local, outdoorsy, Gravel is his trail and walking companion. Brief and practical. Knows what works for his specific dog."
+        },
+        {
+          "author_name": "Leila Moore",
+          "dog_name": "Cricket",
+          "voice_note": "Cricket is a 12-lb chihuahua terrier mix who carries herself like she's enormous. Leila writes about her with bemused affection."
+        }
+      ],
+      "posts": [
+        {
+          "author_name": "Paloma Reyes",
+          "dog_name": "Fennel",
+          "type": "story",
+          "tag": "ADULT",
+          "title": "One year with Fennel",
+          "content_text": "We adopted her from a rescue in Chula Vista 12 months ago. I remember thinking she was too shut down and I'd made a wrong decision — she barely made eye contact for the first two weeks. Now she sleeps on our bed, greets us at the door, and has strong opinions about when it's time for her walk.\n\nRescue timelines are not linear and I'm grateful we gave her the time she needed.",
+          "has_images": true,
+          "image_briefs": [
+            "Medium-sized mixed breed dog lying comfortably on a couch, looking directly at camera with relaxed soft eyes"
+          ]
+        },
+        {
+          "author_name": "Leila Moore",
+          "dog_name": "Cricket",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Cricket is 12 lbs and genuinely believes she can take down anything",
+          "content_text": "She will walk up to a Rottweiler like she has been personally invited to end him. She is some kind of chihuahua terrier mix and she is completely immune to consequences.\n\nShe is not aggressive. Just has a self-image that does not match her actual size at all. Small dog confidence issue or socialization gap? Posting a photo for scale.",
+          "has_images": true,
+          "image_briefs": [
+            "Tiny mixed breed dog standing chest-puffed next to a much larger dog, completely unbothered and looking up at it"
+          ]
+        },
+        {
+          "author_name": "Jordan Price",
+          "dog_name": "Maple",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Maple was listed as 'lab mix' – she is definitely not a lab",
+          "content_text": "She weighs 27 lbs, has a long wiry coat, and can vertical jump about four feet from a standstill. The shelter listed her as lab mix because she was black. She is not a lab.\n\nWhat breed label did your rescue have that turned out to be completely off?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Rosie Flanagan",
+          "dog_name": "Huck",
+          "type": "meetup",
+          "tag": "PLAYDATE",
+          "title": "Mixed breed meetup at Balboa Park – Saturday morning",
+          "content_text": "Bringing Huck to Balboa Park Saturday around 8:30am near the dog run on the west side. Open to all mixed breeds, rescues, and genuine mystery dogs. No pressure, no agenda, just a walk with some well-meaning mutts.\n\nHit me up if you're coming.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Naomi Stern",
+          "dog_name": "Beets",
+          "type": "story",
+          "tag": "BEHAVIOR",
+          "title": "Beets was a stray for two years before the rescue found her",
+          "content_text": "We were told this upfront. She'd survived on her own for two years somewhere in East County before animal control brought her in. She knew how to find food, stay hidden, and not trust anyone.\n\nShe's been with us five months. Last week she put her head in my lap for the first time and stayed there for 20 minutes. That's what five months of patience looks like.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Theo Park",
+          "dog_name": "Gravel",
+          "type": "tip",
+          "tag": "TRAINING",
+          "title": "Figure out your specific dog's version of exercise, not the breed's",
+          "content_text": "Gravel looks like he should be a distance runner — he has the build and the energy. Turned out he has terrier in him and prefers short bursts with a lot of sniffing over sustained endurance. I was pushing him on long hikes and he was tolerating it, not thriving.\n\nShorter walks with more stops turned out to be his thing. Mixed breeds especially don't always follow the template.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Paloma Reyes",
+          "dog_name": "Fennel",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Did your dog's DNA results change how you interact with them?",
+          "content_text": "Fennel's results came back as 40% hound, 25% lab, 20% boxer, 15% pit. I thought she was just a generic lab mix. Now I'm wondering if her nose-first approach to everything is the hound in her and whether I should be incorporating more scent work.\n\nDid knowing the breakdown change anything practical for you, or did you just sort of move on?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Cal Nguyen",
+          "dog_name": "Desi",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Desi does this whole food coverage ritual before every meal and I have no explanation",
+          "content_text": "She pushes her food around with her nose, covers it with an invisible blanket, then eats. Every single meal. She is not food insecure — finishes everything every time. Just has to complete the ritual first.\n\nDid your dog's DNA results explain any specific behaviors like this? Or did it just raise more questions than it answered?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Rosie Flanagan",
+          "dog_name": "Huck",
+          "type": "tip",
+          "tag": "BEHAVIOR",
+          "title": "Write down everything you notice in the first two weeks – it actually pays off",
+          "content_text": "With a rescue you do not have a history. What you can do is observe and document: what triggers alertness, what causes hesitation, what they love, what shuts them down. After two weeks I had a page of notes on Huck that was more useful than anything the shelter had told me.\n\nVets and trainers work a lot better with specifics. It helps them calibrate advice instead of just guessing.",
+          "has_images": true,
+          "image_briefs": [
+            "Mixed breed dog sitting calmly on a rug next to a small notebook, looking up attentively at the camera"
+          ]
+        },
+        {
+          "author_name": "Naomi Stern",
+          "dog_name": "Beets",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Three months in and Beets still seems on edge – what did your timeline actually look like?",
+          "content_text": "Beets has been with us three months and she is better — but she still startles at sounds, cannot settle unless she can see the door, and gets anxious when we leave. I know rescue timelines vary a lot.\n\nWhat did three months, six months, a year look like for yours? Just trying to get a realistic picture of what is ahead.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Paloma Reyes",
+          "dog_name": "Fennel",
+          "type": "tip",
+          "tag": "TRAINING",
+          "title": "Questions to ask a rescue before adoption day",
+          "content_text": "The intake questions that actually helped us: how does the dog react to strangers at home vs. on walks, any known triggers, any history of food guarding, how did previous placements go. Not every rescue has all this information but asking surfaces whatever they do know.\n\nWe learned Fennel had been returned once before. That explained her first two weeks completely.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Jordan Price",
+          "dog_name": "Maple",
+          "type": "tip",
+          "tag": "HEALTH",
+          "title": "Schedule a full vet workup in the first month, before you need it",
+          "content_text": "We had Maple for three weeks before I finally booked her first full exam. She came with a health certificate from the rescue but I wanted a baseline from a vet starting fresh. Caught a mild heart murmur that's been on our radar ever since — not urgent but worth knowing.\n\nRescues do their best but they're not your regular vet. Get an independent baseline early.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Rosie Flanagan",
+          "dog_name": "Huck",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Does your dog do things that contradict what the DNA says?",
+          "content_text": "Huck tested as 50% retriever and has absolutely no interest in fetching. None. Won't chase a ball, won't pick up a stick. Loves to swim but only in circles, never toward anything.\n\nWhat do your mixed breeds do that completely contradicts what their genetics would predict?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Cal Nguyen",
+          "dog_name": "Desi",
+          "type": "story",
+          "tag": "BEHAVIOR",
+          "title": "Desi's DNA results: not even close to what I expected",
+          "content_text": "I was told she was a shepherd mix. She looked like a shepherd mix — medium build, upright ears, tan markings. DNA results: 38% chow chow, 30% basenji, 22% Australian cattle dog, 10% terrier. Zero shepherd. Not a trace.\n\nI spent two years guessing completely wrong. She is now a totally different dog in my head, though the exact same dog in real life, which is the part that matters.",
+          "has_images": true,
+          "image_briefs": [
+            "Mixed breed dog with upright ears and tan markings sitting alertly on a park bench, looking off to the side"
+          ]
+        },
+        {
+          "author_name": "Theo Park",
+          "dog_name": "Gravel",
+          "type": "meetup",
+          "tag": "PLAYDATE",
+          "title": "Mixed breed walk at Sunset Cliffs – Sunday evening",
+          "content_text": "Taking Gravel out to Sunset Cliffs this Sunday around 6pm, walking the path north toward Ocean Beach. Great views, not too hot at that hour, good smells.\n\nUsually about 45 minutes. If you have a mix of any kind and want company, we'll be at the parking area off Sunset Cliffs Blvd.",
+          "has_images": true,
+          "image_briefs": [
+            "Mixed breed dog on a coastal path overlooking the Pacific at golden hour, leash on, owner's feet visible beside them"
+          ]
+        }
+      ]
+    },
+    {
+      "breed": "PUG",
+      "authors": [
+        {
+          "author_name": "Liz Carver",
+          "dog_name": "Benny",
+          "voice_note": "Second pug, very matter-of-fact about the breed's health realities. Not alarmist, just informed. Benny is three and managed well."
+        },
+        {
+          "author_name": "Marco Diaz",
+          "dog_name": "Tulip",
+          "voice_note": "First pug, Tulip is a black pug. Marco is charmed and learning quickly. Writes with genuine curiosity about breed-specific things he didn't expect."
+        },
+        {
+          "author_name": "Stephanie Cole",
+          "dog_name": "Barnaby",
+          "voice_note": "Barnaby is seven, Stephanie is experienced with senior pug management. Warm and slightly anxious about his health, but she knows the breed well."
+        },
+        {
+          "author_name": "David Huang",
+          "dog_name": "Noodles",
+          "voice_note": "New pug owner, Noodles is a puppy, David is completely besotted. Asks the alarmed beginner questions with full enthusiasm."
+        },
+        {
+          "author_name": "Carla Osei",
+          "dog_name": "Figgy",
+          "voice_note": "Mid-level owner, Figgy is 3, San Diego local. Practical about managing pug life in a warm climate. Takes Figgy to shaded parks early in the morning."
+        },
+        {
+          "author_name": "Pete Russo",
+          "dog_name": "Wallace",
+          "voice_note": "Previous dog was a 70-lb lab. Now has a pug. The adjustment has been genuinely funny. He's learned to appreciate Wallace on Wallace's own terms."
+        }
+      ],
+      "posts": [
+        {
+          "author_name": "Liz Carver",
+          "dog_name": "Benny",
+          "type": "story",
+          "tag": "BEHAVIOR",
+          "title": "I recorded Benny sleeping and regret nothing",
+          "content_text": "Sent the video to my sister thinking she'd find the snoring cute. She called me and asked if I had a sleep apnea machine running. I had to explain it was a 14-lb dog.\n\nBenny sleeps on his back with his tongue slightly out and breathes like a vintage coffeemaker. I have never loved anything more.",
+          "has_images": true,
+          "image_briefs": [
+            "Pug sleeping on his back on a couch cushion, tongue slightly out, completely relaxed and looking absurd"
+          ]
+        },
+        {
+          "author_name": "Pete Russo",
+          "dog_name": "Wallace",
+          "type": "story",
+          "tag": "ADULT",
+          "title": "Coming from a lab, owning a pug is a different universe",
+          "content_text": "My last dog was a 70-lb lab who would run five miles without giving it a second thought. Wallace will walk to the end of the block, decide the world is satisfactory, and want to go back inside. He snores. He requires face maintenance. He overheats if I look at him wrong.\n\nI genuinely did not understand this breed before I had one. He is also the funniest animal I've ever lived with.",
+          "has_images": true,
+          "image_briefs": [
+            "Pug sitting on a front doorstep with an extremely serious expression, looking like he has already decided the outside world is not worth it"
+          ]
+        },
+        {
+          "author_name": "David Huang",
+          "dog_name": "Noodles",
+          "type": "question",
+          "tag": "PUPPY",
+          "title": "Noodles does this alarming gasping thing – is this reverse sneezing?",
+          "content_text": "About once a day she goes into an episode where she inhales rapidly and makes a honking sound. Lasts 20–30 seconds and then she's completely fine. First time it happened I genuinely thought something was wrong.\n\nVet said probably reverse sneezing. Does it stop as they get older? Is there anything that helps during the episode?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Carla Osei",
+          "dog_name": "Figgy",
+          "type": "meetup",
+          "tag": "PLAYDATE",
+          "title": "Pug meetup at Morley Field – shaded end, Sunday morning",
+          "content_text": "Bringing Figgy to Morley Field Sunday around 7:30am — the shaded end near the trees, before it gets warm. She does well with other small dogs. If you have a pug or brachycephalic breed, come say hi. We'll keep it short and in the shade.\n\nDM or comment if you're coming.",
+          "has_images": true,
+          "image_briefs": [
+            "Pug sitting in dappled shade on a grassy park lawn, looking toward camera, trees visible in the background"
+          ]
+        },
+        {
+          "author_name": "Marco Diaz",
+          "dog_name": "Tulip",
+          "type": "question",
+          "tag": "HEALTH",
+          "title": "Tulip's eye keeps getting red – what's normal for this breed?",
+          "content_text": "She's a black pug and her eyes seem to water more than I expected. Sometimes the inner corner gets red, sometimes there's brownish discharge in the morning. My vet said it's normal for the breed but also said to watch it.\n\nWhat am I watching for? When does it cross from 'pug thing' to 'actual problem'?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Stephanie Cole",
+          "dog_name": "Barnaby",
+          "type": "tip",
+          "tag": "TRAINING",
+          "title": "Pugs respond to your energy as much as to treats",
+          "content_text": "Barnaby is seven and I still use treats, but I've found he responds just as strongly to genuine enthusiasm. If I get excited about something he did right, he repeats it. Pugs track your emotional state closely.\n\nAt this point he almost prefers the approval, especially mid-walk when he's not that food-motivated. Worth trying if treats aren't landing.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Liz Carver",
+          "dog_name": "Benny",
+          "type": "tip",
+          "tag": "GROOMING",
+          "title": "Clean the face folds every day and actually get in there",
+          "content_text": "Benny gets fold dermatitis if I skip two days. The routine that finally works for us: dry cotton round twice a day, nothing else. The area has to be completely dry after — moisture is what causes the irritation and odor.\n\nTook me a while to get consistent with it but it has made a real difference. Way easier than dealing with a vet appointment for something preventable.",
+          "has_images": true,
+          "image_briefs": [
+            "Close-up of a pug's facial wrinkle being gently wiped with a cotton pad, dog sitting still and cooperative"
+          ]
+        },
+        {
+          "author_name": "Carla Osei",
+          "dog_name": "Figgy",
+          "type": "story",
+          "tag": "BEHAVIOR",
+          "title": "Figgy invented a sock game and I'm just a participant now",
+          "content_text": "She brings me a sock. I don't do anything with it. She takes it back. She brings it back. This goes on for 10–15 minutes most evenings. I'm not sure if it's a fetch attempt, a ritual, or some kind of test.\n\nShe's been doing this for two years. I think this is just our thing.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "David Huang",
+          "dog_name": "Noodles",
+          "type": "tip",
+          "tag": "HEALTH",
+          "title": "How to stop a reverse sneezing episode quickly",
+          "content_text": "Our vet showed us two things: gently cover the nostrils for 2–3 seconds to trigger a swallow reflex, or lightly massage the throat. Both usually end the episode faster than waiting it out.\n\nDoesn't prevent them but it helps me stay calm and it helps her reset quicker. Becomes muscle memory after a few weeks.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Marco Diaz",
+          "dog_name": "Tulip",
+          "type": "tip",
+          "tag": "GROOMING",
+          "title": "keeping a cloth by Tulip's water bowl cleared up a recurring skin issue",
+          "content_text": "Tulip gets water all over her face wrinkles when she drinks. Leave it wet and the fold area starts getting irritated within a day or two. Just keeping a small cloth next to her bowl for a quick dry-off after she drinks fixed it.\n\nOne of those small habits that just works. Wish I had landed on it sooner.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Liz Carver",
+          "dog_name": "Benny",
+          "type": "question",
+          "tag": "HEALTH",
+          "title": "When did you decide to do the BOAS surgery?",
+          "content_text": "Benny has elongated soft palate and slightly stenotic nares. He manages okay — not great, but okay. He's three. My vet says surgery would meaningfully improve his quality of life and he's a good candidate, but it's not urgent yet.\n\nFor those who've done it: what was the tipping point? And did you see a real difference afterward?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Carla Osei",
+          "dog_name": "Figgy",
+          "type": "question",
+          "tag": "HEALTH",
+          "title": "Figgy can barely handle 15 minutes in June – what does your summer routine look like?",
+          "content_text": "We're in San Diego and June through September genuinely limits what Figgy can do. She manages maybe 15 minutes at 6am before she's panting heavily. I've shifted to two short walks on the cooler ends of the day instead of one mid-day walk.\n\nIs anyone doing anything creative to keep their pug active in summer without the heat risk?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Stephanie Cole",
+          "dog_name": "Barnaby",
+          "type": "question",
+          "tag": "HEALTH",
+          "title": "Barnaby's breathing sounds different lately – when do you call the vet?",
+          "content_text": "He has always been a noisy breather — snorts, gurgles, the whole pug soundtrack. But something has sounded different these past few weeks. The honking is happening more often and at rest, not just when he is excited or warm. He is seven.\n\nI can never quite tell with pugs what is normal-for-them versus worth a call. How do you judge that line?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Pete Russo",
+          "dog_name": "Wallace",
+          "type": "meetup",
+          "tag": "PLAYDATE",
+          "title": "Casual pug walk around South Park – Sunday morning",
+          "content_text": "Taking Wallace on a shaded neighborhood walk around South Park this Sunday around 7am. Quiet streets, lots of trees, good for brachycephalic dogs that need to stay cool.\n\nIf you have a pug or short-snout breed and want company, come find us. Nothing structured.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Stephanie Cole",
+          "dog_name": "Barnaby",
+          "type": "question",
+          "tag": "HEALTH",
+          "title": "Can anyone help me identify this eye thing on Barnaby?",
+          "content_text": "There's a small pink growth in the inner corner of his eye. It's been there about a week and isn't getting bigger but it's definitely new. I know pug eyes are delicate so I'm not inclined to wait on this.\n\nPosting a photo. Has anyone seen this before? Cherry eye or something else?",
+          "has_images": true,
+          "image_briefs": [
+            "Close-up of a pug's face with a small pink protrusion visible in the inner corner of the eye, dog looking straight at camera"
+          ]
+        }
+      ]
+    },
+    {
+      "breed": "FRENCH BULLDOG",
+      "authors": [
+        {
+          "author_name": "Nina Cho",
+          "dog_name": "Archie",
+          "voice_note": "Second frenchie, very practical about the health realities. Not alarmist, just consistent. Knows what happens when you skip maintenance and does not skip maintenance."
+        },
+        {
+          "author_name": "Ryan Okafor",
+          "dog_name": "Potato",
+          "voice_note": "First frenchie, Potato is 8 months, Ryan is charmed and slightly bewildered. Has a good sense of humor about the breed's opinions on everything."
+        },
+        {
+          "author_name": "Claire Davis",
+          "dog_name": "Gus",
+          "voice_note": "Mid-level owner, Gus is 3, dealing with ongoing skin allergies. Thoughtful and resourceful. Has tried a lot of things and keeps track of what worked."
+        },
+        {
+          "author_name": "Tommy Chen",
+          "dog_name": "Millie",
+          "voice_note": "SD local, active lifestyle, has learned to work with Millie's limits rather than against them. Practical and brief."
+        },
+        {
+          "author_name": "Wendy Osei",
+          "dog_name": "Pascal",
+          "voice_note": "Second frenchie, experienced, warm and helpful. Knows the breed well and shares things she wishes she'd known earlier."
+        },
+        {
+          "author_name": "Greg Fischer",
+          "dog_name": "Bertie",
+          "voice_note": "Previous dog was a bigger, more compliant breed. The adjustment to Bertie's sense of self-governance has been funny and ongoing."
+        }
+      ],
+      "posts": [
+        {
+          "author_name": "Ryan Okafor",
+          "dog_name": "Potato",
+          "type": "question",
+          "tag": "PUPPY",
+          "title": "Potato screams when I pick him up – is this a frenchie thing?",
+          "content_text": "I reach for him in a completely normal way and he makes a sound like I'm ending him. No injury, vet says he's fine, the drama is just intense. I've asked other frenchie owners and they all immediately started laughing.\n\nDoes this ever stop? Or do I just have a theatrical dog?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Nina Cho",
+          "dog_name": "Archie",
+          "type": "story",
+          "tag": "BEHAVIOR",
+          "title": "Archie versus the 10-minute morning walk",
+          "content_text": "The route to the park is 10 minutes. Archie is done at minute six. Not tired — just done. He sits down on the sidewalk and looks at me like I've made a serious error in judgment. We turn around. Every day.\n\nHe is four years old and has the constitution of a Victorian convalescent. I love him completely.",
+          "has_images": true,
+          "image_briefs": [
+            "French Bulldog sitting stubbornly on a sidewalk mid-walk, looking up at owner with complete indignation"
+          ]
+        },
+        {
+          "author_name": "Tommy Chen",
+          "dog_name": "Millie",
+          "type": "meetup",
+          "tag": "PLAYDATE",
+          "title": "Frenchie beach morning at Coronado – Sunday 7:30am",
+          "content_text": "Taking Millie to Coronado Dog Beach this Sunday morning around 7:30. Early enough that the sand is cool and it's not crowded. She mostly sits near the water and judges other dogs but she loves the outing.\n\nIf you have a frenchie or brachycephalic breed and want to meet up, we'll be near the south end.",
+          "has_images": true,
+          "image_briefs": [
+            "French Bulldog sitting on wet sand at a beach in early morning light, looking out toward the water with dignified curiosity"
+          ]
+        },
+        {
+          "author_name": "Claire Davis",
+          "dog_name": "Gus",
+          "type": "story",
+          "tag": "BEHAVIOR",
+          "title": "Gus decided his dog bed was for other dogs",
+          "content_text": "Gus had a perfectly good dog bed. He used it twice. Since then his position has been that his bed is the left couch cushion, specifically with the throw pillow. The dog bed sits in the corner looking dejected.\n\nEvery morning he stands at the couch and waits to be lifted up, even though I've watched him make the jump alone at least a dozen times. The couch is his and I am staff.",
+          "has_images": true,
+          "image_briefs": [
+            "French Bulldog sitting possessively on a couch cushion next to a throw pillow, looking completely settled and unbothered"
+          ]
+        },
+        {
+          "author_name": "Greg Fischer",
+          "dog_name": "Bertie",
+          "type": "question",
+          "tag": "TRAINING",
+          "title": "how do you actually get a frenchie to do what you want",
+          "content_text": "My previous dog was a lab. The lab listened. Bertie listens to Bertie. He is sweet, affectionate, never aggressive — just deeply unimpressed by authority. Treats help but only when he feels like it.\n\nHow do frenchie owners actually approach training with a dog who seems to run a constant calculation on whether compliance is worth the effort?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Ryan Okafor",
+          "dog_name": "Potato",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Potato has a whole morning check-in ritual and it is completely non-negotiable",
+          "content_text": "He will not acknowledge that it is daytime until I have sat next to him on the couch for at least five minutes. Not petting him. Just present. If I skip it he stares at me until I comply.\n\nHe started this around five months old and it has only become more established. Does anyone else have this?",
+          "has_images": true,
+          "image_briefs": [
+            "French Bulldog sitting on a couch with a very serious unblinking stare aimed directly at the camera, clearly waiting for something"
+          ]
+        },
+        {
+          "author_name": "Nina Cho",
+          "dog_name": "Archie",
+          "type": "tip",
+          "tag": "GROOMING",
+          "title": "frenchie bat ears – the weekly routine I wish I had started on day one",
+          "content_text": "Archie gets buildup fast because of how his ears sit. They trap dust, debris, wax. Quick wipe with a dry cotton ball once a week, takes about two minutes. My first frenchie had two ear infections before I figured this out.\n\nOnce it is part of the routine it takes almost no time. Before it is in the routine it turns into a vet bill.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Wendy Osei",
+          "dog_name": "Pascal",
+          "type": "story",
+          "tag": "BEHAVIOR",
+          "title": "Pascal found a bug and I thought something was wrong with him",
+          "content_text": "He was frozen in the middle of the living room, staring at something on the floor. Completely rigid, wouldn't respond to his name. I was convinced something was neurologically wrong. I got close and it was a small beetle, also frozen, possibly terrified.\n\nThey stared at each other for four minutes. The beetle eventually walked away. Pascal looked at me with what I can only describe as relief.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Ryan Okafor",
+          "dog_name": "Potato",
+          "type": "tip",
+          "tag": "FOOD",
+          "title": "Slow feeder bowl helped Potato's gas situation more than anything else",
+          "content_text": "Potato was eating so fast he was inhaling air and the results were impressive in the worst way. Switched to a slow feeder bowl and within a week the constant air-swallowing farts dropped a lot. He still has some frenchie-standard digestive opinions but the volume is more manageable.\n\nWorth trying before you go down a food allergy investigation path.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Claire Davis",
+          "dog_name": "Gus",
+          "type": "question",
+          "tag": "HEALTH",
+          "title": "Managing frenchie skin allergies without a full elimination diet – possible?",
+          "content_text": "Gus has had itchy paws, a red belly, and occasional hot spots since he was about 18 months. Vet confirmed environmental and possibly food allergies. We've done one elimination diet and it helped somewhat but was never fully conclusive.\n\nAre people managing this with supplements, specific proteins, or something else? I feel like I've been in a permanent trial-and-error loop for a year.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Nina Cho",
+          "dog_name": "Archie",
+          "type": "question",
+          "tag": "HEALTH",
+          "title": "Anyone switched to limited ingredient food for frenchie skin issues?",
+          "content_text": "Archie has had skin sensitivity since he was young — red patches between his toes, occasional itching. Vet has suggested a limited ingredient or hydrolyzed protein diet to rule out food allergies. Has anyone gone through this process with a frenchie?\n\nHow long before you saw a difference and what did you land on?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Tommy Chen",
+          "dog_name": "Millie",
+          "type": "tip",
+          "tag": "BEHAVIOR",
+          "title": "Two short walks at the cool ends of the day – frenchies don't do midday heat",
+          "content_text": "Millie can handle about 20–25 minutes in decent weather. In SD summers she can barely handle 15 if it's past 8am. Two short walks at dawn and dusk has been our routine for two years and it works.\n\nDon't let anyone make you feel like you're under-exercising them. Frenchies genuinely don't need or want a five-mile run.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Wendy Osei",
+          "dog_name": "Pascal",
+          "type": "tip",
+          "tag": "GROOMING",
+          "title": "The tail pocket is easy to forget and hard to ignore when you do",
+          "content_text": "Pascal has a tight screw tail and the fold underneath gets red and irritated if I skip cleaning it. I did not even know frenchies had this until his first groomer mentioned it. Small fold right under the tail that traps moisture — clean it like a face fold, dry cotton, fully dried after.\n\nEasy thing to miss, annoying when you do. Once a week works well for us.",
+          "has_images": true,
+          "image_briefs": [
+            "French Bulldog tail area showing the characteristic screw tail and the fold beneath it, dog relaxed on a grooming mat"
+          ]
+        },
+        {
+          "author_name": "Greg Fischer",
+          "dog_name": "Bertie",
+          "type": "meetup",
+          "tag": "PLAYDATE",
+          "title": "Frenchie meetup at Grape Street Dog Park – Saturday morning",
+          "content_text": "Taking Bertie to Grape Street Saturday around 8am. He's social with other small dogs and does well in the small dog area. Looking for other frenchie or flat-face breed owners to meet up with.\n\nComment if you're coming.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Wendy Osei",
+          "dog_name": "Pascal",
+          "type": "question",
+          "tag": "HEALTH",
+          "title": "Is anyone proactively screening their frenchie for IVDD?",
+          "content_text": "Pascal is two and I've been reading that frenchies are one of the higher-risk chondrodystrophic breeds for spinal issues. Our vet hasn't brought it up on their own. I'm wondering if there's a standard screening protocol people do or if it's mostly monitor-for-symptoms until something happens.\n\nI know it's more associated with dachshunds but frenchies are on the list too and I want to be thoughtful about it.",
+          "has_images": false,
+          "image_briefs": []
+        }
+      ]
+    },
+    {
+      "breed": "PIT BULL",
+      "authors": [
+        {
+          "author_name": "Jasmine Ward",
+          "dog_name": "Duke",
+          "voice_note": "Third pit bull, experienced and knowledgeable. Advocates for the breed through quality ownership rather than rhetoric. Knows the challenges and navigates them practically."
+        },
+        {
+          "author_name": "Marcus Bell",
+          "dog_name": "Ruthie",
+          "voice_note": "Ruthie is a rescue, 2 years in, working through leash reactivity. Patient and methodical. Approaches the work like a slow project he's committed to."
+        },
+        {
+          "author_name": "Tanya Cruz",
+          "dog_name": "Peanut",
+          "voice_note": "Newer owner, Peanut is a puppy, SD local. Excited about early socialization and doing everything right from the start."
+        },
+        {
+          "author_name": "Owen Rhys",
+          "dog_name": "Clyde",
+          "voice_note": "Experienced, runs structured training with Clyde. Practical, confident, brief. Believes in building the dog's skill set systematically."
+        },
+        {
+          "author_name": "Sofia Espinoza",
+          "dog_name": "Margot",
+          "voice_note": "Works from home, Margot is her second pit, SD local. Thoughtful and warm. Writes about Margot with a lot of quiet pride."
+        },
+        {
+          "author_name": "Darren Webb",
+          "dog_name": "Bruno",
+          "voice_note": "Navigating breed-restricted housing as a renter. Practical about the reality without being bitter about it. Bruno is an exceptionally well-behaved dog."
+        },
+        {
+          "author_name": "Keiko Nakamura",
+          "dog_name": "Hank",
+          "voice_note": "Casual but consistent owner, Hank is a brindle pit who's been with her four years. Writes warmly and a little wryly about life with him."
+        }
+      ],
+      "posts": [
+        {
+          "author_name": "Keiko Nakamura",
+          "dog_name": "Hank",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "People cross the street when they see Hank and I'm not sure how to feel about it",
+          "content_text": "Hank is a 55-lb brindle pit who is afraid of plastic bags and sleeps with a stuffed duck. He has never once done anything threatening in four years. But I watch people cross the street when we're coming.\n\nIs this something you get used to? I'm not angry, it's just a little deflating sometimes. Attaching a photo so you can see what kind of dangerous animal we're dealing with.",
+          "has_images": true,
+          "image_briefs": [
+            "Brindle pit bull sitting on a sidewalk next to a small stuffed animal toy, looking sweet and docile, completely harmless energy"
+          ]
+        },
+        {
+          "author_name": "Jasmine Ward",
+          "dog_name": "Duke",
+          "type": "story",
+          "tag": "TRAINING",
+          "title": "Duke passed his Canine Good Citizen test today",
+          "content_text": "Three months of consistent work and he passed every element. The evaluator mentioned afterward that he was one of the calmest dogs she'd tested in a while. I'm not going to pretend I wasn't emotional.\n\nFor anyone wondering if the work is worth it — it is. Whatever breed you have. The CGC process teaches you as much as it teaches the dog.",
+          "has_images": true,
+          "image_briefs": [
+            "Pit bull sitting proudly outdoors wearing a bandana, CGC ribbon visible near his collar, looking calm and composed"
+          ]
+        },
+        {
+          "author_name": "Tanya Cruz",
+          "dog_name": "Peanut",
+          "type": "story",
+          "tag": "PUPPY",
+          "title": "Peanut met a cat today and handled it better than expected",
+          "content_text": "My neighbor has an outdoor cat with zero fear of dogs. They met through the fence — Peanut went still, did a slow sniff, then tried a play bow. The cat hissed and walked off. Peanut looked confused but stayed calm and didn't amp up about it.\n\nI know prey drive can develop later but this was a good first data point. Starting careful introductions early feels like the right move.",
+          "has_images": true,
+          "image_briefs": [
+            "Pit bull puppy looking through a wooden fence at a cat on the other side, tail up in curiosity, soft gentle posture"
+          ]
+        },
+        {
+          "author_name": "Marcus Bell",
+          "dog_name": "Ruthie",
+          "type": "tip",
+          "tag": "GEAR",
+          "title": "The front-clip harness made Ruthie's walks actually manageable",
+          "content_text": "Ruthie is 60 lbs and was pulling me all over the place before we switched to a front-clip harness. The redirect when she pulls makes walks manageable while we keep working on training. It is not a substitute for the training work but it keeps both of us safe in the meantime.\n\nWe use the Ruffwear Front Range. Holds up well and fits the wider chest.",
+          "has_images": true,
+          "image_briefs": [
+            "Pit bull wearing a well-fitted front-clip harness on a suburban sidewalk, looking up at owner with a loose relaxed leash"
+          ]
+        },
+        {
+          "author_name": "Jasmine Ward",
+          "dog_name": "Duke",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "How do you handle it when another dog escalates toward yours?",
+          "content_text": "Duke is solid — trained, predictable, not the problem. The problem is other dogs going after him and owners who then look at me like it was my dog's fault. He holds it together but I'm always wondering if I'm managing these situations correctly.\n\nWhat's your approach when your pit is behaving and the other dog isn't?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Owen Rhys",
+          "dog_name": "Clyde",
+          "type": "meetup",
+          "tag": "PLAYDATE",
+          "title": "Structured pit meet at Grape Street – Sunday 8am",
+          "content_text": "Taking Clyde to Grape Street Dog Park this Sunday morning. Looking for other pit or similar-breed owners who are actively managing their dogs — not looking for chaos, looking for a casual meet where owners are paying attention.\n\nDM me if you're interested so we can coordinate slightly before showing up.",
+          "has_images": true,
+          "image_briefs": [
+            "Pit bull sitting calmly on a park path next to owner's feet, looking composed and relaxed, green park background"
+          ]
+        },
+        {
+          "author_name": "Jasmine Ward",
+          "dog_name": "Duke",
+          "type": "tip",
+          "tag": "TRAINING",
+          "title": "Duke's good manners have done more for the breed than anything I could say",
+          "content_text": "This is my third pit and what I have found is that the most practical thing I can do is just have a dog who holds a sit, walks nicely on leash, and has reliable recall. Duke gets compliments from people who admit they were nervous when they first saw him. That shift happens because he gives them nothing to be nervous about.\n\nThe basics matter a lot with this breed. Not as a statement — just because a well-trained dog is a well-trained dog, and people notice.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Tanya Cruz",
+          "dog_name": "Peanut",
+          "type": "question",
+          "tag": "PUPPY",
+          "title": "How much socialization is the right amount for a pit puppy?",
+          "content_text": "Peanut is 14 weeks and I want to socialize her as much as possible but I've also read that overstimulation at this age can backfire. Dog parks, puppy classes, street walks — trying to figure out the right pace for a breed where early socialization really matters.\n\nWhat did your schedule look like at this age?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Marcus Bell",
+          "dog_name": "Ruthie",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Ruthie has leash reactivity toward other dogs – where do I start?",
+          "content_text": "She's completely fine with other dogs in person — she's met plenty and plays well. But on leash with a dog approaching, she loses it. Lunging, barking, can't refocus until the other dog has passed. She's 60 lbs and it's a lot to manage.\n\nIs this leash frustration or true reactivity? And what has actually worked for people starting from this point?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Sofia Espinoza",
+          "dog_name": "Margot",
+          "type": "story",
+          "tag": "BEHAVIOR",
+          "title": "Margot is a better judge of people than I am",
+          "content_text": "She warms up to almost everyone within five minutes. But there have been two people in four years where she stayed distant, stayed between me and them, and just would not let go of something I could not identify. No barking, no growling — just would not relax.\n\nBoth times my gut agreed with her. I have stopped second-guessing it.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Owen Rhys",
+          "dog_name": "Clyde",
+          "type": "tip",
+          "tag": "TRAINING",
+          "title": "spent the first two months on impulse control before anything else – worth it",
+          "content_text": "Before working on anything specific, I spent two months on just impulse control with Clyde: leave it, wait at thresholds, no forward movement on leash unless released. Sounds basic but a pit with solid impulse control handles real-world situations very differently.\n\nIf I was starting over with a new pit, this is where the first couple of months would go.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Darren Webb",
+          "dog_name": "Bruno",
+          "type": "question",
+          "tag": "ADULT",
+          "title": "How do you find pit-friendly rental housing in San Diego?",
+          "content_text": "Bruno has a CGC title. He has never been in any kind of trouble. We've been turned down by three apartments this year because of his breed.\n\nDoes anyone have actual strategies that work — specific property management companies, how to present your dog during the application process, anything practical? I'm not looking for validation, I'm looking for what's actually worked.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Owen Rhys",
+          "dog_name": "Clyde",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Clyde is dog-selective – how do you handle group settings?",
+          "content_text": "He likes some dogs and is indifferent to others. The ones he's indifferent to he mostly ignores. Occasionally he'll get tense with a specific dog and I'll pull him out. He's never started anything but I stay aware.\n\nHow do people with dog-selective pits handle dog parks or group meetups? Do you skip them or is there a way to make it work?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Sofia Espinoza",
+          "dog_name": "Margot",
+          "type": "meetup",
+          "tag": "PLAYDATE",
+          "title": "Sunday morning walk at Balboa Park – pit owners welcome",
+          "content_text": "I do a regular Sunday walk at Balboa Park with Margot, usually starting around 8am from the 6th Avenue entrance. She's friendly and well-managed. I just like walking with other large dog owners who are invested in their dogs.\n\nIf you have a pit or similar and want to join occasionally, let me know.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Darren Webb",
+          "dog_name": "Bruno",
+          "type": "tip",
+          "tag": "ADULT",
+          "title": "Build a dog resume before apartment hunting",
+          "content_text": "After getting rejected twice, I put together a one-page document for Bruno: CGC certification, vet reference, previous landlord reference, a professional photo. Not every landlord cares but it changes the conversation with the ones who might be on the fence.\n\nA few have told us it made a real difference. Takes about an hour to put together and it's the kind of thing that carries forward.",
+          "has_images": false,
+          "image_briefs": []
+        }
+      ]
+    },
+    {
+      "breed": "LABRADOR RETRIEVER",
+      "authors": [
+        {
+          "author_name": "Dana Kim",
+          "dog_name": "Bosley",
+          "voice_note": "Third lab, very practical about weight and food management. Has fought the lab weight battle twice before and won. SD local."
+        },
+        {
+          "author_name": "Chris Nakamura",
+          "dog_name": "Olive",
+          "voice_note": "Newer owner, Olive is 18 months and a chaos machine. Chris is funny and honest about what he didn't expect. Still figuring out the training side."
+        },
+        {
+          "author_name": "Margot Lawson",
+          "dog_name": "Fletcher",
+          "voice_note": "Mid-level owner, Fletcher is 5, they swim at Dog Beach regularly. Warm and active. Has fully accepted that Dog Beach takes the whole morning."
+        },
+        {
+          "author_name": "Phil Torres",
+          "dog_name": "Dot",
+          "voice_note": "First dog, yellow lab, Dot is 11 months. Earnest and curious. Writes like someone who's doing their best and finding it delightful."
+        },
+        {
+          "author_name": "Bex Carroll",
+          "dog_name": "Harvey",
+          "voice_note": "Experienced, does dock diving with Harvey. Knows the athletic and working side of the breed well. Writes briefly and practically."
+        },
+        {
+          "author_name": "Kat Singh",
+          "dog_name": "Noodle",
+          "voice_note": "Chocolate lab, Noodle is 8. Kat manages the senior phase thoughtfully and shares what's actually helped."
+        }
+      ],
+      "posts": [
+        {
+          "author_name": "Phil Torres",
+          "dog_name": "Dot",
+          "type": "story",
+          "tag": "BEHAVIOR",
+          "title": "Dot carries my shoe to the door every time I come home",
+          "content_text": "I did not teach her this. She started around 7 months and has done it every single day since — always a shoe, always to the door, dropped at my feet before she does anything else. Then she completely loses it.\n\nApparently it is a retriever thing. They need something in their mouth when excited. She chose shoes and I have no plans to change it.",
+          "has_images": true,
+          "image_briefs": [
+            "Yellow lab puppy at a front door holding an adult sneaker in her mouth, tail a complete blur from wagging"
+          ]
+        },
+        {
+          "author_name": "Dana Kim",
+          "dog_name": "Bosley",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Does your lab seem genuinely starving or is it all performance?",
+          "content_text": "Bosley's vet says he's at a healthy weight and eating the right amount for his size. He acts like he's been fasting for three days. Completely convinced he's wasting away — every meal, every snack, every time I open the refrigerator.\n\nI know there's an actual genetic mutation affecting satiety in labs. I'm just asking if anyone else finds the performance this theatrical.",
+          "has_images": true,
+          "image_briefs": [
+            "Black lab staring with intense hopefulness at an empty food bowl, looking directly into the camera"
+          ]
+        },
+        {
+          "author_name": "Margot Lawson",
+          "dog_name": "Fletcher",
+          "type": "story",
+          "tag": "PLAYDATE",
+          "title": "Fletcher's approach to Dog Beach is total commitment",
+          "content_text": "He's in before I'm through the gate. Doesn't look back, doesn't check in, just goes. He'll swim until I physically get in the water and redirect him toward shore. Three hours the first time and he could have kept going.\n\nI've started scheduling nothing afterward. Dog Beach with a lab is a full morning and I've made peace with that.",
+          "has_images": true,
+          "image_briefs": [
+            "Black lab swimming strongly in ocean water at an off-leash dog beach, head up, completely in his element"
+          ]
+        },
+        {
+          "author_name": "Chris Nakamura",
+          "dog_name": "Olive",
+          "type": "story",
+          "tag": "BEHAVIOR",
+          "title": "Olive discovered the neighbor's sprinkler and it changed her",
+          "content_text": "We were on a walk and the sprinklers came on across the street. Olive stopped, stared, then walked directly into the spray and just stood there. Still, soaked, thoroughly satisfied.\n\nShe now pauses at that spot every single walk in case the sprinklers are on. The neighbors have noticed. I've apologized twice.",
+          "has_images": true,
+          "image_briefs": [
+            "Yellow lab standing directly in a front-yard sprinkler stream, soaked and looking completely content"
+          ]
+        },
+        {
+          "author_name": "Bex Carroll",
+          "dog_name": "Harvey",
+          "type": "meetup",
+          "tag": "PLAYDATE",
+          "title": "Lab fetch meetup at Mission Bay – Sunday morning",
+          "content_text": "Taking Harvey to Mission Bay Sunday around 8am. Open area, water access, good for high-energy dogs who need room. East side near the grass.\n\nHe's friendly, loves other dogs, and will absolutely steal your ball if given the opportunity. That's a fair warning, not a promise.",
+          "has_images": true,
+          "image_briefs": [
+            "Chocolate lab mid-leap off a low dock into open water, fully extended, looking completely joyful"
+          ]
+        },
+        {
+          "author_name": "Phil Torres",
+          "dog_name": "Dot",
+          "type": "question",
+          "tag": "PUPPY",
+          "title": "Dot is 11 months and enters every room like a pinball – when does this end?",
+          "content_text": "She's trainable, she's sweet, she's completely incapable of entering a space calmly. My neighbor has a 3-year-old lab who moves around like a normal animal and I'm told this is where I'm headed.\n\nIs there anything that helps, or is it just waiting out the puppy phase?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Dana Kim",
+          "dog_name": "Bosley",
+          "type": "tip",
+          "tag": "FOOD",
+          "title": "stopped measuring Bosley's food for a couple weeks and he gained weight – labs are serious about this",
+          "content_text": "Bosley is my third lab and weight management is the constant project. The moment I started eyeballing his food instead of measuring, he started gaining. He does not self-regulate.\n\nMeasuring food and counting treats is tedious but it is the thing that actually works. Labs are not going to do this for you.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Chris Nakamura",
+          "dog_name": "Olive",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Olive ate part of my couch while I was gone for two hours",
+          "content_text": "I was gone for two hours. She has toys, she has bones, she has a genuinely good life. I came back to a section of couch cushion missing. She is 18 months and she looked completely unbothered.\n\nDo labs stop doing this at some point or is this just something I manage around indefinitely?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Margot Lawson",
+          "dog_name": "Fletcher",
+          "type": "meetup",
+          "tag": "PLAYDATE",
+          "title": "Lab beach morning at Dog Beach – Saturday 7:45am",
+          "content_text": "Fletcher and I do Dog Beach most Saturday mornings, arriving around 7:45. If you have a lab or water dog and want to meet up, we're easy to find — just look for the dog who went in first and the person on shore with too many towels.\n\nSee you there.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Phil Torres",
+          "dog_name": "Dot",
+          "type": "tip",
+          "tag": "TRAINING",
+          "title": "Stopping the moment the leash goes tight changed our walks",
+          "content_text": "Dot was pulling constantly. I started stopping every time the leash went tight and just standing there for ten seconds before moving again. Within a week she started connecting pulling with the walk stopping.\n\nThe key is every single time without exception. The first time you let a pull through, you restart the clock.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Dana Kim",
+          "dog_name": "Bosley",
+          "type": "tip",
+          "tag": "FOOD",
+          "title": "Use your dog's meal portion for training, not extra treats",
+          "content_text": "When we were doing a lot of active training, I was going through 20 to 30 small treats per session without really thinking about it. Bosley's weight crept up and I could not figure out why. Now I put part of his measured meal aside for training and only break into extra treats for high-value moments.\n\nSame motivation for him, no extra calories sneaking in.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Chris Nakamura",
+          "dog_name": "Olive",
+          "type": "question",
+          "tag": "TRAINING",
+          "title": "How do you train a dog who finds literally everything rewarding?",
+          "content_text": "Olive will work for food. She'll also work for a leaf, a smell, a stranger walking by, or someone dropping something two blocks away. Everything is interesting. The whole world is one giant reward.\n\nHow do you build focus and reliability when competing distractions consistently win? Any specific approach that's actually worked?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Kat Singh",
+          "dog_name": "Noodle",
+          "type": "question",
+          "tag": "HEALTH",
+          "title": "Noodle's elbow is stiffening – anyone managed lab elbow issues long-term?",
+          "content_text": "She's 8 and the vet flagged some early changes on her left elbow last visit. Not limping but I can tell she favors it after long walks. Fish oil and reduced high-impact activity so far.\n\nElbow dysplasia seems more common in labs than I realized. What else has actually helped people manage this over time?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Bex Carroll",
+          "dog_name": "Harvey",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Is the water obsession universal in labs or specific to mine?",
+          "content_text": "Harvey is a completely different animal near water. Focused, intense, practically vibrating. He'll retrieve on land fine but put him near a dock or the ocean and something switches on that doesn't go back off. He's done dock diving for two years and still reacts like every jump is the first.\n\nIs this breed-wide or is Harvey just wired this way?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Kat Singh",
+          "dog_name": "Noodle",
+          "type": "tip",
+          "tag": "HEALTH",
+          "title": "An orthopedic bed made a visible difference for Noodle's mornings",
+          "content_text": "Noodle is 8 and was noticeably stiff for the first few minutes after getting up. Switched to a proper orthopedic foam bed six months ago and the morning stiffness has improved consistently. Not dramatic, but real.\n\nIt costs about what one vet visit costs and it's the easiest quality-of-life improvement I've made for her.",
+          "has_images": false,
+          "image_briefs": []
+        }
+      ]
+    },
+    {
+      "breed": "LABRADOODLE",
+      "authors": [
+        {
+          "author_name": "Amy Chen",
+          "dog_name": "Radar",
+          "voice_note": "Second labradoodle, experienced with the different coat types. Practical and direct. Knows what she wishes she'd known the first time around."
+        },
+        {
+          "author_name": "Jason Morrow",
+          "dog_name": "Fern",
+          "voice_note": "Active outdoorsy owner, Fern is his first labradoodle. Did a lot of research before getting her and is still learning in practice. Honest and engaged."
+        },
+        {
+          "author_name": "Lauren Obi",
+          "dog_name": "Cosmo",
+          "voice_note": "Mid-level owner, Cosmo is an Australian labradoodle. Thoughtful about the breed's working dog heritage. Writes with curiosity and care."
+        },
+        {
+          "author_name": "Dev Kapoor",
+          "dog_name": "Teddy",
+          "voice_note": "SD local, standard labradoodle, they do Dog Beach regularly. Warm and casual. Teddy is his ideal dog and he writes like it."
+        },
+        {
+          "author_name": "Rosie Kwan",
+          "dog_name": "Cleo",
+          "voice_note": "First dog, mini labradoodle that is not staying mini. Earnest and slightly surprised by how things are going. Asks genuine beginner questions."
+        },
+        {
+          "author_name": "Nick Reyes",
+          "dog_name": "Harbor",
+          "voice_note": "Harbor washed out of a service dog program at 18 months and came to Nick as a pet. Nick finds this history fascinating and Harbor is wonderfully well-mannered."
+        }
+      ],
+      "posts": [
+        {
+          "author_name": "Dev Kapoor",
+          "dog_name": "Teddy",
+          "type": "story",
+          "tag": "PLAYDATE",
+          "title": "Teddy at Dog Beach is just pure happiness",
+          "content_text": "He goes in, he comes out, he shakes on someone, he goes back in. He found another labradoodle and they swam together for 40 minutes. He's a standard and he moves through water like he was built for it.\n\nWe go most Sunday mornings. It's the best part of our week and I'm fairly sure it's the best part of his.",
+          "has_images": true,
+          "image_briefs": [
+            "Large labradoodle mid-shake at the beach waterline, wet fur flying in all directions, complete unguarded joy"
+          ]
+        },
+        {
+          "author_name": "Amy Chen",
+          "dog_name": "Radar",
+          "type": "story",
+          "tag": "PLAYDATE",
+          "title": "Radar found out the retriever side is very real",
+          "content_text": "I didn't know how strongly the lab instinct would express until the first time Radar saw open water. He was seven months and we were at Mission Bay. He didn't hesitate — just launched in and started swimming like he'd been doing it for years. The look on his face was something like recognition.\n\nWe go to the water at least once a week now. It's clearly not optional for him.",
+          "has_images": true,
+          "image_briefs": [
+            "Labradoodle swimming in open bay water, head above surface, looking completely at ease and purposeful"
+          ]
+        },
+        {
+          "author_name": "Rosie Kwan",
+          "dog_name": "Cleo",
+          "type": "question",
+          "tag": "PUPPY",
+          "title": "Cleo is definitely not staying mini – how big did yours actually end up?",
+          "content_text": "She is 5 months and the breeder said she would top out at 20 to 25 lbs. She is already 22 lbs and her paws are enormous. Both parents were supposedly mini but she is going in a different direction.\n\nDid your mini or medium labradoodle end up much bigger than predicted? Just trying to mentally prepare for what is coming.",
+          "has_images": true,
+          "image_briefs": [
+            "Labradoodle puppy with oversized paws sitting on a floor next to a small object for scale, looking a bit gangly and adorable"
+          ]
+        },
+        {
+          "author_name": "Nick Reyes",
+          "dog_name": "Harbor",
+          "type": "question",
+          "tag": "TRAINING",
+          "title": "Does anyone have a labradoodle that washed out of service dog training?",
+          "content_text": "Harbor was evaluated for a guide dog program and did not make the cut — too social apparently. Could not maintain focus around strangers reliably enough for the work. He came to us at 18 months with excellent foundational training and this specific combination of great manners and completely unbothered enthusiasm for every person he meets.\n\nAnyone else have a service washout as a pet? They seem to make remarkable ones.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Jason Morrow",
+          "dog_name": "Fern",
+          "type": "tip",
+          "tag": "TRAINING",
+          "title": "Engage the brain before the body on high-energy days",
+          "content_text": "Fern can run for an hour and still be activated. Fern can do 20 minutes of nose work or focused training and be genuinely settled afterward. On days she is especially wound up, I do a sniff walk or short training session first, then physical exercise. The brain work takes more out of her than cardio does.\n\nSeems to hold true for a lot of intelligent breeds with working dog backgrounds.",
+          "has_images": true,
+          "image_briefs": [
+            "Labradoodle nose-down in a yard doing a sniff or nose work activity, fully absorbed and concentrated"
+          ]
+        },
+        {
+          "author_name": "Lauren Obi",
+          "dog_name": "Cosmo",
+          "type": "story",
+          "tag": "BEHAVIOR",
+          "title": "Cosmo was almost a service dog",
+          "content_text": "When we got him, the breeder mentioned his litter was co-bred with a service dog program and some puppies were being evaluated. Cosmo washed out — too social, too interested in strangers, couldn't maintain focus in public settings. They placed him with us.\n\nThe thing that made him wrong for the job makes him exactly right for ours. He's been the best dog I've ever had.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Amy Chen",
+          "dog_name": "Radar",
+          "type": "tip",
+          "tag": "GROOMING",
+          "title": "Fleece coat vs. wool coat need completely different grooming approaches",
+          "content_text": "Radar has a wool coat — tight curls, close to a poodle. A friend's labradoodle has a fleece coat — wavy, much softer. They look similar but groom completely differently. Wool holds mats tighter and needs professional attention more often. Fleece is more forgiving with home brushing.\n\nIf you're buying or adopting, ask specifically about coat type. It affects your maintenance schedule and budget significantly.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Jason Morrow",
+          "dog_name": "Fern",
+          "type": "question",
+          "tag": "HEALTH",
+          "title": "How do you verify that a labradoodle breeder actually health tests?",
+          "content_text": "We're looking for our first labradoodle and trying to do this right. The breeder we're talking to says they health test but I'm not sure what to actually ask for or verify. Hip and elbow clearances from the lab side, eye and cardiac from the poodle side seems to be the standard.\n\nWhat specifically should I be asking to see, and what's a signal to walk away?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Lauren Obi",
+          "dog_name": "Cosmo",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Does the Australian labradoodle distinction actually matter in practice?",
+          "content_text": "We have a multi-gen Australian labradoodle and I've noticed some communities make a significant deal of this distinction. From what I understand, Australian labradoodles include Cocker Spaniel in the lineage and have been selectively bred for temperament consistency over more generations.\n\nDoes this translate to a real difference in the actual dog, or is it mostly breeders drawing lines?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Nick Reyes",
+          "dog_name": "Harbor",
+          "type": "meetup",
+          "tag": "PLAYDATE",
+          "title": "Morning walk at Los Peñasquitos Canyon – labradoodle owners welcome",
+          "content_text": "Harbor and I do Los Peñasquitos Canyon on Sunday mornings, usually around 7am from the Mercy Road entrance. He's well-trained, great with other dogs, and has considerably more energy than I do.\n\nLooking for other labradoodle or doodle owners who want a longer walk with good company.",
+          "has_images": true,
+          "image_briefs": [
+            "Labradoodle on a wide dirt trail in a Southern California canyon park, on leash, looking ahead with alert eager energy"
+          ]
+        },
+        {
+          "author_name": "Amy Chen",
+          "dog_name": "Radar",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Does your labradoodle seem more lab or more poodle in temperament?",
+          "content_text": "Radar is clearly lab-dominant — food motivated, water obsessed, extremely social, not particularly delicate about anything. But some labradoodles I've met seem more poodle in personality — sensitive, more cautious, easily overstimulated.\n\nDoes generation (F1 vs. multi-gen) seem to predict this, or is it just individual variation?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Lauren Obi",
+          "dog_name": "Cosmo",
+          "type": "question",
+          "tag": "BEHAVIOR",
+          "title": "Cosmo is friendly with everyone but has no off switch for it",
+          "content_text": "He greets every person and dog like they're the most important encounter of his day. Charming in small doses. In busier environments or longer walks, the constant social drive becomes exhausting to manage — he can't self-regulate.\n\nIs there a specific approach that's helped people build calmer public behavior without dampening the friendliness entirely?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Rosie Kwan",
+          "dog_name": "Cleo",
+          "type": "tip",
+          "tag": "HEALTH",
+          "title": "Ask your vet about elbow screening earlier than you'd think",
+          "content_text": "Cleo's vet mentioned that labradoodles, with the lab lineage, carry meaningful risk for elbow dysplasia and it's worth a baseline screening around 18 months to 2 years. I had no idea this was on the labradoodle radar.\n\nIf you're in the early stages with one, put it on your list for the first few vet conversations.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Dev Kapoor",
+          "dog_name": "Teddy",
+          "type": "tip",
+          "tag": "GROOMING",
+          "title": "Book your next grooming appointment before you leave the current one",
+          "content_text": "Teddy needs a full groom every 8 weeks or so. I didn't realize how booked out doodle groomers get until I waited too long and couldn't get in for three weeks. His coat was in rough shape by then and the appointment took twice as long.\n\nI now book forward before leaving. Groomers who specialize in doodles fill up fast.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Rosie Kwan",
+          "dog_name": "Cleo",
+          "type": "meetup",
+          "tag": "PLAYDATE",
+          "title": "Labradoodle puppy meetup at Balboa Park – Saturday morning",
+          "content_text": "Bringing Cleo to Balboa Park Saturday around 9am near the dog run. She's 5 months, vaccinated, and extremely full of it. Looking for other labradoodle owners or friendly puppies for some socialization time.\n\nComment if you're coming.",
+          "has_images": false,
+          "image_briefs": []
+        }
+      ]
+    }
+  ]
+}

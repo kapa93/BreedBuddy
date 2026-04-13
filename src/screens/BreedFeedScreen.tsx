@@ -7,7 +7,7 @@ import {
   RefreshControl,
   Alert,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { getFeed, deletePost } from "@/api/posts";
@@ -44,6 +44,7 @@ const FILTER_TO_TAB = (f: FeedFilter): TabKey =>
 export function BreedFeedScreen() {
   const route = useRoute();
   const headerHeight = useStackHeaderHeight();
+  const insets = useSafeAreaInsets();
   const breedParam = (route.params as { breed?: BreedEnum })?.breed;
   const navigation = useNavigation<{
     navigate: (s: string, p?: object) => void;
@@ -101,6 +102,7 @@ export function BreedFeedScreen() {
   const tabKey = FILTER_TO_TAB(feedFilter);
 
   const feedQueryKey = ["feed", breed, feedFilter, user?.id] as const;
+  const bottomFeedInset = useMemo(() => insets.bottom + spacing.xxxl + 25, [insets.bottom]);
   const { data: posts, isLoading, refetch } = useQuery({
     queryKey: feedQueryKey,
     queryFn: () => getFeed(breed, sort, 20, 0, user?.id ?? null, typeFilter),
@@ -224,9 +226,10 @@ export function BreedFeedScreen() {
   );
 
   const renderFeedItem = useCallback(
-    ({ item }: { item: PostWithDetails }) => (
+    ({ item, index }: { item: PostWithDetails; index: number }) => (
       <FeedItem
         item={item}
+        showBottomBorder={index < (posts?.length ?? 0) - 1}
         onPostPress={handlePostPress}
         onAuthorPress={handleAuthorPress}
         onReactionSelect={handleReactionSelect}
@@ -245,6 +248,7 @@ export function BreedFeedScreen() {
       handleRsvpToggle,
       handleEditPost,
       handleDeletePost,
+      posts?.length,
       user?.id,
     ]
   );
@@ -322,7 +326,7 @@ export function BreedFeedScreen() {
           }
           contentContainerStyle={[
             styles.listContent,
-            { paddingTop: headerHeight },
+            { paddingTop: headerHeight, paddingBottom: bottomFeedInset },
             (!posts || posts.length === 0) && styles.emptyList,
           ]}
           showsVerticalScrollIndicator={false}

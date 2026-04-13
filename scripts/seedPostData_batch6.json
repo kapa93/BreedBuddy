@@ -1,0 +1,398 @@
+{
+  "breeds": [
+    {
+      "breed": "LABRADOR RETRIEVER",
+      "authors": [
+        {
+          "author_name": "Dana Kim",
+          "dog_name": "Bosley",
+          "voice_note": "Third lab, very practical about weight and food management. Has fought the lab weight battle twice before and won. SD local."
+        },
+        {
+          "author_name": "Chris Nakamura",
+          "dog_name": "Olive",
+          "voice_note": "Newer owner, Olive is 18 months and a chaos machine. Chris is funny and honest about what he didn't expect. Still figuring out the training side."
+        },
+        {
+          "author_name": "Margot Lawson",
+          "dog_name": "Fletcher",
+          "voice_note": "Mid-level owner, Fletcher is 5, they swim at Dog Beach regularly. Warm and active. Has fully accepted that Dog Beach takes the whole morning."
+        },
+        {
+          "author_name": "Phil Torres",
+          "dog_name": "Dot",
+          "voice_note": "First dog, yellow lab, Dot is 11 months. Earnest and curious. Writes like someone who's doing their best and finding it delightful."
+        },
+        {
+          "author_name": "Bex Carroll",
+          "dog_name": "Harvey",
+          "voice_note": "Experienced, does dock diving with Harvey. Knows the athletic and working side of the breed well. Writes briefly and practically."
+        },
+        {
+          "author_name": "Kat Singh",
+          "dog_name": "Noodle",
+          "voice_note": "Chocolate lab, Noodle is 8. Kat manages the senior phase thoughtfully and shares what's actually helped."
+        }
+      ],
+      "posts": [
+        {
+          "author_name": "Dana Kim",
+          "dog_name": "Bosley",
+          "type": "tip",
+          "tag": "food",
+          "title": "Labs will gain weight the moment you stop measuring",
+          "content_text": "Bosley is my third lab and weight management is the constant project with all of them. The moment I started eyeballing his food instead of measuring, he started gaining. He does not self-regulate. Free feeding is not for this breed.\n\nMeasure every meal. Count every treat. Treat it like it actually matters, because for labs it really does.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Dana Kim",
+          "dog_name": "Bosley",
+          "type": "tip",
+          "tag": "food",
+          "title": "Use your dog's meal portion for training, not extra treats",
+          "content_text": "When we were doing a lot of training work, I was going through 20–30 small treats per session without thinking about the calories. Bosley's weight crept up and I couldn't figure out why. Now I set aside part of his measured meal for training and reserve real treats for high-value moments.\n\nSame food motivation, no sneaky weight accumulation.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Dana Kim",
+          "dog_name": "Bosley",
+          "type": "question",
+          "tag": "behavior",
+          "title": "Does your lab seem genuinely starving or is it all performance?",
+          "content_text": "Bosley's vet says he's at a healthy weight and eating the right amount for his size. He acts like he's been fasting for three days. Completely convinced he's wasting away — every meal, every snack, every time I open the refrigerator.\n\nI know there's an actual genetic mutation affecting satiety in labs. I'm just asking if anyone else finds the performance this theatrical.",
+          "has_images": true,
+          "image_briefs": [
+            "Black lab staring with intense hopefulness at an empty food bowl, looking directly into the camera"
+          ]
+        },
+        {
+          "author_name": "Chris Nakamura",
+          "dog_name": "Olive",
+          "type": "question",
+          "tag": "behavior",
+          "title": "Olive ate part of my couch and I need to understand what happened",
+          "content_text": "I was gone for two hours. She has toys, she has bones, she has a perfectly good life. I came home to a section of couch cushion missing. She's 18 months and she looked extremely pleased with herself.\n\nDo labs stop eating furniture at some point or is this a permanent variable I need to manage around?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Chris Nakamura",
+          "dog_name": "Olive",
+          "type": "question",
+          "tag": "training",
+          "title": "How do you train a dog who finds literally everything rewarding?",
+          "content_text": "Olive will work for food. She'll also work for a leaf, a smell, a stranger walking by, or someone dropping something two blocks away. Everything is interesting. The whole world is one giant reward.\n\nHow do you build focus and reliability when competing distractions consistently win? Any specific approach that's actually worked?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Chris Nakamura",
+          "dog_name": "Olive",
+          "type": "story",
+          "tag": "general",
+          "title": "Olive discovered the neighbor's sprinkler and it changed her",
+          "content_text": "We were on a walk and the sprinklers came on across the street. Olive stopped, stared, then walked directly into the spray and just stood there. Still, soaked, thoroughly satisfied.\n\nShe now pauses at that spot every single walk in case the sprinklers are on. The neighbors have noticed. I've apologized twice.",
+          "has_images": true,
+          "image_briefs": [
+            "Yellow lab standing directly in a front-yard sprinkler stream, soaked and looking completely content"
+          ]
+        },
+        {
+          "author_name": "Margot Lawson",
+          "dog_name": "Fletcher",
+          "type": "story",
+          "tag": "beach",
+          "title": "Fletcher's approach to Dog Beach is total commitment",
+          "content_text": "He's in before I'm through the gate. Doesn't look back, doesn't check in, just goes. He'll swim until I physically get in the water and redirect him toward shore. Three hours the first time and he could have kept going.\n\nI've started scheduling nothing afterward. Dog Beach with a lab is a full morning and I've made peace with that.",
+          "has_images": true,
+          "image_briefs": [
+            "Black lab swimming strongly in ocean water at an off-leash dog beach, head up, completely in his element"
+          ]
+        },
+        {
+          "author_name": "Margot Lawson",
+          "dog_name": "Fletcher",
+          "type": "meetup",
+          "tag": "beach",
+          "title": "Lab beach morning at Dog Beach – Saturday 7:45am",
+          "content_text": "Fletcher and I do Dog Beach most Saturday mornings, arriving around 7:45. If you have a lab or water dog and want to meet up, we're easy to find — just look for the dog who went in first and the person on shore with too many towels.\n\nSee you there.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Phil Torres",
+          "dog_name": "Dot",
+          "type": "question",
+          "tag": "puppy",
+          "title": "Dot is 11 months and enters every room like a pinball – when does this end?",
+          "content_text": "She's trainable, she's sweet, she's completely incapable of entering a space calmly. My neighbor has a 3-year-old lab who moves around like a normal animal and I'm told this is where I'm headed.\n\nIs there anything that helps, or is it just waiting out the puppy phase?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Phil Torres",
+          "dog_name": "Dot",
+          "type": "tip",
+          "tag": "training",
+          "title": "Stopping the moment the leash goes tight changed our walks",
+          "content_text": "Dot was pulling constantly. I started stopping every time the leash went tight and just standing there for ten seconds before moving again. Within a week she started connecting pulling with the walk stopping.\n\nThe key is every single time without exception. The first time you let a pull through, you restart the clock.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Phil Torres",
+          "dog_name": "Dot",
+          "type": "story",
+          "tag": "general",
+          "title": "Dot carries my shoe to the door every time I come home",
+          "content_text": "I didn't teach her this. She started around 7 months and has done it every day since — always a shoe, always at the door, always dropped at my feet before she does anything else. Then she proceeds to completely lose it.\n\nI looked it up and apparently it's a retriever thing. They need something in their mouth when they're excited. She chose shoes. I'm not going to discourage it.",
+          "has_images": true,
+          "image_briefs": [
+            "Yellow lab puppy at a front door holding an adult sneaker in her mouth, tail a complete blur from wagging"
+          ]
+        },
+        {
+          "author_name": "Bex Carroll",
+          "dog_name": "Harvey",
+          "type": "question",
+          "tag": "general",
+          "title": "Is the water obsession universal in labs or specific to mine?",
+          "content_text": "Harvey is a completely different animal near water. Focused, intense, practically vibrating. He'll retrieve on land fine but put him near a dock or the ocean and something switches on that doesn't go back off. He's done dock diving for two years and still reacts like every jump is the first.\n\nIs this breed-wide or is Harvey just wired this way?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Bex Carroll",
+          "dog_name": "Harvey",
+          "type": "meetup",
+          "tag": "playdate",
+          "title": "Lab fetch meetup at Mission Bay – Sunday morning",
+          "content_text": "Taking Harvey to Mission Bay Sunday around 8am. Open area, water access, good for high-energy dogs who need room. East side near the grass.\n\nHe's friendly, loves other dogs, and will absolutely steal your ball if given the opportunity. That's a fair warning, not a promise.",
+          "has_images": true,
+          "image_briefs": [
+            "Chocolate lab mid-leap off a low dock into open water, fully extended, looking completely joyful"
+          ]
+        },
+        {
+          "author_name": "Kat Singh",
+          "dog_name": "Noodle",
+          "type": "question",
+          "tag": "health",
+          "title": "Noodle's elbow is stiffening – anyone managed lab elbow issues long-term?",
+          "content_text": "She's 8 and the vet flagged some early changes on her left elbow last visit. Not limping but I can tell she favors it after long walks. Fish oil and reduced high-impact activity so far.\n\nElbow dysplasia seems more common in labs than I realized. What else has actually helped people manage this over time?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Kat Singh",
+          "dog_name": "Noodle",
+          "type": "tip",
+          "tag": "health",
+          "title": "An orthopedic bed made a visible difference for Noodle's mornings",
+          "content_text": "Noodle is 8 and was noticeably stiff for the first few minutes after getting up. Switched to a proper orthopedic foam bed six months ago and the morning stiffness has improved consistently. Not dramatic, but real.\n\nIt costs about what one vet visit costs and it's the easiest quality-of-life improvement I've made for her.",
+          "has_images": false,
+          "image_briefs": []
+        }
+      ]
+    },
+    {
+      "breed": "LABRADOODLE",
+      "authors": [
+        {
+          "author_name": "Amy Chen",
+          "dog_name": "Radar",
+          "voice_note": "Second labradoodle, experienced with the different coat types. Practical and direct. Knows what she wishes she'd known the first time around."
+        },
+        {
+          "author_name": "Jason Morrow",
+          "dog_name": "Fern",
+          "voice_note": "Active outdoorsy owner, Fern is his first labradoodle. Did a lot of research before getting her and is still learning in practice. Honest and engaged."
+        },
+        {
+          "author_name": "Lauren Obi",
+          "dog_name": "Cosmo",
+          "voice_note": "Mid-level owner, Cosmo is an Australian labradoodle. Thoughtful about the breed's working dog heritage. Writes with curiosity and care."
+        },
+        {
+          "author_name": "Dev Kapoor",
+          "dog_name": "Teddy",
+          "voice_note": "SD local, standard labradoodle, they do Dog Beach regularly. Warm and casual. Teddy is his ideal dog and he writes like it."
+        },
+        {
+          "author_name": "Rosie Kwan",
+          "dog_name": "Cleo",
+          "voice_note": "First dog, mini labradoodle that is not staying mini. Earnest and slightly surprised by how things are going. Asks genuine beginner questions."
+        },
+        {
+          "author_name": "Nick Reyes",
+          "dog_name": "Harbor",
+          "voice_note": "Harbor washed out of a service dog program at 18 months and came to Nick as a pet. Nick finds this history fascinating and Harbor is wonderfully well-mannered."
+        }
+      ],
+      "posts": [
+        {
+          "author_name": "Amy Chen",
+          "dog_name": "Radar",
+          "type": "tip",
+          "tag": "grooming",
+          "title": "Fleece coat vs. wool coat need completely different grooming approaches",
+          "content_text": "Radar has a wool coat — tight curls, close to a poodle. A friend's labradoodle has a fleece coat — wavy, much softer. They look similar but groom completely differently. Wool holds mats tighter and needs professional attention more often. Fleece is more forgiving with home brushing.\n\nIf you're buying or adopting, ask specifically about coat type. It affects your maintenance schedule and budget significantly.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Amy Chen",
+          "dog_name": "Radar",
+          "type": "question",
+          "tag": "behavior",
+          "title": "Does your labradoodle seem more lab or more poodle in temperament?",
+          "content_text": "Radar is clearly lab-dominant — food motivated, water obsessed, extremely social, not particularly delicate about anything. But some labradoodles I've met seem more poodle in personality — sensitive, more cautious, easily overstimulated.\n\nDoes generation (F1 vs. multi-gen) seem to predict this, or is it just individual variation?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Amy Chen",
+          "dog_name": "Radar",
+          "type": "story",
+          "tag": "beach",
+          "title": "Radar found out the retriever side is very real",
+          "content_text": "I didn't know how strongly the lab instinct would express until the first time Radar saw open water. He was seven months and we were at Mission Bay. He didn't hesitate — just launched in and started swimming like he'd been doing it for years. The look on his face was something like recognition.\n\nWe go to the water at least once a week now. It's clearly not optional for him.",
+          "has_images": true,
+          "image_briefs": [
+            "Labradoodle swimming in open bay water, head above surface, looking completely at ease and purposeful"
+          ]
+        },
+        {
+          "author_name": "Jason Morrow",
+          "dog_name": "Fern",
+          "type": "question",
+          "tag": "health",
+          "title": "How do you verify that a labradoodle breeder actually health tests?",
+          "content_text": "We're looking for our first labradoodle and trying to do this right. The breeder we're talking to says they health test but I'm not sure what to actually ask for or verify. Hip and elbow clearances from the lab side, eye and cardiac from the poodle side seems to be the standard.\n\nWhat specifically should I be asking to see, and what's a signal to walk away?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Jason Morrow",
+          "dog_name": "Fern",
+          "type": "tip",
+          "tag": "training",
+          "title": "Engage the brain before the body on high-energy days",
+          "content_text": "Fern can run for an hour and still be activated. Fern can do 20 minutes of nose work or focused training and be genuinely settled afterward. On days when she's especially wound up, I do a sniff walk or short training session first, then physical exercise. The brain work takes more out of her than cardio alone.\n\nThis seems especially true for intelligent breeds with a working dog background.",
+          "has_images": true,
+          "image_briefs": [
+            "Labradoodle nose-down in a yard doing a sniff or nose work activity, fully absorbed and concentrated"
+          ]
+        },
+        {
+          "author_name": "Lauren Obi",
+          "dog_name": "Cosmo",
+          "type": "question",
+          "tag": "general",
+          "title": "Does the Australian labradoodle distinction actually matter in practice?",
+          "content_text": "We have a multi-gen Australian labradoodle and I've noticed some communities make a significant deal of this distinction. From what I understand, Australian labradoodles include Cocker Spaniel in the lineage and have been selectively bred for temperament consistency over more generations.\n\nDoes this translate to a real difference in the actual dog, or is it mostly breeders drawing lines?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Lauren Obi",
+          "dog_name": "Cosmo",
+          "type": "question",
+          "tag": "socialization",
+          "title": "Cosmo is friendly with everyone but has no off switch for it",
+          "content_text": "He greets every person and dog like they're the most important encounter of his day. Charming in small doses. In busier environments or longer walks, the constant social drive becomes exhausting to manage — he can't self-regulate.\n\nIs there a specific approach that's helped people build calmer public behavior without dampening the friendliness entirely?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Lauren Obi",
+          "dog_name": "Cosmo",
+          "type": "story",
+          "tag": "general",
+          "title": "Cosmo was almost a service dog",
+          "content_text": "When we got him, the breeder mentioned his litter was co-bred with a service dog program and some puppies were being evaluated. Cosmo washed out — too social, too interested in strangers, couldn't maintain focus in public settings. They placed him with us.\n\nThe thing that made him wrong for the job makes him exactly right for ours. He's been the best dog I've ever had.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Dev Kapoor",
+          "dog_name": "Teddy",
+          "type": "story",
+          "tag": "beach",
+          "title": "Teddy at Dog Beach is just pure happiness",
+          "content_text": "He goes in, he comes out, he shakes on someone, he goes back in. He found another labradoodle and they swam together for 40 minutes. He's a standard and he moves through water like he was built for it.\n\nWe go most Sunday mornings. It's the best part of our week and I'm fairly sure it's the best part of his.",
+          "has_images": true,
+          "image_briefs": [
+            "Large labradoodle mid-shake at the beach waterline, wet fur flying in all directions, complete unguarded joy"
+          ]
+        },
+        {
+          "author_name": "Dev Kapoor",
+          "dog_name": "Teddy",
+          "type": "tip",
+          "tag": "grooming",
+          "title": "Book your next grooming appointment before you leave the current one",
+          "content_text": "Teddy needs a full groom every 8 weeks or so. I didn't realize how booked out doodle groomers get until I waited too long and couldn't get in for three weeks. His coat was in rough shape by then and the appointment took twice as long.\n\nI now book forward before leaving. Groomers who specialize in doodles fill up fast.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Rosie Kwan",
+          "dog_name": "Cleo",
+          "type": "question",
+          "tag": "puppy",
+          "title": "Cleo was listed as mini but is definitely not staying mini",
+          "content_text": "She's 5 months and the breeder said she'd be 20–25 lbs full grown. She's already 22 lbs and her paws are enormous. Both parents were supposedly mini but I'm not convinced.\n\nDid your mini or medium labradoodle end up significantly bigger than predicted? What should I actually expect?",
+          "has_images": true,
+          "image_briefs": [
+            "Labradoodle puppy with oversized paws sitting on a floor next to a small object for scale, looking a bit gangly and adorable"
+          ]
+        },
+        {
+          "author_name": "Rosie Kwan",
+          "dog_name": "Cleo",
+          "type": "tip",
+          "tag": "health",
+          "title": "Ask your vet about elbow screening earlier than you'd think",
+          "content_text": "Cleo's vet mentioned that labradoodles, with the lab lineage, carry meaningful risk for elbow dysplasia and it's worth a baseline screening around 18 months to 2 years. I had no idea this was on the labradoodle radar.\n\nIf you're in the early stages with one, put it on your list for the first few vet conversations.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Rosie Kwan",
+          "dog_name": "Cleo",
+          "type": "meetup",
+          "tag": "playdate",
+          "title": "Labradoodle puppy meetup at Balboa Park – Saturday morning",
+          "content_text": "Bringing Cleo to Balboa Park Saturday around 9am near the dog run. She's 5 months, vaccinated, and extremely full of it. Looking for other labradoodle owners or friendly puppies for some socialization time.\n\nComment if you're coming.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Nick Reyes",
+          "dog_name": "Harbor",
+          "type": "question",
+          "tag": "general",
+          "title": "Does anyone have a labradoodle that washed out of service dog training?",
+          "content_text": "Harbor was evaluated for a guide dog program and didn't make the final cut — too social, apparently. Couldn't maintain focus around strangers consistently enough for the work. He came to us at 18 months with excellent foundational training and this specific combination of great manners and completely unchecked enthusiasm for people.\n\nCurious if anyone else has a service program washout. They seem to make remarkable pets.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Nick Reyes",
+          "dog_name": "Harbor",
+          "type": "meetup",
+          "tag": "local",
+          "title": "Morning walk at Los Peñasquitos Canyon – labradoodle owners welcome",
+          "content_text": "Harbor and I do Los Peñasquitos Canyon on Sunday mornings, usually around 7am from the Mercy Road entrance. He's well-trained, great with other dogs, and has considerably more energy than I do.\n\nLooking for other labradoodle or doodle owners who want a longer walk with good company.",
+          "has_images": true,
+          "image_briefs": [
+            "Labradoodle on a wide dirt trail in a Southern California canyon park, on leash, looking ahead with alert eager energy"
+          ]
+        }
+      ]
+    }
+  ]
+}

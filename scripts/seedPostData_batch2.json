@@ -1,0 +1,398 @@
+{
+  "breeds": [
+    {
+      "breed": "GERMAN SHEPHERD",
+      "authors": [
+        {
+          "author_name": "Nadia Reyes",
+          "dog_name": "Ares",
+          "voice_note": "Experienced GSD owner, takes training seriously, slightly intense about it. Knows working dog lines and expects a lot from Ares. Not without humor."
+        },
+        {
+          "author_name": "Owen Garrett",
+          "dog_name": "Zelda",
+          "voice_note": "First-time GSD owner, works from home, was not fully prepared for a velcro dog. Charmed by it but also processing. Asks a lot of questions."
+        },
+        {
+          "author_name": "Teresa Vong",
+          "dog_name": "Bruno",
+          "voice_note": "Mid-level owner, practical, has a good relationship with Bruno but navigates his guarding instincts with patience. Dry and observational in how she writes."
+        },
+        {
+          "author_name": "Marcus Holt",
+          "dog_name": "Nora",
+          "voice_note": "SD local, experienced GSD owner, goes to Fiesta Island regularly. Direct, helpful, and brief. Knows his breed."
+        },
+        {
+          "author_name": "Simone Laurent",
+          "dog_name": "Kiefer",
+          "voice_note": "Second GSD, experienced and warm. Originally from France, now in San Diego. Practical but affectionate in tone."
+        },
+        {
+          "author_name": "Dan Whitfield",
+          "dog_name": "Ghost",
+          "voice_note": "Casual outdoorsy guy, big dog owner, less structured than some. Ghost gets plenty of exercise. Dan is easygoing and writes like it."
+        }
+      ],
+      "posts": [
+        {
+          "author_name": "Nadia Reyes",
+          "dog_name": "Ares",
+          "type": "question",
+          "tag": "training",
+          "title": "Ares knows every command but decides when he feels like doing them",
+          "content_text": "He knows everything we've worked on — sit, down, place, heel, all of it. But there are days, especially when something interesting is happening nearby, where he just deliberates. Like he's doing a cost-benefit analysis on whether to comply.\n\nAnyone else deal with this? How do you handle it without turning every session into a standoff?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Nadia Reyes",
+          "dog_name": "Ares",
+          "type": "story",
+          "tag": "general",
+          "title": "Ares turned 2 and finally looks like a real dog",
+          "content_text": "There's a GSD teenage phase nobody warns you about. Huge ears, long legs, none of it proportional. Ares looked like spare parts for most of his first year.\n\nHit his second birthday and something clicked. He filled out, his coat got dense, and he finally looks like the dog I thought I was getting. Attaching a photo as proof that it does end.",
+          "has_images": true,
+          "image_briefs": [
+            "Two-year-old German Shepherd sitting outdoors looking alert and confident, full coat, well-proportioned"
+          ]
+        },
+        {
+          "author_name": "Nadia Reyes",
+          "dog_name": "Ares",
+          "type": "tip",
+          "tag": "behavior",
+          "title": "GSDs learn your schedule – lean into it",
+          "content_text": "Ares figured out my morning routine within the first few months and he uses it to organize himself. He knows when my alarm goes off, when walks happen, when things settle down. If I deviate without warning, he gets antsy.\n\nI stopped fighting it and built consistency around it instead. A predictable daily structure reduces their background stress in a way that nothing else quite replicates.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Owen Garrett",
+          "dog_name": "Zelda",
+          "type": "question",
+          "tag": "behavior",
+          "title": "Is my GSD supposed to follow me to every single room?",
+          "content_text": "Zelda follows me everywhere. Bathroom, kitchen, out to the mailbox and back. I work from home and she is basically within arm's reach at all times unless she's asleep. It's endearing but I also wonder if it crosses into anxiety.\n\nIs this just a German Shepherd thing or is there something I should address?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Owen Garrett",
+          "dog_name": "Zelda",
+          "type": "question",
+          "tag": "puppy",
+          "title": "Zelda's ears won't both stand up at the same time",
+          "content_text": "She's 5 months and one ear is up and one is usually flopped. Sometimes they switch. Sometimes both stand for an hour and then both fold. I've been told this is normal during teething but it's been going on for two months.\n\nStill within the normal range or should I be doing something? Posting a photo because it's also kind of adorable.",
+          "has_images": true,
+          "image_briefs": [
+            "German Shepherd puppy with one ear upright and one flopped over, looking directly at camera with wide curious eyes"
+          ]
+        },
+        {
+          "author_name": "Owen Garrett",
+          "dog_name": "Zelda",
+          "type": "tip",
+          "tag": "training",
+          "title": "Start crate training before you think you need it",
+          "content_text": "I skipped crate training with Zelda because she seemed fine without it early on. Then I had to board her. She was completely unprepared and it was stressful for everyone involved.\n\nDoing it now at 10 months and it's going okay but it would have been so much easier at 8 weeks. Just get it out of the way from the start.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Teresa Vong",
+          "dog_name": "Bruno",
+          "type": "question",
+          "tag": "behavior",
+          "title": "Bruno barks at the door even with people he knows",
+          "content_text": "My neighbor comes over once a week and has for two years. Bruno has met her probably 80 times. Every single time she rings the bell he loses it. Once she's inside he's completely calm and friendly — it's just that initial moment at the door.\n\nI've tried having her give treats, I've worked on 'quiet,' nothing has stuck. Is this purely territorial or is there a specific approach that's helped others?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Teresa Vong",
+          "dog_name": "Bruno",
+          "type": "story",
+          "tag": "general",
+          "title": "Bruno spent the whole afternoon as a leaning post",
+          "content_text": "I have a standing desk and Bruno decided it was his personal resting spot. He spent most of the afternoon with his chin resting on my forearm while I tried to type. Every time I gently moved him he just shifted and moved with me.\n\nGot maybe three focused hours of work in. Not actually complaining. He was warm and somehow I had better posture than usual.",
+          "has_images": true,
+          "image_briefs": [
+            "German Shepherd resting his chin on a person's forearm at a standing desk, looking up with soft relaxed eyes"
+          ]
+        },
+        {
+          "author_name": "Marcus Holt",
+          "dog_name": "Nora",
+          "type": "tip",
+          "tag": "health",
+          "title": "Get hip X-rays before you see any symptoms",
+          "content_text": "Nora is four and I've had her hips screened twice. No issues so far. But GSDs are one of the highest-risk breeds and catching early changes affects how you manage exercise and weight over time.\n\nA lot of vets will do OFA-style screening starting around 2 years. Worth asking about at your next visit if you haven't already.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Marcus Holt",
+          "dog_name": "Nora",
+          "type": "question",
+          "tag": "socialization",
+          "title": "How do you make on-leash intros less of a whole thing?",
+          "content_text": "Nora is selective with new dogs. She's totally fine with dogs she knows but meeting a stranger on leash means stiffness, posturing, and a few tense minutes before she settles. It usually resolves but it makes any dog park feel like a gamble.\n\nAnyone found an approach that makes first introductions smoother for a GSD?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Marcus Holt",
+          "dog_name": "Nora",
+          "type": "meetup",
+          "tag": "playdate",
+          "title": "GSD meetup at Fiesta Island – Sunday morning",
+          "content_text": "Taking Nora to Fiesta Island this Sunday around 8am if any other GSD owners want to meet up. She does well with dogs she's been introduced to gradually so figured a low-key group walk would be a good format. Off-leash area is solid out there.\n\nLmk if you're coming.",
+          "has_images": true,
+          "image_briefs": [
+            "German Shepherd running off-leash on a flat open field near water, tongue out, warm morning light"
+          ]
+        },
+        {
+          "author_name": "Simone Laurent",
+          "dog_name": "Kiefer",
+          "type": "tip",
+          "tag": "grooming",
+          "title": "Two blow-out seasons a year – get ahead of them or regret it",
+          "content_text": "Kiefer goes through two major coat dumps a year and if I'm not ready, everything I own turns gray. What's helped: daily brushing in the two weeks before the blow-out peaks, a good undercoat rake (not a Furminator — an actual wide-toothed rake), and one professional deshed bath at the start of each season.\n\nThe rest of the year is manageable. Those two windows are not.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Simone Laurent",
+          "dog_name": "Kiefer",
+          "type": "meetup",
+          "tag": "local",
+          "title": "Morning walks at Lake Murray – looking for company",
+          "content_text": "I take Kiefer around Lake Murray on Saturday mornings, usually around 7:30 before it gets crowded. Good trail, not too many bikes, nice length for a longer leashed walk.\n\nIf you have a GSD or another large dog and want to join occasionally, feel free to reach out.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Dan Whitfield",
+          "dog_name": "Ghost",
+          "type": "question",
+          "tag": "food",
+          "title": "What are you feeding a large GSD without destroying your budget?",
+          "content_text": "Ghost is 85 lbs and we've gone through several kibbles trying to find something that works — coat, digestion, energy. Currently on Purina Pro Plan and it's been fine but I'm curious what other GSD owners are running with and whether anyone's noticed a real difference in coat or energy from switching.\n\nNot specifically looking for raw diet recommendations, just curious what's working.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Dan Whitfield",
+          "dog_name": "Ghost",
+          "type": "story",
+          "tag": "beach",
+          "title": "Ghost at Dog Beach – nervous big dog does okay",
+          "content_text": "Ghost is 85 lbs and moves like he knows it. I was unsure how he'd handle Dog Beach — too many variables — but he was actually solid. Slow to warm up, sat near the water for about 20 minutes before deciding to go in, then wouldn't leave.\n\nThere's something about watching a big dog figure out ocean waves for the first time that's pretty good.",
+          "has_images": true,
+          "image_briefs": [
+            "Large German Shepherd standing chest-deep in ocean surf at an off-leash beach, looking calm and satisfied"
+          ]
+        }
+      ]
+    },
+    {
+      "breed": "HUSKY",
+      "authors": [
+        {
+          "author_name": "Kim Tran",
+          "dog_name": "Loki",
+          "voice_note": "Experienced husky owner, second husky, San Diego local. Has learned every lesson the hard way and is now a pragmatic, useful voice in the community."
+        },
+        {
+          "author_name": "Ben Castilla",
+          "dog_name": "Sasha",
+          "voice_note": "Newer owner who got a husky because he's active. Now discovering the gap between 'active' and 'husky active.' Still figuring it out, mostly with humor."
+        },
+        {
+          "author_name": "Adrienne Park",
+          "dog_name": "Mako",
+          "voice_note": "Mid-level husky owner, loves the breed but very upfront about the challenges. Dry sense of humor. Writes like someone who's accepted reality."
+        },
+        {
+          "author_name": "Josh Coleman",
+          "dog_name": "Yukon",
+          "voice_note": "Experienced, owns two huskies, gives practical no-fluff advice. Has tried everything and knows what works."
+        },
+        {
+          "author_name": "Rachel Torres",
+          "dog_name": "Nova",
+          "voice_note": "Newer owner who moved to SD from a colder state. Navigating husky life in a warmer climate and dealing with Nova's very loud separation feelings."
+        },
+        {
+          "author_name": "Eric Bowen",
+          "dog_name": "Diesel",
+          "voice_note": "Trail runner, outdoorsy, Diesel is his running partner. Brief and practical. Diesel gets a lot of miles."
+        }
+      ],
+      "posts": [
+        {
+          "author_name": "Kim Tran",
+          "dog_name": "Loki",
+          "type": "question",
+          "tag": "training",
+          "title": "Has anyone actually gotten reliable recall on a husky?",
+          "content_text": "Loki has solid recall inside and in the fenced yard. The moment she's in open space — any open space — it's like I don't exist. We've worked on it consistently for two years and I still won't take her off leash anywhere without a fence.\n\nIs this just what huskies are, or is there something specific that's actually worked for people?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Kim Tran",
+          "dog_name": "Loki",
+          "type": "tip",
+          "tag": "training",
+          "title": "Never trust a husky off leash outside a fence",
+          "content_text": "Loki is my second husky and I made this mistake with my first one. They will sprint away from you the moment something catches their nose, and you will not get them back on recall. It's not defiance — it's how they're built.\n\nI know other breeds can be trained to reliable off-leash. Huskies are not that breed for most owners. Long line or fenced area. That's it.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Kim Tran",
+          "dog_name": "Loki",
+          "type": "meetup",
+          "tag": "playdate",
+          "title": "Husky play morning at Grape Street – Saturday 8:30",
+          "content_text": "Bringing Loki to Grape Street Dog Park this Saturday around 8:30am. She does best with other high-energy dogs and Saturdays early tend to be less chaotic before the crowds arrive.\n\nWould love to meet other husky owners. She is friendly, vaccinated, and very loud.",
+          "has_images": true,
+          "image_briefs": [
+            "Husky running at full speed inside a fenced dog park, tongue out, motion blur on background"
+          ]
+        },
+        {
+          "author_name": "Ben Castilla",
+          "dog_name": "Sasha",
+          "type": "question",
+          "tag": "behavior",
+          "title": "Sasha talks back – is this just a husky thing?",
+          "content_text": "When I tell Sasha no she makes this sound that is genuinely indistinguishable from arguing with me. Long drawn-out vocalizations, direct eye contact. I grew up with labs and I have never experienced anything like this.\n\nIs this normal? Do they all do it? Is there any way to train around it or do I just accept the commentary?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Ben Castilla",
+          "dog_name": "Sasha",
+          "type": "question",
+          "tag": "behavior",
+          "title": "Is this normal husky destruction or do I have a special case?",
+          "content_text": "Sasha has destroyed: one throw pillow, three socks, a corner of my IKEA couch, and the rubber weather stripping off my back door. She's 14 months. I have chew toys, puzzle feeders, a flirt pole, and we do at least an hour of exercise a day.\n\nShe's not bored. She just chooses this. At what point does it stop?",
+          "has_images": true,
+          "image_briefs": [
+            "Husky sitting in the middle of a destroyed throw pillow with stuffing everywhere, looking completely unrepentant"
+          ]
+        },
+        {
+          "author_name": "Ben Castilla",
+          "dog_name": "Sasha",
+          "type": "story",
+          "tag": "general",
+          "title": "Sasha found the gap in my fence I didn't know existed",
+          "content_text": "Came home from work to find my neighbor standing in my driveway holding Sasha by the collar. She'd been in his backyard for an hour. I had no idea there was a loose board at the back of my fence, but Sasha absolutely knew — had clearly been monitoring it and waited for her moment.\n\nThe patch is done. I did a full fence audit. She is sitting in the yard right now looking at me like she's already found the next one.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Adrienne Park",
+          "dog_name": "Mako",
+          "type": "question",
+          "tag": "health",
+          "title": "Managing a husky in San Diego heat – what's your summer routine?",
+          "content_text": "Mako is completely different once June hits. Refuses to walk after 9am, pants heavily if we're out more than 20 minutes in the heat, basically shuts down until evening. I know huskies aren't built for this climate — I just want to make sure I'm handling it correctly.\n\nWhat does your summer routine actually look like from June through September?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Adrienne Park",
+          "dog_name": "Mako",
+          "type": "story",
+          "tag": "general",
+          "title": "Mako's first experience with snow was not what I expected",
+          "content_text": "Drove up to Big Bear last winter and let Mako out into about six inches of snow. I expected some kind of ancestral awakening — a dog coming home. Instead he stood at the edge of it for a full minute, sniffed it, and looked back at me like I'd made an error.\n\nThen he went completely feral. Rolled in it, sprinted in circles, wouldn't get back in the car for 45 minutes. So not an awakening — just chaos. Which is on brand.",
+          "has_images": true,
+          "image_briefs": [
+            "Husky rolling joyfully in snow on a mountain hillside, ears back, completely covered in white powder"
+          ]
+        },
+        {
+          "author_name": "Josh Coleman",
+          "dog_name": "Yukon",
+          "type": "tip",
+          "tag": "behavior",
+          "title": "Two huskies is actually easier in some ways",
+          "content_text": "Got a second husky 18 months ago and people thought I was losing my mind. But Yukon and Kira burn each other out in ways I simply cannot match. They play hard for an hour and both crash.\n\nSolo husky energy is relentless. Two seems chaotic but they self-regulate in ways one dog never will. I sleep better now than I did with just one.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Josh Coleman",
+          "dog_name": "Yukon",
+          "type": "tip",
+          "tag": "gear",
+          "title": "Front-clip harness made loose leash walking actually possible",
+          "content_text": "Yukon is 65 lbs and used to drag me on every walk. Tried a prong collar, didn't love it. Tried a head halter, he hated it. Ended up on the Ruffwear Front Range and the difference in the first week was real.\n\nThe front clip redirects instead of punishing and it fits a husky's wide chest well. Still working on the training side but this helped immediately.",
+          "has_images": true,
+          "image_briefs": [
+            "Husky wearing a well-fitted front-clip harness standing on a sidewalk, leash loose, looking up at owner"
+          ]
+        },
+        {
+          "author_name": "Josh Coleman",
+          "dog_name": "Yukon",
+          "type": "question",
+          "tag": "grooming",
+          "title": "How often are you bathing your husky and with what?",
+          "content_text": "Yukon has that self-cleaning double coat tendency but he still needs actual baths. We do once a month but I feel like the undercoat doesn't fully release without more regular washing.\n\nAnyone have a specific routine or shampoo that helps with coat management? Bonus if there's something that helps with the smell between baths.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Rachel Torres",
+          "dog_name": "Nova",
+          "type": "question",
+          "tag": "behavior",
+          "title": "Nova howls every time we leave – neighbor left a note",
+          "content_text": "Nova doesn't bark — she howls. Full wolf mode the moment the front door closes. Our downstairs neighbor left a note. We've started departure training and I leave a frozen Kong every time, but progress is slow.\n\nAnyone dealt with this specifically? Not sure if it's separation anxiety or just standard husky vocals that I need to train around.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Rachel Torres",
+          "dog_name": "Nova",
+          "type": "tip",
+          "tag": "grooming",
+          "title": "Don't shave your husky for summer – seriously",
+          "content_text": "A groomer suggested shaving Nova for the summer heat and I almost said yes. Someone talked me out of it. The double coat actually insulates against heat as well as cold — shaving disrupts that and can permanently damage the coat texture.\n\nWhat actually helps is keeping it brushed out so air can move through. A matted coat is what causes overheating, not the coat itself.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Eric Bowen",
+          "dog_name": "Diesel",
+          "type": "story",
+          "tag": "general",
+          "title": "Diesel ran 12 miles and could have kept going",
+          "content_text": "Took Diesel on a longer trail run through Cuyamaca State Park — about 12 miles total. I was done at mile 10. He was still pulling forward, still scanning the terrain, still had reserves I didn't.\n\nGot back to the car and he ate his food and looked at me like we'd done a warm-up. I need to either train harder or get a shorter dog.",
+          "has_images": true,
+          "image_briefs": [
+            "Husky running alongside a person on a dry mountain trail, fully in stride, happy open-mouth expression"
+          ]
+        },
+        {
+          "author_name": "Eric Bowen",
+          "dog_name": "Diesel",
+          "type": "meetup",
+          "tag": "local",
+          "title": "Trail run at Los Peñasquitos Canyon – looking for running dogs",
+          "content_text": "Taking Diesel through Los Peñasquitos Canyon on Sunday morning, probably 6–8 miles depending on pace. Looking for one or two other owners with dogs that can handle a sustained run — huskies, malamutes, high-energy mixes welcome.\n\nStarting around 7am at the Mercy Road trailhead. Let me know if you're in.",
+          "has_images": false,
+          "image_briefs": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,403 @@
+{
+  "breeds": [
+    {
+      "breed": "MIXED BREED",
+      "authors": [
+        {
+          "author_name": "Paloma Reyes",
+          "dog_name": "Fennel",
+          "voice_note": "Adopted Fennel from a rescue in Chula Vista, warm and community-oriented without being preachy. Fennel is some kind of hound-lab-boxer mix. Paloma advocates for rescues but keeps it grounded."
+        },
+        {
+          "author_name": "Cal Nguyen",
+          "dog_name": "Desi",
+          "voice_note": "Got a DNA test that completely upended what he thought Desi was. Casual, funny, slightly fascinated by the whole thing."
+        },
+        {
+          "author_name": "Rosie Flanagan",
+          "dog_name": "Huck",
+          "voice_note": "Third rescue, experienced and practical. Huck is a medium-energy mystery mix. Rosie knows how to fill in the blanks on a dog with no history."
+        },
+        {
+          "author_name": "Jordan Price",
+          "dog_name": "Maple",
+          "voice_note": "First dog, adopted Maple as an adult. Earnest and thoughtful about navigating unknowns. Maple was listed as lab mix and is clearly not a lab."
+        },
+        {
+          "author_name": "Naomi Stern",
+          "dog_name": "Beets",
+          "voice_note": "Longtime rescue advocate, Beets was a stray for two years before the shelter. Direct and warm. Writes about rescue timelines honestly."
+        },
+        {
+          "author_name": "Theo Park",
+          "dog_name": "Gravel",
+          "voice_note": "SD local, outdoorsy, Gravel is his trail and walking companion. Brief and practical. Knows what works for his specific dog."
+        },
+        {
+          "author_name": "Leila Moore",
+          "dog_name": "Cricket",
+          "voice_note": "Cricket is a 12-lb chihuahua terrier mix who carries herself like she's enormous. Leila writes about her with bemused affection."
+        }
+      ],
+      "posts": [
+        {
+          "author_name": "Paloma Reyes",
+          "dog_name": "Fennel",
+          "type": "question",
+          "tag": "behavior",
+          "title": "Did your dog's DNA results change how you interact with them?",
+          "content_text": "Fennel's results came back as 40% hound, 25% lab, 20% boxer, 15% pit. I thought she was just a generic lab mix. Now I'm wondering if her nose-first approach to everything is the hound in her and whether I should be incorporating more scent work.\n\nDid knowing the breakdown change anything practical for you, or did you just sort of move on?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Paloma Reyes",
+          "dog_name": "Fennel",
+          "type": "story",
+          "tag": "general",
+          "title": "One year with Fennel",
+          "content_text": "We adopted her from a rescue in Chula Vista 12 months ago. I remember thinking she was too shut down and I'd made a wrong decision — she barely made eye contact for the first two weeks. Now she sleeps on our bed, greets us at the door, and has strong opinions about when it's time for her walk.\n\nRescue timelines are not linear and I'm grateful we gave her the time she needed.",
+          "has_images": true,
+          "image_briefs": [
+            "Medium-sized mixed breed dog lying comfortably on a couch, looking directly at camera with relaxed soft eyes"
+          ]
+        },
+        {
+          "author_name": "Paloma Reyes",
+          "dog_name": "Fennel",
+          "type": "tip",
+          "tag": "training",
+          "title": "Questions to ask a rescue before adoption day",
+          "content_text": "The intake questions that actually helped us: how does the dog react to strangers at home vs. on walks, any known triggers, any history of food guarding, how did previous placements go. Not every rescue has all this information but asking surfaces whatever they do know.\n\nWe learned Fennel had been returned once before. That explained her first two weeks completely.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Cal Nguyen",
+          "dog_name": "Desi",
+          "type": "question",
+          "tag": "behavior",
+          "title": "Desi buries her food before eating it – which part of her is doing this?",
+          "content_text": "She pushes her food around with her nose, covers it with an invisible blanket, then eats. Every meal. She's not food insecure — she finishes everything every time. But she has to complete the ritual first.\n\nDid your DNA test explain any of your dog's weird behaviors? Or did it just add more questions?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Cal Nguyen",
+          "dog_name": "Desi",
+          "type": "story",
+          "tag": "general",
+          "title": "Desi's DNA results: not even close to what I expected",
+          "content_text": "I was told she was a shepherd mix. She looked like a shepherd mix — medium build, upright ears, tan markings. DNA results: 38% chow chow, 30% basenji, 22% Australian cattle dog, 10% terrier. Zero shepherd. Not a trace.\n\nI spent two years guessing completely wrong. She is now a totally different dog in my head, though the exact same dog in real life, which is the part that matters.",
+          "has_images": true,
+          "image_briefs": [
+            "Mixed breed dog with upright ears and tan markings sitting alertly on a park bench, looking off to the side"
+          ]
+        },
+        {
+          "author_name": "Rosie Flanagan",
+          "dog_name": "Huck",
+          "type": "tip",
+          "tag": "behavior",
+          "title": "Build a behavioral picture in the first two weeks – write it down",
+          "content_text": "With a rescue you don't get a history. What you can do is observe and document: what triggers alertness, what causes hesitation, what they love, what makes them shut down. After two weeks I had a page of notes on Huck that was more useful than anything the shelter had told me.\n\nVets and trainers respond really well to specifics. It lets them actually calibrate advice instead of guessing.",
+          "has_images": true,
+          "image_briefs": [
+            "Mixed breed dog sitting calmly on a rug next to a small notebook, looking up attentively at the camera"
+          ]
+        },
+        {
+          "author_name": "Rosie Flanagan",
+          "dog_name": "Huck",
+          "type": "question",
+          "tag": "behavior",
+          "title": "Does your dog do things that contradict what the DNA says?",
+          "content_text": "Huck tested as 50% retriever and has absolutely no interest in fetching. None. Won't chase a ball, won't pick up a stick. Loves to swim but only in circles, never toward anything.\n\nWhat do your mixed breeds do that completely contradicts what their genetics would predict?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Rosie Flanagan",
+          "dog_name": "Huck",
+          "type": "meetup",
+          "tag": "playdate",
+          "title": "Mixed breed meetup at Balboa Park – Saturday morning",
+          "content_text": "Bringing Huck to Balboa Park Saturday around 8:30am near the dog run on the west side. Open to all mixed breeds, rescues, and genuine mystery dogs. No pressure, no agenda, just a walk with some well-meaning mutts.\n\nHit me up if you're coming.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Jordan Price",
+          "dog_name": "Maple",
+          "type": "question",
+          "tag": "general",
+          "title": "Maple was listed as 'lab mix' – she is definitely not a lab",
+          "content_text": "She weighs 27 lbs, has a long wiry coat, and can vertical jump about four feet from a standstill. The shelter listed her as lab mix because she was black. She is not a lab.\n\nWhat breed label did your rescue have that turned out to be completely off?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Jordan Price",
+          "dog_name": "Maple",
+          "type": "tip",
+          "tag": "health",
+          "title": "Schedule a full vet workup in the first month, before you need it",
+          "content_text": "We had Maple for three weeks before I finally booked her first full exam. She came with a health certificate from the rescue but I wanted a baseline from a vet starting fresh. Caught a mild heart murmur that's been on our radar ever since — not urgent but worth knowing.\n\nRescues do their best but they're not your regular vet. Get an independent baseline early.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Naomi Stern",
+          "dog_name": "Beets",
+          "type": "question",
+          "tag": "behavior",
+          "title": "How long before your rescue actually relaxed at home?",
+          "content_text": "Beets has been with us three months and she's better — but she still startles at sounds, can't settle unless she can see the door, and gets anxious every time we leave. I know timelines vary a lot.\n\nWhat did three months, six months, a year look like for your rescue? I just want a realistic picture.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Naomi Stern",
+          "dog_name": "Beets",
+          "type": "story",
+          "tag": "general",
+          "title": "Beets was a stray for two years before the rescue found her",
+          "content_text": "We were told this upfront. She'd survived on her own for two years somewhere in East County before animal control brought her in. She knew how to find food, stay hidden, and not trust anyone.\n\nShe's been with us five months. Last week she put her head in my lap for the first time and stayed there for 20 minutes. That's what five months of patience looks like.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Theo Park",
+          "dog_name": "Gravel",
+          "type": "tip",
+          "tag": "training",
+          "title": "Figure out your specific dog's version of exercise, not the breed's",
+          "content_text": "Gravel looks like he should be a distance runner — he has the build and the energy. Turned out he has terrier in him and prefers short bursts with a lot of sniffing over sustained endurance. I was pushing him on long hikes and he was tolerating it, not thriving.\n\nShorter walks with more stops turned out to be his thing. Mixed breeds especially don't always follow the template.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Theo Park",
+          "dog_name": "Gravel",
+          "type": "meetup",
+          "tag": "local",
+          "title": "Mixed breed walk at Sunset Cliffs – Sunday evening",
+          "content_text": "Taking Gravel out to Sunset Cliffs this Sunday around 6pm, walking the path north toward Ocean Beach. Great views, not too hot at that hour, good smells.\n\nUsually about 45 minutes. If you have a mix of any kind and want company, we'll be at the parking area off Sunset Cliffs Blvd.",
+          "has_images": true,
+          "image_briefs": [
+            "Mixed breed dog on a coastal path overlooking the Pacific at golden hour, leash on, owner's feet visible beside them"
+          ]
+        },
+        {
+          "author_name": "Leila Moore",
+          "dog_name": "Cricket",
+          "type": "question",
+          "tag": "behavior",
+          "title": "Cricket is 12 lbs and genuinely believes she can take down anything",
+          "content_text": "She will approach a Rottweiler with the confidence of someone who has never once lost a confrontation. She is some kind of chihuahua terrier mix and she is completely immune to consequences.\n\nIs this small dog syndrome or just a socialization gap? She's not aggressive — she just has an unrealistic self-image. Posting a photo for context.",
+          "has_images": true,
+          "image_briefs": [
+            "Tiny mixed breed dog standing chest-puffed next to a much larger dog, completely unbothered and looking up at it"
+          ]
+        }
+      ]
+    },
+    {
+      "breed": "PUG",
+      "authors": [
+        {
+          "author_name": "Liz Carver",
+          "dog_name": "Benny",
+          "voice_note": "Second pug, very matter-of-fact about the breed's health realities. Not alarmist, just informed. Benny is three and managed well."
+        },
+        {
+          "author_name": "Marco Diaz",
+          "dog_name": "Tulip",
+          "voice_note": "First pug, Tulip is a black pug. Marco is charmed and learning quickly. Writes with genuine curiosity about breed-specific things he didn't expect."
+        },
+        {
+          "author_name": "Stephanie Cole",
+          "dog_name": "Barnaby",
+          "voice_note": "Barnaby is seven, Stephanie is experienced with senior pug management. Warm and slightly anxious about his health, but she knows the breed well."
+        },
+        {
+          "author_name": "David Huang",
+          "dog_name": "Noodles",
+          "voice_note": "New pug owner, Noodles is a puppy, David is completely besotted. Asks the alarmed beginner questions with full enthusiasm."
+        },
+        {
+          "author_name": "Carla Osei",
+          "dog_name": "Figgy",
+          "voice_note": "Mid-level owner, Figgy is 3, San Diego local. Practical about managing pug life in a warm climate. Takes Figgy to shaded parks early in the morning."
+        },
+        {
+          "author_name": "Pete Russo",
+          "dog_name": "Wallace",
+          "voice_note": "Previous dog was a 70-lb lab. Now has a pug. The adjustment has been genuinely funny. He's learned to appreciate Wallace on Wallace's own terms."
+        }
+      ],
+      "posts": [
+        {
+          "author_name": "Liz Carver",
+          "dog_name": "Benny",
+          "type": "tip",
+          "tag": "grooming",
+          "title": "Clean the face folds every day and actually get in there",
+          "content_text": "Benny gets fold dermatitis if I skip two days. The routine that works: a dry cotton round, twice a day, nothing else. The area has to be completely dry after — moisture between the folds is what causes the odor and irritation.\n\nTakes about 30 seconds per fold if you stay on top of it. Takes a vet visit if you don't.",
+          "has_images": true,
+          "image_briefs": [
+            "Close-up of a pug's facial wrinkle being gently wiped with a cotton pad, dog sitting still and cooperative"
+          ]
+        },
+        {
+          "author_name": "Liz Carver",
+          "dog_name": "Benny",
+          "type": "question",
+          "tag": "health",
+          "title": "When did you decide to do the BOAS surgery?",
+          "content_text": "Benny has elongated soft palate and slightly stenotic nares. He manages okay — not great, but okay. He's three. My vet says surgery would meaningfully improve his quality of life and he's a good candidate, but it's not urgent yet.\n\nFor those who've done it: what was the tipping point? And did you see a real difference afterward?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Liz Carver",
+          "dog_name": "Benny",
+          "type": "story",
+          "tag": "general",
+          "title": "I recorded Benny sleeping and regret nothing",
+          "content_text": "Sent the video to my sister thinking she'd find the snoring cute. She called me and asked if I had a sleep apnea machine running. I had to explain it was a 14-lb dog.\n\nBenny sleeps on his back with his tongue slightly out and breathes like a vintage coffeemaker. I have never loved anything more.",
+          "has_images": true,
+          "image_briefs": [
+            "Pug sleeping on his back on a couch cushion, tongue slightly out, completely relaxed and looking absurd"
+          ]
+        },
+        {
+          "author_name": "Marco Diaz",
+          "dog_name": "Tulip",
+          "type": "question",
+          "tag": "health",
+          "title": "Tulip's eye keeps getting red – what's normal for this breed?",
+          "content_text": "She's a black pug and her eyes seem to water more than I expected. Sometimes the inner corner gets red, sometimes there's brownish discharge in the morning. My vet said it's normal for the breed but also said to watch it.\n\nWhat am I watching for? When does it cross from 'pug thing' to 'actual problem'?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Marco Diaz",
+          "dog_name": "Tulip",
+          "type": "tip",
+          "tag": "grooming",
+          "title": "Keep a cloth next to the water bowl for the face",
+          "content_text": "Tulip gets water all over her face wrinkles when she drinks. Leave it wet for a day or two and the fold area starts to look irritated. We keep a small cloth by her bowl and do a quick dry-off after she drinks.\n\nCompletely solved it. One of those tiny habits that makes a big difference with this breed.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Stephanie Cole",
+          "dog_name": "Barnaby",
+          "type": "question",
+          "tag": "health",
+          "title": "Barnaby's breathing sounds different lately – when do you call the vet?",
+          "content_text": "He's always been a noisy breather — snorts, gurgles, the usual pug soundtrack. But in the last few weeks something sounds slightly off. The honking is happening more often and at rest, not just when he's excited or warm. He's seven.\n\nHow do you tell when a change in pug breathing is worth a call versus just being a pug?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Stephanie Cole",
+          "dog_name": "Barnaby",
+          "type": "question",
+          "tag": "health",
+          "title": "Can anyone help me identify this eye thing on Barnaby?",
+          "content_text": "There's a small pink growth in the inner corner of his eye. It's been there about a week and isn't getting bigger but it's definitely new. I know pug eyes are delicate so I'm not inclined to wait on this.\n\nPosting a photo. Has anyone seen this before? Cherry eye or something else?",
+          "has_images": true,
+          "image_briefs": [
+            "Close-up of a pug's face with a small pink protrusion visible in the inner corner of the eye, dog looking straight at camera"
+          ]
+        },
+        {
+          "author_name": "Stephanie Cole",
+          "dog_name": "Barnaby",
+          "type": "tip",
+          "tag": "training",
+          "title": "Pugs respond to your energy as much as to treats",
+          "content_text": "Barnaby is seven and I still use treats, but I've found he responds just as strongly to genuine enthusiasm. If I get excited about something he did right, he repeats it. Pugs track your emotional state closely.\n\nAt this point he almost prefers the approval, especially mid-walk when he's not that food-motivated. Worth trying if treats aren't landing.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "David Huang",
+          "dog_name": "Noodles",
+          "type": "question",
+          "tag": "puppy",
+          "title": "Noodles does this alarming gasping thing – is this reverse sneezing?",
+          "content_text": "About once a day she goes into an episode where she inhales rapidly and makes a honking sound. Lasts 20–30 seconds and then she's completely fine. First time it happened I genuinely thought something was wrong.\n\nVet said probably reverse sneezing. Does it stop as they get older? Is there anything that helps during the episode?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "David Huang",
+          "dog_name": "Noodles",
+          "type": "tip",
+          "tag": "health",
+          "title": "How to stop a reverse sneezing episode quickly",
+          "content_text": "Our vet showed us two things: gently cover the nostrils for 2–3 seconds to trigger a swallow reflex, or lightly massage the throat. Both usually end the episode faster than waiting it out.\n\nDoesn't prevent them but it helps me stay calm and it helps her reset quicker. Becomes muscle memory after a few weeks.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Carla Osei",
+          "dog_name": "Figgy",
+          "type": "story",
+          "tag": "general",
+          "title": "Figgy invented a sock game and I'm just a participant now",
+          "content_text": "She brings me a sock. I don't do anything with it. She takes it back. She brings it back. This goes on for 10–15 minutes most evenings. I'm not sure if it's a fetch attempt, a ritual, or some kind of test.\n\nShe's been doing this for two years. I think this is just our thing.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Carla Osei",
+          "dog_name": "Figgy",
+          "type": "question",
+          "tag": "general",
+          "title": "What does your pug's summer exercise routine look like?",
+          "content_text": "We're in San Diego and June through September genuinely limits what Figgy can do. She manages maybe 15 minutes at 6am before she's panting heavily. I've shifted to two short walks on the cooler ends of the day instead of one mid-day walk.\n\nIs anyone doing anything creative to keep their pug active in summer without the heat risk?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Carla Osei",
+          "dog_name": "Figgy",
+          "type": "meetup",
+          "tag": "playdate",
+          "title": "Pug meetup at Morley Field – shaded end, Sunday morning",
+          "content_text": "Bringing Figgy to Morley Field Sunday around 7:30am — the shaded end near the trees, before it gets warm. She does well with other small dogs. If you have a pug or brachycephalic breed, come say hi. We'll keep it short and in the shade.\n\nDM or comment if you're coming.",
+          "has_images": true,
+          "image_briefs": [
+            "Pug sitting in dappled shade on a grassy park lawn, looking toward camera, trees visible in the background"
+          ]
+        },
+        {
+          "author_name": "Pete Russo",
+          "dog_name": "Wallace",
+          "type": "story",
+          "tag": "general",
+          "title": "Coming from a lab, owning a pug is a different universe",
+          "content_text": "My last dog was a 70-lb lab who would run five miles without giving it a second thought. Wallace will walk to the end of the block, decide the world is satisfactory, and want to go back inside. He snores. He requires face maintenance. He overheats if I look at him wrong.\n\nI genuinely did not understand this breed before I had one. He is also the funniest animal I've ever lived with.",
+          "has_images": true,
+          "image_briefs": [
+            "Pug sitting on a front doorstep with an extremely serious expression, looking like he has already decided the outside world is not worth it"
+          ]
+        },
+        {
+          "author_name": "Pete Russo",
+          "dog_name": "Wallace",
+          "type": "meetup",
+          "tag": "local",
+          "title": "Casual pug walk around South Park – Sunday morning",
+          "content_text": "Taking Wallace on a shaded neighborhood walk around South Park this Sunday around 7am. Quiet streets, lots of trees, good for brachycephalic dogs that need to stay cool.\n\nIf you have a pug or short-snout breed and want company, come find us. Nothing structured.",
+          "has_images": false,
+          "image_briefs": []
+        }
+      ]
+    }
+  ]
+}

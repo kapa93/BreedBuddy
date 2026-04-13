@@ -1,0 +1,403 @@
+{
+  "breeds": [
+    {
+      "breed": "AUSTRALIAN SHEPHERD",
+      "authors": [
+        {
+          "author_name": "Maya Torres",
+          "dog_name": "Rigby",
+          "voice_note": "Experienced aussie owner, hikes regularly around San Diego. Slightly competitive about her dog's training. Knows what she's doing but still hits walls."
+        },
+        {
+          "author_name": "Jake Finneran",
+          "dog_name": "Clover",
+          "voice_note": "New aussie owner, slightly overwhelmed, researches everything. Earnest and genuine. Asks the questions every new owner has but is too embarrassed to google."
+        },
+        {
+          "author_name": "Sarah Kim",
+          "dog_name": "Biscuit",
+          "voice_note": "Casual, warm, works from home. Biscuit has become an unofficial coworker. More observational than advice-seeking."
+        },
+        {
+          "author_name": "Brendan Walsh",
+          "dog_name": "Pepper",
+          "voice_note": "Experienced, trainer-minded. Practical and direct. Has owned aussies before and knows the breed well. Gets straight to the point."
+        },
+        {
+          "author_name": "Lena Oduya",
+          "dog_name": "Wren",
+          "voice_note": "Thoughtful and sincere. Deals with some health challenges with Wren. Shares personal moments without oversharing."
+        },
+        {
+          "author_name": "Chris Deluca",
+          "dog_name": "Koda",
+          "voice_note": "Ocean Beach local, very active outdoorsy lifestyle. Writes casually and briefly. Koda gets a ton of outdoor time and Chris wants to find a crew."
+        }
+      ],
+      "posts": [
+        {
+          "author_name": "Maya Torres",
+          "dog_name": "Rigby",
+          "type": "story",
+          "tag": "beach",
+          "title": "Took Rigby to Dog Beach for the first time",
+          "content_text": "Rigby absolutely lost his mind at Dog Beach. First five minutes he just stood at the water's edge barking at the waves like he was personally offended by them. Then some golden retriever ran past and he was off.\n\nSpent the whole time doing laps between the water and the sand. He slept for like four hours when we got home, which honestly was the goal.",
+          "has_images": true,
+          "image_briefs": [
+            "Australian Shepherd running along the shoreline at Dog Beach, ears flat, looking back at camera, wet sand and waves in background"
+          ]
+        },
+        {
+          "author_name": "Maya Torres",
+          "dog_name": "Rigby",
+          "type": "question",
+          "tag": "training",
+          "title": "How do you handle recall near other dogs?",
+          "content_text": "Rigby has great recall in the backyard and at quieter parks, but the second there are other dogs around it's like I don't exist. I've tried high value treats, I've tried the long line, nothing seems to stick when he's in that zone.\n\nAnyone else dealt with this? What finally worked?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Maya Torres",
+          "dog_name": "Rigby",
+          "type": "tip",
+          "tag": "behavior",
+          "title": "Puzzle feeders actually helped with Rigby's zoomies",
+          "content_text": "I was skeptical but adding a puzzle feeder to Rigby's morning routine made a noticeable difference in his overall settleability. He still needs physical exercise but the mental drain from working for his food takes some of the edge off.\n\nWe've been doing it about six weeks and the random indoor zoomies have dropped a lot. Not a fix for everything but it helped us.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Jake Finneran",
+          "dog_name": "Clover",
+          "type": "question",
+          "tag": "puppy",
+          "title": "How much exercise is too much for a 5-month-old aussie?",
+          "content_text": "We got Clover about two months ago and I've been reading conflicting stuff about exercise limits at this age. Some sources say 5 minutes per month of age, others suggest aussies need way more or they go sideways.\n\nShe seems totally fine but I don't want to cause joint issues. What were you all actually doing at 5 months?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Jake Finneran",
+          "dog_name": "Clover",
+          "type": "question",
+          "tag": "behavior",
+          "title": "Is this herding behavior or something I should correct?",
+          "content_text": "Clover has started circling my toddler when he runs in the yard. She's not aggressive — no snapping, no growling — just nudging him and cutting in front. I know aussies are herding dogs but I wasn't sure if this needs correcting early or if it's harmless.\n\nPosting a photo — she looks very focused. Clearly thinks she's doing an important job.",
+          "has_images": true,
+          "image_briefs": [
+            "Australian Shepherd puppy standing attentively in a suburban backyard near a small child's legs, looking up with intense focus"
+          ]
+        },
+        {
+          "author_name": "Jake Finneran",
+          "dog_name": "Clover",
+          "type": "tip",
+          "tag": "training",
+          "title": "Frozen lick mats changed crate training for us",
+          "content_text": "Clover was not into the crate at first. Like, at all. Someone in an aussie group suggested frozen lick mats — I used plain peanut butter and a bit of banana — and it genuinely shifted things within about a week.\n\nShe now goes in on her own sometimes when she's tired. I know every dog is different but if you're in crate training hell right now, try it.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Sarah Kim",
+          "dog_name": "Biscuit",
+          "type": "story",
+          "tag": "general",
+          "title": "Biscuit decided my WFH setup is his personal nap station",
+          "content_text": "I've been working from home most days and at some point Biscuit just fully claimed the spot under my desk. Not asking, just existing there. I'm not complaining — he's warm and stays quiet as long as I'm not on video calls.\n\nThe second I unmute he lifts his head like he's about to contribute something to the meeting.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Sarah Kim",
+          "dog_name": "Biscuit",
+          "type": "question",
+          "tag": "grooming",
+          "title": "Best brush for double coat shedding season?",
+          "content_text": "Biscuit is blowing his coat right now and I am losing my mind. I've tried a slicker brush, a deshedding rake, and a Furminator, and somehow there is still hair on every surface in my apartment.\n\nIs there a brush that actually makes a visible difference? Or is this just the reality I need to accept for the next six weeks?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Brendan Walsh",
+          "dog_name": "Pepper",
+          "type": "tip",
+          "tag": "training",
+          "title": "'place' is the most underrated thing you can teach an aussie",
+          "content_text": "One thing I wish I'd done earlier with Pepper was really proofing the 'place' command. Guests at the door, doorbell, just needing five minutes of quiet — if they know place and genuinely want to go there, it's huge.\n\nWe started with really short durations and built up slowly. Honestly wish I'd prioritized it in year one.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Brendan Walsh",
+          "dog_name": "Pepper",
+          "type": "tip",
+          "tag": "general",
+          "title": "Rotate toys or they stop working",
+          "content_text": "Pepper gets bored of toys within 48 hours if they're always available. I rotate now — about 5 out at a time, switch every few days. Old toys feel new again and she stays engaged longer.\n\nSame idea applies to puzzle feeders. Aussies need novelty more than most breeds. Doesn't cost anything extra.",
+          "has_images": true,
+          "image_briefs": [
+            "Assortment of dog toys sorted into small groups on a living room rug, organized neatly like they're ready to be rotated out"
+          ]
+        },
+        {
+          "author_name": "Brendan Walsh",
+          "dog_name": "Pepper",
+          "type": "question",
+          "tag": "behavior",
+          "title": "Anyone else's aussie go into full alert mode with strangers indoors?",
+          "content_text": "Pepper is perfectly fine with people outside — parks, the street, anywhere public. But put a stranger inside the house and she's in a different mode entirely. Not aggressive, just very watchful. She'll bark once or twice and then just... monitor.\n\nShe's four so I don't think this is a phase. Is this just an aussie trait or is there something worth working on?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Lena Oduya",
+          "dog_name": "Wren",
+          "type": "question",
+          "tag": "health",
+          "title": "Vet flagged possible hip dysplasia at age 3 – anyone been through this?",
+          "content_text": "Got some concerning news at our last vet visit. Wren is only three and the X-rays are showing early signs of hip dysplasia. Vet said it's not uncommon in the breed but I wasn't expecting it this young.\n\nHas anyone been through this with their aussie? What does long-term management look like? Any supplements or lifestyle changes that genuinely helped?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Lena Oduya",
+          "dog_name": "Wren",
+          "type": "story",
+          "tag": "local",
+          "title": "Morning hike at Mission Trails with Wren",
+          "content_text": "We did the Visitor Center loop at Mission Trails this morning, got there early enough that it was still cool out. Wren was in absolute heaven — so many smells, so much terrain to process.\n\nShe tried to herd a jogger at the turnaround point, which was mortifying, but he laughed it off. We'll probably be back next weekend.",
+          "has_images": true,
+          "image_briefs": [
+            "Australian Shepherd on a dry dirt trail in a Southern California park, on leash, looking off into brushy terrain with alert ears"
+          ]
+        },
+        {
+          "author_name": "Chris Deluca",
+          "dog_name": "Koda",
+          "type": "meetup",
+          "tag": "playdate",
+          "title": "Aussie run at OB Dog Beach – Saturday morning",
+          "content_text": "Taking Koda down to OB Dog Beach this Saturday around 8am if anyone wants to bring their aussie or herding mix. Usually pretty chill at that hour before it fills up. We'll be near the south end.\n\nNo pressure, just throwing it out there.",
+          "has_images": true,
+          "image_briefs": [
+            "Australian Shepherd standing at the water's edge of an off-leash beach, looking out toward the ocean, warm morning light"
+          ]
+        },
+        {
+          "author_name": "Chris Deluca",
+          "dog_name": "Koda",
+          "type": "meetup",
+          "tag": "local",
+          "title": "Anyone run Fiesta Island with their aussie?",
+          "content_text": "Koda and I go to Fiesta Island a couple mornings a week and I've been meaning to find other aussie owners to run with. Flat, open, great for off-leash if you haven't been.\n\nWe usually go Tuesday and Thursday around 7:30. Hit me up if you're interested.",
+          "has_images": false,
+          "image_briefs": []
+        }
+      ]
+    },
+    {
+      "breed": "DACHSHUND",
+      "authors": [
+        {
+          "author_name": "Priya Mehta",
+          "dog_name": "Pretzel",
+          "voice_note": "Experienced dachshund owner, very health-conscious about IVDD and back care. Gives practical but cautious advice. Earnest and a little intense about breed health."
+        },
+        {
+          "author_name": "Derek Nolan",
+          "dog_name": "Frank",
+          "voice_note": "Casual and a bit funny, newer owner. Frank is a chaos agent. Derek writes like he's still adjusting to having a dachshund and finding it both stressful and hilarious."
+        },
+        {
+          "author_name": "Olivia Chen",
+          "dog_name": "Bao",
+          "voice_note": "Younger owner, attentive, Bao is her first dog. Thoughtful about training and socialization. Writes with a gentle curiosity."
+        },
+        {
+          "author_name": "Marcus Webb",
+          "dog_name": "Trudy",
+          "voice_note": "No-nonsense, practical, this is his third dachshund. Gives blunt, experienced advice. Doesn't sugarcoat. Has seen it all."
+        },
+        {
+          "author_name": "Jen Gallagher",
+          "dog_name": "Mochi",
+          "voice_note": "San Diego local, social, goes to dog beach regularly. Enthusiastic and community-oriented. Mochi is small and a little dramatic."
+        },
+        {
+          "author_name": "Ray Castillo",
+          "dog_name": "Señor",
+          "voice_note": "Older guy, second dachshund, Señor is seven and slowing down a bit. Warm and observational. Writes with a quiet affection for the breed."
+        },
+        {
+          "author_name": "Tara Singh",
+          "dog_name": "Pickles",
+          "voice_note": "Brand new dachshund owner, 14-week-old puppy, slightly overwhelmed. Asks the panicked questions every new owner has but is too deep in it to Google properly."
+        }
+      ],
+      "posts": [
+        {
+          "author_name": "Priya Mehta",
+          "dog_name": "Pretzel",
+          "type": "tip",
+          "tag": "health",
+          "title": "Ramps over stairs – I waited too long and regret it",
+          "content_text": "I spent way too long convincing myself Pretzel was fine jumping off the couch. She's small, how bad could it be? Turns out pretty bad. IVDD is real and even low-impact repetitive jumping adds up over years.\n\nWe have ramps to the couch and bed now. She figured both out in a few days with treat luring. I just wish I'd done it sooner instead of waiting until I got nervous.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Priya Mehta",
+          "dog_name": "Pretzel",
+          "type": "question",
+          "tag": "health",
+          "title": "Anyone have a vet rec for dachshund back issues in SD?",
+          "content_text": "Pretzel has been showing some stiffness in her back legs after longer walks — nothing dramatic, she's still moving fine, but I want to be proactive before it becomes something. Our regular vet is great but I'm wondering if there's a specialist with more dachshund or IVDD experience in the area.\n\nMission Valley or North Park would be ideal but I'll travel. Any referrals appreciated.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Priya Mehta",
+          "dog_name": "Pretzel",
+          "type": "story",
+          "tag": "general",
+          "title": "Pretzel vs. the backyard sprinklers",
+          "content_text": "The backyard sprinklers came on while Pretzel was outside this morning and she absolutely lost it. Full sprint back to the door, sat there glaring at the yard, would not go back out until I walked out first and showed her it was done.\n\nShe is four and a half years old. She has never once been harmed by water in her entire life. Absolutely unhinged dog.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Derek Nolan",
+          "dog_name": "Frank",
+          "type": "story",
+          "tag": "general",
+          "title": "Frank has claimed the couch arm as his surveillance tower",
+          "content_text": "Frank is somehow always exactly 10% taller than he needs to be. He's started using the couch arm as a watchtower — just perched up there monitoring the street like a gargoyle. I've tried moving him. He just gets back up.\n\nI've fully accepted this is his spot now. He looks completely ridiculous but honestly the commitment is kind of impressive.",
+          "has_images": true,
+          "image_briefs": [
+            "Miniature dachshund perched on the arm of a living room couch, looking out a window with a very serious expression"
+          ]
+        },
+        {
+          "author_name": "Derek Nolan",
+          "dog_name": "Frank",
+          "type": "question",
+          "tag": "behavior",
+          "title": "Is Frank's barking ever going to calm down?",
+          "content_text": "Frank barks at everything. The mailman, delivery trucks, leaves blowing past the window, me when I take too long getting his food ready. He's 18 months now and I keep hearing it gets better with age.\n\nI'm not seeing any sign of improvement. Any realistic advice? Or is this just what living with a dachshund is?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Olivia Chen",
+          "dog_name": "Bao",
+          "type": "question",
+          "tag": "socialization",
+          "title": "Bao gets nervous around bigger dogs – is slow exposure the right approach?",
+          "content_text": "Bao is totally fine with other small dogs but around anything medium or larger she gets stiff, sometimes barks, sometimes just tries to hide behind me. She's not aggressive — just clearly uncomfortable.\n\nI've been doing slow, neutral-ground exposure and there's some progress but it's really slow going. Is there a more specific approach that worked for your small dog?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Olivia Chen",
+          "dog_name": "Bao",
+          "type": "tip",
+          "tag": "gear",
+          "title": "Switched Bao to a harness a few months ago and won't go back",
+          "content_text": "I know the harness-vs-collar thing gets repeated a lot in dachshund spaces but it's worth repeating — the way they pull and jerk on leash can stress the neck and spine over time, and dachshunds are already working with a vulnerable back.\n\nBao wears the Puppia soft harness and it fits her long body really well. Made the switch and haven't thought twice about it since.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Marcus Webb",
+          "dog_name": "Trudy",
+          "type": "tip",
+          "tag": "training",
+          "title": "Dachshunds train on their own schedule – took me a while to accept that",
+          "content_text": "Trudy is my third dachshund. They are not like labs or goldens. They understand what you want — they just don't always feel like doing it. That's not stubbornness exactly, that's just the breed.\n\nShort sessions, high value rewards, and a lot of patience. If you're coming from a more biddable breed this will be an adjustment but you'll get there.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Marcus Webb",
+          "dog_name": "Trudy",
+          "type": "tip",
+          "tag": "health",
+          "title": "Keeping Trudy lean has made a bigger difference than anything else",
+          "content_text": "Even a pound or two of extra weight puts real stress on a dachshund's spine. Trudy is nine now and I credit her staying mobile to keeping her at a healthy weight her whole life. Measured food, no table scraps, treats counted toward her daily intake.\n\nBoring stuff but it genuinely matters more for this breed than most.",
+          "has_images": true,
+          "image_briefs": [
+            "Dachshund sitting on a scale at a vet office, looking up at the camera with a slightly patient expression"
+          ]
+        },
+        {
+          "author_name": "Marcus Webb",
+          "dog_name": "Trudy",
+          "type": "question",
+          "tag": "health",
+          "title": "Has swimming actually worked as low-impact exercise for your dachshund?",
+          "content_text": "My vet mentioned swimming as a good option for dachshunds managing back issues — stays active without the impact. Trudy has never been a water dog though.\n\nHas anyone successfully introduced a reluctant dachshund to swimming? Did you use a life jacket? Pool or beach? I'm curious how realistic this is at seven years old.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Jen Gallagher",
+          "dog_name": "Mochi",
+          "type": "meetup",
+          "tag": "playdate",
+          "title": "Small dog beach morning at OB – anyone in?",
+          "content_text": "Thinking about putting together a small dog meetup at OB Dog Beach next Sunday around 9am. It can get overwhelming for little guys when big dogs are running full speed, so I'd love to find a small crew of dachshund or small breed owners to go with.\n\nComment if you're interested and I'll share more details.",
+          "has_images": true,
+          "image_briefs": [
+            "Group of small dogs running on wet sand at an off-leash dog beach, owners standing in the background chatting"
+          ]
+        },
+        {
+          "author_name": "Jen Gallagher",
+          "dog_name": "Mochi",
+          "type": "story",
+          "tag": "beach",
+          "title": "Mochi's first trip to Dog Beach",
+          "content_text": "She hated it. Absolutely hated it. First she sat down and refused to walk. Then a golden retriever came over to say hi and she barked until it left. Then she found a piece of seaweed and was obsessed with it for 20 minutes.\n\nThen she fell asleep on my lap on the drive home. It was a disaster and also kind of perfect. We're going back.",
+          "has_images": true,
+          "image_briefs": [
+            "Small dachshund standing on wet sand at an off-leash beach, looking uncertain, wind slightly lifting her ears"
+          ]
+        },
+        {
+          "author_name": "Ray Castillo",
+          "dog_name": "Señor",
+          "type": "question",
+          "tag": "behavior",
+          "title": "Señor started resource guarding his bed – how to handle this in an older dog?",
+          "content_text": "Señor is seven and has never done this before. In the last month he's started growling if my other dog gets near his sleeping spot. They've coexisted fine for three years and nothing in the house has changed.\n\nI'm not panicking but I want to address it before it escalates. Anyone dealt with sudden onset resource guarding in an older dog?",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Ray Castillo",
+          "dog_name": "Señor",
+          "type": "meetup",
+          "tag": "local",
+          "title": "Evening walk at Sunset Cliffs – looking for small dog company",
+          "content_text": "I take Señor along Sunset Cliffs a couple evenings a week, usually around 6:30. It's a beautiful route and not too hot at that hour. He's a slow walker these days — seven years old, bum knee — but he loves the smells and the people.\n\nIf you have a small dog and want some company, let me know.",
+          "has_images": false,
+          "image_briefs": []
+        },
+        {
+          "author_name": "Tara Singh",
+          "dog_name": "Pickles",
+          "type": "question",
+          "tag": "puppy",
+          "title": "Is my dachshund puppy normal or just feral",
+          "content_text": "Pickles is 14 weeks old and she is absolutely unhinged. Bites everything, full zoomies at 11pm, cries the second I leave the room, digs at the carpet like she's searching for buried treasure.\n\nIs this just puppy behavior or is there something specifically dachshund about this? Please tell me this calms down. Posting a photo because words alone don't do it justice.",
+          "has_images": true,
+          "image_briefs": [
+            "Dachshund puppy sitting in the middle of a partially chewed dog bed, looking slightly unhinged, mouth open"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -165,9 +165,10 @@ export function SearchScreen() {
   );
 
   const renderFeedItem = useCallback(
-    ({ item }: { item: PostWithDetails }) => (
+    ({ item, index }: { item: PostWithDetails; index: number }) => (
       <FeedItem
         item={item}
+        showBottomBorder={index < posts.length - 1}
         onPostPress={handlePostPress}
         onAuthorPress={handleAuthorPress}
         onReactionSelect={handleReactionSelect}
@@ -185,6 +186,7 @@ export function SearchScreen() {
       handlePostPress,
       handleReactionSelect,
       handleRsvpToggle,
+      posts.length,
       user?.id,
     ]
   );

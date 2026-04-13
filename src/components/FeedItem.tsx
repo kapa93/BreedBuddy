@@ -8,6 +8,7 @@ import type { PostWithDetails, ReactionEnum } from "@/types";
 
 type Props = {
   item: PostWithDetails;
+  showBottomBorder?: boolean;
   onPostPress: (postId: string) => void;
   onAuthorPress?: (userId: string) => void;
   onReactionSelect: (postId: string, reaction: ReactionEnum | null) => void;
@@ -20,6 +21,7 @@ type Props = {
 
 function FeedItemInner({
   item,
+  showBottomBorder = true,
   onPostPress,
   onAuthorPress,
   onReactionSelect,
@@ -45,7 +47,7 @@ function FeedItemInner({
 
   if (item.type === "MEETUP") {
     return (
-      <View style={styles.cardWrap}>
+      <View style={[styles.cardWrap, !showBottomBorder && styles.cardWrapNoBorder]}>
         <MeetupCard
           post={item}
           onPress={handlePress}
@@ -62,7 +64,7 @@ function FeedItemInner({
   }
 
   return (
-    <View style={styles.cardWrap}>
+    <View style={[styles.cardWrap, !showBottomBorder && styles.cardWrapNoBorder]}>
       <QuestionCard
         data={postToQuestionCardData(item)}
         onPress={handlePress}
@@ -79,6 +81,7 @@ function FeedItemInner({
 
 function feedItemPropsAreEqual(prev: Props, next: Props): boolean {
   if (prev.item.id !== next.item.id) return false;
+  if (prev.showBottomBorder !== next.showBottomBorder) return false;
   if (prev.item.user_reaction !== next.item.user_reaction) return false;
   if (prev.item.user_rsvped !== next.item.user_rsvped) return false;
   if (prev.item.attendee_count !== next.item.attendee_count) return false;
@@ -100,5 +103,8 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.lg,
     borderBottomWidth: 1.5,
     borderBottomColor: colors.border,
+  },
+  cardWrapNoBorder: {
+    borderBottomWidth: 0,
   },
 });
