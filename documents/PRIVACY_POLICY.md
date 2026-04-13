@@ -1,0 +1,210 @@
+# Privacy Policy
+
+**Nuzzle**
+**Effective Date: April 12, 2026**
+**Last Updated: April 12, 2026**
+
+---
+
+## 1. Introduction
+
+Welcome to Nuzzle ("we," "our," or "us"). Nuzzle is a social community app for dog breed enthusiasts, connecting dog owners through breed-specific feeds, meetups, Dog Beach check-ins, and dog-to-dog social interactions.
+
+This Privacy Policy explains what information we collect, how we use it, with whom we share it, and the choices you have regarding your information. By creating an account or using Nuzzle, you agree to the practices described in this policy.
+
+---
+
+## 2. Information We Collect
+
+### 2.1 Account and Profile Information
+
+When you register and use Nuzzle, we collect:
+
+- **Name** and **display name**
+- **Email address**
+- **City / location** (as entered in your profile)
+- **Profile photo** (uploaded by you)
+- **Authentication data** — when you sign in with Apple, we receive a unique Apple ID identifier and, at your option, your name and email address from Apple
+
+### 2.2 Dog Profile Information
+
+For each dog you add to your account, we collect:
+
+- **Dog name**, **breed**, and **age group**
+- **Energy level** and **play style**
+- **Compatibility preferences** (e.g., good with puppies, large dogs, small dogs)
+- **Additional notes** about your dog
+- **Dog photo(s)** (uploaded by you)
+
+### 2.3 Content You Post
+
+We collect content you create and share within the app, including:
+
+- **Posts** (Questions, Updates/Stories, Tips, and Meetups), including any text, tags, and up to multiple photos per post
+- **Comments** on posts
+- **Emoji reactions** to posts
+- **Meetup details** and RSVPs
+- **Dog interaction logs** — records of dog-to-dog meetings you log (e.g., at Dog Beach or meetups)
+
+### 2.4 Location Information
+
+When you use the **Dog Beach Now** check-in feature, we request access to your **device's location** solely to verify proximity to Ocean Beach Dog Beach in San Francisco. We do not continuously track your location; location access is only requested at the moment of a check-in action.
+
+### 2.5 Usage and Activity Data
+
+We may collect information about how you use the app, including:
+
+- Screens and features accessed
+- Breed communities you join or follow
+- Posts, comments, and reactions you engage with
+- Search queries and applied filters
+- Notification interactions
+
+### 2.6 Device and Technical Information
+
+We may automatically collect:
+
+- **Device type** and **operating system version**
+- **App version**
+- **Crash logs and error reports**
+- **Anonymous analytics identifiers**
+
+---
+
+## 3. How We Use Your Information
+
+We use the information we collect to:
+
+- **Provide and operate** the Nuzzle app, including your personalized home feed, breed-community feeds, and notifications
+- **Authenticate you** and maintain your session securely
+- **Display your profile and your dogs' profiles** to other users in the community
+- **Enable social features** — posts, comments, reactions, meetup RSVPs, and dog-to-dog interaction logs
+- **Power the Dog Beach Now feature** by verifying your location proximity to the check-in location
+- **Send in-app notifications** when someone comments on or reacts to your posts, RSVPs to your meetups, or logs a dog interaction involving your dog
+- **Support search and discovery** — full-text search across posts and breed communities
+- **Moderate content** — process reports on posts and comments and enforce our community guidelines
+- **Improve the app** — analyze usage patterns and fix bugs
+- **Respond to support requests** and communicate with you about your account
+
+---
+
+## 4. How We Share Your Information
+
+### 4.1 With Other Nuzzle Users
+
+Nuzzle is a social community. The following information is visible to other users by default:
+
+- Your display name, profile photo, and city
+- Your dogs' names, breeds, photos, and public compatibility profiles
+- Posts, comments, and reactions you create
+- Meetups you host and RSVPs you submit
+- Dog interaction logs you record
+
+### 4.2 Service Providers
+
+We use **Supabase** to host our database, authentication services, and file storage (profile photos, dog photos, and post images). Supabase processes data on our behalf under their own privacy and security terms. We do not sell your personal information to third parties.
+
+### 4.3 Apple Sign In
+
+If you use Sign in with Apple, Apple shares limited authentication information with us as described in Apple's privacy policy. We receive only what is necessary to create and maintain your account.
+
+### 4.4 Legal Requirements
+
+We may disclose your information if required to do so by law, regulation, legal process, or governmental request, or to protect the rights, property, or safety of Nuzzle, our users, or others.
+
+### 4.5 Business Transfers
+
+If Nuzzle is involved in a merger, acquisition, or sale of assets, your information may be transferred as part of that transaction. We will notify you via in-app notice or email before your information is transferred and becomes subject to a different privacy policy.
+
+---
+
+## 5. Photos and Media
+
+Photos you upload (profile photos, dog photos, and post images) are stored in Supabase Storage and are accessible via public URLs to display content within the app. Do not upload photos containing sensitive personal information beyond what you intend to share with the Nuzzle community.
+
+---
+
+## 6. Location Data
+
+Location access is requested on-device only when you initiate a Dog Beach Now check-in. We use your precise location at that moment solely to confirm proximity to Ocean Beach Dog Beach. We do not store your precise GPS coordinates beyond what is needed for the check-in action, and we do not share precise location data with other users.
+
+---
+
+## 7. Notifications
+
+Nuzzle uses in-app notifications to alert you about community activity relevant to you (comments, reactions, meetup RSVPs, and dog interactions). We do not currently send push notifications outside the app. You can manage notification preferences within the app settings.
+
+---
+
+## 8. Data Retention
+
+We retain your account information and content for as long as your account is active. If you delete your account, we will delete or anonymize your personal information within a reasonable period, except where we are required to retain it for legal or legitimate business purposes (e.g., to resolve disputes or comply with legal obligations).
+
+Content you have posted that was reacted to or commented on by others may be anonymized rather than deleted in order to preserve the integrity of community discussions.
+
+---
+
+## 9. Children's Privacy
+
+Nuzzle is not directed to children under the age of 13. We do not knowingly collect personal information from children under 13. If you believe a child under 13 has provided us with personal information, please contact us and we will take steps to delete that information.
+
+---
+
+## 10. Security
+
+We implement industry-standard security measures to protect your information, including:
+
+- **Row-level security** on our database to ensure users can only access data they are permitted to see
+- **Encrypted connections** (TLS/HTTPS) for all data in transit
+- **Supabase Auth** with secure session management and token handling
+
+No method of electronic transmission or storage is 100% secure. While we strive to protect your personal information, we cannot guarantee absolute security.
+
+---
+
+## 11. Your Rights and Choices
+
+Depending on your location, you may have the following rights regarding your personal information:
+
+- **Access** — request a copy of the personal information we hold about you
+- **Correction** — update or correct inaccurate information via your profile settings
+- **Deletion** — request deletion of your account and associated personal data
+- **Portability** — request a portable copy of your data
+- **Withdraw consent** — revoke location access at any time via your device settings; this will disable Dog Beach Now check-ins
+
+To exercise any of these rights, please contact us using the information in Section 13.
+
+### California Residents (CCPA)
+
+If you are a California resident, you have the right to know what personal information we collect and how it is used, the right to delete your personal information, and the right to opt out of the sale of your personal information. We do not sell personal information.
+
+### European / UK Residents (GDPR / UK GDPR)
+
+If you are located in the European Economic Area or the United Kingdom, our legal bases for processing your information are: **performance of a contract** (providing the Nuzzle service), **legitimate interests** (improving the app, preventing fraud), and **consent** (location access). You may contact us to exercise your data subject rights at any time.
+
+---
+
+## 12. Third-Party Links and Services
+
+The app may link to third-party content or services. This Privacy Policy does not apply to those third parties, and we are not responsible for their privacy practices. We encourage you to review the privacy policies of any third-party services you use.
+
+---
+
+## 13. Contact Us
+
+If you have questions, concerns, or requests regarding this Privacy Policy or your personal data, please contact us at:
+
+**Nuzzle**
+Email: **privacy@nuzzle.app**
+
+We will respond to your inquiry within a reasonable timeframe.
+
+---
+
+## 14. Changes to This Privacy Policy
+
+We may update this Privacy Policy from time to time. When we do, we will update the "Last Updated" date at the top of this document and, for material changes, notify you within the app or by email. Your continued use of Nuzzle after any changes constitutes your acceptance of the updated policy.
+
+---
+
+*© 2026 Nuzzle. All rights reserved.*

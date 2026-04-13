@@ -23,6 +23,7 @@ import Animated, {
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { signIn, signInWithProvider, type SocialAuthProvider } from '@/api/auth';
 import { ScreenWithWallpaper } from '@/components/ScreenWithWallpaper';
+import { AuthLegalNotice } from '@/components/AuthLegalNotice';
 import { colors } from '@/theme';
 import { useAuthStore } from '@/store/authStore';
 import { signInSchema } from '@/utils/validation';
@@ -151,16 +152,17 @@ export function SignInScreen() {
       <View style={styles.container}>
       <View style={styles.contentShiftUp}>
         <Image
-          source={require('../../assets/dog-linear.png')}
+          source={require('../../assets/dog-linear-black.png')}
           style={styles.linearDogSilhouette}
           resizeMode="contain"
         />
         <Image
-          source={require('../../assets/green-nuzzle.png')}
+          source={require('../../assets/breeds/nuzzle-logo.png')}
           style={styles.logo}
           resizeMode="contain"
         />
 
+        <View style={styles.formContentShiftUp}>
         {successMessage ? (
           <Text style={styles.successMessage}>{successMessage}</Text>
         ) : null}
@@ -232,6 +234,8 @@ export function SignInScreen() {
         <TouchableOpacity style={styles.link} onPress={() => (navigation as any).navigate('SignUp')}>
           <Text style={styles.linkText}>Don't have an account? Sign up</Text>
         </TouchableOpacity>
+        <AuthLegalNotice />
+        </View>
       </View>
 
       <View
@@ -268,9 +272,12 @@ const styles = StyleSheet.create({
   contentShiftUp: {
     transform: [{ translateY: -55 }],
   },
+  formContentShiftUp: {
+    transform: [{ translateY: -10 }],
+  },
   linearDogSilhouette: {
-    width: 80,
-    height: 80,
+    width: 72,
+    height: 72,
     alignSelf: 'center',
     position: 'relative',
     display: 'flex',
@@ -279,8 +286,8 @@ const styles = StyleSheet.create({
     marginTop: -20,
   },
   logo: {
-    width: 320,
-    height: 76,
+    width: 288,
+    height: 68.4,
     alignSelf: 'center',
     marginTop: -40,
     transform: [{ translateY: -35 }],

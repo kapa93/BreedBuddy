@@ -1,0 +1,160 @@
+import React from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useRoute, type RouteProp } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import type { AuthStackParamList } from '@/navigation/types';
+import { LEGAL_DOCUMENTS } from '@/content/legalDocuments';
+import { colors } from '@/theme';
+
+type LegalRoute = RouteProp<AuthStackParamList, 'LegalDocument'>;
+
+export function LegalDocumentScreen() {
+  const route = useRoute<LegalRoute>();
+  const insets = useSafeAreaInsets();
+  const document = LEGAL_DOCUMENTS[route.params.documentType];
+  const lines = document.content.split('\n');
+
+  const renderInline = (value: string) => {
+    const normalized = value.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
+    const nodes: React.ReactNode[] = [];
+    const boldRegex = /\*\*(.*?)\*\*/g;
+    let start = 0;
+    let match: RegExpExecArray | null;
+
+    while ((match = boldRegex.exec(normalized)) !== null) {
+      if (match.index > start) {
+        nodes.push(normalized.slice(start, match.index));
+      }
+      nodes.push(
+        <Text key={`b-${match.index}`} style={styles.bold}>
+          {match[1]}
+        </Text>
+      );
+      start = match.index + match[0].length;
+    }
+
+    if (start < normalized.length) {
+      nodes.push(normalized.slice(start));
+    }
+
+    return nodes.length > 0 ? nodes : normalized;
+  };
+
+  return (
+    <View style={styles.container}>
+      <ScrollView
+        contentContainerStyle={[
+          styles.content,
+          { paddingTop: insets.top + 88 },
+        ]}
+      >
+        <Text style={styles.title}>{document.title}</Text>
+        <View style={styles.markdownContainer}>
+          {lines.map((line, index) => {
+            const trimmed = line.trim();
+
+            // Hide the markdown document title because screen title already displays it.
+            if (index === 0 && trimmed.startsWith('# ')) {
+              return null;
+            }
+
+            if (trimmed === '---') {
+              return <View key={`hr-${index}`} style={styles.hr} />;
+            }
+
+            if (!trimmed) {
+              return <View key={`sp-${index}`} style={styles.spacer} />;
+            }
+
+            if (trimmed.startsWith('### ')) {
+              return (
+                <Text key={`h3-${index}`} style={styles.h3}>
+                  {renderInline(trimmed.slice(4))}
+                </Text>
+              );
+            }
+
+            if (trimmed.startsWith('## ')) {
+              return (
+                <Text key={`h2-${index}`} style={styles.h2}>
+                  {renderInline(trimmed.slice(3))}
+                </Text>
+              );
+            }
+
+            if (trimmed.startsWith('- ')) {
+              return (
+                <Text key={`li-${index}`} style={styles.listItem}>
+                  {'\u2022'} {renderInline(trimmed.slice(2))}
+                </Text>
+              );
+            }
+
+            return (
+              <Text key={`p-${index}`} style={styles.body}>
+                {renderInline(trimmed)}
+              </Text>
+            );
+          })}
+        </View>
+      </ScrollView>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
+  content: {
+    padding: 20,
+    paddingBottom: 32,
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: '700',
+    color: '#111827',
+    marginBottom: 12,
+  },
+  markdownContainer: {
+    gap: 8,
+  },
+  body: {
+    fontSize: 14,
+    lineHeight: 22,
+    color: '#1F2937',
+  },
+  h2: {
+    fontSize: 26,
+    lineHeight: 32,
+    fontWeight: '700',
+    color: '#111827',
+    marginTop: 10,
+  },
+  h3: {
+    fontSize: 20,
+    lineHeight: 28,
+    fontWeight: '700',
+    color: '#111827',
+    marginTop: 6,
+  },
+  listItem: {
+    fontSize: 14,
+    lineHeight: 22,
+    color: '#1F2937',
+    paddingLeft: 4,
+  },
+  bold: {
+    fontWeight: '700',
+    color: '#111827',
+  },
+  hr: {
+    height: 1,
+    backgroundColor: '#D1D5DB',
+    marginVertical: 8,
+  },
+  spacer: {
+    height: 8,
+  },
+});

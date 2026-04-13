@@ -16,6 +16,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Lock, Mail, MapPin, User } from 'lucide-react-native';
 import { signUp } from '@/api/auth';
 import { ScreenWithWallpaper } from '@/components/ScreenWithWallpaper';
+import { AuthLegalNotice } from '@/components/AuthLegalNotice';
 import { colors } from '@/theme';
 import { useOnboardingStore } from '@/store/onboardingStore';
 import { signUpSchema } from '@/utils/validation';
@@ -147,17 +148,16 @@ export function SignUpScreen() {
         keyboardDismissMode="on-drag"
       >
         <Image
-          source={require('../../assets/dog-linear.png')}
+          source={require('../../assets/dog-linear-black.png')}
           style={styles.linearDogSilhouette}
           resizeMode="contain"
         />
         <Image
-          source={require('../../assets/green-nuzzle.png')}
+          source={require('../../assets/breeds/nuzzle-logo.png')}
           style={styles.logo}
           resizeMode="contain"
         />
         <Text style={styles.title}>Create Account</Text>
-        <Text style={styles.subtitle}>Join your breed community</Text>
 
         <View style={styles.inputRow}>
           <User size={20} color={INPUT_MUTED} strokeWidth={2} />
@@ -230,6 +230,7 @@ export function SignUpScreen() {
       <TouchableOpacity style={styles.link} onPress={() => (navigation as any).navigate('SignIn')}>
         <Text style={styles.linkText}>Already have an account? Sign in</Text>
       </TouchableOpacity>
+      <AuthLegalNotice />
     </ScrollView>
     </View>
     </ScreenWithWallpaper>
@@ -241,8 +242,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   linearDogSilhouette: {
-    width: 76,
-    height: 76,
+    width: 68.4,
+    height: 68.4,
     alignSelf: 'center',
     position: 'relative',
     display: 'flex',
@@ -251,8 +252,8 @@ const styles = StyleSheet.create({
     marginTop: 33,
   },
   logo: {
-    width: 304,
-    height: 72.2,
+    width: 273.6,
+    height: 64.98,
     alignSelf: 'center',
     transform: [{ translateY: -35 }],
   },
@@ -265,16 +266,10 @@ const styles = StyleSheet.create({
     paddingBottom: 48,
   },
   title: {
-    fontSize: 27,
+    fontSize: 25,
     fontWeight: '700',
-    color: '#1a1a1a',
-    marginBottom: 6,
-    marginTop: -7,
-  },
-  subtitle: {
-    fontSize: 15,
-    color: '#6b7280',
-    marginBottom: 20,
+    color: colors.primary,
+    marginBottom: 15,
   },
   inputRow: {
     flexDirection: 'row',

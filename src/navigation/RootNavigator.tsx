@@ -23,6 +23,7 @@ import { EditDogScreen } from '@/screens/EditDogScreen';
 import { OnboardingScreen } from '@/screens/OnboardingScreen';
 import { DogProfileScreen } from '@/screens/DogProfileScreen';
 import { UserProfileScreen } from '@/screens/UserProfileScreen';
+import { LegalDocumentScreen } from '@/screens/LegalDocumentScreen';
 import { NuzzleTabBar } from './NuzzleTabBar';
 import { SearchScreen } from '@/screens/SearchScreen';
 import { AnimatedStackHeader } from '@/components/AnimatedStackHeader';
@@ -54,6 +55,16 @@ function AuthNavigator() {
     >
       <AuthStack.Screen name="SignIn" component={SignInScreen} />
       <AuthStack.Screen name="SignUp" component={SignUpScreen} />
+      <AuthStack.Screen
+        name="LegalDocument"
+        component={LegalDocumentScreen}
+        options={{
+          headerShown: true,
+          title: 'Legal',
+          headerTransparent: true,
+          header: (props) => <AnimatedStackHeader {...props} animateOnScroll={false} />,
+        }}
+      />
     </AuthStack.Navigator>
   );
 }

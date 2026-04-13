@@ -25,6 +25,7 @@ export type OnboardingStackParamList = {
 export type AuthStackParamList = {
   SignIn: { message?: string };
   SignUp: undefined;
+  LegalDocument: { documentType: 'terms' | 'communityGuidelines' | 'privacyPolicy' };
 };
 
 export type MainTabParamList = {

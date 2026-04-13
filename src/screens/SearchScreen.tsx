@@ -9,6 +9,7 @@ import {
   Pressable,
   KeyboardAvoidingView,
   Keyboard,
+  InteractionManager,
   Platform,
   Alert,
 } from 'react-native';
@@ -116,8 +117,11 @@ export function SearchScreen() {
 
   const handlePostPress = useCallback(
     (postId: string) => {
+      setQueryInputFocused(false);
       Keyboard.dismiss();
-      navigation.navigate('PostDetail', { postId, source: 'search' });
+      InteractionManager.runAfterInteractions(() => {
+        navigation.navigate('PostDetail', { postId, source: 'search' });
+      });
     },
     [navigation]
   );

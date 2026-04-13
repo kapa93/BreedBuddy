@@ -306,9 +306,10 @@ export interface Database {
           id: string;
           user_id: string;
           actor_id: string;
-          type: 'COMMENT' | 'REACTION';
-          post_id: string;
+          type: 'COMMENT' | 'REACTION' | 'MEETUP_RSVP' | 'DOG_INTERACTION';
+          post_id: string | null;
           comment_id: string | null;
+          dog_interaction_id: string | null;
           created_at: string;
           read_at: string | null;
         };
@@ -316,9 +317,10 @@ export interface Database {
           id?: string;
           user_id: string;
           actor_id: string;
-          type: 'COMMENT' | 'REACTION';
-          post_id: string;
+          type: 'COMMENT' | 'REACTION' | 'MEETUP_RSVP' | 'DOG_INTERACTION';
+          post_id?: string | null;
           comment_id?: string | null;
+          dog_interaction_id?: string | null;
           created_at?: string;
           read_at?: string | null;
         };
@@ -326,9 +328,10 @@ export interface Database {
           id?: string;
           user_id?: string;
           actor_id?: string;
-          type?: 'COMMENT' | 'REACTION';
-          post_id?: string;
+          type?: 'COMMENT' | 'REACTION' | 'MEETUP_RSVP' | 'DOG_INTERACTION';
+          post_id?: string | null;
           comment_id?: string | null;
+          dog_interaction_id?: string | null;
           created_at?: string;
           read_at?: string | null;
         };

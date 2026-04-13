@@ -20,9 +20,9 @@ import { formatRelativeTime } from '@/utils/breed';
 
 type NotificationItem = {
   id: string;
-  type: string;
+  type: 'COMMENT' | 'REACTION' | 'MEETUP_RSVP' | 'DOG_INTERACTION';
   actor_name?: string;
-  post_id: string;
+  post_id: string | null;
   content_preview?: string;
   created_at: string;
   read_at: string | null;
@@ -57,7 +57,7 @@ export function NotificationsScreen() {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['notifications', user?.id] }),
   });
 
-  const items: NotificationItem[] = (notifications ?? []).map((n: { id: string; type: string; actor?: { name?: string }; post_id: string; post?: { content_text?: string }; created_at: string; read_at: string | null }) => ({
+  const items: NotificationItem[] = (notifications ?? []).map((n: { id: string; type: 'COMMENT' | 'REACTION' | 'MEETUP_RSVP' | 'DOG_INTERACTION'; actor?: { name?: string }; post_id: string | null; post?: { content_text?: string }; created_at: string; read_at: string | null }) => ({
     id: n.id,
     type: n.type,
     actor_name: n.actor?.name,
@@ -114,12 +114,20 @@ export function NotificationsScreen() {
                   style={[styles.item, !item.read_at && styles.itemUnread]}
                   onPress={() => {
                     if (!item.read_at) markReadMutation.mutate({ id: item.id });
-                    navigation.navigate('PostDetail', { postId: item.post_id });
+                    if (item.post_id) {
+                      navigation.navigate('PostDetail', { postId: item.post_id });
+                    }
                   }}
                 >
                   <Text style={styles.itemText}>
                     <Text style={styles.actorName}>{item.actor_name ?? 'Someone'}</Text>
-                    {item.type === 'COMMENT' ? ' commented on your post' : ' reacted to your post'}
+                    {item.type === 'COMMENT'
+                      ? ' commented on your post'
+                      : item.type === 'MEETUP_RSVP'
+                        ? ' joined your meetup'
+                        : item.type === 'DOG_INTERACTION'
+                          ? ' marked that your dog met their dog'
+                        : ' reacted to your post'}
                   </Text>
                   {item.content_preview ? (
                     <Text style={styles.preview} numberOfLines={1}>
