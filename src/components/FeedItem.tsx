@@ -5,6 +5,8 @@ import { MeetupCard } from "@/components/MeetupCard";
 import { postToQuestionCardData } from "@/utils/postToQuestionCard";
 import { colors, spacing } from "@/theme";
 import type { PostWithDetails, ReactionEnum } from "@/types";
+import { toneStyles } from "@/ui/TagChip";
+import { tagTone } from "@/utils/postToQuestionCard";
 
 type Props = {
   item: PostWithDetails;
@@ -45,9 +47,13 @@ function FeedItemInner({
     [onRsvpToggle]
   );
 
+  const borderColor = item.type === "MEETUP"
+    ? colors.primary
+    : toneStyles[tagTone[item.tag] ?? "neutral"].text;
+
   if (item.type === "MEETUP") {
     return (
-      <View style={[styles.cardWrap, !showBottomBorder && styles.cardWrapNoBorder]}>
+      <View style={[styles.cardWrap, { borderLeftColor: borderColor }, !showBottomBorder && styles.cardWrapNoBorder]}>
         <MeetupCard
           post={item}
           onPress={handlePress}
@@ -64,7 +70,7 @@ function FeedItemInner({
   }
 
   return (
-    <View style={[styles.cardWrap, !showBottomBorder && styles.cardWrapNoBorder]}>
+    <View style={[styles.cardWrap, { borderLeftColor: borderColor }, !showBottomBorder && styles.cardWrapNoBorder]}>
       <QuestionCard
         data={postToQuestionCardData(item)}
         onPress={handlePress}
@@ -103,7 +109,9 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.lg,
     borderBottomWidth: 1.5,
     borderBottomColor: colors.border,
+    borderLeftWidth: 4,
   },
+
   cardWrapNoBorder: {
     borderBottomWidth: 0,
   },

@@ -10,6 +10,7 @@ export type PackItem = {
 };
 
 import type { ReactionEnum } from "@/types";
+import type { Tone } from "@/ui/TagChip";
 
 export type QuestionCardData = {
   id: string;
@@ -19,7 +20,7 @@ export type QuestionCardData = {
   authorAvatarUri?: string | null;
   breedKey: BreedColorKey;
   badge?: string;
-  badgeTone?: "neutral" | "question" | "tip" | "story";
+  badgeTone?: Tone;
   /** True when the post has a dedicated title (body is separate from title line). */
   hasTitle: boolean;
   /** Post title when hasTitle; may be empty string when !hasTitle (use fullContent for body). */

@@ -114,12 +114,6 @@ export function MeetupCard({
 
   const content = (
     <View style={styles.card}>
-      {/* Meetup badge */}
-      <View style={styles.meetupBadge}>
-        <Ionicons name="paw" size={16} color={colors.primary} />
-        <Text style={styles.meetupBadgeText}>Meetup</Text>
-      </View>
-
       <View style={styles.header}>
         <Pressable
           style={styles.authorPressable}
@@ -141,6 +135,13 @@ export function MeetupCard({
             <Text style={styles.meta}>{formatRelativeTime(post.created_at)}</Text>
           </View>
         </Pressable>
+        {/* Meetup badge */}
+        <View style={styles.headerTag}>
+          <View style={styles.meetupBadge}>
+            <Ionicons name="paw" size={13} color={colors.primaryDark} />
+            <Text style={styles.meetupBadgeText}>Meetup</Text>
+          </View>
+        </View>
         {showMenu && (
           <Pressable
             ref={menuBtnRef}
@@ -248,9 +249,11 @@ export function MeetupCard({
             )}
           </Pressable>
         ) : null}
-        <Text style={styles.attendeeText}>
-          {attendeeCount} {attendeeCount === 1 ? "going" : "going"}
-        </Text>
+        {attendeeCount > 0 && (
+          <Text style={styles.attendeeText}>
+            {attendeeCount} {attendeeCount === 1 ? "going" : "going"}
+          </Text>
+        )}
       </View>
 
       {/* Reactions & comments */}
@@ -297,16 +300,25 @@ export function MeetupCard({
 
 const styles = StyleSheet.create({
   card: {},
+  headerTag: { flexShrink: 0, justifyContent: "center" },
   meetupBadge: {
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.xxs,
-    marginBottom: spacing.md,
+    backgroundColor: colors.primarySoft,
+    borderWidth: 1,
+    borderColor: colors.primary,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: radius.pill,
   },
   meetupBadgeText: {
     ...typography.caption,
     fontWeight: "700",
-    color: colors.primary,
+    color: colors.primaryDark,
+    ...(Platform.OS === "web"
+      ? { fontFamily: "'Inter', sans-serif" }
+      : { fontFamily: "Inter_700Bold" }),
   },
   header: {
     flexDirection: "row",
@@ -383,13 +395,14 @@ const styles = StyleSheet.create({
   title: {
     ...typography.titleMD,
     fontSize: 19,
-    lineHeight: 26,
+    lineHeight: 24,
+    letterSpacing: -0.1,
     marginTop: spacing.sm,
     ...(Platform.OS === "web"
       ? { fontFamily: "'Inter', sans-serif", fontWeight: "600" as const }
       : { fontFamily: "Inter_600SemiBold" as const }),
   },
-  preview: { ...typography.bodyMuted, marginTop: spacing.xs, color: colors.textSupporting },
+  preview: { ...typography.bodyMuted, marginTop: spacing.xs, lineHeight: 19, fontSize: 14, color: colors.textSupporting },
   meetupDetails: {
     marginTop: spacing.md,
     padding: spacing.md,
@@ -415,7 +428,7 @@ const styles = StyleSheet.create({
     gap: spacing.xs,
     backgroundColor: colors.primary,
     paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
+    paddingVertical: spacing.xs,
     borderRadius: radius.pill,
     ...shadow.sm,
   },

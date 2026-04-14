@@ -288,14 +288,56 @@ async function resetSeedData() {
     }
   }
 
+  // Wipe seed/ folder in post-images storage bucket
+  console.log('Clearing seed/ folder in post-images storage...');
+  let storageDeleted = 0;
+  let storageCursor: string | undefined;
+
+  do {
+    const { data: listed, error: listErr } = await supabase.storage
+      .from('post-images')
+      .list('seed', { limit: 100, offset: storageCursor ? parseInt(storageCursor) : 0 });
+
+    if (listErr) {
+      console.error('  ✗ Could not list storage:', listErr.message);
+      break;
+    }
+    if (!listed || listed.length === 0) break;
+
+    // Each item in seed/ is a folder named by post UUID — recurse one level
+    for (const folder of listed) {
+      const { data: files, error: filesErr } = await supabase.storage
+        .from('post-images')
+        .list(`seed/${folder.name}`);
+
+      if (filesErr || !files?.length) continue;
+
+      const paths = files.map(f => `seed/${folder.name}/${f.name}`);
+      const { error: removeErr } = await supabase.storage.from('post-images').remove(paths);
+      if (removeErr) {
+        console.error(`  ✗ Could not remove files in seed/${folder.name}: ${removeErr.message}`);
+      } else {
+        storageDeleted += paths.length;
+      }
+    }
+
+    storageCursor = listed.length === 100 ? String((parseInt(storageCursor ?? '0')) + 100) : undefined;
+  } while (storageCursor);
+
+  console.log(`  Deleted ${storageDeleted} storage file(s).`);
   console.log('Reset complete.\n');
 }
 
 // ── Main ──────────────────────────────────────────────────────────────────────
 
 async function main() {
-  const doReset = process.argv.includes('--reset');
+  const doReset = process.argv.includes('--reset') || process.argv.includes('--wipe-only');
   if (doReset) await resetSeedData();
+
+  if (process.argv.includes('--wipe-only')) {
+    console.log('Wipe complete. Exiting without re-seeding.');
+    return;
+  }
 
   const data = seedData as SeedData;
 

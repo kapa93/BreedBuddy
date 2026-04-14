@@ -733,7 +733,7 @@ const styles = StyleSheet.create({
   },
   breedChipText: { ...typography.bodyMuted, fontWeight: "700" },
   breedChipTextSelected: { color: "#FFFFFF" },
-  tabsSection: { marginBottom: spacing.xs },
+  tabsSection: {},
   listContent: { paddingBottom: spacing.xxxl },
   listContentBarHidden: { paddingBottom: spacing.sm },
   devSentryButton: {

@@ -55,6 +55,13 @@ const openai = new OpenAI({ apiKey: OPENAI_API_KEY });
 
 const delayArg = process.argv.find(a => a.startsWith('--delay-ms='))?.split('=')[1];
 const DELAY_MS = delayArg ? parseInt(delayArg, 10) : 13_000;
+const FORCE = process.argv.includes('--force');
+
+// --titles="Title One,Title Two" — only process posts whose title matches one of these
+const titlesArg = process.argv.find(a => a.startsWith('--titles='))?.split('=').slice(1).join('=');
+const TITLE_FILTER: Set<string> | null = titlesArg
+  ? new Set(titlesArg.split(',').map(t => t.trim()))
+  : null;
 
 const SEED_EMAIL_SUFFIX = '@nuzzle.seed';
 const STORAGE_BUCKET = 'post-images';
@@ -122,6 +129,7 @@ async function main() {
   for (const group of (seedData as { breeds: SeedBreedGroup[] }).breeds) {
     for (const post of group.posts) {
       if (!post.has_images || !post.image_briefs?.length) continue;
+      if (TITLE_FILTER && !TITLE_FILTER.has(post.title)) continue;
 
       const authorId = authorIdMap.get(post.author_name);
       if (!authorId) {
@@ -171,10 +179,14 @@ async function main() {
         .from(STORAGE_BUCKET)
         .list(`seed/${postId}`, { search: `${i}.png` });
 
-      if (existingFile && existingFile.length > 0) {
+      const alreadyExists = existingFile && existingFile.length > 0;
+      if (alreadyExists && !FORCE) {
         console.log(`  ~ [${imageCount}/${totalImages}] Already exists: ${filePath}`);
         skipped++;
         continue;
+      }
+      if (alreadyExists && FORCE) {
+        console.log(`  ↻ [${imageCount}/${totalImages}] Force-regenerating: ${filePath}`);
       }
 
       // Generate image
@@ -213,7 +225,7 @@ async function main() {
         .from(STORAGE_BUCKET)
         .upload(filePath, imageBytes, {
           contentType: 'image/png',
-          upsert: false,
+          upsert: FORCE,
         });
 
       if (uploadError) {
@@ -230,12 +242,14 @@ async function main() {
 
       const publicUrl = urlData.publicUrl;
 
-      // Insert post_images row
-      const { error: dbError } = await supabase.from('post_images').insert({
-        post_id: postId,
-        image_url: publicUrl,
-        sort_order: i,
-      });
+      // When forcing, delete the old row first (no unique constraint to upsert against)
+      if (FORCE) {
+        await supabase.from('post_images').delete().eq('post_id', postId).eq('sort_order', i);
+      }
+
+      const { error: dbError } = await supabase
+        .from('post_images')
+        .insert({ post_id: postId, image_url: publicUrl, sort_order: i });
 
       if (dbError) {
         console.error(`  ✗ post_images insert failed: ${dbError.message}`);

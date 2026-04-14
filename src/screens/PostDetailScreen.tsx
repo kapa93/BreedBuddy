@@ -261,14 +261,11 @@ export function PostDetailScreen() {
                     {formatAuthorDisplay(post.author_name, post.author_dog_name)}
                   </Text>
                   <Text style={styles.meta}>
-                    {breedLabel} · {typeLabel} · {tagLabel}
+                    {breedLabel} · {typeLabel} · {tagLabel} · {formatRelativeTime(post.created_at)}
                   </Text>
                 </View>
               </Pressable>
               <View style={styles.headerRight}>
-                <Text style={styles.headerTimestamp} numberOfLines={1}>
-                  {formatRelativeTime(post.created_at)}
-                </Text>
                 {user?.id === post.author_id ? (
                   <>
                     <Pressable
@@ -509,7 +506,6 @@ const styles = StyleSheet.create({
     marginLeft: spacing.sm,
     paddingTop: 2,
   },
-  headerTimestamp: { ...typography.caption },
   menuBtn: {
     padding: spacing.xs,
     borderRadius: radius.sm,
@@ -566,14 +562,15 @@ const styles = StyleSheet.create({
     lineHeight: 14,
     marginTop: 0,
   },
-  title: { ...typography.titleMD, marginBottom: spacing.sm },
+  title: { ...typography.titleMD, marginTop: spacing.lg, marginBottom: spacing.md, fontSize: 19,
+    lineHeight: 24, letterSpacing: -0.1, },
   content: { ...typography.body, marginBottom: spacing.md },
   body: {
     ...typography.bodyMuted,
     color: colors.textSupporting,
     marginBottom: spacing.md,
     fontSize: 14,
-    lineHeight: 20,
+    lineHeight: 19,
     ...(Platform.OS === "web"
       ? { fontFamily: "'Inter', sans-serif", fontWeight: "400" as const }
       : { fontFamily: "Inter_400Regular" as const }),

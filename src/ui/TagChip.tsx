@@ -2,13 +2,33 @@ import React from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import { colors, radius, spacing, typography } from "../theme";
 
-type Tone = "neutral" | "question" | "tip" | "story";
+export type Tone =
+  | "neutral"
+  | "training"
+  | "behavior"
+  | "health"
+  | "grooming"
+  | "food"
+  | "gear"
+  | "puppy"
+  | "adolescent"
+  | "adult"
+  | "senior"
+  | "playdate";
 
-const toneStyles: Record<Tone, { bg: string; text: string }> = {
-  neutral: { bg: colors.chipNeutral, text: colors.chipText },
-  question: { bg: "#F9E5B3", text: "#7A5A12" },
-  tip: { bg: colors.primarySoft, text: colors.primaryDark },
-  story: { bg: "#EEE8FF", text: "#57418A" },
+export const toneStyles: Record<Tone, { bg: string; text: string }> = {
+  neutral:    { bg: colors.chipNeutral, text: colors.chipText },
+  training:   { bg: "#D6F0EC", text: "#339989" },
+  behavior:   { bg: "#D6F3FC", text: "#00a8dd" },
+  health:     { bg: "#FFE4E1", text: "#8B1F1F" },
+  grooming:   { bg: "#F0E4F8", text: "#6B2E8A" },
+  food:       { bg: "#E8F5E0", text: "#2E5A1A" },
+  gear:       { bg: "#DDE8F5", text: "#1A3E6B" },
+  puppy:      { bg: "#FFF0CC", text: "#FFA500" },
+  adolescent: { bg: "#D4EEE8", text: "#1A4E44" },
+  adult:      { bg: "#E4EDDC", text: "#334A20" },
+  senior:     { bg: "#EDE4D4", text: "#4A3820" },
+  playdate:   { bg: "#FFE0EB", text: "#8B1A3A" },
 };
 
 export function TagChip({ label, tone = "neutral" }: { label: string; tone?: Tone }) {

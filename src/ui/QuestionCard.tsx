@@ -307,7 +307,8 @@ const styles = StyleSheet.create({
   title: {
     ...typography.titleMD,
     fontSize: 19,
-    lineHeight: 26,
+    lineHeight: 24,
+    letterSpacing: -0.1,
     marginTop: 0,
     ...(Platform.OS === "web"
       ? { fontFamily: "'Inter', sans-serif", fontWeight: "600" as const }
@@ -317,7 +318,7 @@ const styles = StyleSheet.create({
     ...typography.bodyMuted,
     marginTop: spacing.sm,
     fontSize: 14,
-    lineHeight: 20,
+    lineHeight: 19,
     color: colors.textSupporting,
     ...(Platform.OS === "web"
       ? { fontFamily: "'Inter', sans-serif", fontWeight: "400" as const }

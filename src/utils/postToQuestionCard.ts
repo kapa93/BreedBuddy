@@ -3,13 +3,21 @@ import type { QuestionCardData } from "@/ui/types";
 import { BREED_TO_COLOR } from "./breedAssets";
 import { formatAuthorDisplay, formatRelativeTime } from "./breed";
 import { POST_TAG_LABELS } from "@/utils/breed";
-import type { PostTypeEnum } from "@/types";
+import type { PostTagEnum } from "@/types";
+import type { Tone } from "@/ui/TagChip";
 
-const typeTone: Record<PostTypeEnum, "question" | "tip" | "story"> = {
-  QUESTION: "question",
-  TIP: "tip",
-  UPDATE_STORY: "story",
-  MEETUP: "story", // fallback for any edge case; MeetupCard used for MEETUP posts
+export const tagTone: Record<PostTagEnum, Tone> = {
+  TRAINING:   "training",
+  BEHAVIOR:   "behavior",
+  HEALTH:     "health",
+  GROOMING:   "grooming",
+  FOOD:       "food",
+  GEAR:       "gear",
+  PUPPY:      "puppy",
+  ADOLESCENT: "adolescent",
+  ADULT:      "adult",
+  SENIOR:     "senior",
+  PLAYDATE:   "playdate",
 };
 
 export function postToQuestionCardData(post: PostWithDetails): QuestionCardData {
@@ -23,7 +31,7 @@ export function postToQuestionCardData(post: PostWithDetails): QuestionCardData 
     authorAvatarUri: post.author_dog_image_url,
     breedKey: BREED_TO_COLOR[post.breed],
     badge: POST_TAG_LABELS[post.tag],
-    badgeTone: typeTone[post.type],
+    badgeTone: tagTone[post.tag] ?? "neutral",
     hasTitle,
     title: post.title ?? "",
     preview: hasTitle ? content : undefined,
