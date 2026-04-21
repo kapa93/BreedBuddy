@@ -17,6 +17,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { createPost } from '@/api/posts';
 import { getDogsByOwner } from '@/api/dogs';
+import { listActivePlaces } from '@/api/places';
 import { uploadPostImage, pickImages } from '@/lib/imageUpload';
 import { supabase } from '@/lib/supabase';
 import { useAuthStore } from '@/store/authStore';
@@ -29,8 +30,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { captureHandledError } from '@/lib/sentry';
 
 type CreatePostRoute = {
-  CreatePost: { breed?: BreedEnum; initialType?: PostTypeEnum };
-  CreatePostModal: { breed?: BreedEnum; initialType?: PostTypeEnum } | undefined;
+  CreatePost: { breed?: BreedEnum; initialType?: PostTypeEnum; initialPlaceId?: string; initialPlaceName?: string };
+  CreatePostModal: { breed?: BreedEnum; initialType?: PostTypeEnum; initialPlaceId?: string; initialPlaceName?: string } | undefined;
 };
 
 function interByWeight(weight: '400' | '500' | '600' | '700' | '800') {
@@ -69,6 +70,14 @@ export function CreatePostScreen() {
     enabled: !!user?.id && route.params?.breed == null,
   });
 
+  const [type, setType] = useState<PostTypeEnum>(route.params?.initialType ?? 'QUESTION');
+
+  const { data: places = [] } = useQuery({
+    queryKey: ['places'],
+    queryFn: listActivePlaces,
+    staleTime: 5 * 60_000,
+  });
+
   const [selectedDogIndex, setSelectedDogIndex] = useState(0);
   const breed = route.params?.breed ?? dogs?.[selectedDogIndex]?.breed ?? 'GOLDEN_RETRIEVER';
   const headerHeight = useStackHeaderHeight({
@@ -80,13 +89,18 @@ export function CreatePostScreen() {
 
   const [content, setContent] = useState('');
   const [title, setTitle] = useState('');
-  const [type, setType] = useState<PostTypeEnum>(route.params?.initialType ?? 'QUESTION');
   const [tag, setTag] = useState<PostTagEnum>('TRAINING');
   const [imageUris, setImageUris] = useState<Array<{ uri: string; base64?: string }>>([]);
   const [error, setError] = useState('');
 
+  // Post-level place attachment (applies to ALL post types → posts.place_id)
+  const [attachedPlaceId, setAttachedPlaceId] = useState<string | null>(route.params?.initialPlaceId ?? null);
+  const [attachedPlaceName, setAttachedPlaceName] = useState<string | null>(route.params?.initialPlaceName ?? null);
+
   // Meetup-specific state
-  const [locationName, setLocationName] = useState('');
+  const [locationName, setLocationName] = useState(route.params?.initialPlaceName ?? '');
+  const [linkedPlaceId, setLinkedPlaceId] = useState<string | null>(route.params?.initialPlaceId ?? null);
+  const [linkedPlaceName, setLinkedPlaceName] = useState<string | null>(route.params?.initialPlaceName ?? null);
   const [startTime, setStartTime] = useState(() => {
     const d = new Date();
     d.setMinutes(0);
@@ -117,6 +131,7 @@ export function CreatePostScreen() {
               end_time: endTime ? formatDateTime(endTime) : null,
               meetup_kind: meetupKind || null,
               spots_available: spotsAvailable ? parseInt(spotsAvailable, 10) : null,
+              place_id: linkedPlaceId ?? null,
             }
           : undefined,
       };
@@ -128,6 +143,7 @@ export function CreatePostScreen() {
         tag: parsed.tag as PostTagEnum,
         content_text: parsed.content_text,
         title: parsed.title ?? undefined,
+        place_id: attachedPlaceId ?? null,
         meetup_details: parsed.meetup_details,
       }, imageUrls);
 
@@ -155,6 +171,9 @@ export function CreatePostScreen() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['feed'] });
       queryClient.invalidateQueries({ queryKey: ['posts'] });
+      if (attachedPlaceId) {
+        queryClient.invalidateQueries({ queryKey: ['placePosts', attachedPlaceId] });
+      }
       navigation.goBack();
     },
     onError: (err: Error) => {
@@ -287,6 +306,24 @@ export function CreatePostScreen() {
           ))}
         </View>
 
+        {attachedPlaceId ? (
+          <View style={styles.placeAttachmentBanner} accessibilityLabel={`Posting at ${attachedPlaceName}`}>
+            <Ionicons name="location" size={14} color={colors.primaryDark} />
+            <Text style={styles.placeAttachmentText} numberOfLines={1}>
+              Posting at: {attachedPlaceName}
+            </Text>
+            {!isMeetup && (
+              <TouchableOpacity
+                onPress={() => { setAttachedPlaceId(null); setAttachedPlaceName(null); }}
+                hitSlop={8}
+                accessibilityLabel="Remove place"
+              >
+                <Ionicons name="close-circle" size={16} color={colors.textMuted} />
+              </TouchableOpacity>
+            )}
+          </View>
+        ) : null}
+
         {!isMeetup && (
           <>
             <Text style={styles.label}>Tag</Text>
@@ -341,6 +378,44 @@ export function CreatePostScreen() {
               value={locationName}
               onChangeText={setLocationName}
             />
+            <Text style={[styles.label, styles.optionalLabel]}>Place (optional)</Text>
+            <TouchableOpacity
+              style={styles.placePickerButton}
+              onPress={() => {
+                const options = places.map((p) => p.name);
+                const actions = [
+                  ...options.map((name, i) => ({
+                    text: name,
+                    onPress: () => {
+                      const place = places[i];
+                      setLinkedPlaceId(place.id);
+                      setLinkedPlaceName(place.name);
+                      setAttachedPlaceId(place.id);
+                      setAttachedPlaceName(place.name);
+                      if (!locationName.trim()) setLocationName(place.name);
+                    },
+                  })),
+                  ...(linkedPlaceId
+                    ? [{ text: 'Remove place', style: 'destructive' as const, onPress: () => {
+                        setLinkedPlaceId(null);
+                        setLinkedPlaceName(null);
+                        setAttachedPlaceId(null);
+                        setAttachedPlaceName(null);
+                      } }]
+                    : []),
+                  { text: 'Cancel', style: 'cancel' as const },
+                ];
+                Alert.alert('Link a place', 'Associate this meetup with a known place.', actions);
+              }}
+            >
+              <Ionicons name="location-outline" size={18} color={colors.textSecondary} />
+              <Text style={[styles.placePickerText, linkedPlaceName ? styles.placePickerTextSelected : undefined]}>
+                {linkedPlaceName ?? 'Link to a place'}
+              </Text>
+              {linkedPlaceName && (
+                <Ionicons name="checkmark-circle" size={18} color={colors.primary} />
+              )}
+            </TouchableOpacity>
             <Text style={styles.label}>Date & Time</Text>
             <TouchableOpacity
               style={styles.dateButton}
@@ -437,6 +512,44 @@ export function CreatePostScreen() {
           </>
         )}
 
+        {!isMeetup && (
+          <>
+            <Text style={[styles.label, styles.optionalLabel]}>Place (optional)</Text>
+            <TouchableOpacity
+              style={styles.placePickerButton}
+              onPress={() => {
+                const options = places.map((p) => p.name);
+                const actions = [
+                  ...options.map((name, i) => ({
+                    text: name,
+                    onPress: () => {
+                      const place = places[i];
+                      setAttachedPlaceId(place.id);
+                      setAttachedPlaceName(place.name);
+                    },
+                  })),
+                  ...(attachedPlaceId
+                    ? [{ text: 'Remove place', style: 'destructive' as const, onPress: () => {
+                        setAttachedPlaceId(null);
+                        setAttachedPlaceName(null);
+                      } }]
+                    : []),
+                  { text: 'Cancel', style: 'cancel' as const },
+                ];
+                Alert.alert('Tag a place', 'Associate this post with a known place.', actions);
+              }}
+            >
+              <Ionicons name="location-outline" size={18} color={colors.textSecondary} />
+              <Text style={[styles.placePickerText, attachedPlaceName ? styles.placePickerTextSelected : undefined]}>
+                {attachedPlaceName ?? 'Tag a place'}
+              </Text>
+              {attachedPlaceName && (
+                <Ionicons name="checkmark-circle" size={18} color={colors.primary} />
+              )}
+            </TouchableOpacity>
+          </>
+        )}
+
         <Text style={styles.label}>Images (optional)</Text>
         <View style={styles.imageRow}>
           {imageUris.map((img, i) => (
@@ -480,9 +593,14 @@ const styles = StyleSheet.create({
   label: { ...interByWeight('600'), fontSize: 14, color: colors.textPrimary, marginBottom: 8, marginTop: 16 },
   optionalLabel: { ...interByWeight('500'), color: colors.textSecondary },
   breedValue: { ...interByWeight('400'), fontSize: 16, color: colors.textPrimary, marginBottom: 8 },
-  chipRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
+  chipRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginBottom: 4,
+    gap: 8
+  },
   tagScroll: {
-    marginBottom: 8,
+    marginBottom: 4,
     maxHeight: 44,
     marginHorizontal: -spacing.lg,
   },
@@ -509,7 +627,7 @@ const styles = StyleSheet.create({
   tagChipSelected: {
     backgroundColor: colors.primary,
   },
-  chipText: { ...interByWeight('400'), fontSize: 14, color: colors.textPrimary },
+  chipText: { ...interByWeight('400'), fontSize: 13, color: colors.textPrimary },
   chipTextSelected: { ...interByWeight('600'), color: colors.surface },
   input: {
     ...interByWeight('400'),
@@ -517,7 +635,7 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
     borderRadius: 12,
     padding: 12,
-    fontSize: 16,
+    fontSize: 15,
     minHeight: 44,
     backgroundColor: colors.surface,
   },
@@ -534,7 +652,27 @@ const styles = StyleSheet.create({
     ...shadow.sm,
     marginBottom: 8,
   },
-  dateButtonText: { ...interByWeight('400'), fontSize: 16, color: colors.textPrimary },
+  dateButtonText: { ...interByWeight('400'), fontSize: 15, color: colors.textPrimary },
+  placePickerButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.sm,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: 12,
+    padding: 12,
+    backgroundColor: colors.surface,
+    marginBottom: 8,
+  },
+  placePickerText: {
+    ...interByWeight('400'),
+    fontSize: 15,
+    color: colors.textMuted,
+    flex: 1,
+  },
+  placePickerTextSelected: {
+    color: colors.textPrimary,
+  },
   imageRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 8 },
   thumb: { width: 72, height: 72, borderRadius: 8, overflow: 'hidden', backgroundColor: colors.border, position: 'relative', ...shadow.sm },
   thumbImage: { width: 72, height: 72 },
@@ -552,6 +690,22 @@ const styles = StyleSheet.create({
     ...shadow.sm,
   },
   addImageText: { ...interByWeight('400'), fontSize: 14, color: colors.textSecondary },
+  placeAttachmentBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xxs,
+    backgroundColor: colors.primarySoft,
+    borderRadius: 8,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.xs,
+    marginTop: spacing.md,
+  },
+  placeAttachmentText: {
+    ...interByWeight('500'),
+    fontSize: 13,
+    color: colors.primaryDark,
+    flex: 1,
+  },
   error: { ...interByWeight('400'), color: colors.danger, marginTop: 12, fontSize: 14 },
   submit: {
     backgroundColor: colors.primary,

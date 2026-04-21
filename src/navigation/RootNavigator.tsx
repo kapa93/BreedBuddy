@@ -12,6 +12,8 @@ import { SignInScreen } from '@/screens/SignInScreen';
 import { SignUpScreen } from '@/screens/SignUpScreen';
 import { HomeScreen } from '@/screens/HomeScreen';
 import { PlaceCheckinScreen } from '@/screens/PlaceCheckinScreen';
+import { PlaceDetailScreen } from '@/screens/PlaceDetailScreen';
+import { PlacesScreen } from '@/screens/PlacesScreen';
 import { ExploreScreen } from '@/screens/ExploreScreen';
 import { NotificationsScreen } from '@/screens/NotificationsScreen';
 import { ProfileScreen } from '@/screens/ProfileScreen';
@@ -104,6 +106,7 @@ function HomeTab() {
     >
       <Stack.Screen name="HomeFeed" component={HomeScreen} options={{ title: 'Nuzzle' }} />
       <Stack.Screen name="SearchMain" component={SearchScreen} options={{ title: 'Search' }} />
+      <Stack.Screen name="PlaceDetail" component={PlaceDetailScreen} options={{ title: 'Place' }} />
       <Stack.Screen name="PlaceNow" component={PlaceCheckinScreen} options={{ title: 'Dogs Here Now' }} />
       <Stack.Screen name="DogProfile" component={DogProfileScreen} options={{ title: 'Dog' }} />
       <Stack.Screen name="PostDetail" component={PostDetailScreen} options={{ title: 'Post' }} />
@@ -138,7 +141,14 @@ function ExploreTab() {
         header: (props) => <AnimatedStackHeader {...props} animateOnScroll />,
       }}
     >
-      <Stack.Screen name="ExploreList" component={ExploreScreen} options={{ title: 'Explore' }} />
+      <Stack.Screen
+        name="ExploreList"
+        component={ExploreScreen}
+        options={{
+          title: 'Explore',
+          header: (props) => <AnimatedStackHeader {...props} animateOnScroll={false} />,
+        }}
+      />
       <Stack.Screen
         name="BreedFeed"
         component={BreedFeedScreen}
@@ -167,6 +177,9 @@ function ExploreTab() {
       />
       <Stack.Screen name="EditPost" component={EditPostScreen} options={{ title: 'Edit Post' }} />
       <Stack.Screen name="UserProfile" component={UserProfileScreen} options={{ title: 'Profile' }} />
+      <Stack.Screen name="PlacesList" component={PlacesScreen} options={{ title: 'Places' }} />
+      <Stack.Screen name="PlaceDetail" component={PlaceDetailScreen} options={{ title: 'Place' }} />
+      <Stack.Screen name="PlaceNow" component={PlaceCheckinScreen} options={{ title: 'Dogs Here Now' }} />
     </Stack.Navigator>
   );
 }

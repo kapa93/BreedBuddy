@@ -43,7 +43,7 @@ INSERT INTO places (
   supports_check_in, is_active
 ) VALUES (
   'Ocean Beach Dog Beach', 'ocean-beach-dog-beach', 'dog_beach',
-  'San Francisco', 'Ocean Beach',
+  'San Diego', 'Ocean Beach',
   37.7597, -122.5108,
   400, 60,
   true, true

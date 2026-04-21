@@ -40,9 +40,12 @@ import { getDistanceMeters } from '@/utils/location';
 import { useScrollDirection, useScrollDirectionUpdater } from "@/context/ScrollDirectionContext";
 import { useStackHeaderHeight } from "@/hooks/useStackHeaderHeight";
 import { useFeedData } from "@/hooks/useFeedData";
+import { useSavedPlacesWithActivity } from "@/hooks/useSavedPlaces";
+import { MyPlacesSheet } from "@/components/MyPlacesSheet";
 import { colors, radius, spacing, typography } from "@/theme";
 import type { FeedFilter } from "@/store/uiStore";
 import { captureHandledError } from '@/lib/sentry';
+import { Ionicons } from '@expo/vector-icons';
 
 const TABS = ["All", "Questions", "Meetups", "Tips", "Update/Story"] as const;
 type TabKey = (typeof TABS)[number];
@@ -63,7 +66,10 @@ const ALERT_ANIM_DURATION = 220;
 export function HomeScreen({
   navigation,
 }: {
-  navigation: { navigate: (s: string, p?: object) => void };
+  navigation: {
+    navigate: (s: string, p?: object) => void;
+    setOptions: (opts: object) => void;
+  };
 }) {
   const {
     user,
@@ -85,6 +91,22 @@ export function HomeScreen({
   const [selectedBreedIndex, setSelectedBreedIndex] = useState(0);
   const [isNearPlace, setIsNearPlace] = useState(false);
   const [locationChecked, setLocationChecked] = useState(false);
+  const [myPlacesOpen, setMyPlacesOpen] = useState(false);
+
+  React.useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <Pressable
+          onPress={() => setMyPlacesOpen(true)}
+          style={({ pressed }) => [styles.myPlacesChip, pressed && styles.myPlacesChipPressed]}
+          accessibilityRole="button"
+          accessibilityLabel="My Places"
+        >
+          <Ionicons name="compass-outline" size={26} color={colors.primaryDark} />
+        </Pressable>
+      ),
+    });
+  }, [navigation]);
   const forceNearby = __DEV__ && DEBUG_FORCE_NEARBY;
   const placeAlertTranslateY = useSharedValue(0);
 
@@ -120,6 +142,8 @@ export function HomeScreen({
     enabled: !!user?.id && !!obPlace?.id,
     refetchInterval: 60_000,
   });
+
+  const { savedPlaces, dogCounts, isLoading: savedPlacesLoading } = useSavedPlacesWithActivity(user?.id);
 
   const selectedDog = dogs?.[selectedDogIndex];
   const defaultBreed = selectedDog?.breed ?? "GOLDEN_RETRIEVER";
@@ -543,6 +567,26 @@ export function HomeScreen({
         />
         </View>
       </SafeAreaView>
+      <MyPlacesSheet
+        visible={myPlacesOpen}
+        onClose={() => setMyPlacesOpen(false)}
+        places={savedPlaces}
+        dogCounts={dogCounts}
+        isLoading={savedPlacesLoading}
+        onPlacePress={(place) => {
+          navigation.navigate('PlaceDetail', { placeId: place.id });
+        }}
+        onCreateMeetupPress={(place) => {
+          navigation.navigate('CreatePost', {
+            initialType: 'MEETUP',
+            initialPlaceId: place.id,
+            initialPlaceName: place.name,
+          });
+        }}
+        onAddMorePress={() => {
+          navigation.navigate('Explore', { screen: 'ExploreList', params: { initialTab: 'places' } });
+        }}
+      />
     </View>
   );
 }
@@ -635,6 +679,11 @@ const styles = StyleSheet.create({
   breedChipText: { ...typography.bodyMuted, fontWeight: "700" },
   breedChipTextSelected: { color: colors.surface },
   tabsSection: {},
+  myPlacesChip: {
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.xs,
+  },
+  myPlacesChipPressed: { opacity: 0.5 },
   listContent: { paddingBottom: spacing.xxxl },
   listContentBarHidden: { paddingBottom: spacing.sm },
   initialLoader: { flex: 1, justifyContent: 'center', alignItems: 'center' },

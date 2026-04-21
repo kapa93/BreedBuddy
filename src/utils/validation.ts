@@ -8,6 +8,7 @@ export const meetupDetailsSchema = z.object({
   meetup_kind: z.enum(MEETUP_KINDS as unknown as [string, ...string[]]).optional().nullable(),
   spots_available: z.number().int().positive().optional().nullable(),
   host_notes: z.string().max(500).optional().nullable(),
+  place_id: z.string().uuid().optional().nullable(),
 });
 
 export const signUpSchema = z.object({

@@ -1,0 +1,140 @@
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { colors, radius, shadow, spacing, typography } from '@/theme';
+import type { Place, PlaceTypeEnum } from '@/types';
+
+const PLACE_TYPE_LABELS: Record<PlaceTypeEnum, string> = {
+  dog_beach: 'Dog Beach',
+  dog_park: 'Dog Park',
+  trail: 'Trail',
+  park: 'Park',
+  other: 'Place',
+};
+
+const PLACE_TYPE_ICONS: Record<PlaceTypeEnum, React.ComponentProps<typeof Ionicons>['name']> = {
+  dog_beach: 'water-outline',
+  dog_park: 'paw-outline',
+  trail: 'leaf-outline',
+  park: 'leaf-outline',
+  other: 'location-outline',
+};
+
+type Props = {
+  place: Place;
+  isSaved: boolean;
+  onSaveToggle: () => void;
+  onPress: () => void;
+  saveLoading?: boolean;
+};
+
+export function PlaceRow({ place, isSaved, onSaveToggle, onPress, saveLoading }: Props) {
+  const locationLine = [place.neighborhood, place.city].filter(Boolean).join(', ');
+
+  return (
+    <Pressable
+      onPress={onPress}
+      style={({ pressed }) => [styles.row, pressed && styles.pressed]}
+      accessibilityRole="button"
+      accessibilityLabel={place.name}
+    >
+      <View style={styles.iconWrap}>
+        <Ionicons
+          name={PLACE_TYPE_ICONS[place.place_type]}
+          size={22}
+          color={colors.primary}
+        />
+      </View>
+
+      <View style={styles.body}>
+        <Text style={styles.name} numberOfLines={1}>{place.name}</Text>
+        <View style={styles.meta}>
+          <View style={styles.typeChip}>
+            <Text style={styles.typeChipText}>{PLACE_TYPE_LABELS[place.place_type]}</Text>
+          </View>
+          {locationLine ? (
+            <Text style={styles.location} numberOfLines={1}>{locationLine}</Text>
+          ) : null}
+        </View>
+      </View>
+
+      <Pressable
+        onPress={saveLoading ? undefined : onSaveToggle}
+        hitSlop={12}
+        style={({ pressed }) => [styles.saveBtn, pressed && !saveLoading && styles.saveBtnPressed]}
+        accessibilityRole="button"
+        accessibilityLabel={isSaved ? 'Unsave place' : 'Save place'}
+        accessibilityState={{ selected: isSaved }}
+      >
+        <Ionicons
+          name={isSaved ? 'bookmark' : 'bookmark-outline'}
+          size={20}
+          color={isSaved ? colors.primary : colors.textMuted}
+        />
+      </Pressable>
+    </Pressable>
+  );
+}
+
+const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: radius.lg,
+    padding: spacing.md,
+    ...shadow.sm,
+  },
+  pressed: {
+    opacity: 0.9,
+  },
+  iconWrap: {
+    width: 40,
+    height: 40,
+    borderRadius: radius.md,
+    backgroundColor: colors.primarySoft,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: spacing.md,
+    flexShrink: 0,
+  },
+  body: {
+    flex: 1,
+    gap: spacing.xxs,
+  },
+  name: {
+    ...typography.subtitle,
+  },
+  meta: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
+    flexWrap: 'wrap',
+  },
+  typeChip: {
+    backgroundColor: colors.primarySoft,
+    borderRadius: radius.pill,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: 2,
+  },
+  typeChipText: {
+    ...typography.caption,
+    color: colors.primaryDark,
+    fontWeight: '700',
+  },
+  location: {
+    ...typography.caption,
+    color: colors.textMuted,
+    flexShrink: 1,
+  },
+  saveBtn: {
+    padding: spacing.xs,
+    marginLeft: spacing.sm,
+    flexShrink: 0,
+  },
+  saveBtnPressed: {
+    opacity: 0.6,
+  },
+});

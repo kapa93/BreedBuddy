@@ -7,8 +7,9 @@ import {
   RefreshControl,
   ActivityIndicator,
 } from "react-native";
-import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import { NUZZLE_TAB_BAR_LAYOUT_EXTENDS_BELOW_SCREEN } from "@/navigation/NuzzleTabBar";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { getJoinedBreeds, joinBreedFeed, leaveBreedFeed } from "@/api/breedJoins";
@@ -42,8 +43,8 @@ const FILTER_TO_TAB = (f: FeedFilter): TabKey =>
 export function BreedFeedScreen() {
   const route = useRoute();
   const headerHeight = useStackHeaderHeight();
-  const insets = useSafeAreaInsets();
   const tabBarHeight = useBottomTabBarHeight();
+  const tabBarScrollPad = Math.max(0, tabBarHeight - NUZZLE_TAB_BAR_LAYOUT_EXTENDS_BELOW_SCREEN);
   const breedParam = (route.params as { breed?: BreedEnum })?.breed;
   const navigation = useNavigation<{
     navigate: (s: string, p?: object) => void;
@@ -53,7 +54,6 @@ export function BreedFeedScreen() {
   const { feedFilter, setFeedFilter } = useUIStore();
   const queryClient = useQueryClient();
   const breed = breedParam ?? "GOLDEN_RETRIEVER";
-  const bottomFeedInset = useMemo(() => insets.bottom + spacing.xxxl + 25, [insets.bottom]);
 
   const { data: joinedBreeds = [] } = useQuery({
     queryKey: ["joinedBreeds", user?.id],
@@ -188,7 +188,7 @@ export function BreedFeedScreen() {
           windowSize={11}
           renderItem={renderFeedItem}
           ListEmptyComponent={isLoading ? (
-            <View style={[styles.initialLoader, { paddingBottom: tabBarHeight }]}>
+            <View style={[styles.initialLoader, { paddingBottom: tabBarScrollPad }]}>
               <ActivityIndicator size="large" color={colors.primary} />
             </View>
           ) : renderEmpty}
@@ -207,7 +207,7 @@ export function BreedFeedScreen() {
           }
           contentContainerStyle={[
             styles.listContent,
-            { paddingTop: headerHeight, paddingBottom: bottomFeedInset },
+            { paddingTop: headerHeight, paddingBottom: tabBarScrollPad },
             posts.length === 0 && styles.emptyList,
           ]}
           showsVerticalScrollIndicator={false}
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: colors.surface },
   safe: { flex: 1 },
   container: { flex: 1 },
-  tabsSection: { marginBottom: spacing.xs },
+  tabsSection: {},
   cardWrap: { paddingHorizontal: spacing.lg, marginBottom: spacing.sm },
   listContent: { paddingBottom: spacing.xxxl },
   emptyList: { flexGrow: 1 },

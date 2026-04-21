@@ -1,0 +1,84 @@
+{
+  "authors": [
+    { "author_name": "Chris Deluca", "dog_name": "Koda",   "breed": "AUSTRALIAN_SHEPHERD" },
+    { "author_name": "Maya Torres",  "dog_name": "Rigby",  "breed": "AUSTRALIAN_SHEPHERD" },
+    { "author_name": "Jake Finneran","dog_name": "Clover", "breed": "AUSTRALIAN_SHEPHERD" },
+    { "author_name": "Brendan Walsh","dog_name": "Pepper", "breed": "AUSTRALIAN_SHEPHERD" },
+    { "author_name": "Lena Oduya",  "dog_name": "Wren",   "breed": "AUSTRALIAN_SHEPHERD" },
+    { "author_name": "Sarah Kim",   "dog_name": "Biscuit","breed": "AUSTRALIAN_SHEPHERD" }
+  ],
+  "place_posts": [
+    {
+      "place_slug": "ocean-beach-dog-beach",
+      "author_name": "Chris Deluca",
+      "breed": "AUSTRALIAN_SHEPHERD",
+      "type": "story",
+      "tag": "PLAYDATE",
+      "title": "Koda's first real ocean swim",
+      "content_text": "Finally got Koda past the break today. He's been wading for months but something clicked this morning — he just went for it. Came back absolutely soaked and completely unhinged with joy. OB at 7am before the crowds is unbeatable."
+    },
+    {
+      "place_slug": "ocean-beach-dog-beach",
+      "author_name": "Chris Deluca",
+      "breed": "AUSTRALIAN_SHEPHERD",
+      "type": "tip",
+      "tag": "PLAYDATE",
+      "title": "Best window at OB Dog Beach right now",
+      "content_text": "If you want the beach to yourselves, go before 7:30am on weekdays. By 9 it's packed and the energy gets chaotic. Koda does way better with a smaller crowd — he tries to herd everyone otherwise. Also the south end near the rocks tends to have calmer water if you have a nervous swimmer."
+    },
+    {
+      "place_slug": "ocean-beach-dog-beach",
+      "author_name": "Maya Torres",
+      "breed": "AUSTRALIAN_SHEPHERD",
+      "type": "question",
+      "tag": "BEHAVIOR",
+      "title": "Herding at the dog beach — anyone else deal with this?",
+      "content_text": "Rigby is great with other dogs one-on-one but at OB she goes full border collie mode and starts circling and nipping at ankles trying to herd the whole beach. Other dogs don't love it. Anyone dealt with this and found a way to redirect? We've tried more fetch but she just goes back to herding between throws."
+    },
+    {
+      "place_slug": "ocean-beach-dog-beach",
+      "author_name": "Jake Finneran",
+      "breed": "AUSTRALIAN_SHEPHERD",
+      "type": "story",
+      "tag": "PLAYDATE",
+      "title": "Clover made a best friend at OB today",
+      "content_text": "Went to OB Dog Beach for the first time and Clover immediately found one other dog and they just ran laps together for an hour straight. No interest in anyone else. Came home and slept for four hours. This place is incredible — I can't believe I waited this long."
+    },
+    {
+      "place_slug": "fiesta-island-dog-park",
+      "author_name": "Brendan Walsh",
+      "breed": "AUSTRALIAN_SHEPHERD",
+      "type": "tip",
+      "tag": "TRAINING",
+      "title": "Fiesta Island is underrated for off-leash recall work",
+      "content_text": "The open flat terrain at Fiesta Island makes it one of the best spots in San Diego to practice recall under distraction. Pepper is solid at home but needs real-world proofing — open space with other dogs at a distance is ideal. Go early, bring high-value treats, and use the wide perimeter path to get some distance before calling them back."
+    },
+    {
+      "place_slug": "fiesta-island-dog-park",
+      "author_name": "Lena Oduya",
+      "breed": "AUSTRALIAN_SHEPHERD",
+      "type": "story",
+      "tag": "HEALTH",
+      "title": "Wren's best day in months",
+      "content_text": "Wren has been having some joint issues and we've been careful about high-impact exercise. Fiesta Island ended up being perfect — flat, soft ground near the water, no stairs or rocks to navigate. She ran (gently) for the first time in weeks and was just glowing the whole way home. Going to make this a regular thing."
+    },
+    {
+      "place_slug": "fiesta-island-dog-park",
+      "author_name": "Sarah Kim",
+      "breed": "AUSTRALIAN_SHEPHERD",
+      "type": "story",
+      "tag": "PLAYDATE",
+      "title": "Biscuit discovered the water's edge at Fiesta Island",
+      "content_text": "Biscuit has always been skeptical of water but she spent a full twenty minutes today just standing in the shallow bay edge at Fiesta Island letting the water wash over her paws. Didn't swim, didn't bolt. Just stood there looking extremely pleased with herself. Big day."
+    },
+    {
+      "place_slug": "fiesta-island-dog-park",
+      "author_name": "Maya Torres",
+      "breed": "AUSTRALIAN_SHEPHERD",
+      "type": "question",
+      "tag": "PLAYDATE",
+      "title": "Anyone do regular morning meetups at Fiesta Island?",
+      "content_text": "Looking for a consistent crew to do 7am off-leash runs at Fiesta Island a few days a week. Rigby needs a solid workout before I can get any work done and it's more fun when there's a group. Would ideally be medium-to-high energy dogs that are good off-leash. Comment if you're interested or already do something like this."
+    }
+  ]
+}

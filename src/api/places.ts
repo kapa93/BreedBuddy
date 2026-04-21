@@ -185,3 +185,32 @@ export function getPlaceBreedCounts(
     .map(([breed, count]) => ({ breed, count }))
     .sort((a, b) => b.count - a.count);
 }
+
+/**
+ * Returns a map of placeId → number of currently active dog check-ins.
+ * "Active" means ended_at IS NULL and expires_at > now().
+ * Each row represents one dog check-in, so the count = number of dogs.
+ * Places with zero active check-ins are omitted (default to 0 at call-site).
+ */
+export async function getActivePlaceCheckinCounts(
+  placeIds: string[]
+): Promise<Record<string, number>> {
+  if (placeIds.length === 0) return {};
+
+  const { data, error } = await supabase
+    .from('dog_location_checkins')
+    .select('place_id')
+    .in('place_id', placeIds)
+    .is('ended_at', null)
+    .gt('expires_at', new Date().toISOString());
+
+  if (error) throw error;
+
+  const counts: Record<string, number> = {};
+  for (const row of (data ?? []) as Array<{ place_id: string | null }>) {
+    if (row.place_id) {
+      counts[row.place_id] = (counts[row.place_id] ?? 0) + 1;
+    }
+  }
+  return counts;
+}

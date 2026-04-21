@@ -3,7 +3,7 @@ jest.mock('@/lib/supabase', () => ({
 }));
 
 import { supabase } from '@/lib/supabase';
-import { createPost, deletePost, updatePost } from '../posts';
+import { createPost, deletePost, getPlaceMeetupPosts, getPlacePosts, updatePost } from '../posts';
 
 const mockFrom = supabase.from as jest.Mock;
 
@@ -41,6 +41,28 @@ describe('createPost', () => {
 
   it('returns the new post when no images and not a meetup', async () => {
     const newPost = { id: 'p1', author_id: 'u1', ...BASE_POST };
+    const chain = buildChain({ data: newPost, error: null });
+    mockFrom.mockReturnValue(chain);
+
+    const result = await createPost('u1', BASE_POST);
+    expect(result).toEqual(newPost);
+  });
+
+  it('includes place_id in the posts insert when provided', async () => {
+    const newPost = { id: 'p1', author_id: 'u1', ...BASE_POST, place_id: 'place-1' };
+    const chain = buildChain({ data: newPost, error: null });
+    mockFrom.mockReturnValue(chain);
+
+    const result = await createPost('u1', { ...BASE_POST, place_id: 'place-1' });
+    expect(result).toEqual(newPost);
+    // The insert should have been called (chain.insert is called on the posts table)
+    expect(chain.insert).toHaveBeenCalledWith(
+      expect.objectContaining({ place_id: 'place-1' }),
+    );
+  });
+
+  it('works correctly without place_id (backwards compatibility)', async () => {
+    const newPost = { id: 'p1', author_id: 'u1', ...BASE_POST, place_id: null };
     const chain = buildChain({ data: newPost, error: null });
     mockFrom.mockReturnValue(chain);
 
@@ -119,5 +141,66 @@ describe('updatePost', () => {
 
     const result = await updatePost('p1', 'u1', { content_text: 'new content' });
     expect(result).toEqual(updated);
+  });
+});
+
+// ─── getPlaceMeetupPosts ──────────────────────────────────────────────────────
+
+describe('getPlaceMeetupPosts', () => {
+  beforeEach(() => jest.clearAllMocks());
+
+  it('returns an empty array when no meetups are linked to the place', async () => {
+    const mdChain = {
+      select: jest.fn().mockReturnThis(),
+      eq: jest.fn().mockReturnThis(),
+      order: jest.fn().mockResolvedValue({ data: [], error: null }),
+    };
+    mockFrom.mockReturnValue(mdChain);
+
+    const result = await getPlaceMeetupPosts('place-1');
+    expect(result).toEqual([]);
+    expect(mockFrom).toHaveBeenCalledWith('meetup_details');
+  });
+
+  it('throws when the meetup_details query errors', async () => {
+    const mdChain = {
+      select: jest.fn().mockReturnThis(),
+      eq: jest.fn().mockReturnThis(),
+      order: jest.fn().mockResolvedValue({ data: null, error: new Error('db error') }),
+    };
+    mockFrom.mockReturnValue(mdChain);
+
+    await expect(getPlaceMeetupPosts('place-1')).rejects.toThrow('db error');
+  });
+});
+
+// ─── getPlacePosts ─────────────────────────────────────────────────────────────
+
+describe('getPlacePosts', () => {
+  beforeEach(() => jest.clearAllMocks());
+
+  it('returns an empty array when no posts are linked to the place', async () => {
+    const chain = {
+      select: jest.fn().mockReturnThis(),
+      eq: jest.fn().mockReturnThis(),
+      order: jest.fn().mockResolvedValue({ data: [], error: null }),
+    };
+    mockFrom.mockReturnValue(chain);
+
+    const result = await getPlacePosts('place-1');
+    expect(result).toEqual([]);
+    expect(mockFrom).toHaveBeenCalledWith('posts');
+    expect(chain.eq).toHaveBeenCalledWith('place_id', 'place-1');
+  });
+
+  it('throws when the posts query errors', async () => {
+    const chain = {
+      select: jest.fn().mockReturnThis(),
+      eq: jest.fn().mockReturnThis(),
+      order: jest.fn().mockResolvedValue({ data: null, error: new Error('fetch error') }),
+    };
+    mockFrom.mockReturnValue(chain);
+
+    await expect(getPlacePosts('place-1')).rejects.toThrow('fetch error');
   });
 });

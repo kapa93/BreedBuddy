@@ -3,6 +3,8 @@ export const colors = {
   surface: "#FFFFFF",
   surfaceMuted: "#F2EFE8",
   border: "#E7E2D8",
+  /** Hairlines and separators where border needs a bit more contrast */
+  borderStrong: "#CAC2B4",
   textPrimary: "#1B2A22",
   textSupporting: "#303F36",
   textSecondary: "#5B6A61",

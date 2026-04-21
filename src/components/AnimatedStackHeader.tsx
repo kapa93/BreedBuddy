@@ -162,7 +162,7 @@ export function AnimatedStackHeader({
               ...(bottomSeparator
                 ? {
                     borderBottomWidth: StyleSheet.hairlineWidth,
-                    borderBottomColor: colors.border,
+                    borderBottomColor: colors.borderStrong,
                     elevation: 0,
                     shadowOpacity: 0,
                     shadowRadius: 0,
@@ -172,7 +172,7 @@ export function AnimatedStackHeader({
                     elevation: 3,
                     shadowColor: "#000",
                     shadowOffset: { width: 0, height: 1 },
-                    shadowOpacity: 0.15,
+                    shadowOpacity: 0.12,
                     shadowRadius: 1,
                   }),
             },

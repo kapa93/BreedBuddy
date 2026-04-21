@@ -190,6 +190,62 @@ export interface Database {
           updated_at?: string;
         };
       };
+      user_place_saves: {
+        Row: {
+          user_id: string;
+          place_id: string;
+          created_at: string;
+        };
+        Insert: {
+          user_id: string;
+          place_id: string;
+          created_at?: string;
+        };
+        Update: {
+          user_id?: string;
+          place_id?: string;
+          created_at?: string;
+        };
+      };
+      meetup_details: {
+        Row: {
+          post_id: string;
+          place_id: string | null;
+          location_name: string;
+          start_time: string;
+          end_time: string | null;
+          meetup_kind: string | null;
+          spots_available: number | null;
+          host_notes: string | null;
+          is_recurring_seeded: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          post_id: string;
+          place_id?: string | null;
+          location_name: string;
+          start_time: string;
+          end_time?: string | null;
+          meetup_kind?: string | null;
+          spots_available?: number | null;
+          host_notes?: string | null;
+          is_recurring_seeded?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          place_id?: string | null;
+          location_name?: string;
+          start_time?: string;
+          end_time?: string | null;
+          meetup_kind?: string | null;
+          spots_available?: number | null;
+          host_notes?: string | null;
+          is_recurring_seeded?: boolean;
+          updated_at?: string;
+        };
+      };
       dog_location_checkins: {
         Row: {
           id: string;
@@ -263,6 +319,7 @@ export interface Database {
           tag: PostTagEnum;
           title: string | null;
           content_text: string;
+          place_id: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -274,6 +331,7 @@ export interface Database {
           tag: PostTagEnum;
           title?: string | null;
           content_text: string;
+          place_id?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -285,6 +343,7 @@ export interface Database {
           tag?: PostTagEnum;
           title?: string | null;
           content_text?: string;
+          place_id?: string | null;
           created_at?: string;
           updated_at?: string;
         };

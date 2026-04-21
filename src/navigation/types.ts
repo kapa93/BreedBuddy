@@ -11,7 +11,7 @@ export type RootStackParamList = {
   Auth: undefined;
   Onboarding: undefined;
   Main: undefined;
-  CreatePostModal: { breed?: BreedEnum; initialType?: PostTypeEnum } | undefined;
+  CreatePostModal: { breed?: BreedEnum; initialType?: PostTypeEnum; initialPlaceId?: string; initialPlaceName?: string } | undefined;
   SearchModal: SearchMainParams;
   PostDetail: { postId: string };
   UserProfile: { userId: string };
@@ -45,23 +45,27 @@ export type NotificationsStackParamList = {
 export type HomeStackParamList = {
   HomeFeed: undefined;
   SearchMain: SearchMainParams;
+  PlaceDetail: { placeId: string };
   PlaceNow: { placeId: string };
   DogProfile: { dogId: string };
   PostDetail: { postId: string };
-  CreatePost: { breed: BreedEnum; initialType?: PostTypeEnum };
+  CreatePost: { breed?: BreedEnum; initialType?: PostTypeEnum; initialPlaceId?: string; initialPlaceName?: string };
   EditPost: { postId: string };
   UserProfile: { userId: string };
 };
 
 export type ExploreStackParamList = {
-  ExploreList: undefined;
+  ExploreList: { initialTab?: 'breeds' | 'places' } | undefined;
   BreedFeed: { breed: BreedEnum };
   SearchMain: SearchMainParams;
   DogProfile: { dogId: string };
   PostDetail: { postId: string };
-  CreatePost: { breed: BreedEnum };
+  CreatePost: { breed?: BreedEnum; initialType?: PostTypeEnum; initialPlaceId?: string; initialPlaceName?: string };
   EditPost: { postId: string };
   UserProfile: { userId: string };
+  PlacesList: undefined;
+  PlaceDetail: { placeId: string };
+  PlaceNow: { placeId: string };
 };
 
 export type CreateStackParamList = {

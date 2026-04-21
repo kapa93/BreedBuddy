@@ -233,6 +233,7 @@ export type CreateMeetupDetails = {
   spots_available?: number | null;
   host_notes?: string | null;
   is_recurring_seeded?: boolean;
+  place_id?: string | null;
 };
 
 export async function createPost(
@@ -243,6 +244,7 @@ export async function createPost(
     tag: PostTagEnum;
     content_text: string;
     title?: string | null;
+    place_id?: string | null;
     meetup_details?: CreateMeetupDetails;
   },
   imageUrls: string[] = []
@@ -270,6 +272,7 @@ export async function createPost(
       spots_available: meetup_details.spots_available ?? null,
       host_notes: meetup_details.host_notes ?? null,
       is_recurring_seeded: meetup_details.is_recurring_seeded ?? false,
+      place_id: meetup_details.place_id ?? null,
     });
     if (mdError) throw mdError;
   }
@@ -349,6 +352,72 @@ export async function searchPosts(
   if (type) q = q.eq('type', type);
 
   const { data, error } = await q;
+  if (error) throw error;
+
+  const rawPosts = (data ?? []) as RawPostRow[];
+  return enrichPosts(rawPosts, userId);
+}
+
+/**
+ * Returns all meetup posts linked to a place, ordered by start_time ascending.
+ * Only returns posts whose meetup_details.place_id matches the given placeId.
+ */
+export async function getPlaceMeetupPosts(
+  placeId: string,
+  userId: string | null = null
+): Promise<PostWithDetails[]> {
+  const { data: meetupRows, error: mdError } = await supabase
+    .from('meetup_details')
+    .select('post_id')
+    .eq('place_id', placeId)
+    .order('start_time', { ascending: true });
+
+  if (mdError) throw mdError;
+  if (!meetupRows || meetupRows.length === 0) return [];
+
+  const postIds = (meetupRows as Array<{ post_id: string }>).map((r) => r.post_id);
+
+  const { data, error } = await supabase
+    .from('posts')
+    .select(
+      `
+      *,
+      profiles:author_id (id, name),
+      post_images (image_url, sort_order),
+      post_reactions (user_id, reaction_type)
+    `
+    )
+    .in('id', postIds)
+    .order('created_at', { ascending: false });
+
+  if (error) throw error;
+
+  const rawPosts = (data ?? []) as RawPostRow[];
+  return enrichPosts(rawPosts, userId);
+}
+
+/**
+ * Returns all posts explicitly linked to a place via posts.place_id,
+ * ordered newest first. Only posts with structured place linkage are returned —
+ * no text inference or GPS proximity.
+ */
+export async function getPlacePosts(
+  placeId: string,
+  userId: string | null = null
+): Promise<PostWithDetails[]> {
+  const { data, error } = await supabase
+    .from('posts')
+    .select(
+      `
+      *,
+      profiles:author_id (id, name),
+      post_images (image_url, sort_order),
+      post_reactions (user_id, reaction_type)
+    `
+    )
+    .eq('place_id', placeId)
+    .order('created_at', { ascending: false });
+
   if (error) throw error;
 
   const rawPosts = (data ?? []) as RawPostRow[];

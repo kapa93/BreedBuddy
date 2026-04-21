@@ -174,6 +174,7 @@ export interface Post {
   content_text: string;
   created_at: string;
   updated_at: string;
+  place_id?: string | null;
   author?: Profile;
   dog?: Dog;
   post_images?: PostImage[];
@@ -199,6 +200,7 @@ export const MEETUP_KIND_LABELS: Record<MeetupKind, string> = {
 
 export interface MeetupDetails {
   post_id: string;
+  place_id: string | null;
   location_name: string;
   start_time: string;
   end_time: string | null;

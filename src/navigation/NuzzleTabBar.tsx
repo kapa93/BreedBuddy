@@ -8,7 +8,10 @@ import Animated, {
   interpolateColor,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import {
+  BottomTabBarHeightCallbackContext,
+  BottomTabBarProps,
+} from "@react-navigation/bottom-tabs";
 import { useQuery } from "@tanstack/react-query";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { DogPawIcon } from "@/assets/DogPawIcon";
@@ -28,6 +31,9 @@ const TAB_CONFIG = [
 const INDICATOR_ANIMATION = { duration: 60 };
 const WRAP_PADDING_H = spacing.md;
 const TAB_BAR_HIDE_OFFSET = 120;
+
+/** Pixels the tab bar root extends below the window (`outer.bottom`). Measured layout height includes this; list `paddingBottom` should subtract it for a flush scroll end. */
+export const NUZZLE_TAB_BAR_LAYOUT_EXTENDS_BELOW_SCREEN = 12;
 const CREATE_BUTTON_PRESS_ANIMATION = { duration: 180 };
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -93,6 +99,7 @@ function TabBarItem({
 }
 
 export function NuzzleTabBar({ state, navigation }: BottomTabBarProps) {
+  const onTabBarHeightChange = React.useContext(BottomTabBarHeightCallbackContext);
   const insets = useSafeAreaInsets();
   const user = useAuthStore((s) => s.user);
   const { scrollDirection, setScrollDirection } = useScrollDirection();
@@ -173,6 +180,7 @@ export function NuzzleTabBar({ state, navigation }: BottomTabBarProps) {
         { paddingBottom: Math.max(insets.bottom - 45, spacing.xxs) + 8 },
         animatedBarStyle,
       ]}
+      onLayout={(e) => onTabBarHeightChange?.(e.nativeEvent.layout.height)}
     >
       <View
         style={styles.wrap}
@@ -249,7 +257,7 @@ export function NuzzleTabBar({ state, navigation }: BottomTabBarProps) {
 const styles = StyleSheet.create({
   outer: {
     position: "absolute",
-    bottom: -12,
+    bottom: -NUZZLE_TAB_BAR_LAYOUT_EXTENDS_BELOW_SCREEN,
     left: 0,
     right: 0,
     zIndex: 10,
@@ -266,8 +274,8 @@ const styles = StyleSheet.create({
     ...shadow.sm,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: -1 },
-    shadowOpacity: 0.11,
-    shadowRadius: 2,
+    shadowOpacity: 0.12,
+    shadowRadius: 1,
     elevation: 3,
   },
   item: {
