@@ -22,6 +22,7 @@ import Animated, {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useQuery } from "@tanstack/react-query";
 import { Ionicons } from "@expo/vector-icons";
+import { MapPinned } from "lucide-react-native";
 import { getPackItems } from "@/utils/breedAssets";
 import { useStackHeaderHeight } from "@/hooks/useStackHeaderHeight";
 import { listActivePlaces } from "@/api/places";
@@ -137,7 +138,7 @@ export function ExploreScreen({
           accessibilityRole="button"
           accessibilityLabel="My Places"
         >
-          <Ionicons name="compass-outline" size={26} color={colors.primaryDark} />
+          <MapPinned size={26} color="#000000" />
         </Pressable>
       ),
     });

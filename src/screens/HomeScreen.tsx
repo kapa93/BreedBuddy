@@ -45,7 +45,7 @@ import { MyPlacesSheet } from "@/components/MyPlacesSheet";
 import { colors, radius, spacing, typography } from "@/theme";
 import type { FeedFilter } from "@/store/uiStore";
 import { captureHandledError } from '@/lib/sentry';
-import { Ionicons } from '@expo/vector-icons';
+import { MapPinned } from 'lucide-react-native';
 
 const TABS = ["All", "Questions", "Meetups", "Tips", "Update/Story"] as const;
 type TabKey = (typeof TABS)[number];
@@ -102,7 +102,7 @@ export function HomeScreen({
           accessibilityRole="button"
           accessibilityLabel="My Places"
         >
-          <Ionicons name="compass-outline" size={26} color={colors.primaryDark} />
+          <MapPinned size={25} color="#000000" />
         </Pressable>
       ),
     });
@@ -682,6 +682,9 @@ const styles = StyleSheet.create({
   myPlacesChip: {
     paddingHorizontal: spacing.sm,
     paddingVertical: spacing.xs,
+    position: "relative",
+    bottom: 2,
+    left: 5,
   },
   myPlacesChipPressed: { opacity: 0.5 },
   listContent: { paddingBottom: spacing.xxxl },

@@ -452,7 +452,7 @@ export function PostDetailScreen() {
           <TextInput
             ref={commentInputRef}
             style={styles.input}
-            placeholder="Chime in..."
+            placeholder="Chime in…"
             placeholderTextColor={colors.textMuted}
             value={commentText}
             onChangeText={setCommentText}

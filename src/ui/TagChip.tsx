@@ -26,7 +26,7 @@ export const toneStyles: Record<Tone, { bg: string; text: string }> = {
   gear:       { bg: "#DDE8F5", text: "#1A3E6B" },
   puppy:      { bg: "#FFF0CC", text: "#FFA500" },
   adolescent: { bg: "#D4EEE8", text: "#1A4E44" },
-  adult:      { bg: "#E4EDDC", text: "#334A20" },
+  adult:      { bg: "#FAEBD8", text: "#D86722" },
   senior:     { bg: "#EDE4D4", text: "#4A3820" },
   playdate:   { bg: "#FFE0EB", text: "#8B1A3A" },
 };
