@@ -22,7 +22,7 @@ export const toneStyles: Record<Tone, { bg: string; text: string }> = {
   behavior:   { bg: "#D6F3FC", text: "#00a8dd" },
   health:     { bg: "#FDECEA", text: "#CA2D2D" },
   grooming:   { bg: "#F0E4F8", text: "#6B2E8A" },
-  food:       { bg: "#E8F5E0", text: "#2E5A1A" },
+  food:       { bg: "#EDE4F2", text: "#654B8C" },
   gear:       { bg: "#DDE8F5", text: "#1A3E6B" },
   puppy:      { bg: "#FFF0CC", text: "#FFA500" },
   adolescent: { bg: "#D4EEE8", text: "#1A4E44" },

@@ -1,5 +1,63 @@
-import { supabase } from '@/lib/supabase';
-import type { ActivePlaceCheckin, BreedEnum, DogLocationCheckin, Place } from '@/types';
+import { supabase, supabaseUrl } from '@/lib/supabase';
+import type {
+  ActivePlaceCheckin,
+  BreedEnum,
+  DogLocationCheckin,
+  GooglePlaceCandidate,
+  GooglePlacePreview,
+  Place,
+} from '@/types';
+
+function normalizeGooglePlaceText(value: string | null | undefined): string {
+  return (value ?? '').trim().toLowerCase();
+}
+
+function googlePlaceSignature(place: GooglePlaceCandidate): string {
+  return [
+    normalizeGooglePlaceText(place.name),
+    normalizeGooglePlaceText(place.formattedAddress),
+    normalizeGooglePlaceText(place.neighborhood),
+    normalizeGooglePlaceText(place.city),
+  ].join('|');
+}
+
+function dedupeGooglePlaceCandidates(places: GooglePlaceCandidate[]): GooglePlaceCandidate[] {
+  const seenIds = new Set<string>();
+  const seenSignatures = new Set<string>();
+
+  return places.filter((place) => {
+    const normalizedId = normalizeGooglePlaceText(place.googlePlaceId);
+    const signature = googlePlaceSignature(place);
+
+    if (normalizedId && seenIds.has(normalizedId)) return false;
+    if (seenSignatures.has(signature)) return false;
+
+    if (normalizedId) seenIds.add(normalizedId);
+    seenSignatures.add(signature);
+    return true;
+  });
+}
+
+async function throwFunctionError(error: unknown): Promise<never> {
+  const context = (error as { context?: unknown }).context;
+  if (context instanceof Response) {
+    try {
+      const body = await context.json();
+      const message =
+        typeof body?.error === 'string'
+          ? body.error
+          : `Edge Function failed with status ${context.status}`;
+      throw new Error(message);
+    } catch (parseError) {
+      if (parseError instanceof Error && parseError.message !== 'Unexpected end of JSON input') {
+        throw parseError;
+      }
+    }
+  }
+
+  if (error instanceof Error) throw error;
+  throw new Error('Edge Function failed');
+}
 
 export async function getPlaceBySlug(slug: string): Promise<Place> {
   const { data, error } = await supabase
@@ -32,6 +90,80 @@ export async function listActivePlaces(): Promise<Place[]> {
 
   if (error) throw error;
   return (data ?? []) as Place[];
+}
+
+export async function searchGooglePlaces(query: string): Promise<GooglePlaceCandidate[]> {
+  return searchGooglePlacesWithOptions({ query });
+}
+
+export async function searchGooglePlacesWithOptions({
+  query,
+  latitude,
+  longitude,
+}: {
+  query: string;
+  latitude?: number | null;
+  longitude?: number | null;
+}): Promise<GooglePlaceCandidate[]> {
+  const { data, error } = await supabase.functions.invoke<{ places: GooglePlaceCandidate[] }>(
+    'google-places',
+    {
+      body: { action: 'search', query, latitude: latitude ?? null, longitude: longitude ?? null },
+    }
+  );
+
+  if (error) await throwFunctionError(error);
+  return dedupeGooglePlaceCandidates(data?.places ?? []);
+}
+
+export async function getGooglePlacePreview(googlePlaceId: string): Promise<GooglePlacePreview> {
+  const { data, error } = await supabase.functions.invoke<{ place: GooglePlacePreview }>(
+    'google-places',
+    {
+      body: { action: 'details', googlePlaceId },
+    }
+  );
+
+  if (error) await throwFunctionError(error);
+  if (!data?.place) throw new Error('Google place details did not return a place');
+  return data.place;
+}
+
+export function getGooglePlacePhotoUrl(photoName: string, accessToken: string): string {
+  const params = new URLSearchParams({
+    action: 'photo',
+    name: photoName,
+    access_token: accessToken,
+  });
+  return `${supabaseUrl}/functions/v1/google-places?${params.toString()}`;
+}
+
+export async function importGooglePlace(googlePlaceId: string): Promise<Place> {
+  const { data, error } = await supabase.functions.invoke<{ place: Place }>('google-places', {
+    body: { action: 'import', googlePlaceId },
+  });
+
+  if (error) await throwFunctionError(error);
+  if (!data?.place) throw new Error('Google place import did not return a place');
+  return data.place;
+}
+
+export async function getNearbyGooglePlaces({
+  latitude,
+  longitude,
+}: {
+  latitude: number;
+  longitude: number;
+}): Promise<GooglePlaceCandidate[]> {
+  const { data, error } = await supabase.functions.invoke<{ places: GooglePlaceCandidate[] }>(
+    'google-places',
+    {
+      body: { action: 'nearby', latitude, longitude },
+    }
+  );
+
+  if (error) await throwFunctionError(error);
+  return dedupeGooglePlaceCandidates(data?.places ?? []);
 }
 
 export async function getActivePlaceCheckins(placeId: string): Promise<ActivePlaceCheckin[]> {
@@ -213,4 +345,35 @@ export async function getActivePlaceCheckinCounts(
     }
   }
   return counts;
+}
+
+export async function getPlacePopularitySignals(
+  placeIds: string[]
+): Promise<Record<string, { savedCount: number; checkinCount: number }>> {
+  if (placeIds.length === 0) return {};
+
+  const [savesRes, checkinsRes] = await Promise.all([
+    supabase.from('user_place_saves').select('place_id').in('place_id', placeIds),
+    supabase.from('dog_location_checkins').select('place_id').in('place_id', placeIds),
+  ]);
+
+  if (savesRes.error) throw savesRes.error;
+  if (checkinsRes.error) throw checkinsRes.error;
+
+  const popularity: Record<string, { savedCount: number; checkinCount: number }> = {};
+  for (const placeId of placeIds) {
+    popularity[placeId] = { savedCount: 0, checkinCount: 0 };
+  }
+
+  for (const row of (savesRes.data ?? []) as Array<{ place_id: string | null }>) {
+    if (!row.place_id || !popularity[row.place_id]) continue;
+    popularity[row.place_id].savedCount += 1;
+  }
+
+  for (const row of (checkinsRes.data ?? []) as Array<{ place_id: string | null }>) {
+    if (!row.place_id || !popularity[row.place_id]) continue;
+    popularity[row.place_id].checkinCount += 1;
+  }
+
+  return popularity;
 }

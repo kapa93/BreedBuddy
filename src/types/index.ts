@@ -135,6 +135,7 @@ export interface Place {
   id: string;
   name: string;
   slug: string;
+  google_place_id: string | null;
   place_type: PlaceTypeEnum;
   city: string | null;
   neighborhood: string | null;
@@ -145,8 +146,40 @@ export interface Place {
   description: string | null;
   is_active: boolean;
   supports_check_in: boolean;
+  photos: string[];
   created_at: string;
   updated_at: string;
+}
+
+export interface GooglePlaceCandidate {
+  googlePlaceId: string;
+  name: string;
+  formattedAddress: string | null;
+  shortFormattedAddress: string | null;
+  latitude: number | null;
+  longitude: number | null;
+  city: string | null;
+  neighborhood: string | null;
+  placeType: PlaceTypeEnum;
+  types: string[];
+  rating: number | null;
+  userRatingCount: number | null;
+}
+
+export interface GooglePlacePhoto {
+  name: string;
+  widthPx: number | null;
+  heightPx: number | null;
+  authorAttributions: unknown[];
+}
+
+export interface GooglePlacePreview extends GooglePlaceCandidate {
+  displayName: string;
+  currentOpeningHours: unknown | null;
+  attributions: unknown[];
+  photos: GooglePlacePhoto[];
+  ratingCount: number | null;
+  openNow: boolean | null;
 }
 
 export interface DogInteraction {

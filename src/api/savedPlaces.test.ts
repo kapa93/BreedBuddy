@@ -25,6 +25,7 @@ const stubPlace: Place = {
   id: 'place-1',
   name: 'Ocean Beach Dog Beach',
   slug: 'ocean-beach-dog-beach',
+  google_place_id: null,
   place_type: 'dog_beach',
   city: 'San Francisco',
   neighborhood: 'Ocean Beach',

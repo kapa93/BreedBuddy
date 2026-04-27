@@ -4,6 +4,10 @@ jest.mock('@tanstack/react-query', () => ({
   useQueryClient: jest.fn(),
 }));
 
+jest.mock('@expo/vector-icons', () => ({
+  Ionicons: () => null,
+}));
+
 jest.mock('@/hooks/useStackHeaderHeight', () => ({
   useStackHeaderHeight: jest.fn(() => 0),
 }));
@@ -58,6 +62,7 @@ const stubPlace: Place = {
   id: 'place-1',
   name: 'Ocean Beach Dog Beach',
   slug: 'ocean-beach-dog-beach',
+  google_place_id: null,
   place_type: 'dog_beach',
   city: 'San Francisco',
   neighborhood: 'Ocean Beach',
@@ -150,13 +155,13 @@ describe('PlacesScreen', () => {
     expect(screen.getByText('Fiesta Island Dog Park')).toBeTruthy();
   });
 
-  it('navigates to PlaceNow when a place row is pressed', () => {
+  it('navigates to PlaceDetail when a place row is pressed', () => {
     setup();
     render(<PlacesScreen navigation={{ navigate }} />);
 
     // Press the first occurrence of the place name
     fireEvent.press(screen.getAllByText('Ocean Beach Dog Beach')[0]);
-    expect(navigate).toHaveBeenCalledWith('PlaceNow', { placeId: 'place-1' });
+    expect(navigate).toHaveBeenCalledWith('PlaceDetail', { placeId: 'place-1' });
   });
 
   it('fires the save toggle mutation when save button is pressed', () => {

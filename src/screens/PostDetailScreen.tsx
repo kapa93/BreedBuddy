@@ -642,6 +642,7 @@ const styles = StyleSheet.create({
   reportBtn: {
     flexDirection: "row",
     alignItems: "center",
+    transform: [{ translateY: 7 }],
   },
   reportIconWrap: {
     marginRight: 2,

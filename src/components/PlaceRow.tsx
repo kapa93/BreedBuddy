@@ -26,15 +26,30 @@ type Props = {
   onSaveToggle: () => void;
   onPress: () => void;
   saveLoading?: boolean;
+  variant?: 'card' | 'plain';
+  showTypeChip?: boolean;
 };
 
-export function PlaceRow({ place, isSaved, onSaveToggle, onPress, saveLoading }: Props) {
+export function PlaceRow({
+  place,
+  isSaved,
+  onSaveToggle,
+  onPress,
+  saveLoading,
+  variant = 'card',
+  showTypeChip = true,
+}: Props) {
   const locationLine = [place.neighborhood, place.city].filter(Boolean).join(', ');
+  const isPlain = variant === 'plain';
 
   return (
     <Pressable
       onPress={onPress}
-      style={({ pressed }) => [styles.row, pressed && styles.pressed]}
+      style={({ pressed }) => [
+        styles.row,
+        isPlain ? styles.rowPlain : styles.rowCard,
+        pressed && styles.pressed,
+      ]}
       accessibilityRole="button"
       accessibilityLabel={place.name}
     >
@@ -49,9 +64,11 @@ export function PlaceRow({ place, isSaved, onSaveToggle, onPress, saveLoading }:
       <View style={styles.body}>
         <Text style={styles.name} numberOfLines={1}>{place.name}</Text>
         <View style={styles.meta}>
-          <View style={styles.typeChip}>
-            <Text style={styles.typeChipText}>{PLACE_TYPE_LABELS[place.place_type]}</Text>
-          </View>
+          {showTypeChip ? (
+            <View style={styles.typeChip}>
+              <Text style={styles.typeChipText}>{PLACE_TYPE_LABELS[place.place_type]}</Text>
+            </View>
+          ) : null}
           {locationLine ? (
             <Text style={styles.location} numberOfLines={1}>{locationLine}</Text>
           ) : null}
@@ -80,12 +97,25 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
+    paddingVertical: spacing.sm + 2,
+  },
+  rowCard: {
     backgroundColor: colors.surface,
     borderWidth: 1,
     borderColor: colors.border,
     borderRadius: radius.lg,
     padding: spacing.md,
     ...shadow.sm,
+  },
+  rowPlain: {
+    marginHorizontal: -spacing.lg,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
+    backgroundColor: 'transparent',
+    borderRadius: 0,
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.xs,
+    paddingBottom: spacing.md + 1,
   },
   pressed: {
     opacity: 0.9,

@@ -15,6 +15,7 @@ import { PlaceCheckinScreen } from '@/screens/PlaceCheckinScreen';
 import { PlaceDetailScreen } from '@/screens/PlaceDetailScreen';
 import { PlacesScreen } from '@/screens/PlacesScreen';
 import { ExploreScreen } from '@/screens/ExploreScreen';
+import { GooglePlacePreviewScreen } from '@/screens/GooglePlacePreviewScreen';
 import { NotificationsScreen } from '@/screens/NotificationsScreen';
 import { ProfileScreen } from '@/screens/ProfileScreen';
 import { BreedFeedScreen } from '@/screens/BreedFeedScreen';
@@ -179,6 +180,11 @@ function ExploreTab() {
       <Stack.Screen name="UserProfile" component={UserProfileScreen} options={{ title: 'Profile' }} />
       <Stack.Screen name="PlacesList" component={PlacesScreen} options={{ title: 'Places' }} />
       <Stack.Screen name="PlaceDetail" component={PlaceDetailScreen} options={{ title: 'Place' }} />
+      <Stack.Screen
+        name="GooglePlacePreview"
+        component={GooglePlacePreviewScreen}
+        options={{ title: 'Place Preview' }}
+      />
       <Stack.Screen name="PlaceNow" component={PlaceCheckinScreen} options={{ title: 'Dogs Here Now' }} />
     </Stack.Navigator>
   );

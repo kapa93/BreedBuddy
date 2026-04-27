@@ -295,7 +295,7 @@ const styles = StyleSheet.create({
   sheetTitle: {
     ...typography.subtitle,
     fontFamily: 'Inter_700Bold',
-    transform: [{ translateY: -11 }],
+    transform: [{ translateY: -12 }],
   },
   list: {
     paddingTop: spacing.xs,

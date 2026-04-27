@@ -41,7 +41,7 @@
       [
         "expo-location",
         {
-          "locationWhenInUsePermission": "Nuzzle uses your location to let you check in when you are near Ocean Beach Dog Beach."
+          "locationWhenInUsePermission": "Nuzzle uses your location to find dog parks, beaches, and trails near you."
         }
       ],
       ["@sentry/react-native", { "disableAutoUpload": true }]

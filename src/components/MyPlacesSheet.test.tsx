@@ -25,6 +25,7 @@ const stubPlaceOB: Place = {
   id: 'place-1',
   name: 'Ocean Beach Dog Beach',
   slug: 'ocean-beach-dog-beach',
+  google_place_id: null,
   place_type: 'dog_beach',
   city: 'San Diego',
   neighborhood: 'Ocean Beach',
@@ -140,7 +141,7 @@ describe('MyPlacesSheet', () => {
 
   it('calls onClose when the close button is pressed', () => {
     render(<MyPlacesSheet {...baseProps()} />);
-    fireEvent.press(screen.getByLabelText('Close'));
+    fireEvent.press(screen.getByLabelText('Close My Places'));
     // onClose is called after animation; we verify handleClose chain via callback spy
     // We allow a small delay for Animated.timing — just assert the press doesn't throw
     expect(onClose).not.toThrow();

@@ -65,6 +65,7 @@ export type ExploreStackParamList = {
   UserProfile: { userId: string };
   PlacesList: undefined;
   PlaceDetail: { placeId: string };
+  GooglePlacePreview: { googlePlaceId: string; initialName?: string };
   PlaceNow: { placeId: string };
 };
 

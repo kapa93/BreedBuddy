@@ -9,7 +9,7 @@ export async function getSavedPlaces(userId: string): Promise<Place[]> {
     .order('created_at', { ascending: false });
 
   if (error) throw error;
-  return ((data ?? []) as Array<{ places: Place }>).map((row) => row.places);
+  return ((data ?? []) as unknown as Array<{ places: Place }>).map((row) => row.places);
 }
 
 export async function savePlace(userId: string, placeId: string): Promise<void> {

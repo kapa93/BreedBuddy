@@ -142,6 +142,7 @@ export interface Database {
           id: string;
           name: string;
           slug: string;
+          google_place_id: string | null;
           place_type: PlaceTypeEnum;
           city: string | null;
           neighborhood: string | null;
@@ -159,6 +160,7 @@ export interface Database {
           id?: string;
           name: string;
           slug: string;
+          google_place_id?: string | null;
           place_type: PlaceTypeEnum;
           city?: string | null;
           neighborhood?: string | null;
@@ -176,6 +178,7 @@ export interface Database {
           id?: string;
           name?: string;
           slug?: string;
+          google_place_id?: string | null;
           place_type?: PlaceTypeEnum;
           city?: string | null;
           neighborhood?: string | null;

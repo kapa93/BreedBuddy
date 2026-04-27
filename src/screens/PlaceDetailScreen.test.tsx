@@ -21,6 +21,10 @@ jest.mock('@react-navigation/bottom-tabs', () => ({
   useBottomTabBarHeight: jest.fn(() => 49),
 }));
 
+jest.mock('@/navigation/NuzzleTabBar', () => ({
+  NUZZLE_TAB_BAR_LAYOUT_EXTENDS_BELOW_SCREEN: 34,
+}));
+
 jest.mock('@/store/authStore', () => ({
   useAuthStore: jest.fn(),
 }));
@@ -38,6 +42,15 @@ jest.mock('@/api/places', () => ({
 jest.mock('@/api/posts', () => ({
   getPlaceMeetupPosts: jest.fn(),
   getPlacePosts: jest.fn(),
+}));
+
+jest.mock('@/api/meetups', () => ({
+  rsvpMeetup: jest.fn(),
+  unrsvpMeetup: jest.fn(),
+}));
+
+jest.mock('@/api/reactions', () => ({
+  setReaction: jest.fn(),
 }));
 
 jest.mock('@/components/PostCard', () => {
@@ -108,6 +121,7 @@ const stubPlace: Place = {
   id: 'place-1',
   name: 'Ocean Beach Dog Beach',
   slug: 'ocean-beach-dog-beach',
+  google_place_id: null,
   place_type: 'dog_beach',
   city: 'San Diego',
   neighborhood: 'Ocean Beach',

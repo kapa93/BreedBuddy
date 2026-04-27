@@ -85,7 +85,11 @@ jest.mock('@/api/places', () => ({
   getMyActivePlaceCheckins: jest.fn(),
   getPlaceBySlug: jest.fn(),
 }));
-jest.mock('@/config/places', () => ({ OB_DOG_BEACH_SLUG: 'ocean-beach-dog-beach', DEBUG_FORCE_NEARBY: false }));
+jest.mock('@/config/places', () => ({
+  OB_DOG_BEACH_SLUG: 'ocean-beach-dog-beach',
+  DEBUG_FORCE_NEARBY: false,
+  ENABLE_HOME_PLACE_PROXIMITY_LOCATION: false,
+}));
 jest.mock('@/utils/location', () => ({ getDistanceMeters: jest.fn(() => 9999) }));
 jest.mock('@/utils/breedAssets', () => ({
   getBreedHeroImageSource: jest.fn(() => null),

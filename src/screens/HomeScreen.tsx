@@ -35,7 +35,11 @@ import { PlaceNearbyAlert } from '@/components/PlaceNearbyAlert';
 import { PlaceNowAlert } from '@/components/PlaceNowAlert';
 import { getBreedHeroImageSource, getBreedHeroImageStyle, getBreedHeroTitle } from "@/utils/breedAssets";
 import { BREED_LABELS } from "@/utils/breed";
-import { OB_DOG_BEACH_SLUG, DEBUG_FORCE_NEARBY } from '@/config/places';
+import {
+  OB_DOG_BEACH_SLUG,
+  DEBUG_FORCE_NEARBY,
+  ENABLE_HOME_PLACE_PROXIMITY_LOCATION,
+} from '@/config/places';
 import { getDistanceMeters } from '@/utils/location';
 import { useScrollDirection, useScrollDirectionUpdater } from "@/context/ScrollDirectionContext";
 import { useStackHeaderHeight } from "@/hooks/useStackHeaderHeight";
@@ -189,6 +193,7 @@ export function HomeScreen({
   });
 
   useEffect(() => {
+    if (!ENABLE_HOME_PLACE_PROXIMITY_LOCATION) return;
     if (!user?.id || !obPlace) return;
     let isCancelled = false;
 
@@ -239,7 +244,7 @@ export function HomeScreen({
       isCancelled = true;
       clearInterval(intervalId);
     };
-  }, [user?.id, obPlace, forceNearby]);
+  }, [user?.id, obPlace, forceNearby, ENABLE_HOME_PLACE_PROXIMITY_LOCATION]);
 
   useEffect(() => {
     placeAlertTranslateY.value = withTiming(scrollDirection === 'down' ? -(headerHeight - 48) : 0, {

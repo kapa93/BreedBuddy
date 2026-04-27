@@ -66,6 +66,7 @@ export function PlacesScreen({ navigation }: Props) {
                     onPress={() => handlePlacePress(place.id)}
                     onSaveToggle={() => handleSaveToggle(place.id, true)}
                     saveLoading={toggleSave.isPending}
+                    showTypeChip={false}
                   />
                 ))}
               </View>
@@ -89,6 +90,7 @@ export function PlacesScreen({ navigation }: Props) {
                     onPress={() => handlePlacePress(place.id)}
                     onSaveToggle={() => handleSaveToggle(place.id, savedPlaceIds.has(place.id))}
                     saveLoading={toggleSave.isPending}
+                    showTypeChip={false}
                   />
                 ))}
               </View>
