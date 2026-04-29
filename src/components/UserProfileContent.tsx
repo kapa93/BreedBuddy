@@ -175,7 +175,6 @@ export function UserProfileContent({
       <View style={styles.screen}>
         <View style={styles.centeredState}>
           <ActivityIndicator size="large" color={colors.primary} />
-          <Text style={styles.stateText}>Loading profile...</Text>
         </View>
       </View>
     );

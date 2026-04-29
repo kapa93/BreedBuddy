@@ -16,8 +16,8 @@ import { PlaceDetailScreen } from '@/screens/PlaceDetailScreen';
 import { PlacesScreen } from '@/screens/PlacesScreen';
 import { ExploreScreen } from '@/screens/ExploreScreen';
 import { GooglePlacePreviewScreen } from '@/screens/GooglePlacePreviewScreen';
-import { NotificationsScreen } from '@/screens/NotificationsScreen';
 import { ProfileScreen } from '@/screens/ProfileScreen';
+import { SavedPlacesScreen } from '@/screens/SavedPlacesScreen';
 import { BreedFeedScreen } from '@/screens/BreedFeedScreen';
 import { PostDetailScreen } from '@/screens/PostDetailScreen';
 import { CreatePostScreen } from '@/screens/CreatePostScreen';
@@ -41,8 +41,8 @@ import {
 import type {
   ExploreStackParamList,
   HomeStackParamList,
-  NotificationsStackParamList,
   ProfileStackParamList,
+  SavedPlacesStackParamList,
 } from './types';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
@@ -88,8 +88,8 @@ function HomeTabWithBoundary() {
 function ExploreTabWithBoundary() {
   return <Sentry.ErrorBoundary fallback={<TabErrorFallback />}><ExploreTab /></Sentry.ErrorBoundary>;
 }
-function NotificationsTabWithBoundary() {
-  return <Sentry.ErrorBoundary fallback={<TabErrorFallback />}><NotificationsTab /></Sentry.ErrorBoundary>;
+function SavedPlacesTabWithBoundary() {
+  return <Sentry.ErrorBoundary fallback={<TabErrorFallback />}><SavedPlacesTab /></Sentry.ErrorBoundary>;
 }
 function ProfileTabWithBoundary() {
   return <Sentry.ErrorBoundary fallback={<TabErrorFallback />}><ProfileTab /></Sentry.ErrorBoundary>;
@@ -194,23 +194,46 @@ function EmptyCreateTab() {
   return <View style={{ flex: 1, backgroundColor: colors.background }} />;
 }
 
-function NotificationsTab() {
-  const Stack = createNativeStackNavigator<NotificationsStackParamList>();
+function SavedPlacesTab() {
+  const Stack = createNativeStackNavigator<SavedPlacesStackParamList>();
   return (
     <Stack.Navigator
       screenOptions={{
         contentStyle: { backgroundColor: colors.background },
         headerTransparent: true,
-        header: (props) => <AnimatedStackHeader {...props} animateOnScroll />,
+        header: (props) => <AnimatedStackHeader {...props} animateOnScroll={false} />,
       }}
     >
       <Stack.Screen
-        name="NotificationsMain"
-        component={NotificationsScreen}
-        options={{ title: 'Notifications' }}
+        name="SavedPlacesFeed"
+        component={SavedPlacesScreen}
+        options={{
+          title: 'My Places',
+          header: (props) => <AnimatedStackHeader {...props} animateOnScroll />,
+        }}
       />
-      <Stack.Screen name="SearchMain" component={SearchScreen} options={{ title: 'Search' }} />
+      <Stack.Screen name="PlaceDetail" component={PlaceDetailScreen} options={{ title: 'Place' }} />
+      <Stack.Screen name="PlaceNow" component={PlaceCheckinScreen} options={{ title: 'Dogs Here Now' }} />
+      <Stack.Screen name="DogProfile" component={DogProfileScreen} options={{ title: 'Dog' }} />
       <Stack.Screen name="PostDetail" component={PostDetailScreen} options={{ title: 'Post' }} />
+      <Stack.Screen
+        name="CreatePost"
+        component={CreatePostScreen}
+        options={{
+          title: 'Create Post',
+          header: (props) => (
+            <AnimatedStackHeader
+              {...props}
+              animateOnScroll
+              bottomSeparator
+              baseHeaderHeight={CREATE_POST_STACK_HEADER_BAR}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen name="EditPost" component={EditPostScreen} options={{ title: 'Edit Post' }} />
+      <Stack.Screen name="UserProfile" component={UserProfileScreen} options={{ title: 'Profile' }} />
+      <Stack.Screen name="SearchMain" component={SearchScreen} options={{ title: 'Search' }} />
     </Stack.Navigator>
   );
 }
@@ -287,9 +310,9 @@ function MainTabs() {
       }}
     >
       <Tab.Screen name="Home" component={HomeTabWithBoundary} />
-      <Tab.Screen name="Explore" component={ExploreTabWithBoundary} />
+      <Tab.Screen name="SavedPlaces" component={SavedPlacesTabWithBoundary} />
       <Tab.Screen name="Create" component={EmptyCreateTab} />
-      <Tab.Screen name="Notifications" component={NotificationsTabWithBoundary} />
+      <Tab.Screen name="Explore" component={ExploreTabWithBoundary} />
       <Tab.Screen name="Profile" component={ProfileTabWithBoundary} />
     </Tab.Navigator>
   );
@@ -317,7 +340,6 @@ export function RootNavigator() {
     return (
       <View style={styles.loading}>
         <ActivityIndicator size="large" color={colors.primary} />
-        <Text style={styles.loadingText}>Loading...</Text>
       </View>
     );
   }
@@ -456,11 +478,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.background,
-  },
-  loadingText: {
-    marginTop: 12,
-    fontSize: 16,
-    color: '#5B6A61',
   },
   tabErrorFallback: {
     flex: 1,

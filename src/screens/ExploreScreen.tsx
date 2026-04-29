@@ -23,7 +23,7 @@ import Animated, {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useQuery } from "@tanstack/react-query";
 import { Ionicons } from "@expo/vector-icons";
-import { MapPinned } from "lucide-react-native";
+import { Bell } from "lucide-react-native";
 import * as Location from "expo-location";
 import { getPackItems } from "@/utils/breedAssets";
 import { useStackHeaderHeight } from "@/hooks/useStackHeaderHeight";
@@ -33,9 +33,9 @@ import {
   searchGooglePlacesWithOptions,
 } from "@/api/places";
 import { PlaceRow } from "@/components/PlaceRow";
-import { useSavedPlaces, useToggleSavedPlace, useSavedPlacesWithActivity } from "@/hooks/useSavedPlaces";
+import { useSavedPlaces, useToggleSavedPlace } from "@/hooks/useSavedPlaces";
 import { useAuthStore } from "@/store/authStore";
-import { MyPlacesSheet } from "@/components/MyPlacesSheet";
+import { NotificationsSheet } from "@/components/NotificationsSheet";
 import { colors, radius, spacing, typography } from "@/theme";
 import { getDistanceMeters } from "@/utils/location";
 import type { GooglePlaceCandidate, Place } from "@/types";
@@ -341,7 +341,7 @@ export function ExploreScreen({
   const packItems = getPackItems();
   const [activeTab, setActiveTab] = useState<Tab>(route.params?.initialTab ?? "breeds");
   const [searchQuery, setSearchQuery] = useState("");
-  const [myPlacesOpen, setMyPlacesOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [debouncedPlaceSearch, setDebouncedPlaceSearch] = useState("");
   const [coords, setCoords] = useState<UserCoords>(null);
   const [placesLocationState, setPlacesLocationState] = useState<PlacesLocationState>("unknown");
@@ -405,7 +405,6 @@ export function ExploreScreen({
     setActiveTab(tab);
     setSearchQuery("");
   };
-  const { savedPlaces, dogCounts, isLoading: savedPlacesLoading } = useSavedPlacesWithActivity(user?.id);
 
   React.useEffect(() => {
     navigation.setOptions({
@@ -414,12 +413,12 @@ export function ExploreScreen({
       ),
       headerLeft: () => (
         <Pressable
-          onPress={() => setMyPlacesOpen(true)}
-          style={({ pressed }) => [styles.myPlacesChip, pressed && styles.myPlacesChipPressed]}
+          onPress={() => setNotificationsOpen(true)}
+          style={({ pressed }) => [styles.bellIcon, pressed && styles.myPlacesChipPressed]}
           accessibilityRole="button"
-          accessibilityLabel="My Places"
+          accessibilityLabel="Notifications"
         >
-          <MapPinned size={26} color="#000000" />
+          <Bell size={24} color="#000000" />
         </Pressable>
       ),
     });
@@ -981,22 +980,10 @@ export function ExploreScreen({
           </View>
         </Animated.View>
       </SafeAreaView>
-      <MyPlacesSheet
-        visible={myPlacesOpen}
-        onClose={() => setMyPlacesOpen(false)}
-        places={savedPlaces}
-        dogCounts={dogCounts}
-        isLoading={savedPlacesLoading}
-        onPlacePress={(place) => {
-          navigation.navigate('PlaceDetail', { placeId: place.id });
-        }}
-        onCreateMeetupPress={(place) => {
-          navigation.navigate('CreatePost', {
-            initialType: 'MEETUP',
-            initialPlaceId: place.id,
-            initialPlaceName: place.name,
-          });
-        }}
+      <NotificationsSheet
+        visible={notificationsOpen}
+        onClose={() => setNotificationsOpen(false)}
+        onPostPress={(postId) => navigation.navigate('PostDetail', { postId })}
       />
     </View>
   );
@@ -1064,12 +1051,13 @@ const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: colors.surface },
   safe: { flex: 1 },
   container: { flex: 1 },
-  myPlacesChip: {
+  bellIcon: {
     paddingHorizontal: spacing.sm,
     paddingVertical: spacing.xs,
     position: "relative",
-    bottom: 2,
+    bottom: 1,
     left: 5,
+    transform: [{ translateX: 1 }],
   },
   myPlacesChipPressed: { opacity: 0.5 },
 

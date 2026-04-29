@@ -44,12 +44,11 @@ import { getDistanceMeters } from '@/utils/location';
 import { useScrollDirection, useScrollDirectionUpdater } from "@/context/ScrollDirectionContext";
 import { useStackHeaderHeight } from "@/hooks/useStackHeaderHeight";
 import { useFeedData } from "@/hooks/useFeedData";
-import { useSavedPlacesWithActivity } from "@/hooks/useSavedPlaces";
-import { MyPlacesSheet } from "@/components/MyPlacesSheet";
+import { NotificationsSheet } from "@/components/NotificationsSheet";
 import { colors, radius, spacing, typography } from "@/theme";
 import type { FeedFilter } from "@/store/uiStore";
 import { captureHandledError } from '@/lib/sentry';
-import { MapPinned } from 'lucide-react-native';
+import { Bell } from 'lucide-react-native';
 
 const TABS = ["All", "Questions", "Meetups", "Tips", "Update/Story"] as const;
 type TabKey = (typeof TABS)[number];
@@ -95,18 +94,18 @@ export function HomeScreen({
   const [selectedBreedIndex, setSelectedBreedIndex] = useState(0);
   const [isNearPlace, setIsNearPlace] = useState(false);
   const [locationChecked, setLocationChecked] = useState(false);
-  const [myPlacesOpen, setMyPlacesOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
 
   React.useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
         <Pressable
-          onPress={() => setMyPlacesOpen(true)}
-          style={({ pressed }) => [styles.myPlacesChip, pressed && styles.myPlacesChipPressed]}
+          onPress={() => setNotificationsOpen(true)}
+          style={({ pressed }) => [styles.bellIcon, pressed && styles.myPlacesChipPressed]}
           accessibilityRole="button"
-          accessibilityLabel="My Places"
+          accessibilityLabel="Notifications"
         >
-          <MapPinned size={25} color="#000000" />
+          <Bell size={24} color="#000000" />
         </Pressable>
       ),
     });
@@ -114,7 +113,7 @@ export function HomeScreen({
   const forceNearby = __DEV__ && DEBUG_FORCE_NEARBY;
   const placeAlertTranslateY = useSharedValue(0);
 
-  const { data: dogs = [] } = useQuery({
+  const { data: dogs = [], isLoading: isDogsLoading } = useQuery({
     queryKey: ["dogs", user?.id],
     queryFn: () => getDogsByOwner(user!.id),
     enabled: !!user?.id,
@@ -146,8 +145,6 @@ export function HomeScreen({
     enabled: !!user?.id && !!obPlace?.id,
     refetchInterval: 60_000,
   });
-
-  const { savedPlaces, dogCounts, isLoading: savedPlacesLoading } = useSavedPlacesWithActivity(user?.id);
 
   const selectedDog = dogs?.[selectedDogIndex];
   const defaultBreed = selectedDog?.breed ?? "GOLDEN_RETRIEVER";
@@ -341,6 +338,16 @@ export function HomeScreen({
     enabled: !!user?.id,
   });
 
+  const [initialLoadDone, setInitialLoadDone] = useState(false);
+
+  useEffect(() => {
+    if (!isDogsLoading && !isLoading && !initialLoadDone) {
+      setInitialLoadDone(true);
+    }
+  }, [isDogsLoading, isLoading, initialLoadDone]);
+
+  const showInitialLoader = !initialLoadDone && (isDogsLoading || isLoading);
+
   const tabKey = FILTER_TO_TAB(feedFilter);
 
   const renderHeader = useMemo(() => (
@@ -476,6 +483,16 @@ export function HomeScreen({
     );
   }
 
+  if (showInitialLoader) {
+    return (
+      <View style={styles.screen}>
+        <View style={styles.center}>
+          <ActivityIndicator size="large" color={colors.primary} />
+        </View>
+      </View>
+    );
+  }
+
   if ((!dogs || dogs.length === 0) && !onboardingDog) {
     return (
       <View style={styles.screen}>
@@ -572,25 +589,10 @@ export function HomeScreen({
         />
         </View>
       </SafeAreaView>
-      <MyPlacesSheet
-        visible={myPlacesOpen}
-        onClose={() => setMyPlacesOpen(false)}
-        places={savedPlaces}
-        dogCounts={dogCounts}
-        isLoading={savedPlacesLoading}
-        onPlacePress={(place) => {
-          navigation.navigate('PlaceDetail', { placeId: place.id });
-        }}
-        onCreateMeetupPress={(place) => {
-          navigation.navigate('CreatePost', {
-            initialType: 'MEETUP',
-            initialPlaceId: place.id,
-            initialPlaceName: place.name,
-          });
-        }}
-        onAddMorePress={() => {
-          navigation.navigate('Explore', { screen: 'ExploreList', params: { initialTab: 'places' } });
-        }}
+      <NotificationsSheet
+        visible={notificationsOpen}
+        onClose={() => setNotificationsOpen(false)}
+        onPostPress={(postId) => navigation.navigate('PostDetail', { postId })}
       />
     </View>
   );
@@ -684,12 +686,13 @@ const styles = StyleSheet.create({
   breedChipText: { ...typography.bodyMuted, fontWeight: "700" },
   breedChipTextSelected: { color: colors.surface },
   tabsSection: {},
-  myPlacesChip: {
+  bellIcon: {
     paddingHorizontal: spacing.sm,
     paddingVertical: spacing.xs,
     position: "relative",
-    bottom: 2,
+    bottom: 1,
     left: 5,
+    transform: [{ translateX: 1 }],
   },
   myPlacesChipPressed: { opacity: 0.5 },
   listContent: { paddingBottom: spacing.xxxl },

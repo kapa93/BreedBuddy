@@ -30,16 +30,22 @@ export type AuthStackParamList = {
 
 export type MainTabParamList = {
   Home: undefined;
-  Explore: undefined;
+  SavedPlaces: undefined;
   Create: undefined;
-  Notifications: undefined;
+  Explore: undefined;
   Profile: undefined;
 };
 
-export type NotificationsStackParamList = {
-  NotificationsMain: undefined;
-  SearchMain: SearchMainParams;
+export type SavedPlacesStackParamList = {
+  SavedPlacesFeed: undefined;
+  PlaceDetail: { placeId: string };
+  PlaceNow: { placeId: string };
+  DogProfile: { dogId: string };
   PostDetail: { postId: string };
+  CreatePost: { breed?: BreedEnum; initialType?: PostTypeEnum; initialPlaceId?: string; initialPlaceName?: string };
+  EditPost: { postId: string };
+  UserProfile: { userId: string };
+  SearchMain: SearchMainParams;
 };
 
 export type HomeStackParamList = {

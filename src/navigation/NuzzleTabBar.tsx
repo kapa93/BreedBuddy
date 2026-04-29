@@ -12,19 +12,17 @@ import {
   BottomTabBarHeightCallbackContext,
   BottomTabBarProps,
 } from "@react-navigation/bottom-tabs";
-import { useQuery } from "@tanstack/react-query";
-import { FontAwesome6 } from "@expo/vector-icons";
-import { DogPawIcon } from "@/assets/DogPawIcon";
-import { getNotifications } from "@/api/notifications";
 import { useScrollDirection } from "@/context/ScrollDirectionContext";
-import { useAuthStore } from "@/store/authStore";
+import { FontAwesome6 } from "@expo/vector-icons";
+import { MapPinned } from "lucide-react-native";
+import { DogPawIcon } from "@/assets/DogPawIcon";
 import { colors, shadow, spacing } from "@/theme";
 
 const TAB_CONFIG = [
   { key: "Home", label: "Home", icon: "house" as const },
-  { key: "Explore", label: "Explore", icon: "compass" as const },
+  { key: "SavedPlaces", label: "Places", icon: null as null },
   { key: "Create", label: "Create", icon: "pen" as const },
-  { key: "Notifications", label: "Alerts", icon: "bell" as const },
+  { key: "Explore", label: "Explore", icon: "compass" as const },
   { key: "Profile", label: "Profile", icon: "user" as const },
 ];
 
@@ -38,9 +36,8 @@ const CREATE_BUTTON_PRESS_ANIMATION = { duration: 180 };
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 const TAB_ICON_COLOR = "#000000";
-const HOME_ICON_ACTIVE = require("../../assets/home-black.png");
-const HOME_ICON_INACTIVE = require("../../assets/home-white.png");
-const HOME_ICON_SIZE = 26;
+const HOME_ICON_INACTIVE = require("../../assets/pup-icon.png");
+const HOME_ICON_SIZE = 31;
 
 function TabBarItem({
   tabKey,
@@ -50,8 +47,8 @@ function TabBarItem({
   onPress,
   badgeCount,
 }: {
-  tabKey: "Home" | "Explore" | "Notifications" | "Profile";
-  icon: "house" | "compass" | "bell" | "user";
+  tabKey: "Home" | "SavedPlaces" | "Explore" | "Profile";
+  icon: "house" | "compass" | "user" | null;
   accessibilityLabel: string;
   isActive: boolean;
   onPress: () => void;
@@ -75,17 +72,24 @@ function TabBarItem({
       <View style={styles.iconWrap}>
         {tabKey === "Home" ? (
           <Image
-            source={isActive ? HOME_ICON_ACTIVE : HOME_ICON_INACTIVE}
+            source={HOME_ICON_INACTIVE}
             style={styles.homeIcon}
             resizeMode="contain"
           />
+        ) : tabKey === "SavedPlaces" ? (
+          <MapPinned
+            size={24}
+            color={TAB_ICON_COLOR}
+            style={styles.tabIconMap}
+            strokeWidth={1.95}
+          />
         ) : (
           <FontAwesome6
-            name={icon}
+            name={icon as "compass" | "user"}
             size={22}
-            style={styles.tabIcon}
+            style={[styles.tabIcon, icon === "user" && styles.tabIconUser]}
             color={TAB_ICON_COLOR}
-            solid={isActive}
+            solid={false}
           />
         )}
         {badgeLabel ? (
@@ -101,7 +105,6 @@ function TabBarItem({
 export function NuzzleTabBar({ state, navigation }: BottomTabBarProps) {
   const onTabBarHeightChange = React.useContext(BottomTabBarHeightCallbackContext);
   const insets = useSafeAreaInsets();
-  const user = useAuthStore((s) => s.user);
   const { scrollDirection, setScrollDirection } = useScrollDirection();
   const [wrapWidth, setWrapWidth] = useState(0);
   const indicatorLeft = useSharedValue(0);
@@ -163,15 +166,7 @@ export function NuzzleTabBar({ state, navigation }: BottomTabBarProps) {
     transform: [{ scale: createButtonScale.value }],
   }));
 
-  const { data: unreadCount = 0 } = useQuery({
-    queryKey: ["notifications", user?.id],
-    queryFn: () => getNotifications(user!.id),
-    enabled: !!user?.id,
-    select: (notifications) =>
-      notifications.reduce((count, notification) => {
-        return notification.read_at ? count : count + 1;
-      }, 0),
-  });
+
 
   return (
     <Animated.View
@@ -240,11 +235,10 @@ export function NuzzleTabBar({ state, navigation }: BottomTabBarProps) {
           return (
             <TabBarItem
               key={item.key}
-              tabKey={item.key as "Home" | "Explore" | "Notifications" | "Profile"}
-              icon={item.icon as "house" | "compass" | "bell" | "user"}
+              tabKey={item.key as "Home" | "SavedPlaces" | "Explore" | "Profile"}
+              icon={item.icon as "house" | "compass" | "user" | null}
               accessibilityLabel={item.label}
               isActive={isActive}
-              badgeCount={item.key === "Notifications" ? unreadCount : undefined}
               onPress={() => navigation.navigate(item.key)}
             />
           );
@@ -295,10 +289,20 @@ const styles = StyleSheet.create({
   tabIcon: {
     transform: [{ translateY: 4 }],
   },
+  /** Profile icon optical alignment (+1px vs compass from shared tabIcon baseline) */
+  tabIconUser: {
+    transform: [{ translateY: 4 }],
+  },
+  tabIconMap: {
+    position: "relative",
+    top: 4,
+    transform: [{ translateY: 0 }],
+  },
   homeIcon: {
     width: HOME_ICON_SIZE,
     height: HOME_ICON_SIZE,
-    transform: [{ translateY: 4 }],
+    transform: [{ translateY: 5 }],
+    marginBottom: -3,
   },
   badge: {
     position: "absolute",

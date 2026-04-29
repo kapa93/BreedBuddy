@@ -21,6 +21,7 @@ const SEARCH_ENABLED_ROUTES = new Set([
   "BreedFeed",
   "NotificationsMain",
   "ProfileMain",
+  "SavedPlacesFeed",
 ]);
 
 type Props = NativeStackHeaderProps & {
@@ -201,6 +202,7 @@ const styles = StyleSheet.create({
     position: "relative",
     bottom: 2,
     right: 6,
+    transform: [{ translateX: -1 }],
   },
   searchButtonPressed: {
     opacity: 0.82,
