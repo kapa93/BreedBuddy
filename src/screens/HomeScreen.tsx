@@ -10,8 +10,6 @@ import {
   Alert,
   ActivityIndicator,
   useWindowDimensions,
-  ImageBackground,
-  Platform,
 } from "react-native";
 import { useScrollToTop } from "@react-navigation/native";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
@@ -52,6 +50,7 @@ import type { FeedFilter } from "@/store/uiStore";
 import { captureHandledError } from '@/lib/sentry';
 import { Bell } from 'lucide-react-native';
 import { getPackItems } from "@/utils/breedAssets";
+import { MoreBreedsTab } from "@/components/MoreBreedsTab";
 
 const CARD_GAP = spacing.md;
 const H_PADDING = spacing.lg;
@@ -73,8 +72,7 @@ const TAB_TO_FILTER: Record<TabKey, FeedFilter> = {
 const FILTER_TO_TAB = (f: FeedFilter): TabKey =>
   f === "all" ? "All" : f === "TIP" ? "Tips" : f === "QUESTION" ? "Questions" : f === "MEETUP" ? "Meetups" : "Update/Story";
 
-const ALERT_ANIM_DURATION = 220;
-const TAB_BAR_ANIM_DURATION = 220;
+const SCROLL_ANIM_DURATION = 220;
 const TAB_BAR_HIDE_OVERSHOOT = 40;
 
 export function HomeScreen({
@@ -256,7 +254,7 @@ export function HomeScreen({
 
   useEffect(() => {
     placeAlertTranslateY.value = withTiming(scrollDirection === 'down' ? -(headerHeight - 48) : 0, {
-      duration: ALERT_ANIM_DURATION,
+      duration: SCROLL_ANIM_DURATION,
     });
   }, [scrollDirection, headerHeight, placeAlertTranslateY]);
 
@@ -271,7 +269,7 @@ export function HomeScreen({
   useEffect(() => {
     const hideOffset = homeTabBarHeight + TAB_BAR_HIDE_OVERSHOOT;
     tabBarTranslate.value = withTiming(scrollDirection === 'down' ? -hideOffset : 0, {
-      duration: TAB_BAR_ANIM_DURATION,
+      duration: SCROLL_ANIM_DURATION,
     });
   }, [scrollDirection, homeTabBarHeight, tabBarTranslate]);
 
@@ -288,22 +286,22 @@ export function HomeScreen({
     };
   });
 
-  const handleJoinPress = () => {
+  const handleJoinPress = useCallback(() => {
     if (isJoined) {
       leaveMutation.mutate(breed);
     } else {
       joinMutation.mutate(breed);
     }
-  };
+  }, [isJoined, breed, leaveMutation, joinMutation]);
 
-  const handleJoinPressForBreed = (b: import("@/types").BreedEnum) => {
+  const handleJoinPressForBreed = useCallback((b: import("@/types").BreedEnum) => {
     const joined = joinedBreeds.includes(b);
     if (joined) {
       leaveMutation.mutate(b);
     } else {
       joinMutation.mutate(b);
     }
-  };
+  }, [joinedBreeds, leaveMutation, joinMutation]);
 
   const handlePlaceCheckIn = useCallback(() => {
     if (!dogs || dogs.length === 0) {
@@ -347,19 +345,12 @@ export function HomeScreen({
   const typeFilter = feedFilter === "QUESTION" || feedFilter === "UPDATE_STORY" || feedFilter === "TIP" || feedFilter === "MEETUP" ? feedFilter : null;
 
   const {
-    feedQueryKey,
     posts,
     isLoading,
     isFetchingNextPage,
     isPullRefreshing,
     reactionMenuOpen,
     handleRefresh,
-    handlePostPress,
-    handleEditPost,
-    handleAuthorPress,
-    handleDeletePost,
-    handleReactionSelect,
-    handleRsvpToggle,
     handleEndReached,
     renderFeedItem,
   } = useFeedData({
@@ -436,7 +427,7 @@ export function HomeScreen({
           />
         )}
       </View>
-      <View style={styles.tabsSection}>
+      <View>
         <SegmentTabs
           tabs={[...TABS]}
           activeTab={tabKey}
@@ -567,13 +558,11 @@ export function HomeScreen({
           ) : null}
           {showNearbyCheckinCard ? (
             <Animated.View style={[styles.placeAlertOverlay, { top: headerHeight + homeTabBarHeight + 12 }, placeAlertAnimatedStyle]}>
-              {showNearbyCheckinCard ? (
-                <PlaceNearbyAlert
-                  placeName={obPlace!.name}
-                  onCheckIn={handlePlaceCheckIn}
-                  disabled={checkinMutation.isPending}
-                />
-              ) : null}
+              <PlaceNearbyAlert
+                placeName={obPlace!.name}
+                onCheckIn={handlePlaceCheckIn}
+                disabled={checkinMutation.isPending}
+              />
             </Animated.View>
           ) : null}
           {/* Tab bar overlay — hides on scroll down, shows on scroll up */}
@@ -647,76 +636,14 @@ export function HomeScreen({
           )}
 
           {homeTab === "moreBreeds" && (
-            <ScrollView
-              style={styles.breedsTabContainer}
-              contentContainerStyle={[
-                styles.breedsContent,
-                { paddingTop: headerHeight + homeTabBarHeight + spacing.xl },
-              ]}
-              showsVerticalScrollIndicator={false}
+            <MoreBreedsTab
+              packItems={packItems}
+              cardWidth={cardWidth}
+              headerHeight={headerHeight}
+              homeTabBarHeight={homeTabBarHeight}
+              onBreedPress={(breed) => navigation.navigate("BreedFeed", { breed })}
               onScroll={onScroll}
-              scrollEventThrottle={16}
-            >
-              <View style={styles.gridWrap}>
-                <View style={styles.grid}>
-                  {packItems.map((item) => (
-                    <Pressable
-                      key={item.breed}
-                      style={[styles.cell, { width: cardWidth }]}
-                      onPress={() => navigation.navigate("BreedFeed", { breed: item.breed })}
-                    >
-                      {({ pressed }) => (
-                        <View style={styles.cardShadow}>
-                          <ImageBackground
-                            style={[styles.card, pressed && styles.pressed]}
-                            imageStyle={[
-                              styles.cardImage,
-                              item.breed === "AUSTRALIAN_SHEPHERD" && styles.aussieCardImage,
-                              item.breed === "DACHSHUND" && styles.dachshundCardImage,
-                              item.breed === "FRENCH_BULLDOG" && styles.frenchieCardImage,
-                              item.breed === "GERMAN_SHEPHERD" && styles.germanCardImage,
-                              item.breed === "GOLDEN_DOODLE" && styles.goldenDoodleCardImage,
-                              item.breed === "GOLDEN_RETRIEVER" && styles.goldenCardImage,
-                              item.breed === "HUSKY" && styles.huskyCardImage,
-                              item.breed === "MIXED_BREED" && styles.mixedBreedCardImage,
-                              item.breed === "PUG" && styles.pugCardImage,
-                              item.breed === "LABRADOODLE" && styles.labradoodleCardImage,
-                              item.breed === "LABRADOR_RETRIEVER" && styles.labCardImage,
-                              item.breed === "PIT_BULL" && styles.pitbullCardImage,
-                            ]}
-                            source={item.image}
-                            resizeMode="cover"
-                          >
-                            <View style={styles.overlay} />
-                            <Text
-                              style={[
-                                styles.cardLabel,
-                                item.breed === "GERMAN_SHEPHERD" && styles.germanCardLabel,
-                                item.breed === "GOLDEN_DOODLE" && styles.goldenDoodleCardLabel,
-                              ]}
-                              numberOfLines={item.breed === "GERMAN_SHEPHERD" ? 2 : 1}
-                              adjustsFontSizeToFit={item.breed === "GOLDEN_DOODLE"}
-                              minimumFontScale={0.8}
-                            >
-                              {item.breed === "AUSTRALIAN_SHEPHERD"
-                                ? "Aussie"
-                                : item.breed === "FRENCH_BULLDOG"
-                                  ? "Frenchie"
-                                  : item.breed === "GOLDEN_RETRIEVER"
-                                    ? "Golden"
-                                    : item.breed === "LABRADOR_RETRIEVER"
-                                      ? "Labrador"
-                                      : item.label}
-                            </Text>
-                          </ImageBackground>
-                        </View>
-                      )}
-                    </Pressable>
-                  ))}
-                </View>
-              </View>
-              <Text style={styles.comingSoonText}>More breeds coming soon!</Text>
-            </ScrollView>
+            />
           )}
         </View>
       </SafeAreaView>
@@ -739,9 +666,6 @@ const styles = StyleSheet.create({
     right: spacing.lg,
     zIndex: 20,
     elevation: 20,
-  },
-  secondaryAlert: {
-    marginTop: spacing.sm,
   },
   center: {
     flex: 1,
@@ -794,30 +718,6 @@ const styles = StyleSheet.create({
   },
   dogChipText: { ...typography.bodyMuted, fontWeight: "700" },
   dogChipTextSelected: { color: colors.surface },
-  breedSelector: {
-    paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.lg,
-    marginBottom: spacing.xs,
-  },
-  breedSelectorScroll: {
-    flexDirection: "row",
-    gap: spacing.sm,
-  },
-  breedChip: {
-    paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.sm,
-    backgroundColor: colors.surfaceMuted,
-    borderRadius: radius.pill,
-    borderWidth: 1,
-    borderColor: colors.border,
-  },
-  breedChipSelected: {
-    backgroundColor: colors.primary,
-    borderColor: colors.primary,
-  },
-  breedChipText: { ...typography.bodyMuted, fontWeight: "700" },
-  breedChipTextSelected: { color: colors.surface },
-  tabsSection: {},
   bellIcon: {
     paddingHorizontal: spacing.sm,
     paddingVertical: spacing.xs,
@@ -889,129 +789,4 @@ const styles = StyleSheet.create({
     color: colors.primary,
   },
 
-  // More Breeds grid
-  breedsTabContainer: {
-    flex: 1,
-    marginTop: spacing.lg + 5,
-  },
-  breedsContent: {
-    paddingHorizontal: H_PADDING,
-    paddingBottom: spacing.xxxl + 75,
-  },
-  gridWrap: {
-    alignItems: 'center',
-    marginLeft: 10,
-    marginTop: -spacing.lg,
-  },
-  grid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginHorizontal: -CARD_GAP / 2,
-  },
-  cell: {
-    paddingHorizontal: CARD_GAP / 2,
-    marginBottom: spacing.lg,
-  },
-  card: {
-    width: '100%',
-    aspectRatio: 1,
-    borderRadius: radius.xl,
-    overflow: 'hidden',
-    justifyContent: 'flex-end',
-    padding: spacing.md,
-  },
-  cardShadow: {
-    borderRadius: radius.xl,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.18,
-    shadowRadius: 8,
-    elevation: 6,
-  },
-  cardImage: { borderRadius: radius.xl },
-  aussieCardImage: {
-    transform: [{ scale: 1.25 }, { translateX: 10 }, { translateY: -10 }],
-  },
-  dachshundCardImage: {
-    transform: [{ scale: 1.4 }, { translateX: 10 }, { translateY: 18 }],
-  },
-  frenchieCardImage: {
-    transform: [{ scale: 1.75 }, { translateX: 11 }, { translateY: -1 }],
-  },
-  germanCardImage: {
-    transform: [{ scale: 1.35 }, { translateX: 9 }, { translateY: 7 }],
-  },
-  goldenCardImage: {
-    transform: [{ scale: 1.3 }, { translateX: 10 }, { translateY: 5 }],
-  },
-  goldenDoodleCardImage: {
-    transform: [{ scale: 1.25 }, { translateX: 12 }, { translateY: 6 }],
-  },
-  huskyCardImage: {
-    transform: [{ scale: 1.6 }, { translateX: 5 }, { translateY: 12 }],
-  },
-  mixedBreedCardImage: {
-    transform: [{ scale: 1.25 }, { translateX: 8 }, { translateY: 15 }],
-  },
-  pugCardImage: {
-    transform: [{ scale: 1.21 }, { translateX: 11 }, { translateY: -2 }],
-  },
-  labCardImage: {
-    transform: [{ scale: 1.4 }, { translateX: 7 }, { translateY: 11 }],
-  },
-  labradoodleCardImage: {
-    transform: [{ scale: 1.35 }, { translateX: 8 }, { translateY: 5 }],
-  },
-  pitbullCardImage: {
-    transform: [{ scale: 1.3 }, { translateX: 6 }, { translateY: 4 }],
-  },
-  overlay: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    height: 45,
-    backgroundColor: 'rgba(0, 0, 0, 0.25)',
-  },
-  cardLabel: {
-    fontSize: 19,
-    lineHeight: 20,
-    letterSpacing: 0.4,
-    ...Platform.select({
-      ios: { fontFamily: 'System', fontWeight: '700' as const },
-      android: { fontFamily: 'sans-serif', fontWeight: '700' as const },
-      default: {
-        fontFamily:
-          'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-        fontWeight: '700' as const,
-      },
-    }),
-    textShadowColor: 'rgba(0,0,0,0.4)',
-    textShadowOffset: { width: 0, height: 0.75 },
-    textShadowRadius: 1.5,
-    color: colors.surface,
-    textAlign: 'left',
-    width: '100%',
-    paddingLeft: 5,
-    zIndex: 1,
-  },
-  germanCardLabel: {
-    fontSize: 18,
-    lineHeight: 18,
-    position: 'relative',
-    top: 8,
-  },
-  goldenDoodleCardLabel: {
-    fontSize: 17,
-    lineHeight: 18,
-    position: 'relative',
-    bottom: 1,
-  },
-  pressed: { opacity: 0.92 },
-  comingSoonText: {
-    ...typography.bodyMuted,
-    textAlign: 'center',
-    marginTop: spacing.sm + 2,
-    letterSpacing: 0.2,
-  },
 });
