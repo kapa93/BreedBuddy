@@ -223,6 +223,7 @@ function SavedPlacesTab() {
         }}
       />
       <Stack.Screen name="PlaceDetail" component={PlaceDetailScreen} options={{ title: 'Place' }} />
+      <Stack.Screen name="GooglePlacePreview" component={GooglePlacePreviewScreen} options={{ title: '' }} />
       <Stack.Screen name="PlaceNow" component={PlaceCheckinScreen} options={{ title: 'Dogs Here Now' }} />
       <Stack.Screen name="DogProfile" component={DogProfileScreen} options={{ title: 'Dog' }} />
       <Stack.Screen name="PostDetail" component={PostDetailScreen} options={{ title: 'Post' }} />

@@ -38,6 +38,7 @@ export type MainTabParamList = {
 
 export type SavedPlacesStackParamList = {
   SavedPlacesFeed: undefined;
+  GooglePlacePreview: { googlePlaceId: string; initialName?: string };
   PlaceDetail: { placeId: string };
   PlaceNow: { placeId: string };
   DogProfile: { dogId: string };
@@ -62,7 +63,7 @@ export type HomeStackParamList = {
 };
 
 export type ExploreStackParamList = {
-  ExploreList: { initialTab?: 'breeds' | 'places' } | undefined;
+  ExploreList: undefined;
   BreedFeed: { breed: BreedEnum };
   SearchMain: SearchMainParams;
   DogProfile: { dogId: string };

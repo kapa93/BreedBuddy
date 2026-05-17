@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     backgroundColor: "rgba(0,0,0,0.05)",
   },
-  topRow: { flexDirection: "row", justifyContent: "flex-start", marginTop: 2 },
+  topRow: { flexDirection: "row", justifyContent: "flex-start", marginTop: 3 },
   joinedPill: {
     flexDirection: "row",
     alignItems: "center",
@@ -87,7 +87,6 @@ const styles = StyleSheet.create({
     borderRadius: radius.lg,
     paddingHorizontal: spacing.sm + 2,
     paddingVertical: spacing.xs,
-    marginTop: 5,
   },
   joinedPillPressed: { opacity: 0.85 },
   joinedText: { fontSize: 15, fontWeight: "700", color: "#2E3834" },

@@ -350,7 +350,7 @@ const styles = StyleSheet.create({
   },
   tabLabelCenter: {
     position: "absolute",
-    bottom: -15,
+    bottom: -16,
     left: "50%",
     marginLeft: -60,
     width: 120,
@@ -379,7 +379,7 @@ const styles = StyleSheet.create({
   homeIcon: {
     width: HOME_ICON_SIZE,
     height: HOME_ICON_SIZE,
-    transform: [{ translateY: 5 }],
+    transform: [{ translateY: 4 }],
     marginBottom: -3,
   },
   badge: {
@@ -402,7 +402,7 @@ const styles = StyleSheet.create({
   },
   indicator: {
     position: "absolute",
-    top: -0.5,
+    top: -1,
     left: 0,
     height: 2,
     backgroundColor: TAB_ICON_COLOR,
@@ -415,7 +415,7 @@ const styles = StyleSheet.create({
   },
   centerButton: {
     position: "absolute",
-    bottom: 3,
+    bottom: 2,
     left: "50%",
     marginLeft: -22.5,
     width: 46,

@@ -95,7 +95,7 @@ export function HomeScreen({
     dismissMeetupPrompt,
   } = useOnboardingStore();
   const { onScroll } = useScrollDirectionUpdater();
-  const { scrollDirection } = useScrollDirection();
+  const { scrollDirection, setScrollDirection } = useScrollDirection();
   const headerHeight = useStackHeaderHeight();
   const flatListRef = useRef<FlatList>(null);
   useScrollToTop(flatListRef);
@@ -584,7 +584,7 @@ export function HomeScreen({
               </Pressable>
               <Pressable
                 style={[styles.homeTabChip, homeTab === "moreBreeds" && styles.homeTabChipActive]}
-                onPress={() => setHomeTab("moreBreeds")}
+                onPress={() => { setHomeTab("moreBreeds"); setScrollDirection("up"); }}
               >
                 <Text style={[styles.homeTabChipText, homeTab === "moreBreeds" && styles.homeTabChipTextActive]}>
                   More Breeds
@@ -641,8 +641,11 @@ export function HomeScreen({
               cardWidth={cardWidth}
               headerHeight={headerHeight}
               homeTabBarHeight={homeTabBarHeight}
-              onBreedPress={(breed) => navigation.navigate("BreedFeed", { breed })}
-              onScroll={onScroll}
+              onBreedPress={(breed) => {
+                setScrollDirection("up");
+                navigation.navigate("BreedFeed", { breed });
+              }}
+              onScroll={() => {}}
             />
           )}
         </View>
@@ -756,7 +759,6 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     zIndex: 10,
-    elevation: 10,
     backgroundColor: colors.surface,
   },
   homeTabBar: {

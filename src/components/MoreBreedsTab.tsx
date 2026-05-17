@@ -45,6 +45,7 @@ export function MoreBreedsTab({
       onScroll={onScroll}
       scrollEventThrottle={16}
     >
+      <Text style={styles.sectionHint}>View or join one or more breed communities</Text>
       <View style={styles.gridWrap}>
         <View style={styles.grid}>
           {packItems.map((item) => (
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
   gridWrap: {
     alignItems: "center",
     marginLeft: 10,
-    marginTop: -spacing.lg,
+    marginTop: spacing.sm,
   },
   grid: {
     flexDirection: "row",
@@ -139,12 +140,12 @@ const styles = StyleSheet.create({
     padding: spacing.md,
   },
   cardShadow: {
-    borderRadius: radius.xl,
+    borderRadius: radius.lg,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
+    shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.18,
-    shadowRadius: 8,
-    elevation: 6,
+    shadowRadius: 6,
+    elevation: 4,
   },
   cardImage: { borderRadius: radius.xl },
   aussieCardImage: {
@@ -226,10 +227,20 @@ const styles = StyleSheet.create({
     bottom: 1,
   },
   pressed: { opacity: 0.92 },
+  sectionHint: {
+    ...typography.bodyMuted,
+    color: colors.textMuted,
+    textAlign: "center",
+    fontFamily: 'Inter_500Medium',
+    marginBottom: spacing.lg - 1,
+    marginTop: 2,
+  },
   comingSoonText: {
     ...typography.bodyMuted,
+    color: colors.textMuted,
     textAlign: "center",
-    marginTop: spacing.sm + 2,
+    fontFamily: 'Inter_500Medium',
+    marginTop: spacing.lg - 2,
     letterSpacing: 0.2,
   },
 });

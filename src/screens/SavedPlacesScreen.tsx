@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import {
   ActivityIndicator,
   Alert,
@@ -38,6 +39,7 @@ import { BREED_LABELS, PLAY_STYLE_LABELS, formatRelativeTime } from '@/utils/bre
 import { colors, radius, shadow, spacing, typography } from '@/theme';
 import { captureHandledError } from '@/lib/sentry';
 import { NotificationsSheet } from '@/components/NotificationsSheet';
+import { MorePlacesTab } from '@/components/MorePlacesTab';
 import { Bell, MapPinCheck } from 'lucide-react-native';
 import type { ActivePlaceCheckin, Dog, Place, PlaceTypeEnum, PostWithDetails, ReactionEnum } from '@/types';
 
@@ -124,8 +126,30 @@ export function SavedPlacesScreen({ navigation }: Props) {
   const flatListRef = useRef<FlatList>(null);
   useScrollToTop(flatListRef);
   const { onScroll } = useScrollDirectionUpdater();
-  const { scrollDirection } = useScrollDirection();
+  const { scrollDirection, setScrollDirection } = useScrollDirection();
   const bottomPad = scrollDirection === 'down' ? spacing.sm : tabBarScrollPad;
+
+  const [placesTab, setPlacesTab] = useState<'myPlaces' | 'morePlaces'>('myPlaces');
+  const [placesTabBarHeight, setPlacesTabBarHeight] = useState(0);
+  const SCROLL_ANIM_DURATION = 220;
+  const TAB_BAR_HIDE_OVERSHOOT = 40;
+  const tabBarTranslate = useSharedValue(0);
+
+  useEffect(() => {
+    tabBarTranslate.value = withTiming(
+      scrollDirection === 'down' ? -(placesTabBarHeight + TAB_BAR_HIDE_OVERSHOOT) : 0,
+      { duration: SCROLL_ANIM_DURATION }
+    );
+  }, [scrollDirection, placesTabBarHeight, tabBarTranslate]);
+
+  const tabBarAnimatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: tabBarTranslate.value }],
+    opacity: interpolate(
+      tabBarTranslate.value,
+      [-(placesTabBarHeight + TAB_BAR_HIDE_OVERSHOOT), 0],
+      [0, 1]
+    ),
+  }));
 
   const selectedPlace: Place | undefined = savedPlaces[selectedIndex];
   const placeId = selectedPlace?.id ?? null;
@@ -530,7 +554,7 @@ export function SavedPlacesScreen({ navigation }: Props) {
 
   // ── Carousel header ──────────────────────────────────────────────────────────
   const carouselHeader = (
-    <View style={[styles.carouselContainer, { paddingTop: headerHeight }]}>
+    <View style={[styles.carouselContainer, { paddingTop: headerHeight + placesTabBarHeight }]}>
       <ScrollView
         ref={scrollRef}
         horizontal
@@ -644,24 +668,72 @@ export function SavedPlacesScreen({ navigation }: Props) {
     <View style={styles.screenRoot}>
       <SafeAreaView style={styles.safe} edges={['left', 'right']}>
 
-        <FlatList
-          ref={flatListRef}
-          data={tabData}
-          keyExtractor={tabKeyExtractor}
-          extraData={[activeTab, photoAccessToken]}
-          contentContainerStyle={tabContentStyle}
-          scrollEnabled={!reactionMenuOpen}
-          showsVerticalScrollIndicator={false}
-          onScroll={onScroll}
-          scrollEventThrottle={16}
-          ListHeaderComponent={ListHeader}
-          renderItem={renderTabItem}
-          ItemSeparatorComponent={renderTabSeparator}
-          initialNumToRender={8}
-          maxToRenderPerBatch={8}
-          windowSize={11}
-          ListEmptyComponent={tabEmptyComponent}
-        />
+        {/* Animated tab bar overlay */}
+        <Animated.View
+          style={[styles.placesTabBarOverlay, { top: headerHeight }, tabBarAnimatedStyle]}
+          onLayout={(e) => setPlacesTabBarHeight(e.nativeEvent.layout.height)}
+        >
+          <View style={styles.placesTabBar}>
+            <Pressable
+              style={[styles.placesTabChip, placesTab === 'myPlaces' && styles.placesTabChipActive]}
+              onPress={() => setPlacesTab('myPlaces')}
+              accessibilityRole="tab"
+              accessibilityState={{ selected: placesTab === 'myPlaces' }}
+            >
+              <Text style={[styles.placesTabChipText, placesTab === 'myPlaces' && styles.placesTabChipTextActive]}>
+                My Places
+              </Text>
+            </Pressable>
+            <Pressable
+              style={[styles.placesTabChip, placesTab === 'morePlaces' && styles.placesTabChipActive]}
+              onPress={() => { setPlacesTab('morePlaces'); setScrollDirection('up'); }}
+              accessibilityRole="tab"
+              accessibilityState={{ selected: placesTab === 'morePlaces' }}
+            >
+              <Text style={[styles.placesTabChipText, placesTab === 'morePlaces' && styles.placesTabChipTextActive]}>
+                More Places
+              </Text>
+            </Pressable>
+          </View>
+        </Animated.View>
+
+        {placesTab === 'myPlaces' && (
+          <FlatList
+            ref={flatListRef}
+            data={tabData}
+            keyExtractor={tabKeyExtractor}
+            extraData={[activeTab, photoAccessToken]}
+            contentContainerStyle={tabContentStyle}
+            scrollEnabled={!reactionMenuOpen}
+            showsVerticalScrollIndicator={false}
+            onScroll={onScroll}
+            scrollEventThrottle={16}
+            ListHeaderComponent={ListHeader}
+            renderItem={renderTabItem}
+            ItemSeparatorComponent={renderTabSeparator}
+            initialNumToRender={8}
+            maxToRenderPerBatch={8}
+            windowSize={11}
+            ListEmptyComponent={tabEmptyComponent}
+          />
+        )}
+
+        {placesTab === 'morePlaces' && (
+          <MorePlacesTab
+            headerHeight={headerHeight}
+            placesTabBarHeight={placesTabBarHeight}
+            photoAccessToken={photoAccessToken}
+            onPlacePress={(placeId) => {
+              setScrollDirection('up');
+              navigation.navigate('PlaceDetail', { placeId });
+            }}
+            onGooglePlacePress={(googlePlaceId, initialName) => {
+              setScrollDirection('up');
+              navigation.navigate('GooglePlacePreview', { googlePlaceId, initialName });
+            }}
+            onScroll={() => {}}
+          />
+        )}
       </SafeAreaView>
       <NotificationsSheet
         visible={notificationsOpen}
@@ -1081,4 +1153,42 @@ const styles = StyleSheet.create({
   rowTime: { ...typography.caption, color: colors.textMuted },
 
   pressed: { opacity: 0.7 },
+
+  // ── Places tab bar overlay ────────────────────────────────────────────────
+  placesTabBarOverlay: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    zIndex: 10,
+    backgroundColor: colors.surface,
+  },
+  placesTabBar: {
+    flexDirection: 'row',
+    width: '100%',
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
+    marginTop: spacing.sm,
+  },
+  placesTabChip: {
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: spacing.sm,
+    paddingBottom: spacing.sm + 1,
+    borderBottomWidth: 2,
+    borderBottomColor: 'transparent',
+    marginBottom: -1.5,
+  },
+  placesTabChipActive: {
+    borderBottomColor: colors.primary,
+  },
+  placesTabChipText: {
+    ...typography.body,
+    fontSize: 15,
+    fontFamily: 'Inter_500Medium',
+    color: colors.textSecondary,
+  },
+  placesTabChipTextActive: {
+    fontFamily: 'Inter_600SemiBold',
+    color: colors.primary,
+  },
 });
