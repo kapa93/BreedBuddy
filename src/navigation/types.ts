@@ -50,6 +50,7 @@ export type SavedPlacesStackParamList = {
 
 export type HomeStackParamList = {
   HomeFeed: undefined;
+  BreedFeed: { breed: BreedEnum };
   SearchMain: SearchMainParams;
   PlaceDetail: { placeId: string };
   PlaceNow: { placeId: string };
