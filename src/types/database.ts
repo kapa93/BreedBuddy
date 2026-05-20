@@ -46,6 +46,7 @@ export type CompatibilityAnswerEnum = 'yes' | 'no' | 'unsure';
 export type DogInteractionSourceTypeEnum = 'dog_beach' | 'meetup' | 'manual';
 
 export type PlaceTypeEnum = 'dog_beach' | 'dog_park' | 'trail' | 'park' | 'other';
+export type PlaceCommunityStatusEnum = 'active' | 'pending';
 
 export type ReactionEnum =
   | 'LIKE'
@@ -155,6 +156,7 @@ export interface Database {
           check_in_duration_minutes: number;
           description: string | null;
           is_active: boolean;
+          status: PlaceCommunityStatusEnum;
           supports_check_in: boolean;
           created_at: string;
           updated_at: string;
@@ -173,6 +175,7 @@ export interface Database {
           check_in_duration_minutes?: number;
           description?: string | null;
           is_active?: boolean;
+          status?: PlaceCommunityStatusEnum;
           supports_check_in?: boolean;
           created_at?: string;
           updated_at?: string;
@@ -191,9 +194,30 @@ export interface Database {
           check_in_duration_minutes?: number;
           description?: string | null;
           is_active?: boolean;
+          status?: PlaceCommunityStatusEnum;
           supports_check_in?: boolean;
           created_at?: string;
           updated_at?: string;
+        };
+      };
+      place_community_interests: {
+        Row: {
+          id: string;
+          place_id: string;
+          user_id: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          place_id: string;
+          user_id: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          place_id?: string;
+          user_id?: string;
+          created_at?: string;
         };
       };
       user_place_saves: {

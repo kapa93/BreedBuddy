@@ -1,3 +1,10 @@
+[functions.google-places]
+# The photo proxy (GET ?action=photo) is intentionally unauthenticated —
+# Google photo reference strings are already opaque, time-limited tokens.
+# POST actions (search, import, suggest, etc.) perform their own in-function
+# auth check via authClient.auth.getUser().
+verify_jwt = false
+
 [auth.email]
 enable_confirmations = true
 

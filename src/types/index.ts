@@ -132,6 +132,8 @@ export interface ActivePlaceCheckin extends DogLocationCheckin {
 /** @deprecated Use ActivePlaceCheckin */
 export type ActiveDogBeachCheckin = ActivePlaceCheckin;
 
+export type PlaceCommunityStatusEnum = 'active' | 'pending';
+
 export interface Place {
   id: string;
   name: string;
@@ -146,10 +148,28 @@ export interface Place {
   check_in_duration_minutes: number;
   description: string | null;
   is_active: boolean;
+  /** 'active' = live community visible to all; 'pending' = forming, not yet live. */
+  status: PlaceCommunityStatusEnum;
   supports_check_in: boolean;
   photos: string[];
   created_at: string;
   updated_at: string;
+}
+
+export interface PlaceCommunityInterest {
+  id: string;
+  place_id: string;
+  user_id: string;
+  created_at: string;
+}
+
+export interface PendingCommunitySupporter {
+  user_id: string;
+  profile_image_url: string | null;
+}
+
+export interface PendingPlaceWithInterests extends Place {
+  interests: PendingCommunitySupporter[];
 }
 
 export interface GooglePlaceCandidate {

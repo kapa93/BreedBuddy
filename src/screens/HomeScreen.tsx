@@ -749,7 +749,7 @@ const styles = StyleSheet.create({
     ...typography.body,
     fontSize: 14,
     fontFamily: 'Inter_500Medium',
-    color: colors.textSecondary,
+    color: colors.textMuted,
   },
   homeTabChipTextActive: {
     fontFamily: 'Inter_600SemiBold',

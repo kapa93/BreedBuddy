@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   ActivityIndicator,
+  Image,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -12,16 +13,17 @@ import {
   type ViewStyle,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import * as Location from "expo-location";
-import { listActivePlaces, getNearbyGooglePlaces, getGooglePlacePhotoUrl } from "@/api/places";
+import { listActivePlaces, listPendingPlacesWithInterests, getNearbyGooglePlaces, getGooglePlacePhotoUrl } from "@/api/places";
+import { markCommunityInterest } from "@/api/communityInterests";
 import { PlaceRow } from "@/components/PlaceRow";
 import { useSavedPlaces, useToggleSavedPlace } from "@/hooks/useSavedPlaces";
 import { useAuthStore } from "@/store/authStore";
 import { getDistanceMeters } from "@/utils/location";
 import { getPlaceHeroImage } from "@/utils/placeHeroImage";
-import { colors, spacing, typography, radius } from "@/theme";
-import type { GooglePlaceCandidate, Place } from "@/types";
+import { colors, spacing, typography, radius, shadow } from "@/theme";
+import type { GooglePlaceCandidate, PendingPlaceWithInterests, Place } from "@/types";
 
 // ── Constants ────────────────────────────────────────────────────────────────
 
@@ -169,6 +171,101 @@ function GooglePlaceRow({
   );
 }
 
+const AVATAR_DISPLAY_COUNT = 4;
+
+function PendingPlaceRow({
+  place,
+  photoAccessToken,
+  userId,
+  onPress,
+  onCountMeIn,
+  countMeInLoading,
+}: {
+  place: PendingPlaceWithInterests;
+  photoAccessToken: string | null;
+  userId: string | null;
+  onPress: () => void;
+  onCountMeIn: () => void;
+  countMeInLoading: boolean;
+}) {
+  const imageSource = getPlaceImageSource(place, photoAccessToken);
+  const interestCount = place.interests.length;
+  const isInterested = userId ? place.interests.some((i) => i.user_id === userId) : false;
+  const avatars = place.interests
+    .map((i) => i.profile_image_url)
+    .filter((url): url is string => !!url)
+    .slice(0, AVATAR_DISPLAY_COUNT);
+  const extraCount = Math.max(0, interestCount - AVATAR_DISPLAY_COUNT);
+  const interestLabel =
+    interestCount === 1 ? "1 dog owner interested" : `${interestCount} dog owners interested`;
+
+  return (
+    <Pressable
+      onPress={onPress}
+      style={({ pressed }) => [styles.pendingCard, pressed && styles.pendingCardPressed]}
+      accessibilityRole="button"
+      accessibilityLabel={`View pending community for ${place.name}`}
+    >
+      {/* Main row: image | content | button */}
+      <View style={styles.pendingCardMain}>
+        {imageSource ? (
+          <View style={styles.pendingThumbWrap}>
+            <Image source={imageSource} style={styles.pendingThumb} />
+          </View>
+        ) : (
+          <View style={[styles.pendingThumbWrap, styles.pendingThumbFallback]}>
+            <Ionicons name="time-outline" size={20} color={colors.warningText} />
+          </View>
+        )}
+
+        {/* Column 2: name + interest + description */}
+        <View style={styles.pendingCardContent}>
+          <Text style={styles.pendingCardName} numberOfLines={1}>
+            {place.name}
+          </Text>
+          {interestCount > 0 && (
+            <View style={styles.pendingInterestRow}>
+              <Ionicons name="people-outline" size={16} color={colors.primary} />
+              <Text style={styles.pendingInterestText}>{interestLabel}</Text>
+            </View>
+          )}
+          <Text style={styles.pendingDescription}>
+            Launching soon with enough local interest!
+          </Text>
+        </View>
+
+      </View>
+
+      {/* Bottom row: avatars (left) + Count Me In button (right) */}
+      <View style={styles.pendingBottomRow}>
+        <View style={styles.pendingAvatarRow}>
+          {avatars.map((url, i) => (
+            <Image key={i} source={{ uri: url }} style={styles.pendingAvatar} />
+          ))}
+          {extraCount > 0 && (
+            <Text style={styles.pendingAvatarExtra}>+{extraCount} more</Text>
+          )}
+        </View>
+        <Pressable
+          onPress={(e) => { e.stopPropagation?.(); onCountMeIn(); }}
+          disabled={isInterested || countMeInLoading}
+          style={[styles.countMeInButton, isInterested && styles.countMeInButtonDone]}
+          accessibilityRole="button"
+          accessibilityLabel={isInterested ? "Already interested" : "Count me in"}
+        >
+          {countMeInLoading ? (
+            <ActivityIndicator size="small" color={colors.primary} />
+          ) : (
+            <Text style={[styles.countMeInText, isInterested && styles.countMeInTextDone]}>
+              {isInterested ? "Interested ✓" : "I'm interested 🐾"}
+            </Text>
+          )}
+        </Pressable>
+      </View>
+    </Pressable>
+  );
+}
+
 function PlacesSection({
   title,
   children,
@@ -210,6 +307,7 @@ export function MorePlacesTab({
   onScroll,
 }: Props) {
   const { user } = useAuthStore();
+  const queryClient = useQueryClient();
   const [coords, setCoords] = useState<UserCoords>(null);
   const [placesLocationState, setPlacesLocationState] = useState<PlacesLocationState>("unknown");
   const [nearbyDisplayCount, setNearbyDisplayCount] = useState(NEARBY_INITIAL_COUNT);
@@ -234,6 +332,27 @@ export function MorePlacesTab({
     enabled: coords !== null && placesLocationState === "granted",
     staleTime: 5 * 60_000,
     retry: false,
+  });
+
+  const { data: pendingPlaces = [] } = useQuery({
+    queryKey: ["pendingPlaces"],
+    queryFn: listPendingPlacesWithInterests,
+    enabled: !!user?.id,
+    staleTime: 2 * 60_000,
+  });
+
+  const [countMeInLoadingId, setCountMeInLoadingId] = useState<string | null>(null);
+
+  const countMeInMutation = useMutation({
+    mutationFn: (placeId: string) => {
+      if (!user) throw new Error("Sign in to express interest.");
+      return markCommunityInterest(placeId, user.id);
+    },
+    onMutate: (placeId) => setCountMeInLoadingId(placeId),
+    onSettled: () => {
+      setCountMeInLoadingId(null);
+      queryClient.invalidateQueries({ queryKey: ["pendingPlaces"] });
+    },
   });
 
   // Location permission + coords
@@ -335,13 +454,18 @@ export function MorePlacesTab({
   );
 
   const dbGooglePlaceIds = useMemo(
-    () => new Set(places.map((p) => p.google_place_id).filter(Boolean) as string[]),
-    [places]
+    () =>
+      new Set(
+        [...places, ...pendingPlaces]
+          .map((p) => p.google_place_id)
+          .filter(Boolean) as string[]
+      ),
+    [places, pendingPlaces]
   );
 
   const dbPlaceNames = useMemo(
-    () => new Set(places.map((p) => p.name.trim().toLowerCase())),
-    [places]
+    () => new Set([...places, ...pendingPlaces].map((p) => p.name.trim().toLowerCase())),
+    [places, pendingPlaces]
   );
 
   const rankedNearbyCandidates = useMemo(() => {
@@ -396,6 +520,31 @@ export function MorePlacesTab({
           </Pressable>
         )}
       </PlacesSection>
+
+      {pendingPlaces.length > 0 && (
+        <PlacesSection
+          title="Pending Communities"
+          style={{ marginTop: spacing.md }}
+          isEmpty={false}
+          emptyMessage=""
+        >
+          {pendingPlaces.map((place) => (
+            <PendingPlaceRow
+              key={place.id}
+              place={place}
+              photoAccessToken={photoAccessToken}
+              userId={user?.id ?? null}
+              countMeInLoading={countMeInLoadingId === place.id}
+              onPress={() => {
+                if (place.google_place_id) {
+                  onGooglePlacePress(place.google_place_id, place.name);
+                }
+              }}
+              onCountMeIn={() => countMeInMutation.mutate(place.id)}
+            />
+          ))}
+        </PlacesSection>
+      )}
 
       {coords ? (
         <PlacesSection
@@ -464,7 +613,7 @@ const styles = StyleSheet.create({
   googleSectionTitle: {
     ...typography.bodyMuted,
     color: colors.textMuted,
-    textAlign: "center",
+    textAlign: "left",
     fontFamily: 'Inter_500Medium',
     marginBottom: spacing.sm + 1,
   },
@@ -533,5 +682,110 @@ const styles = StyleSheet.create({
   googlePlaceSubtitle: {
     ...typography.caption,
     color: colors.textMuted,
+  },
+  // ── Pending community card
+  pendingCard: {
+    backgroundColor: colors.primarySoft,
+    borderWidth: 1,
+    borderColor: colors.primary,
+    borderRadius: radius.lg,
+    padding: spacing.md,
+    gap: spacing.sm,
+  },
+  pendingCardPressed: {
+    opacity: 0.9,
+  },
+  pendingCardMain: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.md,
+  },
+  pendingThumbWrap: {
+    width: 80,
+    height: 72,
+    borderRadius: radius.md,
+    flexShrink: 0,
+  },
+  pendingThumb: {
+    width: 80,
+    height: 72,
+    borderRadius: radius.md,
+    overflow: "hidden",
+    backgroundColor: colors.surfaceMuted,
+  },
+  pendingThumbFallback: {
+    backgroundColor: colors.warningSoft,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  pendingCardContent: {
+    flex: 1,
+    gap: spacing.xxs,
+    minWidth: 0,
+  },
+  pendingCardName: {
+    ...typography.subtitle,
+    color: colors.textPrimary,
+    fontSize: 16,
+  },
+  pendingInterestRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.xxs + 1,
+  },
+  pendingInterestText: {
+    ...typography.caption,
+    color: colors.primary,
+    fontFamily: "Inter_500Medium",
+  },
+  pendingDescription: {
+    ...typography.caption,
+    color: colors.textSecondary,
+  },
+  countMeInButton: {
+    borderWidth: 1.5,
+    borderColor: colors.primary,
+    borderRadius: radius.pill,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.xs,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: colors.primarySoft,
+  },
+  countMeInButtonDone: {
+    borderColor: colors.textMuted,
+    backgroundColor: colors.primarySoft,
+  },
+  countMeInText: {
+    ...typography.caption,
+    color: colors.primary,
+    fontFamily: "Inter_500Medium",
+    fontSize: 12,
+  },
+  countMeInTextDone: {
+    color: colors.textMuted,
+  },
+  pendingBottomRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  pendingAvatarRow: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  pendingAvatar: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    backgroundColor: colors.surfaceMuted,
+    borderWidth: 1.5,
+    borderColor: colors.primarySoft,
+    marginRight: -8,
+  },
+  pendingAvatarExtra: {
+    ...typography.caption,
+    color: colors.textMuted,
+    marginLeft: spacing.md + 4,
   },
 });

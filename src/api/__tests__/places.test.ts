@@ -160,6 +160,7 @@ describe('Google Places wrappers', () => {
       check_in_duration_minutes: 60,
       description: 'San Diego, CA',
       is_active: true,
+      status: 'active' as const,
       supports_check_in: true,
       created_at: '2026-01-01T00:00:00Z',
       updated_at: '2026-01-01T00:00:00Z',

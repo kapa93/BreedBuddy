@@ -5,6 +5,7 @@ import type {
   DogLocationCheckin,
   GooglePlaceCandidate,
   GooglePlacePreview,
+  PendingPlaceWithInterests,
   Place,
 } from '@/types';
 
@@ -90,6 +91,55 @@ export async function listActivePlaces(): Promise<Place[]> {
 
   if (error) throw error;
   return (data ?? []) as Place[];
+}
+
+export async function listPendingPlaces(): Promise<Place[]> {
+  const { data, error } = await supabase
+    .from('places')
+    .select('*')
+    .eq('status', 'pending')
+    .order('created_at', { ascending: false });
+
+  if (error) throw error;
+  return (data ?? []) as Place[];
+}
+
+export async function listPendingPlacesWithInterests(): Promise<PendingPlaceWithInterests[]> {
+  const { data: places, error: placesError } = await supabase
+    .from('places')
+    .select('*, place_community_interests(user_id)')
+    .eq('status', 'pending')
+    .order('created_at', { ascending: false });
+
+  if (placesError) throw placesError;
+  if (!places || places.length === 0) return [];
+
+  const allUserIds = [
+    ...new Set(
+      places.flatMap((p) =>
+        ((p.place_community_interests ?? []) as Array<{ user_id: string }>).map((i) => i.user_id)
+      )
+    ),
+  ];
+
+  const profileMap = new Map<string, string | null>();
+  if (allUserIds.length > 0) {
+    const { data: profiles } = await supabase
+      .from('profiles')
+      .select('id, profile_image_url')
+      .in('id', allUserIds);
+    for (const profile of profiles ?? []) {
+      profileMap.set(profile.id, (profile as { id: string; profile_image_url: string | null }).profile_image_url);
+    }
+  }
+
+  return places.map((place) => ({
+    ...place,
+    interests: ((place.place_community_interests ?? []) as Array<{ user_id: string }>).map((i) => ({
+      user_id: i.user_id,
+      profile_image_url: profileMap.get(i.user_id) ?? null,
+    })),
+  })) as PendingPlaceWithInterests[];
 }
 
 export async function searchGooglePlaces(query: string): Promise<GooglePlaceCandidate[]> {

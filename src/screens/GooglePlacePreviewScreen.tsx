@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
+  Alert,
   Image,
   Pressable,
   ScrollView,
@@ -9,15 +10,16 @@ import {
   View,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { CirclePlus } from 'lucide-react-native';
+import { Users } from 'lucide-react-native';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   getGooglePlacePhotoUrl,
   getGooglePlacePreview,
-  importGooglePlace,
 } from '@/api/places';
+import { suggestLocalCommunity } from '@/api/communityInterests';
 import { supabase } from '@/lib/supabase';
+import { useAuthStore } from '@/store/authStore';
 import { useStackHeaderHeight } from '@/hooks/useStackHeaderHeight';
 import { colors, radius, shadow, spacing, typography } from '@/theme';
 
@@ -26,6 +28,7 @@ type Props = {
   navigation: {
     navigate: (screen: string, params?: object) => void;
     setOptions: (opts: object) => void;
+    goBack: () => void;
   };
 };
 
@@ -33,6 +36,7 @@ export function GooglePlacePreviewScreen({ route, navigation }: Props) {
   const { googlePlaceId, initialName } = route.params;
   const headerHeight = useStackHeaderHeight();
   const queryClient = useQueryClient();
+  const { user } = useAuthStore();
 
   const placeQuery = useQuery({
     queryKey: ['googlePlacePreview', googlePlaceId],
@@ -51,26 +55,48 @@ export function GooglePlacePreviewScreen({ route, navigation }: Props) {
     return () => subscription.unsubscribe();
   }, []);
 
-  const bestPhotoName = useMemo(() => {
-    const photos = placeQuery.data?.photos ?? [];
-    if (photos.length === 0) return null;
-    return [...photos].sort(
-      (a, b) =>
-        (b.widthPx ?? 0) / (b.heightPx ?? 1) -
-        (a.widthPx ?? 0) / (a.heightPx ?? 1)
-    )[0]?.name ?? null;
-  }, [placeQuery.data?.photos]);
+  const [selectedPhotoName, setSelectedPhotoName] = useState<string | null>(null);
 
-  // Explicit user tap overrides the default; falls back to best landscape photo once loaded
-  const [userSelectedPhotoName, setUserSelectedPhotoName] = useState<string | null>(null);
-  const selectedPhotoName = userSelectedPhotoName ?? bestPhotoName;
+  const suggestMutation = useMutation({
+    mutationFn: ({ googlePlaceId, bannerPhotoName }: {
+      googlePlaceId: string;
+      bannerPhotoName: string | null;
+    }) => {
+      if (!user) throw new Error('You must be signed in to suggest a community.');
+      return suggestLocalCommunity(googlePlaceId, bannerPhotoName, user.id);
+    },
+    onSuccess: async (outcome) => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['places'] }),
+        queryClient.invalidateQueries({ queryKey: ['pendingPlaces'] }),
+      ]);
 
-  const importMutation = useMutation({
-    mutationFn: ({ googlePlaceId, bannerPhotoName }: { googlePlaceId: string; bannerPhotoName: string | null }) =>
-      importGooglePlace(googlePlaceId, bannerPhotoName),
-    onSuccess: async (place) => {
-      await queryClient.invalidateQueries({ queryKey: ['places'] });
-      navigation.navigate('PlaceDetail', { placeId: place.id });
+      if (outcome.kind === 'navigated_to_active') {
+        navigation.navigate('PlaceDetail', { placeId: outcome.place.id });
+        return;
+      }
+
+      if (outcome.kind === 'already_interested') {
+        Alert.alert(
+          "You're already on the list",
+          "You've already expressed interest in this community. We'll let you know when it goes live.",
+          [{ text: 'OK', onPress: () => navigation.goBack() }],
+        );
+        return;
+      }
+
+      // outcome.kind === 'suggested'
+      Alert.alert(
+        'Community suggested',
+        "Thanks! We'll review this place and notify you when the community goes live.",
+        [{ text: 'OK', onPress: () => navigation.goBack() }],
+      );
+    },
+    onError: (error) => {
+      Alert.alert(
+        'Could not submit suggestion',
+        error instanceof Error ? error.message : 'Please try again in a moment.',
+      );
     },
   });
 
@@ -78,8 +104,22 @@ export function GooglePlacePreviewScreen({ route, navigation }: Props) {
     navigation.setOptions({ title: placeQuery.data?.displayName ?? initialName ?? 'Place Preview' });
   }, [initialName, navigation, placeQuery.data?.displayName]);
 
-
   const hoursLines = formatOpeningHours(placeQuery.data?.currentOpeningHours);
+
+  const handleSuggest = () => {
+    if (!user) {
+      Alert.alert('Sign in required', 'Please sign in to suggest a local community.');
+      return;
+    }
+    if (!selectedPhotoName) {
+      Alert.alert(
+        'Select a cover photo',
+        'Please select an image below that you feel best showcases this place.',
+      );
+      return;
+    }
+    suggestMutation.mutate({ googlePlaceId, bannerPhotoName: selectedPhotoName });
+  };
 
   return (
     <SafeAreaView style={styles.safe} edges={['left', 'right']}>
@@ -94,7 +134,7 @@ export function GooglePlacePreviewScreen({ route, navigation }: Props) {
           </View>
         ) : placeQuery.isError ? (
           <View style={styles.stateBox}>
-            <Text style={styles.errorTitle}>Couldn’t load place details</Text>
+            <Text style={styles.errorTitle}>Couldn't load place details</Text>
             <Text style={styles.stateText}>
               {placeQuery.error instanceof Error ? placeQuery.error.message : 'Try again in a moment.'}
             </Text>
@@ -125,24 +165,33 @@ export function GooglePlacePreviewScreen({ route, navigation }: Props) {
                   value={placeQuery.data.openNow ? 'Open now' : 'Closed right now'}
                 />
               ) : null}
+
+              <View style={styles.suggestionNote}>
+                <Ionicons name="information-circle-outline" size={15} color={colors.textMuted} />
+                <Text style={styles.suggestionNoteText}>
+                  Suggesting a place lets us know there's interest. Communities go live once enough
+                  people have joined the list.
+                </Text>
+              </View>
+
               <Pressable
-                onPress={() => importMutation.mutate({ googlePlaceId, bannerPhotoName: selectedPhotoName })}
-                disabled={importMutation.isPending}
+                onPress={handleSuggest}
+                disabled={suggestMutation.isPending}
                 style={({ pressed }) => [
                   styles.saveButton,
-                  pressed && !importMutation.isPending && styles.saveButtonPressed,
-                  importMutation.isPending && styles.saveButtonDisabled,
+                  pressed && !suggestMutation.isPending && styles.saveButtonPressed,
+                  suggestMutation.isPending && styles.saveButtonDisabled,
                 ]}
                 accessibilityRole="button"
-                accessibilityLabel="Save place to Nuzzle"
+                accessibilityLabel="Suggest a local community for this place"
               >
-                {importMutation.isPending ? (
+                {suggestMutation.isPending ? (
                   <ActivityIndicator size="small" color={colors.surface} />
                 ) : (
-                  <CirclePlus size={21} color={colors.surface} />
+                  <Users size={19} color={colors.surface} />
                 )}
                 <Text style={styles.saveButtonText}>
-                  {importMutation.isPending ? 'Saving…' : 'Create Nuzzle Feed'}
+                  {suggestMutation.isPending ? 'Submitting…' : 'Suggest Local Community'}
                 </Text>
               </Pressable>
             </View>
@@ -160,7 +209,7 @@ export function GooglePlacePreviewScreen({ route, navigation }: Props) {
                       return (
                         <Pressable
                           key={photo.name}
-                          onPress={() => setUserSelectedPhotoName(photo.name)}
+                          onPress={() => setSelectedPhotoName(photo.name)}
                           accessibilityRole="button"
                           accessibilityLabel={`Photo ${index + 1}${isSelected ? ', selected as cover' : ', tap to use as cover'}`}
                           accessibilityState={{ selected: isSelected }}
@@ -179,7 +228,9 @@ export function GooglePlacePreviewScreen({ route, navigation }: Props) {
                       );
                     })}
                   </ScrollView>
-                  <Text style={styles.photoHint}>Tap a photo to use as the cover</Text>
+                  <Text style={styles.photoHint}>
+                    {selectedPhotoName ? 'Cover photo selected ✓' : 'Tap a photo to use as the cover'}
+                  </Text>
                 </>
               ) : (
                 <Text style={styles.emptyValue}>No photos returned.</Text>
@@ -197,14 +248,6 @@ export function GooglePlacePreviewScreen({ route, navigation }: Props) {
                 <Text style={styles.emptyValue}>Not available.</Text>
               )}
             </Section>
-
-            {importMutation.isError ? (
-              <Text style={styles.errorText}>
-                {importMutation.error instanceof Error
-                  ? importMutation.error.message
-                  : 'Couldn’t save this place.'}
-              </Text>
-            ) : null}
           </>
         ) : null}
       </ScrollView>
@@ -313,6 +356,19 @@ const styles = StyleSheet.create({
     ...typography.body,
     color: colors.textPrimary,
   },
+  suggestionNote: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: spacing.xs,
+    backgroundColor: colors.surfaceMuted,
+    borderRadius: radius.sm,
+    padding: spacing.sm,
+  },
+  suggestionNoteText: {
+    ...typography.caption,
+    color: colors.textMuted,
+    flex: 1,
+  },
   section: {
     backgroundColor: colors.surface,
     borderRadius: radius.md,
@@ -362,11 +418,6 @@ const styles = StyleSheet.create({
   emptyValue: {
     ...typography.bodyMuted,
   },
-  errorText: {
-    ...typography.body,
-    color: colors.danger,
-    textAlign: 'center',
-  },
   saveButton: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -376,7 +427,7 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.sm,
     paddingHorizontal: spacing.lg,
     gap: spacing.xs,
-    marginTop: spacing.sm,
+    marginTop: spacing.xs,
   },
   saveButtonPressed: {
     opacity: 0.88,

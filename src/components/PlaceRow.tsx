@@ -141,7 +141,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     borderRadius: 0,
     paddingHorizontal: spacing.lg,
-    paddingLeft: spacing.xl,
     paddingTop: spacing.xs,
     paddingBottom: spacing.md + 1,
   },

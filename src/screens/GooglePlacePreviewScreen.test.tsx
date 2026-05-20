@@ -100,7 +100,7 @@ function setup({ importError }: { importError?: Error } = {}) {
   render(
     <GooglePlacePreviewScreen
       route={{ params: { googlePlaceId: 'google-1', initialName: 'Balboa Park' } }}
-      navigation={{ navigate, setOptions: jest.fn() }}
+      navigation={{ navigate, setOptions: jest.fn(), goBack: jest.fn() }}
     />
   );
 

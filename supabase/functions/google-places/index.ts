@@ -6,7 +6,9 @@ declare const Deno: {
   serve: (handler: (req: Request) => Response | Promise<Response>) => void;
 };
 
-type Action = "search" | "details" | "import" | "nearby" | "dogSpots";
+type Action = "search" | "details" | "import" | "suggest" | "nearby" | "dogSpots";
+type PlaceCommunityStatus = "active" | "pending";
+type SuggestionStatus = "suggested" | "already_pending" | "already_active";
 type PlaceType = "dog_beach" | "dog_park" | "trail" | "park" | "other";
 
 type GoogleAddressComponent = {
@@ -479,10 +481,10 @@ async function proxyGooglePhoto(photoName: string, apiKey: string) {
 }
 
 const TEXT_SEARCH_QUERIES = ["dog park", "dog beach", "off leash dog"] as const;
-const TEXT_SEARCH_RADIUS_METERS = 50_000;
-const TEXT_SEARCH_MAX_RESULTS = 20;
+const TEXT_SEARCH_RADIUS_METERS = 25_000;
+const TEXT_SEARCH_MAX_RESULTS = 10;
 const NEARBY_GENERAL_TYPES = ["park", "beach", "hiking_area", "campground"] as const;
-const NEARBY_GENERAL_MAX_RESULTS = 20;
+const NEARBY_GENERAL_MAX_RESULTS = 10;
 const NEARBY_GENERAL_RADIUS_METERS = 5_000;
 
 async function searchNearbyPlaces(
@@ -807,6 +809,7 @@ Deno.serve(async (req) => {
             photos: photoNames,
             is_active: true,
             supports_check_in: true,
+            status: "active" satisfies PlaceCommunityStatus,
           },
           { onConflict: "google_place_id" },
         )
@@ -815,6 +818,100 @@ Deno.serve(async (req) => {
 
       if (error) throw error;
       return json({ place: data });
+    }
+
+    if (body.action === "suggest") {
+      const googlePlaceId = body.googlePlaceId?.trim();
+      if (!googlePlaceId) return json({ error: "googlePlaceId is required" }, 400);
+
+      const adminClient = createClient(supabaseUrl, supabaseServiceRoleKey, {
+        auth: { persistSession: false },
+      });
+
+      // Fast path: return existing place without hitting the Google API.
+      const { data: existingPlace, error: lookupError } = await adminClient
+        .from("places")
+        .select("*")
+        .eq("google_place_id", googlePlaceId)
+        .maybeSingle();
+
+      if (lookupError) throw lookupError;
+
+      if (existingPlace) {
+        const suggestionStatus: SuggestionStatus = existingPlace.is_active
+          ? "already_active"
+          : "already_pending";
+        return json({ place: existingPlace, suggestionStatus });
+      }
+
+      // Place not in DB yet — fetch from Google and create as pending.
+      const preview = await getGooglePlacePreview(googlePlaceId, googleApiKey);
+      const validation = isImportAllowed(preview);
+      if (!validation.allowed) {
+        throw new ValidationError(validation.reason ?? "This place can't be saved right now.");
+      }
+
+      const allSuggestPhotoNames = preview.photos
+        .map((p) => p.name)
+        .filter(Boolean);
+
+      const suggestBannerName =
+        typeof body.bannerPhotoName === "string" &&
+        body.bannerPhotoName.startsWith("places/") &&
+        body.bannerPhotoName.includes("/photos/")
+          ? body.bannerPhotoName
+          : null;
+
+      const suggestOtherPhotos = allSuggestPhotoNames.filter(
+        (n) => n !== suggestBannerName,
+      );
+      const suggestPhotoNames = (
+        suggestBannerName
+          ? [suggestBannerName, ...suggestOtherPhotos]
+          : allSuggestPhotoNames
+      ).slice(0, 3);
+
+      const { data: newPlace, error: insertError } = await adminClient
+        .from("places")
+        .insert({
+          google_place_id: preview.googlePlaceId,
+          name: preview.name,
+          slug: slugFor(preview),
+          place_type: preview.placeType,
+          city: preview.city,
+          neighborhood: preview.neighborhood,
+          latitude: preview.latitude,
+          longitude: preview.longitude,
+          description: preview.formattedAddress,
+          photos: suggestPhotoNames,
+          is_active: false,
+          supports_check_in: false,
+          status: "pending" satisfies PlaceCommunityStatus,
+        })
+        .select("*")
+        .single();
+
+      if (insertError) {
+        // Race condition: another request inserted first — fetch and return it.
+        if (insertError.code === "23505") {
+          const { data: racedPlace, error: raceError } = await adminClient
+            .from("places")
+            .select("*")
+            .eq("google_place_id", googlePlaceId)
+            .single();
+          if (raceError) throw raceError;
+          const suggestionStatus: SuggestionStatus = racedPlace.is_active
+            ? "already_active"
+            : "already_pending";
+          return json({ place: racedPlace, suggestionStatus });
+        }
+        throw insertError;
+      }
+
+      return json({
+        place: newPlace,
+        suggestionStatus: "suggested" satisfies SuggestionStatus,
+      });
     }
 
     return json({ error: "Invalid action" }, 400);
