@@ -15,6 +15,8 @@ import { Bell } from "lucide-react-native";
 import * as Location from "expo-location";
 import { getDogSpotsNearby, getGooglePlacePhotoUrl } from "@/api/places";
 import { NotificationsSheet } from "@/components/NotificationsSheet";
+import { useListDogSpotVibes } from "@/hooks/useDogSpotVibes";
+import type { PlaceVibeData } from "@/hooks/useDogSpotVibes";
 import { colors, radius, spacing, typography } from "@/theme";
 import { useStackHeaderHeight } from "@/hooks/useStackHeaderHeight";
 import type { GooglePlaceCandidate } from "@/types";
@@ -24,6 +26,7 @@ import type { GooglePlaceCandidate } from "@/types";
 const H_PADDING = spacing.lg;
 const DOG_SPOTS_INITIAL_COUNT = 10;
 const DOG_SPOTS_LOAD_MORE_COUNT = 10;
+const MAX_LIST_VIBES = 3;
 
 type DogSpotsFilter = "all" | "cafes" | "bars" | "breweries" | "restaurants" | "stores";
 
@@ -57,6 +60,31 @@ const GOOGLE_PLACE_TYPE_ICONS: Record<string, React.ComponentProps<typeof Ionico
   other: "location-outline",
 };
 
+const IGNORED_TYPES = new Set([
+  "establishment", "point_of_interest", "food", "premise", "geocode", "subpremise",
+]);
+
+function formatPrimaryType(types: string[]): string {
+  const first = types.find((t) => !IGNORED_TYPES.has(t));
+  if (!first) return "";
+  return first.split("_").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+}
+
+function haversineKm(lat1: number, lon1: number, lat2: number, lon2: number): number {
+  const R = 6371;
+  const dLat = (lat2 - lat1) * (Math.PI / 180);
+  const dLon = (lon2 - lon1) * (Math.PI / 180);
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) * Math.sin(dLon / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+function formatDistanceMi(km: number): string {
+  const mi = km * 0.621371;
+  return `${mi < 10 ? mi.toFixed(1) : Math.round(mi)} mi`;
+}
+
 function getGooglePlaceIcon(
   candidate: GooglePlaceCandidate
 ): React.ComponentProps<typeof Ionicons>["name"] {
@@ -72,40 +100,99 @@ function getGooglePlaceIcon(
 
 function DogSpotRow({
   candidate,
+  coords,
+  vibeData,
   onPress,
 }: {
   candidate: GooglePlaceCandidate;
+  coords: UserCoords;
+  vibeData: PlaceVibeData | undefined;
   onPress: () => void;
 }) {
-  const locationLine = [candidate.neighborhood, candidate.city].filter(Boolean).join(", ");
-  const subtitle = locationLine || candidate.formattedAddress;
+  const primaryType = formatPrimaryType(candidate.types);
+  const location    = candidate.neighborhood ?? candidate.city;
+  const subtitle    = [primaryType, location].filter(Boolean).join(" • ");
+
+  const distanceLine =
+    coords && candidate.latitude != null && candidate.longitude != null
+      ? formatDistanceMi(haversineKm(coords.latitude, coords.longitude, candidate.latitude, candidate.longitude))
+      : null;
+
+  const ratingStr =
+    candidate.rating != null
+      ? `${candidate.rating.toFixed(1)}${candidate.userRatingCount != null ? ` (${candidate.userRatingCount.toLocaleString()})` : ""}`
+      : null;
+  const metaLine = [ratingStr, distanceLine].filter(Boolean).join("  •  ");
+
+  const vibesWithCounts  = vibeData?.vibesWithCounts  ?? [];
+  const uniqueVoterCount = vibeData?.uniqueVoterCount ?? 0;
+  const shownVibes       = vibesWithCounts.slice(0, MAX_LIST_VIBES);
+  const extraCount       = vibesWithCounts.length - shownVibes.length;
 
   return (
     <Pressable
       onPress={onPress}
-      style={({ pressed }) => [styles.googlePlaceRow, pressed && styles.googlePlaceRowPressed]}
+      style={({ pressed }) => [styles.dogSpotCard, pressed && styles.dogSpotCardPressed]}
       accessibilityRole="button"
       accessibilityLabel={`Preview ${candidate.name}`}
     >
+      {/* Thumbnail */}
       {candidate.coverPhotoName ? (
         <Image
           source={{ uri: getGooglePlacePhotoUrl(candidate.coverPhotoName) }}
           style={styles.dogSpotThumb}
         />
       ) : (
-        <View style={[styles.googlePlaceIconWrap, styles.dogSpotThumbFallback]}>
-          <Ionicons name={getGooglePlaceIcon(candidate)} size={22} color={colors.primary} />
+        <View style={[styles.dogSpotThumb, styles.dogSpotThumbFallback]}>
+          <Ionicons name={getGooglePlaceIcon(candidate)} size={24} color={colors.primary} />
         </View>
       )}
-      <View style={styles.googlePlaceBody}>
-        <Text style={styles.googlePlaceName} numberOfLines={1}>
+
+      {/* Body */}
+      <View style={styles.dogSpotBody}>
+        <Text style={styles.dogSpotName} numberOfLines={2}>
           {candidate.name}
         </Text>
+
         {subtitle ? (
-          <Text style={styles.googlePlaceSubtitle} numberOfLines={1}>
+          <Text style={styles.dogSpotSubtitle} numberOfLines={1}>
             {subtitle}
           </Text>
         ) : null}
+
+        {metaLine ? (
+          <View style={styles.dogSpotMetaRow}>
+            {ratingStr ? <Ionicons name="star" size={12} color="#F5A623" /> : null}
+            <Text style={styles.dogSpotMetaText}>{metaLine}</Text>
+          </View>
+        ) : null}
+
+        {shownVibes.length > 0 && (
+          <View style={styles.dogSpotVibeRow}>
+            {shownVibes.map((vibe) => {
+              const iconName = vibe.icon as React.ComponentProps<typeof Ionicons>["name"] | null;
+              return (
+                <View key={vibe.id} style={styles.dogSpotVibeChip}>
+                  {iconName ? <Ionicons name={iconName} size={12} color={colors.primary} /> : null}
+                  <Text style={styles.dogSpotVibeLabel}>{vibe.label}</Text>
+                  <Text style={styles.dogSpotVibeCount}>{vibe.count}</Text>
+                </View>
+              );
+            })}
+            {extraCount > 0 && (
+              <Text style={styles.dogSpotVibeMore}>+{extraCount} more</Text>
+            )}
+          </View>
+        )}
+
+        {uniqueVoterCount > 0 && (
+          <View style={styles.dogSpotApprovedRow}>
+            <Ionicons name="paw" size={12} color={colors.primary} />
+            <Text style={styles.dogSpotApprovedText}>
+              Dog approved by {uniqueVoterCount} {uniqueVoterCount === 1 ? "local" : "locals"}
+            </Text>
+          </View>
+        )}
       </View>
     </Pressable>
   );
@@ -249,6 +336,13 @@ export function ExploreScreen({
     return raw.filter((c) => c.types.some((t) => allowedTypes.has(t.toLowerCase())));
   }, [dogSpotsQuery.data, dogSpotsFilter]);
 
+  const visibleSpotIds = useMemo(
+    () => filteredDogSpots.slice(0, dogSpotsDisplayCount).map((c) => c.googlePlaceId),
+    [filteredDogSpots, dogSpotsDisplayCount],
+  );
+
+  const { vibesByPlace } = useListDogSpotVibes(visibleSpotIds);
+
   const handleDogSpotPress = (candidate: GooglePlaceCandidate) => {
     navigation.navigate("DogSpotPreview", {
       googlePlaceId: candidate.googlePlaceId,
@@ -324,6 +418,8 @@ export function ExploreScreen({
                       <DogSpotRow
                         key={candidate.googlePlaceId}
                         candidate={candidate}
+                        coords={coords}
+                        vibeData={vibesByPlace.get(candidate.googlePlaceId)}
                         onPress={() => handleDogSpotPress(candidate)}
                       />
                     ))}
@@ -450,50 +546,95 @@ const styles = StyleSheet.create({
   },
   dogSpotsChipTextActive: { color: colors.surface },
 
-  googlePlaceRow: {
+  // ── Dog spot card
+  dogSpotCard: {
     flexDirection: "row",
-    alignItems: "center",
-    marginHorizontal: -spacing.lg,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
-    backgroundColor: "transparent",
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.xs,
-    paddingBottom: spacing.md + 1,
-  },
-  googlePlaceRowPressed: { opacity: 0.9 },
-  googlePlaceIconWrap: {
-    width: 40,
-    height: 40,
-    borderRadius: radius.md,
-    backgroundColor: colors.primarySoft,
-    alignItems: "center",
-    justifyContent: "center",
-    marginRight: spacing.md,
-    flexShrink: 0,
-  },
-  dogSpotThumb: {
-    width: 80,
-    height: 72,
+    alignItems: "flex-start",
+    backgroundColor: colors.surface,
     borderRadius: radius.sm,
-    marginRight: spacing.md,
+    borderWidth: 1,
+    borderColor: colors.border,
+    padding: spacing.md,
+    gap: spacing.md,
+  },
+  dogSpotCardPressed: { opacity: 0.88 },
+  dogSpotThumb: {
+    width: 90,
+    height: 90,
+    borderRadius: radius.xs,
     flexShrink: 0,
     backgroundColor: colors.surfaceMuted,
   },
   dogSpotThumbFallback: {
-    width: 80,
-    height: 72,
-    borderRadius: radius.sm,
+    alignItems: "center",
+    justifyContent: "center",
   },
-  googlePlaceBody: {
+  dogSpotBody: {
     flex: 1,
-    gap: spacing.xxs,
+    gap: spacing.xxs + 1,
   },
-  googlePlaceName: {
+  dogSpotName: {
     ...typography.subtitle,
+    color: colors.textPrimary,
+    marginBottom: -3,
   },
-  googlePlaceSubtitle: {
+  dogSpotSubtitle: {
     ...typography.caption,
     color: colors.textMuted,
+  },
+  dogSpotMetaRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+  },
+  dogSpotMetaText: {
+    ...typography.caption,
+    color: colors.textSecondary,
+  },
+  dogSpotVibeRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: spacing.xxs + 1,
+    marginTop: spacing.xxs,
+  },
+  dogSpotVibeChip: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 3,
+    backgroundColor: colors.primarySoft,
+    borderWidth: 1,
+    borderColor: colors.primary,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: 3,
+    borderRadius: radius.pill,
+  },
+  dogSpotVibeLabel: {
+    ...typography.caption,
+    color: colors.primary,
+    fontFamily: "Inter_500Medium",
+    fontSize: 12,
+  },
+  dogSpotVibeCount: {
+    ...typography.caption,
+    color: colors.primary,
+    fontFamily: "Inter_700Bold",
+    fontSize: 12,
+  },
+  dogSpotVibeMore: {
+    ...typography.caption,
+    color: colors.textMuted,
+    alignSelf: "center",
+  },
+  dogSpotApprovedRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.xxs + 1,
+    marginTop: 1,
+  },
+  dogSpotApprovedText: {
+    ...typography.caption,
+    color: colors.primary,
+    fontFamily: "Inter_500Medium",
+    fontSize: 12,
   },
 });

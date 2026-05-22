@@ -14,24 +14,9 @@ import {
   getGooglePlacePhotoUrl,
   getGooglePlacePreview,
 } from '@/api/places';
+import { DogVibesCard } from '@/components/DogVibesCard';
 import { useStackHeaderHeight } from '@/hooks/useStackHeaderHeight';
 import { colors, radius, spacing, typography } from '@/theme';
-
-// ── Placeholder vibe data ──────────────────────────────────────────────────────
-
-const PLACEHOLDER_VIBES = [
-  { icon: 'water-outline' as const, label: 'Water bowls', count: 8 },
-  { icon: 'umbrella-outline' as const, label: 'Dog-friendly patio', count: 6 },
-  { icon: 'gift-outline' as const, label: 'Gives treats', count: 4 },
-  { icon: 'partly-sunny-outline' as const, label: 'Great after beach', count: 3 },
-  { icon: 'people-outline' as const, label: 'Dog-friendly staff', count: 2 },
-];
-
-const ADD_VIBES = [
-  'Quiet', 'Shady seating', 'Spacious patio',
-  'Good for small dogs', 'Good for social dogs',
-  'Usually busy', 'Loud', 'Limited parking',
-];
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -216,36 +201,7 @@ export function DogSpotPreviewScreen({ route, navigation }: Props) {
 
             {/* ── Dog Vibes ─────────────────────────────────────── */}
             <Section title="Dog Vibes">
-              <View style={styles.vibeApprovedRow}>
-                <Ionicons name="paw" size={16} color={colors.primary} />
-                <Text style={styles.vibeApprovedText}>Dog Approved by 12 locals</Text>
-                <Ionicons name="information-circle-outline" size={16} color={colors.textMuted} />
-              </View>
-              <Text style={styles.vibeSubtitle}>What dog owners love about this place</Text>
-              <View style={styles.vibeChipRow}>
-                {PLACEHOLDER_VIBES.map((vibe) => (
-                  <View key={vibe.label} style={styles.vibeChip}>
-                    <Ionicons name={vibe.icon} size={15} color={colors.primary} />
-                    <Text style={styles.vibeChipLabel}>{vibe.label}</Text>
-                    <Text style={styles.vibeChipCount}>{vibe.count}</Text>
-                  </View>
-                ))}
-              </View>
-              <View style={styles.vibeSeparator} />
-              <Text style={styles.vibeAddTitle}>Add your vibe</Text>
-              <Text style={styles.vibeAddSubtitle}>Tap any that apply {'👆'}</Text>
-              <View style={styles.vibeChipRow}>
-                {ADD_VIBES.map((label) => (
-                  <View key={label} style={styles.vibeAddChip}>
-                    <Ionicons name="add" size={15} color={colors.primary} />
-                    <Text style={styles.vibeAddChipLabel}>{label}</Text>
-                  </View>
-                ))}
-              </View>
-              <View style={styles.vibeFooter}>
-                <Ionicons name="people-outline" size={15} color={colors.textMuted} />
-                <Text style={styles.vibeFooterText}>Vibes from local dog owners like you</Text>
-              </View>
+              <DogVibesCard googlePlaceId={googlePlaceId} />
             </Section>
 
             {/* ── Photos ────────────────────────────────────────── */}
@@ -437,92 +393,6 @@ const styles = StyleSheet.create({
     ...typography.subtitle,
     color: colors.textPrimary,
     flex: 1,
-  },
-
-  // ── Vibe chips (existing)
-  vibeApprovedRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.xs,
-  },
-  vibeApprovedText: {
-    ...typography.body,
-    color: colors.primary,
-    fontFamily: 'Inter_500Medium',
-    flex: 1,
-    fontSize: 15,
-  },
-  vibeSubtitle: {
-    ...typography.caption,
-    color: colors.textMuted,
-  },
-  vibeChipRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: spacing.xs,
-  },
-  vibeChip: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.xxs + 1,
-    backgroundColor: colors.primarySoft,
-    borderWidth: 1,
-    borderColor: colors.primary,
-    paddingHorizontal: spacing.sm + 2,
-    paddingVertical: spacing.xxs + 2,
-    borderRadius: radius.pill,
-  },
-  vibeChipLabel: {
-    ...typography.caption,
-    color: colors.primary,
-    fontFamily: 'Inter_500Medium',
-  },
-  vibeChipCount: {
-    ...typography.caption,
-    color: colors.primary,
-    fontFamily: 'Inter_700Bold',
-  },
-  vibeSeparator: {
-    height: 1,
-    backgroundColor: colors.border,
-    marginVertical: spacing.xxs,
-  },
-  vibeAddTitle: {
-    ...typography.body,
-    color: colors.textPrimary,
-    fontFamily: 'Inter_500Medium',
-    fontSize: 15,
-  },
-  vibeAddSubtitle: {
-    ...typography.caption,
-    color: colors.textMuted,
-    marginTop: -spacing.xxs,
-  },
-  vibeAddChip: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.xxs,
-    borderWidth: 1.5,
-    borderColor: colors.primary,
-    paddingHorizontal: spacing.sm + 2,
-    paddingVertical: spacing.xxs + 2,
-    borderRadius: radius.pill,
-    backgroundColor: colors.surface,
-  },
-  vibeAddChipLabel: {
-    ...typography.caption,
-    color: colors.textPrimary,
-    fontFamily: 'Inter_500Medium',
-  },
-  vibeFooter: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.xs,
-    marginTop: spacing.xxs,
-  },
-  vibeFooterText: {
-    ...typography.caption,
-    color: colors.textMuted,
   },
 
   // ── Photos

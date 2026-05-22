@@ -509,6 +509,58 @@ export interface Database {
           created_at?: string;
         };
       };
+      dog_spot_vibe_options: {
+        Row: {
+          id: string;
+          key: string;
+          label: string;
+          icon: string | null;
+          sort_order: number;
+          is_active: boolean;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          key: string;
+          label: string;
+          icon?: string | null;
+          sort_order?: number;
+          is_active?: boolean;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          key?: string;
+          label?: string;
+          icon?: string | null;
+          sort_order?: number;
+          is_active?: boolean;
+          created_at?: string;
+        };
+      };
+      dog_spot_vibes: {
+        Row: {
+          id: string;
+          google_place_id: string;
+          vibe_option_id: string;
+          user_id: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          google_place_id: string;
+          vibe_option_id: string;
+          user_id: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          google_place_id?: string;
+          vibe_option_id?: string;
+          user_id?: string;
+          created_at?: string;
+        };
+      };
     };
   };
 }
