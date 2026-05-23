@@ -121,18 +121,24 @@ export function GooglePlacePreviewScreen({ route, navigation }: Props) {
     suggestMutation.mutate({ googlePlaceId, bannerPhotoName: selectedPhotoName });
   };
 
+  if (placeQuery.isLoading) {
+    return (
+      <SafeAreaView style={styles.safe} edges={['left', 'right']}>
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="small" color={colors.primary} />
+          <Text style={styles.stateText}>Loading place preview…</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
   return (
     <SafeAreaView style={styles.safe} edges={['left', 'right']}>
       <ScrollView
         contentContainerStyle={[styles.content, { paddingTop: headerHeight + spacing.lg }]}
         showsVerticalScrollIndicator={false}
       >
-        {placeQuery.isLoading ? (
-          <View style={styles.stateBox}>
-            <ActivityIndicator size="small" color={colors.primary} />
-            <Text style={styles.stateText}>Loading place preview…</Text>
-          </View>
-        ) : placeQuery.isError ? (
+        {placeQuery.isError ? (
           <View style={styles.stateBox}>
             <Text style={styles.errorTitle}>Couldn't load place details</Text>
             <Text style={styles.stateText}>
@@ -311,6 +317,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.lg,
     paddingBottom: spacing.xxxl + 75,
     gap: spacing.lg,
+  },
+  loadingContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.sm,
   },
   stateBox: {
     alignItems: 'center',

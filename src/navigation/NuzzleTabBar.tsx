@@ -13,13 +13,15 @@ import {
   BottomTabBarProps,
 } from "@react-navigation/bottom-tabs";
 import { useScrollDirection } from "@/context/ScrollDirectionContext";
-import { Compass, MapPinned, CircleUser } from "lucide-react-native";
+import { CircleUser } from "lucide-react-native";
 import { DogPawIcon } from "@/assets/DogPawIcon";
+import { StorefrontIcon } from "@/assets/StorefrontIcon";
+import { IslandIcon } from "@/assets/IslandIcon";
 import { colors, spacing } from "@/theme";
 
 const TAB_CONFIG = [
   { key: "Home", label: "Dogs" },
-  { key: "SavedPlaces", label: "Places" },
+  { key: "SavedPlaces", label: "Dog Spots" },
   { key: "Create", label: "Create" },
   { key: "Explore", label: "Dog Friendly" },
   { key: "Profile", label: "Profile" },
@@ -39,8 +41,9 @@ const TAB_ICON_COLOR = "#000000";
 const TAB_BAR_LUCIDE_STROKE = 1.7;
 const TAB_BAR_LUCIDE_STROKE_ACTIVE = 2;
 const HOME_ICON_INACTIVE = require("../../assets/pup-icon.png");
-const HOME_ICON_SIZE = 30;
-
+const HOME_ICON_SIZE = 28;
+const STOREFRONT_ICON_STROKE = 1.4;
+const STOREFRONT_ICON_STROKE_ACTIVE = 1.65;
 function TabBarItem({
   tabKey,
   label,
@@ -80,19 +83,21 @@ function TabBarItem({
               resizeMode="contain"
             />
           ) : tabKey === "SavedPlaces" ? (
-            <MapPinned
-              size={24}
-              color={TAB_ICON_COLOR}
-              style={styles.tabIconMap}
-              strokeWidth={isActive ? TAB_BAR_LUCIDE_STROKE_ACTIVE : TAB_BAR_LUCIDE_STROKE}
-            />
+            <View style={styles.islandIcon}>
+              <IslandIcon
+                size={24}
+                color={TAB_ICON_COLOR}
+                strokeWidth={isActive ? TAB_BAR_LUCIDE_STROKE_ACTIVE : TAB_BAR_LUCIDE_STROKE}
+              />
+            </View>
           ) : tabKey === "Explore" ? (
-            <Compass
-              size={24}
-              color={TAB_ICON_COLOR}
-              style={styles.tabIconMap}
-              strokeWidth={isActive ? TAB_BAR_LUCIDE_STROKE_ACTIVE : TAB_BAR_LUCIDE_STROKE}
-            />
+            <View style={styles.tabIconStore}>
+              <StorefrontIcon
+                size={29}
+                color={TAB_ICON_COLOR}
+                strokeWidth={isActive ? STOREFRONT_ICON_STROKE_ACTIVE : STOREFRONT_ICON_STROKE}
+              />
+            </View>
           ) : (
             <CircleUser
               size={24}
@@ -373,13 +378,23 @@ const styles = StyleSheet.create({
   },
   tabIconMap: {
     position: "relative",
+    top: 3,
+    transform: [{ translateY: 0 }],
+  },
+  islandIcon: {
+    position: "relative",
     top: 4,
+    transform: [{ translateY: 0 }],
+  },
+  tabIconStore: {
+    position: "relative",
+    top: 5,
     transform: [{ translateY: 0 }],
   },
   homeIcon: {
     width: HOME_ICON_SIZE,
     height: HOME_ICON_SIZE,
-    transform: [{ translateY: 4 }],
+    transform: [{ translateY: 3 }],
     marginBottom: -3,
   },
   badge: {
@@ -415,7 +430,7 @@ const styles = StyleSheet.create({
   },
   centerButton: {
     position: "absolute",
-    bottom: 1,
+    bottom: 3,
     left: "50%",
     marginLeft: -22.5,
     width: 46,

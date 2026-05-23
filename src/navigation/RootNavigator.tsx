@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import { DefaultTheme, NavigationContainer, type LinkingOptions } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, Text, ActivityIndicator, StyleSheet, Platform, Pressable } from 'react-native';
@@ -381,9 +381,25 @@ export function RootNavigator() {
     colors: { ...DefaultTheme.colors, background: colors.background },
   };
 
+  const linking: LinkingOptions<RootStackParamList> = {
+    prefixes: [
+      'nuzzle://',
+      'exp+nuzzle://',
+      'https://www.nuzzleapp.io',
+      'https://nuzzleapp.io',
+    ],
+    config: {
+      screens: {
+        PostDetail: 'post/:postId',
+        UserProfile: 'user/:userId',
+      },
+    },
+  };
+
   return (
     <NavigationContainer
       theme={theme}
+      linking={linking}
       ref={(ref) => {
         navRef.current = ref;
         if (ref) registerSentryNavigationContainer(ref);

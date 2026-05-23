@@ -350,107 +350,115 @@ export function ExploreScreen({
     });
   };
 
+  const isFullScreenLoading =
+    placesLocationState === "unknown" || dogSpotsQuery.isLoading;
+
   return (
     <View style={styles.screen}>
       <SafeAreaView style={styles.safe} edges={["left", "right"]}>
-        <ScrollView
-          style={styles.container}
-          contentContainerStyle={[
-            styles.content,
-            { paddingTop: headerHeight + spacing.xl },
-          ]}
-          showsVerticalScrollIndicator={false}
-        >
-          {coords ? (
-            <>
-              <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.dogSpotsChipRow}
-              >
-                {DOG_SPOTS_FILTERS.map((filter) => (
-                  <Pressable
-                    key={filter}
-                    onPress={() => setDogSpotsFilter(filter)}
-                    style={({ pressed }) => [
-                      styles.dogSpotsChip,
-                      dogSpotsFilter === filter && styles.dogSpotsChipActive,
-                      pressed && styles.dogSpotsChipPressed,
-                    ]}
-                  >
-                    <Text
-                      style={[
-                        styles.dogSpotsChipText,
-                        dogSpotsFilter === filter && styles.dogSpotsChipTextActive,
-                      ]}
-                    >
-                      {DOG_SPOTS_FILTER_LABELS[filter]}
-                    </Text>
-                  </Pressable>
-                ))}
-              </ScrollView>
-
-              <PlacesSection
-                title="Dog-Friendly Spots Nearby"
-                isEmpty={
-                  !dogSpotsQuery.isFetching &&
-                  !dogSpotsQuery.isError &&
-                  filteredDogSpots.length === 0
-                }
-                emptyMessage={
-                  dogSpotsFilter === "all"
-                    ? "No dog-friendly spots found nearby."
-                    : `No ${DOG_SPOTS_FILTER_LABELS[dogSpotsFilter].toLowerCase()} found nearby.`
-                }
-              >
-                {dogSpotsQuery.isFetching ? (
-                  <View style={styles.googleStateRow}>
-                    <ActivityIndicator size="small" color={colors.primary} />
-                    <Text style={styles.googleStateText}>Finding dog-friendly spots…</Text>
-                  </View>
-                ) : dogSpotsQuery.isError ? (
-                  <Text style={styles.placesEmptyText}>
-                    Couldn't load dog-friendly spots. Try again in a moment.
-                  </Text>
-                ) : (
-                  <>
-                    {filteredDogSpots.slice(0, dogSpotsDisplayCount).map((candidate) => (
-                      <DogSpotRow
-                        key={candidate.googlePlaceId}
-                        candidate={candidate}
-                        coords={coords}
-                        vibeData={vibesByPlace.get(candidate.googlePlaceId)}
-                        onPress={() => handleDogSpotPress(candidate)}
-                      />
-                    ))}
-                    {dogSpotsDisplayCount < filteredDogSpots.length && (
+        {isFullScreenLoading ? (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="small" color={colors.primary} />
+            <Text style={styles.googleStateText}>Finding dog-friendly spots…</Text>
+          </View>
+        ) : (
+          <ScrollView
+            style={styles.container}
+            contentContainerStyle={[
+              styles.content,
+              { paddingTop: headerHeight + spacing.xl },
+            ]}
+            showsVerticalScrollIndicator={false}
+          >
+            {coords ? (
+              <>
+                <ScrollView
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  style={styles.dogSpotsChipScroll}
+                  contentContainerStyle={styles.dogSpotsChipRow}
+                >
+                  {DOG_SPOTS_FILTERS.map((filter) => {
+                    const isActive = dogSpotsFilter === filter;
+                    return (
                       <Pressable
-                        onPress={() =>
-                          setDogSpotsDisplayCount((c) => c + DOG_SPOTS_LOAD_MORE_COUNT)
-                        }
+                        key={filter}
+                        onPress={() => setDogSpotsFilter(filter)}
+                        style={({ pressed }) => [
+                          styles.dogSpotsChip,
+                          isActive && styles.dogSpotsChipActive,
+                          pressed && styles.dogSpotsChipPressed,
+                        ]}
                       >
-                        <Text style={styles.nearbyShowMoreText}>Show more spots</Text>
+                        {filter === "all" && (
+                          <Ionicons
+                            name="paw"
+                            size={13}
+                            color={isActive ? colors.surface : colors.primary}
+                            style={styles.dogSpotsChipIcon}
+                          />
+                        )}
+                        <Text
+                          style={[
+                            styles.dogSpotsChipText,
+                            isActive && styles.dogSpotsChipTextActive,
+                          ]}
+                        >
+                          {DOG_SPOTS_FILTER_LABELS[filter]}
+                        </Text>
                       </Pressable>
-                    )}
-                  </>
-                )}
-              </PlacesSection>
-            </>
-          ) : placesLocationState === "denied" ? (
-            <Text style={styles.placesHintText}>
-              Enable location in Settings to show dog-friendly spots nearby.
-            </Text>
-          ) : placesLocationState === "error" ? (
-            <Text style={styles.placesHintText}>
-              Couldn't get your location. Check your connection and try again.
-            </Text>
-          ) : (
-            <View style={styles.googleStateRow}>
-              <ActivityIndicator size="small" color={colors.primary} />
-              <Text style={styles.googleStateText}>Finding dog-friendly spots…</Text>
-            </View>
-          )}
-        </ScrollView>
+                    );
+                  })}
+                </ScrollView>
+
+                <PlacesSection
+                  title="Dog-Friendly Spots Nearby"
+                  isEmpty={!dogSpotsQuery.isError && filteredDogSpots.length === 0}
+                  emptyMessage={
+                    dogSpotsFilter === "all"
+                      ? "No dog-friendly spots found nearby."
+                      : `No ${DOG_SPOTS_FILTER_LABELS[dogSpotsFilter].toLowerCase()} found nearby.`
+                  }
+                >
+                  {dogSpotsQuery.isError ? (
+                    <Text style={styles.placesEmptyText}>
+                      Couldn't load dog-friendly spots. Try again in a moment.
+                    </Text>
+                  ) : (
+                    <>
+                      {filteredDogSpots.slice(0, dogSpotsDisplayCount).map((candidate) => (
+                        <DogSpotRow
+                          key={candidate.googlePlaceId}
+                          candidate={candidate}
+                          coords={coords}
+                          vibeData={vibesByPlace.get(candidate.googlePlaceId)}
+                          onPress={() => handleDogSpotPress(candidate)}
+                        />
+                      ))}
+                      {dogSpotsDisplayCount < filteredDogSpots.length && (
+                        <Pressable
+                          onPress={() =>
+                            setDogSpotsDisplayCount((c) => c + DOG_SPOTS_LOAD_MORE_COUNT)
+                          }
+                        >
+                          <Text style={styles.nearbyShowMoreText}>Show more spots</Text>
+                        </Pressable>
+                      )}
+                    </>
+                  )}
+                </PlacesSection>
+              </>
+            ) : placesLocationState === "denied" ? (
+              <Text style={styles.placesHintText}>
+                Enable location in Settings to show dog-friendly spots nearby.
+              </Text>
+            ) : (
+              <Text style={styles.placesHintText}>
+                Couldn't get your location. Check your connection and try again.
+              </Text>
+            )}
+          </ScrollView>
+        )}
       </SafeAreaView>
       <NotificationsSheet
         visible={notificationsOpen}
@@ -513,36 +521,43 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
     marginBottom: spacing.xs,
   },
-  googleStateRow: {
+  loadingContainer: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     gap: spacing.sm,
-    marginTop: spacing.xl,
   },
   googleStateText: {
     ...typography.bodyMuted,
   },
 
+  dogSpotsChipScroll: {
+    marginHorizontal: -H_PADDING,
+  },
   dogSpotsChipRow: {
     flexDirection: "row",
     gap: spacing.xs,
-    marginBottom: spacing.sm,
+    paddingHorizontal: H_PADDING,
+    paddingBottom: spacing.sm,
   },
   dogSpotsChip: {
-    paddingHorizontal: spacing.sm + 2,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: spacing.md,
     paddingVertical: spacing.xs,
     borderRadius: radius.pill,
-    backgroundColor: colors.surfaceMuted,
-    borderWidth: StyleSheet.hairlineWidth,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
     borderColor: colors.border,
   },
   dogSpotsChipPressed: { opacity: 0.85 },
   dogSpotsChipActive: { backgroundColor: colors.primary, borderColor: colors.primary },
+  dogSpotsChipIcon: { marginRight: spacing.xxs + 1 },
   dogSpotsChipText: {
     ...typography.caption,
     color: colors.textPrimary,
-    fontWeight: "600",
+    fontFamily: 'Inter_500Medium',
   },
   dogSpotsChipTextActive: { color: colors.surface },
 
@@ -552,7 +567,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     backgroundColor: colors.surface,
     borderRadius: radius.sm,
-    borderWidth: 1,
+    borderWidth: 1.25,
     borderColor: colors.border,
     padding: spacing.md,
     gap: spacing.md,

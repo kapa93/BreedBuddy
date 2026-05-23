@@ -19,7 +19,11 @@
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       },
-      "appleTeamId": "L3VDBFUD7G"
+      "appleTeamId": "L3VDBFUD7G",
+      "associatedDomains": [
+        "applinks:nuzzleapp.io",
+        "applinks:www.nuzzleapp.io"
+      ]
     },
     "android": {
       "adaptiveIcon": {
@@ -33,7 +37,20 @@
         "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION"
       ],
-      "package": "com.kapa.nuzzledev"
+      "package": "com.kapa.nuzzledev",
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            { "scheme": "https", "host": "www.nuzzleapp.io", "pathPrefix": "/post" },
+            { "scheme": "https", "host": "www.nuzzleapp.io", "pathPrefix": "/user" },
+            { "scheme": "https", "host": "nuzzleapp.io", "pathPrefix": "/post" },
+            { "scheme": "https", "host": "nuzzleapp.io", "pathPrefix": "/user" }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"

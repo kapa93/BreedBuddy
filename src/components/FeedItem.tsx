@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { Share, StyleSheet, View } from "react-native";
+import { Platform, Share, StyleSheet, View } from "react-native";
 import { QuestionCard } from "@/ui/QuestionCard";
 import { MeetupCard } from "@/components/MeetupCard";
 import { postToQuestionCardData } from "@/utils/postToQuestionCard";
@@ -7,6 +7,12 @@ import { colors, spacing } from "@/theme";
 import type { PostWithDetails, ReactionEnum } from "@/types";
 import { toneStyles } from "@/ui/TagChip";
 import { tagTone } from "@/utils/postToQuestionCard";
+
+const POST_DEEP_LINK_BASE = "https://www.nuzzleapp.io/post/";
+
+function buildPostUrl(postId: string): string {
+  return `${POST_DEEP_LINK_BASE}${postId}`;
+}
 
 type Props = {
   item: PostWithDetails;
@@ -21,6 +27,7 @@ type Props = {
 };
 
 function buildShareMessage(post: PostWithDetails): string {
+  const url = buildPostUrl(post.id);
   if (post.type === "MEETUP" && post.meetup_details) {
     const md = post.meetup_details;
     const date = new Date(md.start_time).toLocaleString(undefined, {
@@ -30,12 +37,12 @@ function buildShareMessage(post: PostWithDetails): string {
       hour: "numeric",
       minute: "2-digit",
     });
-    return `${post.author_name} is hosting a meetup on Nuzzle:\n\n${post.title ?? "Meetup"}\n📍 ${md.location_name} · 📅 ${date}\n\n— Shared from the Nuzzle dog community app`;
+    return `${post.author_name} is hosting a meetup on Nuzzle:\n\n${post.title ?? "Meetup"}\n📍 ${md.location_name} · 📅 ${date}\n\nRead on Nuzzle: ${url}`;
   }
   const body = post.title
     ? `${post.title}\n\n${post.content_text ?? ""}`
     : post.content_text ?? "";
-  return `${post.author_name} on Nuzzle:\n\n${body}\n\n— Shared from the Nuzzle dog community app`;
+  return `${post.author_name} on Nuzzle:\n\n${body}\n\nRead on Nuzzle: ${url}`;
 }
 
 function FeedItemInner({
@@ -64,7 +71,13 @@ function FeedItemInner({
   );
   const handleShare = useCallback(async () => {
     try {
-      await Share.share({ message: buildShareMessage(item) });
+      const message = buildShareMessage(item);
+      const url = buildPostUrl(item.id);
+      await Share.share(
+        Platform.OS === "ios"
+          ? { message, url }
+          : { message }
+      );
     } catch (err) {
       console.warn("Share failed", err);
     }

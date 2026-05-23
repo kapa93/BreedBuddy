@@ -124,18 +124,24 @@ export function DogSpotPreviewScreen({ route, navigation }: Props) {
   const rightDays = parsedHours.slice(4);
   const firstPhotoUrl = place?.photos[0] ? getGooglePlacePhotoUrl(place.photos[0].name) : null;
 
+  if (placeQuery.isLoading) {
+    return (
+      <SafeAreaView style={styles.safe} edges={['left', 'right']}>
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="small" color={colors.primary} />
+          <Text style={styles.stateText}>Loading place preview…</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
   return (
     <SafeAreaView style={styles.safe} edges={['left', 'right']}>
       <ScrollView
         contentContainerStyle={[styles.content, { paddingTop: headerHeight + spacing.lg }]}
         showsVerticalScrollIndicator={false}
       >
-        {placeQuery.isLoading ? (
-          <View style={styles.stateBox}>
-            <ActivityIndicator size="small" color={colors.primary} />
-            <Text style={styles.stateText}>Loading place preview…</Text>
-          </View>
-        ) : placeQuery.isError ? (
+        {placeQuery.isError ? (
           <View style={styles.stateBox}>
             <Text style={styles.errorTitle}>Couldn't load place details</Text>
             <Text style={styles.stateText}>
@@ -269,6 +275,13 @@ const styles = StyleSheet.create({
   },
 
   // ── Loading / error states
+  loadingContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: spacing.sm,
+  },
   stateBox: {
     alignItems: 'center',
     justifyContent: 'center',

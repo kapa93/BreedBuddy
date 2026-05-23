@@ -728,12 +728,7 @@ export function MorePlacesTab({
 
   if (isInitialLoading) {
     return (
-      <View
-        style={[
-          styles.loadingContainer,
-          { paddingTop: headerHeight + placesTabBarHeight },
-        ]}
-      >
+      <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color={colors.primary} />
       </View>
     );
@@ -783,7 +778,7 @@ export function MorePlacesTab({
       {pendingPlaces.length > 0 && (
         <PlacesSection
           title="Pending Communities"
-          style={{ marginTop: spacing.md }}
+          style={{ marginTop: spacing.md - 2 }}
           isEmpty={false}
           emptyMessage=""
         >
