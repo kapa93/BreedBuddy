@@ -847,7 +847,7 @@ const styles = StyleSheet.create({
   },
   carouselImageOverlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0,0,0,0.24)',
+    backgroundColor: 'rgba(0,0,0,0.2)',
   },
   carouselPageContent: {
     flex: 1,

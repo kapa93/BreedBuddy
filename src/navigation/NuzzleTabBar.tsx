@@ -103,7 +103,7 @@ function TabBarItem({
               size={24}
               color={TAB_ICON_COLOR}
               style={[styles.tabIconMap, styles.tabIconLucideUser]}
-              strokeWidth={isActive ? TAB_BAR_LUCIDE_STROKE_ACTIVE : TAB_BAR_LUCIDE_STROKE}
+              strokeWidth={isActive ? TAB_BAR_LUCIDE_STROKE_ACTIVE : 1.75}
             />
           )}
           {badgeLabel ? (
