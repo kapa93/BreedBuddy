@@ -15,7 +15,7 @@ export type NuzzleEvents = {
   onboarding_completed: { added_dog: boolean };
   create_post_opened: { trigger: 'tab' | 'home_prompt' | 'meetup_prompt' };
   create_post_type_selected: { type: string };
-  create_post_submitted: { type: string; has_image: boolean; has_place: boolean; breed: string };
+  create_post_submitted: { type: string; has_image: boolean; has_place: boolean; breed?: string };
   post_viewed: { post_type: string; source?: string };
   post_reaction_added: { reaction_type: string; post_type: string };
   post_comment_added: { post_type: string };

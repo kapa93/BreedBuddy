@@ -40,7 +40,8 @@ import { colors, radius, shadow, spacing, typography } from '@/theme';
 import { captureHandledError } from '@/lib/sentry';
 import { NotificationsSheet } from '@/components/NotificationsSheet';
 import { MorePlacesTab } from '@/components/MorePlacesTab';
-import { Bell, MapPinCheck } from 'lucide-react-native';
+import { MapPinCheck } from 'lucide-react-native';
+import { NotificationBell } from '@/components/NotificationBell';
 import type { ActivePlaceCheckin, Dog, Place, PlaceTypeEnum, PostWithDetails, ReactionEnum } from '@/types';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
@@ -92,14 +93,7 @@ export function SavedPlacesScreen({ navigation }: Props) {
   React.useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        <Pressable
-          onPress={() => setNotificationsOpen(true)}
-          style={({ pressed }: { pressed: boolean }) => [styles.headerButton, pressed && styles.pressed]}
-          accessibilityRole="button"
-          accessibilityLabel="Notifications"
-        >
-          <Bell size={24} color="#000000" />
-        </Pressable>
+        <NotificationBell onPress={() => setNotificationsOpen(true)} />
       ),
     });
   }, [navigation]);

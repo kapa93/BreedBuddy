@@ -50,12 +50,18 @@ export function NotificationsSheet({ visible, onClose, onPostPress }: Props) {
 
   const markReadMutation = useMutation({
     mutationFn: ({ id }: { id: string }) => markNotificationRead(id, user!.id),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['notifications', user?.id] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['notifications', user?.id] });
+      queryClient.invalidateQueries({ queryKey: ['notifications-unread', user?.id] });
+    },
   });
 
   const markAllReadMutation = useMutation({
     mutationFn: () => markAllNotificationsRead(user!.id),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['notifications', user?.id] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['notifications', user?.id] });
+      queryClient.invalidateQueries({ queryKey: ['notifications-unread', user?.id] });
+    },
   });
 
   const items: NotificationItem[] = (rawNotifications ?? []).map((n: any) => ({

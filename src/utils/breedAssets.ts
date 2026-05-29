@@ -5,7 +5,7 @@ import type { ImageStyle, StyleProp } from "react-native";
 import { BREED_LABELS } from "@/utils/breed";
 
 /** Local breed images for pack grid (assets/breeds) */
-const BREED_PACK_IMAGES: Record<BreedEnum, ImageSourcePropType> = {
+export const BREED_PACK_IMAGES: Record<BreedEnum, ImageSourcePropType> = {
   AUSTRALIAN_SHEPHERD: require("../../assets/breeds/aussie-head.jpg"),
   DACHSHUND: require("../../assets/breeds/dachshund.jpg"),
   GERMAN_SHEPHERD: require("../../assets/breeds/german-shepherd.jpg"),

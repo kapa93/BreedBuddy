@@ -48,7 +48,7 @@ import { NotificationsSheet } from "@/components/NotificationsSheet";
 import { colors, radius, spacing, typography } from "@/theme";
 import type { FeedFilter } from "@/store/uiStore";
 import { captureHandledError } from '@/lib/sentry';
-import { Bell } from 'lucide-react-native';
+import { NotificationBell } from '@/components/NotificationBell';
 import { getPackItems } from "@/utils/breedAssets";
 import { MoreBreedsTab } from "@/components/MoreBreedsTab";
 
@@ -115,14 +115,7 @@ export function HomeScreen({
   React.useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        <Pressable
-          onPress={() => setNotificationsOpen(true)}
-          style={({ pressed }) => [styles.bellIcon, pressed && styles.myPlacesChipPressed]}
-          accessibilityRole="button"
-          accessibilityLabel="Notifications"
-        >
-          <Bell size={24} color="#000000" />
-        </Pressable>
+        <NotificationBell onPress={() => setNotificationsOpen(true)} />
       ),
     });
   }, [navigation]);

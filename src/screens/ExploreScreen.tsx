@@ -11,7 +11,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useQuery } from "@tanstack/react-query";
 import { Ionicons } from "@expo/vector-icons";
-import { Bell } from "lucide-react-native";
+import { NotificationBell } from "@/components/NotificationBell";
 import * as Location from "expo-location";
 import { getDogSpotsNearby, getGooglePlacePhotoUrl } from "@/api/places";
 import { NotificationsSheet } from "@/components/NotificationsSheet";
@@ -237,14 +237,7 @@ export function ExploreScreen({
   React.useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        <Pressable
-          onPress={() => setNotificationsOpen(true)}
-          style={({ pressed }) => [styles.bellIcon, pressed && styles.bellIconPressed]}
-          accessibilityRole="button"
-          accessibilityLabel="Notifications"
-        >
-          <Bell size={24} color="#000000" />
-        </Pressable>
+        <NotificationBell onPress={() => setNotificationsOpen(true)} />
       ),
     });
   }, [navigation]);

@@ -3,6 +3,7 @@ import { DefaultTheme, NavigationContainer, type LinkingOptions } from '@react-n
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, Text, ActivityIndicator, StyleSheet, Platform, Pressable } from 'react-native';
+import { ToastBanner } from '@/components/ToastBanner';
 import { X } from 'lucide-react-native';
 import * as Sentry from '@sentry/react-native';
 import { supabase } from '@/lib/supabase';
@@ -397,6 +398,7 @@ export function RootNavigator() {
   };
 
   return (
+    <>
     <NavigationContainer
       theme={theme}
       linking={linking}
@@ -553,6 +555,8 @@ export function RootNavigator() {
         )}
       </RootStack.Navigator>
     </NavigationContainer>
+    <ToastBanner />
+    </>
   );
 }
 

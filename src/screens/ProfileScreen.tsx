@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, Pressable, StyleSheet } from 'react-native';
-import { Bell } from 'lucide-react-native';
+import { NotificationBell } from '@/components/NotificationBell';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { signOut, updateProfile } from '@/api/auth';
 import { deleteDog } from '@/api/dogs';
@@ -23,14 +23,7 @@ export function ProfileScreen({ navigation }: { navigation: ProfileNav }) {
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (
-        <Pressable
-          onPress={() => setNotificationsOpen(true)}
-          style={({ pressed }) => [styles.headerButton, pressed && styles.headerButtonPressed]}
-          accessibilityRole="button"
-          accessibilityLabel="Notifications"
-        >
-          <Bell size={24} color="#000000" />
-        </Pressable>
+        <NotificationBell onPress={() => setNotificationsOpen(true)} />
       ),
     });
   }, [navigation]);

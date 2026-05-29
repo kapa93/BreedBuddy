@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import { supabase } from '@/lib/supabase';
 import type { Notification } from '@/types';
 
@@ -48,4 +49,22 @@ export async function getUnreadCount(userId: string): Promise<number> {
 
   if (error) throw error;
   return count ?? 0;
+}
+
+export async function upsertPushToken(userId: string, token: string): Promise<void> {
+  const platform = Platform.OS as 'ios' | 'android';
+  const { error } = await supabase
+    .from('push_tokens')
+    .upsert({ user_id: userId, token, platform }, { onConflict: 'user_id,token' });
+
+  if (error) throw error;
+}
+
+export async function deletePushToken(token: string): Promise<void> {
+  const { error } = await supabase
+    .from('push_tokens')
+    .delete()
+    .eq('token', token);
+
+  if (error) throw error;
 }

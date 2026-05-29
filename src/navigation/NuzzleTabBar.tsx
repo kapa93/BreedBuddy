@@ -13,6 +13,7 @@ import {
   BottomTabBarProps,
 } from "@react-navigation/bottom-tabs";
 import { useScrollDirection } from "@/context/ScrollDirectionContext";
+import { useUIStore } from "@/store/uiStore";
 import { CircleUser } from "lucide-react-native";
 import { DogPawIcon } from "@/assets/DogPawIcon";
 import { StorefrontIcon } from "@/assets/StorefrontIcon";
@@ -132,6 +133,7 @@ export function NuzzleTabBar({ state, navigation }: BottomTabBarProps) {
   const onTabBarHeightChange = React.useContext(BottomTabBarHeightCallbackContext);
   const insets = useSafeAreaInsets();
   const { scrollDirection, setScrollDirection } = useScrollDirection();
+  const activeFeedBreed = useUIStore((s) => s.activeFeedBreed);
   const [wrapWidth, setWrapWidth] = useState(0);
   const indicatorLeft = useSharedValue(0);
   const createButtonPress = useSharedValue(0);
@@ -229,7 +231,17 @@ export function NuzzleTabBar({ state, navigation }: BottomTabBarProps) {
                   accessibilityRole="button"
                   accessibilityLabel="Create post"
                   hitSlop={6}
-                  onPress={() => navigation.getParent()?.navigate("CreatePostModal" as never)}
+                  onPress={() => {
+                    const parent = navigation.getParent();
+                    if (activeFeedBreed) {
+                      (parent?.navigate as (name: string, params: object) => void)(
+                        'CreatePostModal',
+                        { breed: activeFeedBreed }
+                      );
+                    } else {
+                      (parent?.navigate as (name: string) => void)('CreatePostModal');
+                    }
+                  }}
                   onPressIn={() => {
                     createButtonPress.value = withTiming(
                       1,

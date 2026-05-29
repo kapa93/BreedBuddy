@@ -17,7 +17,8 @@
       "bundleIdentifier": "com.kapa.nuzzle-dev",
       "usesAppleSignIn": true,
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "UIBackgroundModes": ["remote-notification"]
       },
       "appleTeamId": "L3VDBFUD7G",
       "associatedDomains": [
@@ -67,6 +68,14 @@
         "@sentry/react-native",
         {
           "disableAutoUpload": true
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#ffffff",
+          "iosDisplayInForeground": true
         }
       ]
     ],

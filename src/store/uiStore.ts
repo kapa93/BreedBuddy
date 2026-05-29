@@ -5,11 +5,25 @@ export type FeedSort = 'newest' | 'trending';
 
 export type FeedFilter = 'all' | PostTypeEnum;
 
+export type ToastType = 'success' | 'error' | 'info';
+
+export interface ToastState {
+  visible: boolean;
+  message: string;
+  type: ToastType;
+}
+
 interface UIState {
   feedFilter: FeedFilter;
   setFeedFilter: (filter: FeedFilter) => void;
   reactionPickerPost: PostWithDetails | null;
   setReactionPickerPost: (post: PostWithDetails | null) => void;
+  /** Breed of the BreedFeed screen currently in focus, or null when not on a breed feed. */
+  activeFeedBreed: BreedEnum | null;
+  setActiveFeedBreed: (breed: BreedEnum | null) => void;
+  toast: ToastState;
+  showToast: (message: string, type?: ToastType) => void;
+  hideToast: () => void;
 }
 
 export const useUIStore = create<UIState>((set) => ({
@@ -17,4 +31,11 @@ export const useUIStore = create<UIState>((set) => ({
   setFeedFilter: (feedFilter) => set({ feedFilter }),
   reactionPickerPost: null,
   setReactionPickerPost: (reactionPickerPost) => set({ reactionPickerPost }),
+  activeFeedBreed: null,
+  setActiveFeedBreed: (activeFeedBreed) => set({ activeFeedBreed }),
+  toast: { visible: false, message: '', type: 'success' },
+  showToast: (message, type = 'success') =>
+    set({ toast: { visible: true, message, type } }),
+  hideToast: () =>
+    set((s) => ({ toast: { ...s.toast, visible: false } })),
 }));

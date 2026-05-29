@@ -11,7 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { NUZZLE_TAB_BAR_LAYOUT_EXTENDS_BELOW_SCREEN } from "@/navigation/NuzzleTabBar";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useRoute, useNavigation } from "@react-navigation/native";
+import { useRoute, useNavigation, useFocusEffect } from "@react-navigation/native";
 import { getJoinedBreeds, joinBreedFeed, leaveBreedFeed } from "@/api/breedJoins";
 import { useAuthStore } from "@/store/authStore";
 import { useUIStore } from "@/store/uiStore";
@@ -51,9 +51,18 @@ export function BreedFeedScreen() {
     setParams: (params: { breed?: BreedEnum }) => void;
   }>();
   const { user } = useAuthStore();
-  const { feedFilter, setFeedFilter } = useUIStore();
+  const { feedFilter, setFeedFilter, setActiveFeedBreed } = useUIStore();
   const queryClient = useQueryClient();
   const breed = breedParam ?? "GOLDEN_RETRIEVER";
+
+  // Keep the global activeFeedBreed in sync so the tab bar's Create button
+  // can pre-select the correct breed when opening CreatePostModal.
+  useFocusEffect(
+    useCallback(() => {
+      setActiveFeedBreed(breed);
+      return () => setActiveFeedBreed(null);
+    }, [breed, setActiveFeedBreed])
+  );
 
   const { data: joinedBreeds = [] } = useQuery({
     queryKey: ["joinedBreeds", user?.id],

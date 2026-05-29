@@ -3,7 +3,8 @@ import React, { useEffect } from 'react';
 import { Linking, View, StyleSheet, Text, TextInput, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import * as Sentry from '@sentry/react-native';
-import { MutationCache, QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import * as Notifications from 'expo-notifications';
+import { MutationCache, QueryCache, QueryClient, QueryClientProvider, useQueryClient } from '@tanstack/react-query';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { PostHogProvider } from 'posthog-react-native';
 import { posthog } from '@/lib/posthog';
@@ -22,6 +23,16 @@ import { supabase } from '@/lib/supabase';
 import { useAuthStore } from '@/store/authStore';
 import { isAuthCallbackUrl } from '@/api/auth';
 import { captureHandledError } from '@/lib/sentry';
+import { usePushNotifications } from '@/hooks/usePushNotifications';
+
+// Show push notifications even when the app is in the foreground
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
 
 type ComponentWithDefaultStyle = {
   defaultProps?: { style?: unknown };
@@ -63,8 +74,36 @@ function parseAuthParamsFromUrl(url: string): { access_token?: string; refresh_t
   };
 }
 
-function handleAuthUrl(url: string) {
+function parseQueryParam(url: string, key: string): string | null {
+  const queryStart = url.indexOf('?');
+  if (queryStart === -1) return null;
+  const hashStart = url.indexOf('#', queryStart);
+  const query = url.slice(queryStart + 1, hashStart === -1 ? undefined : hashStart);
+  for (const pair of query.split('&')) {
+    const eqIdx = pair.indexOf('=');
+    if (eqIdx === -1) continue;
+    if (decodeURIComponent(pair.slice(0, eqIdx)) === key) {
+      return decodeURIComponent(pair.slice(eqIdx + 1));
+    }
+  }
+  return null;
+}
+
+async function handleAuthUrl(url: string) {
   if (!isAuthCallbackUrl(url)) return;
+
+  // PKCE flow: Supabase redirects with ?code= after verifying the email token.
+  // The app must exchange this code for a session.
+  const code = parseQueryParam(url, 'code');
+  if (code) {
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+    if (!error && data.session) {
+      useAuthStore.getState().setSession(data.session);
+    }
+    return;
+  }
+
+  // Implicit / magic-link fallback: tokens arrive in the URL hash fragment.
   const { access_token, refresh_token } = parseAuthParamsFromUrl(url);
   if (access_token && refresh_token) {
     supabase.auth.setSession({ access_token, refresh_token }).then(({ data }) => {
@@ -80,6 +119,74 @@ function AppErrorFallback() {
       <Text style={styles.errorFallbackBody}>Please restart the app. The error has been reported.</Text>
     </View>
   );
+}
+
+/**
+ * Registers the device push token and listens for notification interactions.
+ * Rendered inside QueryClientProvider so it can invalidate queries on arrival.
+ */
+function PushNotificationManager() {
+  const user = useAuthStore((s) => s.user);
+  const queryClient = useQueryClient();
+
+  usePushNotifications(user?.id ?? '');
+
+  // Supabase Realtime: invalidate the notifications cache whenever a new row
+  // lands for this user — keeps the bell badge and sheet up to date without
+  // requiring a push notification to arrive.
+  useEffect(() => {
+    if (!user?.id) return;
+
+    const channel = supabase
+      .channel(`notifications:${user.id}`)
+      .on(
+        'postgres_changes',
+        {
+          event: 'INSERT',
+          schema: 'public',
+          table: 'notifications',
+          filter: `user_id=eq.${user.id}`,
+        },
+        () => {
+          queryClient.invalidateQueries({ queryKey: ['notifications', user.id] });
+          queryClient.invalidateQueries({ queryKey: ['notifications-unread', user.id] });
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [user?.id, queryClient]);
+
+  useEffect(() => {
+    if (!user?.id) return;
+
+    // Invalidate the notifications query when a push arrives while foregrounded
+    const receivedSub = Notifications.addNotificationReceivedListener(() => {
+      queryClient.invalidateQueries({ queryKey: ['notifications', user.id] });
+      queryClient.invalidateQueries({ queryKey: ['notifications-unread', user.id] });
+    });
+
+    // Navigate to PostDetail when the user taps a notification
+    const responseSub = Notifications.addNotificationResponseReceivedListener((response) => {
+      const postId = response.notification.request.content.data?.postId as string | undefined;
+      if (postId) {
+        Linking.openURL(`nuzzle://post/${postId}`).catch((err) =>
+          captureHandledError(err instanceof Error ? err : new Error(String(err)), {
+            area: 'push-notifications.tap',
+          })
+        );
+      }
+    });
+
+    return () => {
+      receivedSub.remove();
+      responseSub.remove();
+    };
+  }, [user?.id, queryClient]);
+
+  return null;
 }
 
 const queryClient = new QueryClient({
@@ -146,6 +253,7 @@ export default function App() {
               </View>
             </ScrollDirectionProvider>
             <StatusBar style="auto" />
+            <PushNotificationManager />
           </SafeAreaProvider>
         </QueryClientProvider>
       </PostHogProvider>
