@@ -43,7 +43,7 @@ export const postSchema = z.object({
   content_text: z.string().min(1, 'Content is required').max(5000),
   type: z.enum(POST_TYPES as unknown as [string, ...string[]]),
   tag: z.enum(POST_TAGS as unknown as [string, ...string[]]),
-  breed: z.enum(BREEDS as unknown as [string, ...string[]]),
+  breed: z.enum(BREEDS as unknown as [string, ...string[]]).optional().nullable(),
   title: z.string().optional(),
   meetup_details: meetupDetailsSchema.optional(),
 }).refine(

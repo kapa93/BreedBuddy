@@ -18,11 +18,12 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { createPost } from '@/api/posts';
 import { getDogsByOwner } from '@/api/dogs';
-import { listActivePlaces } from '@/api/places';
+import { listActivePlaces, getGooglePlacePhotoUrl } from '@/api/places';
 import { uploadPostImage, pickImages } from '@/lib/imageUpload';
 import { supabase } from '@/lib/supabase';
 import { useAuthStore } from '@/store/authStore';
 import { BREED_LABELS, POST_TYPE_LABELS, POST_TAG_LABELS, MEETUP_KIND_LABELS } from '@/utils/breed';
+import { getPlaceHeroImage } from '@/utils/placeHeroImage';
 import { postSchema } from '@/utils/validation';
 import { useStackHeaderHeight } from '@/hooks/useStackHeaderHeight';
 import { colors, shadow, spacing } from '@/theme';
@@ -81,10 +82,12 @@ export function CreatePostScreen() {
   const route = useRoute<RouteProp<CreatePostRoute, 'CreatePost' | 'CreatePostModal'>>();
   const { user } = useAuthStore();
 
+  const isFromPlace = !!route.params?.initialPlaceId;
+
   const { data: dogs } = useQuery({
     queryKey: ['dogs', user?.id],
     queryFn: () => getDogsByOwner(user!.id),
-    enabled: !!user?.id && route.params?.breed == null,
+    enabled: !isFromPlace && !!user?.id && route.params?.breed == null,
   });
 
   const [type, setType] = useState<PostTypeEnum>(route.params?.initialType ?? 'QUESTION');
@@ -147,6 +150,11 @@ export function CreatePostScreen() {
   const currentDog = dogs?.[selectedDogIndex];
   const dogImageUrl = currentDog?.dog_image_url;
 
+  // Place-mode: resolve the place object (from the cached places list) for photo + name
+  const currentPlace = isFromPlace ? (places.find(p => p.id === (route.params?.initialPlaceId)) ?? null) : null;
+  const placePhotoUri = currentPlace?.photos[0] ? { uri: getGooglePlacePhotoUrl(currentPlace.photos[0]) } : null;
+  const placePhoto = currentPlace ? (placePhotoUri ?? getPlaceHeroImage(currentPlace)) : null;
+
   const handleBreedPicker = () => {
     if (!hasMultipleDogs || !dogs) return;
     Alert.alert(
@@ -178,7 +186,7 @@ export function CreatePostScreen() {
         content_text: content,
         type,
         tag: isMeetup ? 'PLAYDATE' : primaryTag,
-        breed,
+        breed: isFromPlace ? null : breed,
         title: title.trim() || undefined,
         meetup_details: isMeetup
           ? {
@@ -194,7 +202,7 @@ export function CreatePostScreen() {
       const parsed = postSchema.parse(payload);
       const imageUrls: string[] = [];
       const post = await createPost(user.id, {
-        breed: parsed.breed as BreedEnum,
+        breed: (parsed.breed as BreedEnum | null | undefined) ?? null,
         type: parsed.type as PostTypeEnum,
         tag: parsed.tag as PostTagEnum,
         content_text: parsed.content_text,
@@ -274,7 +282,7 @@ export function CreatePostScreen() {
         content_text: content,
         type,
         tag: isMeetup ? 'PLAYDATE' : primaryTag,
-        breed,
+        breed: isFromPlace ? null : breed,
         title: title.trim() || undefined,
         meetup_details: isMeetup
           ? {
@@ -302,7 +310,10 @@ export function CreatePostScreen() {
   const handleSubmitRef = useRef(handleSubmit);
   handleSubmitRef.current = handleSubmit;
 
+  const isModal = route.name === 'CreatePostModal';
+
   useLayoutEffect(() => {
+    if (!isModal) return;
     navigation.setOptions({
       headerLeft: () => (
         <Pressable
@@ -332,7 +343,7 @@ export function CreatePostScreen() {
         </TouchableOpacity>
       ),
     });
-  }, [navigation, mutation.isPending, isMeetup]);
+  }, [isModal, navigation, mutation.isPending, isMeetup]);
 
   const scrollBodyFieldIntoView = (target: number) => {
     const scrollToFocusedInput = () => {
@@ -372,7 +383,7 @@ export function CreatePostScreen() {
 
   if (!user) return null;
 
-  const screenBg = route.name === 'CreatePostModal' ? colors.surface : colors.background;
+  const screenBg = colors.surface;
 
   return (
     <View style={[styles.screen, { backgroundColor: screenBg }]}>
@@ -385,36 +396,60 @@ export function CreatePostScreen() {
         ref={scrollViewRef}
         style={styles.container}
         keyboardShouldPersistTaps="handled"
-        contentContainerStyle={[styles.content, { paddingTop: headerHeight }]}
+        contentContainerStyle={[
+          styles.content,
+          { paddingTop: headerHeight + 12 },
+          isFromPlace ? styles.contentFromPlace : styles.contentModal,
+        ]}
       >
 
-        {/* ── Breed card ── */}
-        <TouchableOpacity
-          style={styles.breedCard}
-          onPress={handleBreedPicker}
-          activeOpacity={hasMultipleDogs ? 0.75 : 1}
-          accessibilityLabel={`Breed: ${BREED_LABELS[breed]}`}
-        >
-          <View style={styles.breedCardLeft}>
-            <View style={styles.breedIconCircle}>
-              <Ionicons name="paw" size={16} color={colors.surface} />
+        {/* ── Place card (from place feed) OR Breed card (normal flow) ── */}
+        {isFromPlace ? (
+          <View
+            style={styles.breedCard}
+            accessibilityLabel={`Place: ${attachedPlaceName}`}
+          >
+            <View style={styles.breedCardLeft}>
+              <View style={styles.breedIconCircle}>
+                <Ionicons name="location" size={16} color={colors.surface} />
+              </View>
+              <View>
+                <Text style={styles.breedCardLabel}>Place</Text>
+                <Text style={styles.breedCardValue} numberOfLines={1}>{attachedPlaceName}</Text>
+              </View>
             </View>
-            <View>
-              <Text style={styles.breedCardLabel}>Breed</Text>
-              <Text style={styles.breedCardValue}>{BREED_LABELS[breed]}</Text>
-            </View>
-            {hasMultipleDogs && (
-              <Ionicons name="chevron-down" size={16} color={colors.textMuted} style={{ marginLeft: 4 }} />
+            {placePhoto && (
+              <Image source={placePhoto} style={styles.breedDogThumb} resizeMode="cover" />
             )}
           </View>
-          {dogImageUrl ? (
-            <Image source={{ uri: dogImageUrl }} style={styles.breedDogThumb} resizeMode="cover" />
-          ) : (
-            <View style={[styles.breedDogThumb, styles.breedDogThumbPlaceholder]}>
-              <Ionicons name="paw" size={22} color={colors.border} />
+        ) : (
+          <TouchableOpacity
+            style={styles.breedCard}
+            onPress={handleBreedPicker}
+            activeOpacity={hasMultipleDogs ? 0.75 : 1}
+            accessibilityLabel={`Breed: ${BREED_LABELS[breed]}`}
+          >
+            <View style={styles.breedCardLeft}>
+              <View style={styles.breedIconCircle}>
+                <Ionicons name="paw" size={16} color={colors.surface} />
+              </View>
+              <View>
+                <Text style={styles.breedCardLabel}>Breed</Text>
+                <Text style={styles.breedCardValue}>{BREED_LABELS[breed]}</Text>
+              </View>
+              {hasMultipleDogs && (
+                <Ionicons name="chevron-down" size={16} color={colors.textMuted} style={{ marginLeft: 4 }} />
+              )}
             </View>
-          )}
-        </TouchableOpacity>
+            {dogImageUrl ? (
+              <Image source={{ uri: dogImageUrl }} style={styles.breedDogThumb} resizeMode="cover" />
+            ) : (
+              <View style={[styles.breedDogThumb, styles.breedDogThumbPlaceholder]}>
+                <Ionicons name="paw" size={22} color={colors.border} />
+              </View>
+            )}
+          </TouchableOpacity>
+        )}
 
         {/* ── Type ── */}
         <View style={styles.sectionHeader}>
@@ -474,7 +509,9 @@ export function CreatePostScreen() {
             </View>
 
             {/* ── Title ── */}
-            <Text style={styles.sectionLabel}>Title</Text>
+            <View style={styles.sectionHeader}>
+              <Text style={styles.sectionLabel}>Title</Text>
+            </View>
             <View style={styles.inputWrap}>
               <TextInput
                 style={styles.input}
@@ -488,7 +525,9 @@ export function CreatePostScreen() {
             </View>
 
             {/* ── Body ── */}
-            <Text style={styles.sectionLabel}>Body</Text>
+            <View style={styles.sectionHeader}>
+              <Text style={styles.sectionLabel}>Body</Text>
+            </View>
             <View style={styles.inputWrap}>
               <TextInput
                 style={[styles.input, styles.textArea]}
@@ -553,17 +592,57 @@ export function CreatePostScreen() {
 
             {error ? <Text style={styles.error}>{error}</Text> : null}
 
-            {/* ── Community banner ── */}
-            <TouchableOpacity style={styles.communityBanner} activeOpacity={0.85}>
-              <View style={styles.communityIconWrap}>
-                <Ionicons name="paw" size={20} color={colors.primary} />
-              </View>
-              <View style={styles.communityTextWrap}>
-                <Text style={styles.communityTitle}>Post to the {BREED_LABELS[breed]} community</Text>
-                <Text style={styles.communitySubtitle}>Your post will be visible to all {BREED_LABELS[breed]} members.</Text>
-              </View>
-              <Ionicons name="chevron-forward" size={16} color={colors.textMuted} />
-            </TouchableOpacity>
+            {/* ── Community banner / place submit CTA ── */}
+            {isFromPlace ? (
+              <TouchableOpacity
+                style={[styles.communityBanner, styles.communityBannerCta, mutation.isPending && styles.communityBannerCtaDisabled]}
+                activeOpacity={0.8}
+                onPress={handleSubmit}
+                disabled={mutation.isPending}
+                accessibilityRole="button"
+                accessibilityLabel={`Post to ${attachedPlaceName}`}
+              >
+                <View style={styles.communityIconWrap}>
+                  {mutation.isPending ? (
+                    <ActivityIndicator color={colors.primary} size="small" />
+                  ) : (
+                    <Ionicons name="location" size={20} color={colors.primary} />
+                  )}
+                </View>
+                <View style={styles.communityTextWrap}>
+                  <Text style={styles.communityTitle}>Post to {attachedPlaceName}</Text>
+                  <Text style={styles.communitySubtitle}>Your post will be visible to all {attachedPlaceName} visitors.</Text>
+                </View>
+                <Ionicons name="chevron-forward" size={16} color={colors.textMuted} />
+              </TouchableOpacity>
+            ) : (
+              <>
+                <TouchableOpacity style={styles.communityBanner} activeOpacity={0.85}>
+                  <View style={styles.communityIconWrap}>
+                    <Ionicons name="paw" size={20} color={colors.primary} />
+                  </View>
+                  <View style={styles.communityTextWrap}>
+                    <Text style={styles.communityTitle}>Post to the {BREED_LABELS[breed]} community</Text>
+                    <Text style={styles.communitySubtitle}>Your post will be visible to all {BREED_LABELS[breed]} members.</Text>
+                  </View>
+                  <Ionicons name="chevron-forward" size={16} color={colors.textMuted} />
+                </TouchableOpacity>
+
+                {!isModal && (
+                  <TouchableOpacity
+                    style={[styles.submit, mutation.isPending && styles.submitDisabled]}
+                    onPress={handleSubmit}
+                    disabled={mutation.isPending}
+                  >
+                    {mutation.isPending ? (
+                      <ActivityIndicator color={colors.surface} />
+                    ) : (
+                      <Text style={styles.submitText}>Post</Text>
+                    )}
+                  </TouchableOpacity>
+                )}
+              </>
+            )}
           </>
         )}
 
@@ -733,6 +812,20 @@ export function CreatePostScreen() {
               </View>
               <Ionicons name="chevron-forward" size={16} color={colors.textMuted} />
             </TouchableOpacity>
+
+            {!isModal && (
+              <TouchableOpacity
+                style={[styles.submit, mutation.isPending && styles.submitDisabled]}
+                onPress={handleSubmit}
+                disabled={mutation.isPending}
+              >
+                {mutation.isPending ? (
+                  <ActivityIndicator color={colors.surface} />
+                ) : (
+                  <Text style={styles.submitText}>Create Meetup</Text>
+                )}
+              </TouchableOpacity>
+            )}
           </>
         )}
 
@@ -746,6 +839,8 @@ const styles = StyleSheet.create({
   screen: { flex: 1 },
   container: { flex: 1 },
   content: { padding: 16, paddingBottom: 90 },
+  contentModal: { paddingBottom: 48 },
+  contentFromPlace: { paddingBottom: 120 },
 
   // ── Header buttons ──────────────────────────────────────────────
   headerCloseButton: {
@@ -938,6 +1033,12 @@ const styles = StyleSheet.create({
   communityTextWrap: { flex: 1 },
   communityTitle: { ...interByWeight('600'), fontSize: 14, color: colors.textPrimary },
   communitySubtitle: { ...interByWeight('400'), fontSize: 12, color: colors.textSecondary, marginTop: 2 },
+  communityBannerCta: {
+    borderWidth: 1.5,
+    borderColor: colors.primary,
+    ...shadow.sm,
+  },
+  communityBannerCtaDisabled: { opacity: 0.65 },
 
   // ── Meetup-specific (legacy tag scroll) ──────────────────────────
   tagScroll: { marginBottom: 4, maxHeight: 44, marginHorizontal: -spacing.lg },
@@ -968,4 +1069,15 @@ const styles = StyleSheet.create({
 
   // ── Error ────────────────────────────────────────────────────────
   error: { ...interByWeight('400'), color: colors.danger, marginTop: 12, fontSize: 14 },
+
+  // ── Bottom submit (pushed screen only) ───────────────────────────
+  submit: {
+    backgroundColor: colors.primary,
+    padding: 16,
+    borderRadius: 12,
+    alignItems: 'center',
+    marginTop: 24,
+  },
+  submitDisabled: { opacity: 0.7 },
+  submitText: { ...interByWeight('600'), color: colors.surface, fontSize: 16 },
 });

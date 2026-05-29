@@ -222,7 +222,7 @@ export interface DogMetSummary extends Dog {
 export interface Post {
   id: string;
   author_id: string;
-  breed: BreedEnum;
+  breed: BreedEnum | null;
   type: PostTypeEnum;
   tag: PostTagEnum;
   title: string | null;

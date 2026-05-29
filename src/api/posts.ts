@@ -121,7 +121,7 @@ async function enrichPosts(rawPosts: RawPostRow[], userId: string | null): Promi
 type RawPostRow = {
   id: string;
   author_id: string;
-  breed: BreedEnum;
+  breed: BreedEnum | null;
   type: PostTypeEnum;
   tag: PostTagEnum;
   title: string | null;
@@ -239,7 +239,7 @@ export type CreateMeetupDetails = {
 export async function createPost(
   authorId: string,
   post: {
-    breed: BreedEnum;
+    breed: BreedEnum | null;
     type: PostTypeEnum;
     tag: PostTagEnum;
     content_text: string;
