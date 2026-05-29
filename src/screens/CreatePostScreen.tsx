@@ -574,27 +574,29 @@ export function CreatePostScreen() {
 
             {/* ── Community banner / place submit CTA ── */}
             {isFromPlace ? (
-              <TouchableOpacity
-                style={[styles.communityBanner, styles.communityBannerCta, mutation.isPending && styles.communityBannerCtaDisabled]}
-                activeOpacity={0.8}
-                onPress={handleSubmit}
-                disabled={mutation.isPending}
-                accessibilityRole="button"
-                accessibilityLabel={`Post to ${attachedPlaceName}`}
-              >
-                <View style={styles.communityIconWrap}>
-                  {mutation.isPending ? (
-                    <ActivityIndicator color={colors.primary} size="small" />
-                  ) : (
+              <>
+                <TouchableOpacity style={styles.communityBanner} activeOpacity={0.85}>
+                  <View style={styles.communityIconWrap}>
                     <Ionicons name="location" size={20} color={colors.primary} />
+                  </View>
+                  <View style={styles.communityTextWrap}>
+                    <Text style={styles.communityTitle}>Posting to {attachedPlaceName}</Text>
+                    <Text style={styles.communitySubtitle}>Your post will be visible to all {attachedPlaceName} visitors.</Text>
+                  </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={[styles.submit, mutation.isPending && styles.submitDisabled]}
+                  onPress={handleSubmit}
+                  disabled={mutation.isPending}
+                >
+                  {mutation.isPending ? (
+                    <ActivityIndicator color={colors.surface} />
+                  ) : (
+                    <Text style={styles.submitText}>Post</Text>
                   )}
-                </View>
-                <View style={styles.communityTextWrap}>
-                  <Text style={styles.communityTitle}>Post to {attachedPlaceName}</Text>
-                  <Text style={styles.communitySubtitle}>Your post will be visible to all {attachedPlaceName} visitors.</Text>
-                </View>
-                <Ionicons name="chevron-forward" size={16} color={colors.textMuted} />
-              </TouchableOpacity>
+                </TouchableOpacity>
+              </>
             ) : (
               <>
                 <TouchableOpacity style={styles.communityBanner} activeOpacity={0.85}>
@@ -602,10 +604,9 @@ export function CreatePostScreen() {
                     <Ionicons name="paw" size={20} color={colors.primary} />
                   </View>
                   <View style={styles.communityTextWrap}>
-                    <Text style={styles.communityTitle}>Post to the {breed ? BREED_LABELS[breed] : ''} community</Text>
+                    <Text style={styles.communityTitle}>Posting to the {breed ? BREED_LABELS[breed] : ''} community</Text>
                     <Text style={styles.communitySubtitle}>Your post will be visible to all {breed ? BREED_LABELS[breed] : ''} members.</Text>
                   </View>
-                  <Ionicons name="chevron-forward" size={16} color={colors.textMuted} />
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -779,17 +780,18 @@ export function CreatePostScreen() {
 
             {error ? <Text style={styles.error}>{error}</Text> : null}
 
-            {/* ── Community banner ── */}
-            <TouchableOpacity style={styles.communityBanner} activeOpacity={0.85}>
-              <View style={styles.communityIconWrap}>
-                <Ionicons name="paw" size={20} color={colors.primary} />
-              </View>
-              <View style={styles.communityTextWrap}>
-                <Text style={styles.communityTitle}>Post to the {breed ? BREED_LABELS[breed] : ''} community</Text>
-                <Text style={styles.communitySubtitle}>Your post will be visible to all {breed ? BREED_LABELS[breed] : ''} members.</Text>
-              </View>
-              <Ionicons name="chevron-forward" size={16} color={colors.textMuted} />
-            </TouchableOpacity>
+            {/* ── Community banner (only shown once a breed is selected) ── */}
+            {breed ? (
+              <TouchableOpacity style={styles.communityBanner} activeOpacity={0.85}>
+                <View style={styles.communityIconWrap}>
+                  <Ionicons name="paw" size={20} color={colors.primary} />
+                </View>
+                <View style={styles.communityTextWrap}>
+                  <Text style={styles.communityTitle}>Posting to the {BREED_LABELS[breed]} community</Text>
+                  <Text style={styles.communitySubtitle}>Your post will be visible to all {BREED_LABELS[breed]} members.</Text>
+                </View>
+              </TouchableOpacity>
+            ) : null}
 
             <TouchableOpacity
               style={[styles.submit, mutation.isPending && styles.submitDisabled]}
