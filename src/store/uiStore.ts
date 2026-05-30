@@ -24,6 +24,9 @@ interface UIState {
   toast: ToastState;
   showToast: (message: string, type?: ToastType) => void;
   hideToast: () => void;
+  notificationsOpen: boolean;
+  openNotifications: () => void;
+  closeNotifications: () => void;
 }
 
 export const useUIStore = create<UIState>((set) => ({
@@ -38,4 +41,7 @@ export const useUIStore = create<UIState>((set) => ({
     set({ toast: { visible: true, message, type } }),
   hideToast: () =>
     set((s) => ({ toast: { ...s.toast, visible: false } })),
+  notificationsOpen: false,
+  openNotifications: () => set({ notificationsOpen: true }),
+  closeNotifications: () => set({ notificationsOpen: false }),
 }));

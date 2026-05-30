@@ -44,7 +44,6 @@ import { getDistanceMeters } from '@/utils/location';
 import { useScrollDirection, useScrollDirectionUpdater } from "@/context/ScrollDirectionContext";
 import { useStackHeaderHeight } from "@/hooks/useStackHeaderHeight";
 import { useFeedData } from "@/hooks/useFeedData";
-import { NotificationsSheet } from "@/components/NotificationsSheet";
 import { colors, radius, spacing, typography } from "@/theme";
 import type { FeedFilter } from "@/store/uiStore";
 import { captureHandledError } from '@/lib/sentry';
@@ -105,7 +104,6 @@ export function HomeScreen({
   const [selectedBreedIndex, setSelectedBreedIndex] = useState(0);
   const [isNearPlace, setIsNearPlace] = useState(false);
   const [locationChecked, setLocationChecked] = useState(false);
-  const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [homeTab, setHomeTab] = useState<HomeTab>("myBreeds");
   const [homeTabBarHeight, setHomeTabBarHeight] = useState(0);
   const { width } = useWindowDimensions();
@@ -114,9 +112,7 @@ export function HomeScreen({
 
   React.useEffect(() => {
     navigation.setOptions({
-      headerLeft: () => (
-        <NotificationBell onPress={() => setNotificationsOpen(true)} />
-      ),
+      headerLeft: () => <NotificationBell />,
     });
   }, [navigation]);
   const forceNearby = __DEV__ && DEBUG_FORCE_NEARBY;
@@ -629,11 +625,6 @@ export function HomeScreen({
           )}
         </View>
       </SafeAreaView>
-      <NotificationsSheet
-        visible={notificationsOpen}
-        onClose={() => setNotificationsOpen(false)}
-        onPostPress={(postId) => navigation.navigate('PostDetail', { postId })}
-      />
     </View>
   );
 }

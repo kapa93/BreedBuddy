@@ -4,7 +4,6 @@ import { NotificationBell } from '@/components/NotificationBell';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { signOut, updateProfile } from '@/api/auth';
 import { deleteDog } from '@/api/dogs';
-import { NotificationsSheet } from '@/components/NotificationsSheet';
 import { UserProfileContent } from '@/components/UserProfileContent';
 import { pickImages, uploadProfileImage } from '@/lib/imageUpload';
 import type { ProfileStackParamList } from '@/navigation/types';
@@ -18,13 +17,9 @@ export function ProfileScreen({ navigation }: { navigation: ProfileNav }) {
   const { user, signOut: clearSession } = useAuthStore();
   const userId = user?.id ?? '';
   const queryClient = useQueryClient();
-  const [notificationsOpen, setNotificationsOpen] = useState(false);
-
   useEffect(() => {
     navigation.setOptions({
-      headerLeft: () => (
-        <NotificationBell onPress={() => setNotificationsOpen(true)} />
-      ),
+      headerLeft: () => <NotificationBell />,
     });
   }, [navigation]);
 
@@ -111,11 +106,6 @@ export function ProfileScreen({ navigation }: { navigation: ProfileNav }) {
         onChangePhoto={handleChangePhoto}
         onSignOut={handleSignOut}
         isPhotoUpdating={photoMutation.isPending}
-      />
-      <NotificationsSheet
-        visible={notificationsOpen}
-        onClose={() => setNotificationsOpen(false)}
-        onPostPress={(postId) => navigation.navigate('PostDetail', { postId })}
       />
     </>
   );

@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, Text, ActivityIndicator, StyleSheet, Platform, Pressable } from 'react-native';
 import { ToastBanner } from '@/components/ToastBanner';
+import { NotificationsSheet } from '@/components/NotificationsSheet';
 import { X } from 'lucide-react-native';
 import * as Sentry from '@sentry/react-native';
 import { supabase } from '@/lib/supabase';
@@ -556,6 +557,11 @@ export function RootNavigator() {
       </RootStack.Navigator>
     </NavigationContainer>
     <ToastBanner />
+    {session && user && !needsOnboarding && (
+      <NotificationsSheet
+        onPostPress={(postId) => navRef.current?.navigate('PostDetail', { postId })}
+      />
+    )}
     </>
   );
 }

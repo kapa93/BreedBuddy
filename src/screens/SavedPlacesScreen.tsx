@@ -38,7 +38,6 @@ import { useScrollDirectionUpdater, useScrollDirection } from '@/context/ScrollD
 import { BREED_LABELS, PLAY_STYLE_LABELS, formatRelativeTime } from '@/utils/breed';
 import { colors, radius, shadow, spacing, typography } from '@/theme';
 import { captureHandledError } from '@/lib/sentry';
-import { NotificationsSheet } from '@/components/NotificationsSheet';
 import { MorePlacesTab } from '@/components/MorePlacesTab';
 import { MapPinCheck } from 'lucide-react-native';
 import { NotificationBell } from '@/components/NotificationBell';
@@ -88,13 +87,9 @@ export function SavedPlacesScreen({ navigation }: Props) {
   const tabBarHeight = useBottomTabBarHeight();
   const tabBarScrollPad = Math.max(0, tabBarHeight - NUZZLE_TAB_BAR_LAYOUT_EXTENDS_BELOW_SCREEN);
   const headerHeight = useStackHeaderHeight();
-  const [notificationsOpen, setNotificationsOpen] = useState(false);
-
   React.useEffect(() => {
     navigation.setOptions({
-      headerLeft: () => (
-        <NotificationBell onPress={() => setNotificationsOpen(true)} />
-      ),
+      headerLeft: () => <NotificationBell />,
     });
   }, [navigation]);
 
@@ -716,11 +711,6 @@ export function SavedPlacesScreen({ navigation }: Props) {
           />
         )}
       </SafeAreaView>
-      <NotificationsSheet
-        visible={notificationsOpen}
-        onClose={() => setNotificationsOpen(false)}
-        onPostPress={(postId) => navigation.navigate('PostDetail', { postId })}
-      />
     </View>
   );
 }

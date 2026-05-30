@@ -15,6 +15,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { colors, radius, shadow, spacing, typography } from '@/theme';
 import { getNotifications, markNotificationRead, markAllNotificationsRead } from '@/api/notifications';
 import { useAuthStore } from '@/store/authStore';
+import { useUIStore } from '@/store/uiStore';
 import { formatRelativeTime } from '@/utils/breed';
 
 type NotificationItem = {
@@ -30,13 +31,13 @@ type NotificationItem = {
 };
 
 type Props = {
-  visible: boolean;
-  onClose: () => void;
   /** Called after the sheet closes when user taps a notification with a post */
   onPostPress?: (postId: string) => void;
 };
 
-export function NotificationsSheet({ visible, onClose, onPostPress }: Props) {
+export function NotificationsSheet({ onPostPress }: Props) {
+  const visible = useUIStore((s) => s.notificationsOpen);
+  const onClose = useUIStore((s) => s.closeNotifications);
   const insets = useSafeAreaInsets();
   const user = useAuthStore((s) => s.user);
   const queryClient = useQueryClient();

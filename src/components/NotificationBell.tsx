@@ -3,14 +3,12 @@ import { Pressable, View, Text, StyleSheet } from 'react-native';
 import { Bell } from 'lucide-react-native';
 import { useQuery } from '@tanstack/react-query';
 import { useAuthStore } from '@/store/authStore';
+import { useUIStore } from '@/store/uiStore';
 import { getUnreadCount } from '@/api/notifications';
 
-interface NotificationBellProps {
-  onPress: () => void;
-}
-
-export function NotificationBell({ onPress }: NotificationBellProps) {
+export function NotificationBell() {
   const user = useAuthStore((s) => s.user);
+  const openNotifications = useUIStore((s) => s.openNotifications);
 
   const { data: count = 0 } = useQuery({
     queryKey: ['notifications-unread', user?.id],
@@ -23,7 +21,7 @@ export function NotificationBell({ onPress }: NotificationBellProps) {
 
   return (
     <Pressable
-      onPress={onPress}
+      onPress={openNotifications}
       style={({ pressed }) => [styles.container, pressed && styles.pressed]}
       accessibilityRole="button"
       accessibilityLabel={count > 0 ? `Notifications, ${count} unread` : 'Notifications'}

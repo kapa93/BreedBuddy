@@ -14,7 +14,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { NotificationBell } from "@/components/NotificationBell";
 import * as Location from "expo-location";
 import { getDogSpotsNearby, getGooglePlacePhotoUrl } from "@/api/places";
-import { NotificationsSheet } from "@/components/NotificationsSheet";
 import { useListDogSpotVibes } from "@/hooks/useDogSpotVibes";
 import type { PlaceVibeData } from "@/hooks/useDogSpotVibes";
 import { colors, radius, spacing, typography } from "@/theme";
@@ -231,14 +230,11 @@ export function ExploreScreen({
   const [placesLocationState, setPlacesLocationState] = useState<PlacesLocationState>("unknown");
   const [dogSpotsDisplayCount, setDogSpotsDisplayCount] = useState(DOG_SPOTS_INITIAL_COUNT);
   const [dogSpotsFilter, setDogSpotsFilter] = useState<DogSpotsFilter>("all");
-  const [notificationsOpen, setNotificationsOpen] = useState(false);
   const hasRequestedPermissionRef = useRef(false);
 
   React.useEffect(() => {
     navigation.setOptions({
-      headerLeft: () => (
-        <NotificationBell onPress={() => setNotificationsOpen(true)} />
-      ),
+      headerLeft: () => <NotificationBell />,
     });
   }, [navigation]);
 
@@ -453,11 +449,6 @@ export function ExploreScreen({
           </ScrollView>
         )}
       </SafeAreaView>
-      <NotificationsSheet
-        visible={notificationsOpen}
-        onClose={() => setNotificationsOpen(false)}
-        onPostPress={(postId) => navigation.navigate("PostDetail", { postId })}
-      />
     </View>
   );
 }
