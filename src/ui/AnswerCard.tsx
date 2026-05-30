@@ -1,7 +1,7 @@
 import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { colors, radius, spacing, typography } from "../theme";
+import { colors, spacing, typography } from "../theme";
 import { Avatar } from "./Avatar";
 import { ReactionPill } from "./ReactionPill";
 import { ReactionBar } from "../components/ReactionBar";
@@ -20,55 +20,101 @@ type Props = {
   onReactionSelect?: (reaction: ReactionEnum | null) => void;
 };
 
+const AVATAR_SIZE = 32;
+const INDENT = AVATAR_SIZE + spacing.md;
+
 export function AnswerCard({ author, body, avatarUri, timestamp, helpfulCount = 0, onAuthorPress, onDeletePress, reactionCounts, userReaction, onReactionSelect }: Props) {
   return (
     <View style={styles.card}>
       <View style={styles.header}>
         <Pressable style={styles.authorPressable} disabled={!onAuthorPress} onPress={onAuthorPress}>
-          <Avatar
-            size={32}
-            source={avatarUri ? { uri: avatarUri } : undefined}
-            fallback={author?.[0]?.toUpperCase() ?? "🐶"}
-          />
-          <View style={styles.authorTextColumn}>
-            <Text style={styles.author}>{author}</Text>
-            {timestamp ? <Text style={styles.timestamp}>{timestamp}</Text> : null}
+          <View style={styles.avatarShift}>
+            <Avatar
+              size={AVATAR_SIZE}
+              source={avatarUri ? { uri: avatarUri } : undefined}
+              fallback={author?.[0]?.toUpperCase() ?? "🐶"}
+            />
           </View>
+          <Text style={styles.author}>{author}</Text>
         </Pressable>
+        {timestamp ? <Text style={styles.timestamp}>{timestamp}</Text> : null}
+      </View>
+
+      <Text style={styles.body}>{body}</Text>
+
+      <View style={styles.footer}>
+        <View style={styles.footerLeft}>
+          {onReactionSelect ? (
+            <ReactionBar
+              reactions={reactionCounts ?? {}}
+              userReaction={userReaction ?? null}
+              onSelect={onReactionSelect}
+              wrapperStyle={styles.reactionBarWrapper}
+            />
+          ) : helpfulCount > 0 ? (
+            <View style={styles.helpfulRow}>
+              <ReactionPill emoji="🐾" label="Helpful" />
+              <Text style={styles.count}>{helpfulCount}</Text>
+            </View>
+          ) : null}
+        </View>
         {onDeletePress && (
-          <Pressable onPress={onDeletePress} style={styles.deleteButton} hitSlop={8}>
-            <Ionicons name="trash-outline" size={16} color={colors.textMuted} />
+          <Pressable onPress={onDeletePress} style={styles.moreButton} hitSlop={8}>
+            <Ionicons name="trash-outline" size={19} color={colors.textMuted} />
           </Pressable>
         )}
       </View>
-      <Text style={styles.body}>{body}</Text>
-      {onReactionSelect ? (
-        <ReactionBar
-          reactions={reactionCounts ?? {}}
-          userReaction={userReaction ?? null}
-          onSelect={onReactionSelect}
-          wrapperStyle={styles.reactionBarWrapper}
-        />
-      ) : helpfulCount > 0 ? (
-        <View style={styles.footer}>
-          <ReactionPill emoji="🐾" label="Helpful" />
-          <Text style={styles.count}>{helpfulCount}</Text>
-        </View>
-      ) : null}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  card: { backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border, borderRadius: radius.lg, padding: spacing.lg, marginBottom: spacing.md },
-  header: { flexDirection: "row", alignItems: "flex-start", marginBottom: spacing.sm },
-  authorPressable: { flex: 1, flexDirection: "row", alignItems: "flex-start" },
-  authorTextColumn: { flex: 1, marginLeft: spacing.md },
+  card: {
+    paddingTop: spacing.sm - 2,
+    paddingBottom: spacing.md,
+    paddingHorizontal: spacing.lg,
+    marginHorizontal: -spacing.lg,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: colors.borderStrong,
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 0,
+  },
+  avatarShift: { transform: [{ translateY: 7 }] },
+  authorPressable: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.md,
+  },
   author: { ...typography.subtitle, fontSize: 15, lineHeight: 20 },
-  timestamp: { ...typography.caption, fontSize: 12, lineHeight: 14, marginTop: 1 },
-  body: { ...typography.body, fontSize: 14, lineHeight: 19 },
-  footer: { flexDirection: "row", alignItems: "center", marginTop: spacing.md },
+  timestamp: {
+    ...typography.caption,
+    fontSize: 13,
+    lineHeight: 18,
+    color: colors.textMuted,
+    flexShrink: 0,
+    marginLeft: spacing.sm,
+  },
+  body: {
+    ...typography.body,
+    fontSize: 14,
+    lineHeight: 20,
+    paddingLeft: INDENT,
+    marginBottom: spacing.xs,
+  },
+  footer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingLeft: INDENT,
+    marginBottom: -7,
+  },
+  footerLeft: { flex: 1 },
+  helpfulRow: { flexDirection: "row", alignItems: "center" },
   count: { ...typography.bodyMuted, marginLeft: spacing.sm, fontWeight: "700" },
-  deleteButton: { padding: spacing.xs, marginLeft: spacing.sm },
-  reactionBarWrapper: { marginTop: spacing.sm },
+  moreButton: { padding: spacing.xs, marginLeft: spacing.sm },
+  reactionBarWrapper: { marginTop: 0 },
 });

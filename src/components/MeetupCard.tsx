@@ -8,7 +8,8 @@ import {
   Dimensions,
   Platform,
 } from "react-native";
-import { FontAwesome6, Ionicons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
+import { MessageSquareText, Share2 } from "lucide-react-native";
 import Animated, { interpolateColor, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { ExpandablePostBody } from "@/components/ExpandablePostBody";
 import { Avatar } from "@/ui/Avatar";
@@ -110,7 +111,7 @@ export function MeetupCard({
     backgroundColor: interpolateColor(
       commentButtonPress.value,
       [0, 1],
-      [colors.surfaceMuted, colors.border]
+      ["transparent", colors.border]
     ),
   }));
 
@@ -282,8 +283,12 @@ export function MeetupCard({
           style={[styles.answersPill, commentPillAnimatedStyle]}
         >
           <View style={styles.answersPillRow}>
-            <FontAwesome6 name="comment" size={16} color={colors.textSecondary} />
-            <Text style={styles.answersText}>{getBarksText(post.comment_count ?? 0)}</Text>
+            <View style={{ transform: [{ scaleX: 1.1 }] }}>
+              <MessageSquareText size={19} color={colors.textSecondary} strokeWidth={1.75} />
+            </View>
+            {(post.comment_count ?? 0) > 0 && (
+              <Text style={styles.answersText}>{post.comment_count}</Text>
+            )}
           </View>
         </AnimatedPressable>
         {onShare && (
@@ -295,8 +300,7 @@ export function MeetupCard({
             style={({ pressed }) => [styles.answersPill, pressed && styles.pillPressed]}
           >
             <View style={styles.answersPillRow}>
-              <Ionicons name="share-outline" size={16} color={colors.textSecondary} />
-              <Text style={styles.answersText}>Share</Text>
+              <Share2 size={19} color={colors.textSecondary} />
             </View>
           </Pressable>
         )}
@@ -468,13 +472,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
   },
   answersPill: {
-    height: 35,
-    justifyContent: "center",
-    backgroundColor: colors.surfaceMuted,
-    borderRadius: radius.pill,
-    borderWidth: 1,
-    borderColor: colors.border,
-    paddingHorizontal: spacing.md,
+    paddingHorizontal: spacing.xs,
   },
   answersPillRow: { flexDirection: "row", alignItems: "center", gap: spacing.xs },
   answersText: {

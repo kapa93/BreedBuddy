@@ -276,9 +276,9 @@ export function PostDetailScreen() {
     );
   }
 
-  const breedLabel = BREED_LABELS[post.breed] ?? post.breed;
-  const typeLabel = POST_TYPE_LABELS[post.type] ?? post.type;
-  const tagLabel = POST_TAG_LABELS[post.tag] ?? post.tag;
+  const breedLabel = post.breed != null ? (BREED_LABELS[post.breed] ?? post.breed) : undefined;
+  const typeLabel = post.type != null ? (POST_TYPE_LABELS[post.type] ?? post.type) : undefined;
+  const tagLabel = post.tag != null ? (POST_TAG_LABELS[post.tag] ?? post.tag) : undefined;
   const searchClosedBottomOffset = Math.max(0, bottomInsetOffset - spacing.xxs);
   const closedInputBottomOffset = isFromSearch ? searchClosedBottomOffset : bottomInsetOffset + spacing.xs;
   const searchKeyboardOffset =
@@ -550,15 +550,15 @@ const styles = StyleSheet.create({
     paddingTop: spacing.sm,
   },
   postCommentsDivider: {
-    borderTopWidth: 1.5,
-    borderTopColor: colors.border,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: colors.borderStrong,
     marginTop: spacing.sm,
     marginBottom: spacing.lg,
   },
   header: {
     flexDirection: "row",
     alignItems: "flex-start",
-    marginBottom: spacing.sm,
+    marginBottom: 0,
   },
   authorPressable: {
     flex: 1,
@@ -679,12 +679,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     gap: spacing.md,
-    marginTop: spacing.sm,
+    marginTop: -5,
     marginBottom: spacing.xs,
   },
   footerReactions: {
     flex: 1,
     minWidth: 0,
+    marginBottom: -5,
+    position: "relative",
+    bottom: -3,
   },
   footerReactionBarWrapper: {
     marginTop: 0,

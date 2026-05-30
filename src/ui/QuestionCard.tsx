@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Pressable, StyleSheet, Text, View, Modal, Dimensions, Platform } from "react-native";
-import { FontAwesome6, Ionicons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
+import { MessageSquareText, Share2 } from "lucide-react-native";
 import Animated, { interpolateColor, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import {
   colors,
@@ -32,10 +33,6 @@ type Props = {
 
 const COMMENT_PRESS_ANIMATION = { duration: 180 };
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
-
-function getBarksText(count: number) {
-  return count === 1 ? "1 Bark" : `${count} Barks`;
-}
 
 const QuestionCardInner = ({ data, onPress, onAuthorPress, onReactionSelect, onReactionMenuOpenChange, currentUserId, onEdit, onDelete, onShare }: Props) => {
   const commentButtonPress = useSharedValue(0);
@@ -71,7 +68,7 @@ const QuestionCardInner = ({ data, onPress, onAuthorPress, onReactionSelect, onR
     backgroundColor: interpolateColor(
       commentButtonPress.value,
       [0, 1],
-      [colors.surfaceMuted, colors.border]
+      ["transparent", colors.border]
     ),
   }));
 
@@ -210,8 +207,12 @@ const QuestionCardInner = ({ data, onPress, onAuthorPress, onReactionSelect, onR
           style={[styles.answersPill, commentPillAnimatedStyle]}
         >
           <View style={styles.answersPillRow}>
-            <FontAwesome6 name="comment" size={17} color={colors.textSecondary} />
-            <Text style={styles.answersText}>{getBarksText(data.answerCount ?? 0)}</Text>
+            <View style={{ transform: [{ scaleX: 1.1 }] }}>
+              <MessageSquareText size={19} color={colors.textSecondary} strokeWidth={1.75} />
+            </View>
+            {(data.answerCount ?? 0) > 0 && (
+              <Text style={styles.answersText}>{data.answerCount}</Text>
+            )}
           </View>
         </AnimatedPressable>
         {onShare && (
@@ -223,8 +224,7 @@ const QuestionCardInner = ({ data, onPress, onAuthorPress, onReactionSelect, onR
             style={({ pressed }) => [styles.answersPill, pressed && styles.pillPressed]}
           >
             <View style={styles.answersPillRow}>
-              <Ionicons name="share-outline" size={17} color={colors.textSecondary} />
-              <Text style={styles.answersText}>Share</Text>
+              <Share2 size={19} color={colors.textSecondary} />
             </View>
           </Pressable>
         )}
@@ -340,7 +340,7 @@ const styles = StyleSheet.create({
       : { fontFamily: "Inter_400Regular" as const }),
   },
   actionRow: { flexDirection: "row", alignItems: "center", marginTop: spacing.md, gap: spacing.sm, flexWrap: "wrap" },
-  answersPill: { height: 35, justifyContent: "center", backgroundColor: colors.surfaceMuted, borderRadius: radius.pill, borderWidth: 1, borderColor: colors.border, paddingHorizontal: spacing.md },
+  answersPill: { paddingHorizontal: spacing.xs },
   answersPillRow: { flexDirection: "row", alignItems: "center", gap: spacing.xs },
   answersText: {
     ...typography.bodyMuted,

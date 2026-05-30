@@ -15,7 +15,9 @@ const styles = StyleSheet.create({
   banner: {
     backgroundColor: '#FEF3C7',
     padding: 12,
-    marginHorizontal: 16,
+    marginHorizontal: 10,
+    marginBottom: -3,
+    marginTop: 15,
     marginVertical: 8,
     borderRadius: 8,
     borderLeftWidth: 4,

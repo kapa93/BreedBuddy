@@ -15,6 +15,7 @@ import { ReactionBar } from './ReactionBar';
 import { formatAuthorDisplay, formatRelativeTime } from '../utils/breed';
 import { BREED_LABELS, POST_TYPE_LABELS, POST_TAG_LABELS } from '../utils/breed';
 import { colors, radius, shadow, spacing, typography } from '@/theme';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
 const COMMENT_PRESS_ANIMATION = { duration: 180 };
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
@@ -39,7 +40,7 @@ export function PostCard({ post, onPress, onReactionSelect, onAuthorPress }: Pos
     backgroundColor: interpolateColor(
       commentButtonPress.value,
       [0, 1],
-      [colors.surfaceMuted, colors.border]
+      ["transparent", colors.border]
     ),
   }));
 
@@ -109,9 +110,12 @@ export function PostCard({ post, onPress, onReactionSelect, onAuthorPress }: Pos
           }}
           style={[styles.commentPill, commentPillAnimatedStyle]}
         >
-          <Text style={styles.commentCount}>
-            {post.comment_count ?? 0} comments
-          </Text>
+          <View style={styles.commentPillRow}>
+            <FontAwesome6 name="comment" size={16} color={colors.textSecondary} />
+            {(post.comment_count ?? 0) > 0 && (
+              <Text style={styles.commentCount}>{post.comment_count}</Text>
+            )}
+          </View>
         </AnimatedPressable>
       </View>
 
@@ -167,13 +171,9 @@ const styles = StyleSheet.create({
     marginBottom: spacing.xs,
   },
   commentPill: {
-    backgroundColor: colors.surfaceMuted,
-    borderRadius: radius.pill,
-    borderWidth: 1,
-    borderColor: colors.border,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.xs,
   },
+  commentPillRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.xs },
   commentCount: { ...typography.bodyMuted, fontSize: 13 },
   timestamp: { ...typography.caption },
 });

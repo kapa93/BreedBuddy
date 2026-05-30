@@ -8,7 +8,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { Bone } from "lucide-react-native";
-import { colors, radius, spacing, typography } from "@/theme";
+import { colors, spacing, typography } from "@/theme";
 import type { ReactionEnum } from "@/types";
 
 interface ReactionBarProps {
@@ -44,7 +44,7 @@ export function ReactionBar({ reactions, userReaction, onSelect, wrapperStyle }:
       >
         <View style={styles.iconWrap} pointerEvents="none">
           <Bone
-            size={18}
+            size={19}
             color={userReaction ? colors.primary : colors.textSecondary}
           />
         </View>
@@ -60,28 +60,20 @@ const styles = StyleSheet.create({
   wrapper: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: spacing.sm,
+    marginTop: -5,
   },
   likeButton: {
     flexDirection: "row",
     alignItems: "center",
     height: 35,
     paddingVertical: 0,
-    paddingLeft: spacing.md,
+    paddingLeft: 0,
     paddingRight: spacing.sm,
-    borderRadius: radius.pill,
-    backgroundColor: colors.surfaceMuted,
-    borderWidth: 1,
-    borderColor: colors.border,
   },
   likeButtonWithCount: {
-    paddingRight: spacing.md,
+    paddingRight: spacing.sm,
   },
-  likeButtonActive: {
-    backgroundColor: colors.primarySoft,
-    borderColor: colors.primary,
-    borderWidth: 1,
-  },
+  likeButtonActive: {},
   pressed: {
     opacity: 0.7,
   },
