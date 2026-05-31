@@ -14,6 +14,7 @@ import {
 } from "@react-navigation/bottom-tabs";
 import { useScrollDirection } from "@/context/ScrollDirectionContext";
 import { useUIStore } from "@/store/uiStore";
+import { useAuthStore } from "@/store/authStore";
 import { CircleUser } from "lucide-react-native";
 import { DogPawIcon } from "@/assets/DogPawIcon";
 import { StorefrontIcon } from "@/assets/StorefrontIcon";
@@ -134,6 +135,8 @@ export function NuzzleTabBar({ state, navigation }: BottomTabBarProps) {
   const insets = useSafeAreaInsets();
   const { scrollDirection, setScrollDirection } = useScrollDirection();
   const activeFeedBreed = useUIStore((s) => s.activeFeedBreed);
+  const showGuestPrompt = useUIStore((s) => s.showGuestPrompt);
+  const user = useAuthStore((s) => s.user);
   const [wrapWidth, setWrapWidth] = useState(0);
   const indicatorLeft = useSharedValue(0);
   const createButtonPress = useSharedValue(0);
@@ -232,6 +235,10 @@ export function NuzzleTabBar({ state, navigation }: BottomTabBarProps) {
                   accessibilityLabel="Create post"
                   hitSlop={6}
                   onPress={() => {
+                    if (!user) {
+                      showGuestPrompt();
+                      return;
+                    }
                     const parent = navigation.getParent();
                     if (activeFeedBreed) {
                       (parent?.navigate as (name: string, params: object) => void)(

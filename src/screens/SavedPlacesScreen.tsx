@@ -119,7 +119,7 @@ export function SavedPlacesScreen({ navigation }: Props) {
   const { scrollDirection, setScrollDirection } = useScrollDirection();
   const bottomPad = scrollDirection === 'down' ? spacing.sm : tabBarScrollPad;
 
-  const [placesTab, setPlacesTab] = useState<'myPlaces' | 'morePlaces'>('myPlaces');
+  const [placesTab, setPlacesTab] = useState<'myPlaces' | 'morePlaces'>(user ? 'myPlaces' : 'morePlaces');
   const [placesTabBarHeight, setPlacesTabBarHeight] = useState(0);
   const SCROLL_ANIM_DURATION = 220;
   const TAB_BAR_HIDE_OVERSHOOT = 40;
@@ -689,7 +689,34 @@ export function SavedPlacesScreen({ navigation }: Props) {
           </View>
         </Animated.View>
 
-        {placesTab === 'myPlaces' && (
+        {placesTab === 'myPlaces' && !user && (
+          <View style={[styles.safe, { paddingTop: headerHeight + placesTabBarHeight, paddingBottom: tabBarHeight }]}>
+            <View style={[styles.centered, { flex: 1, gap: spacing.lg, paddingHorizontal: spacing.xl }]}>
+              <Text style={styles.guestPlacesBody}>
+                The dog spots you join live here.{"\n"}Create a free account to join local dog spot communities — see who's checked in right now, follow posts and meetups, and share what's happening at your favourite spots.
+              </Text>
+              <View style={styles.guestPlacesActions}>
+                <Pressable
+                  style={({ pressed }) => [styles.guestPlacesSignUp, pressed && styles.guestPlacesSignUpPressed]}
+                  onPress={() => {
+                    useAuthStore.getState().setPendingSignUp(true);
+                    useAuthStore.getState().setIsGuest(false);
+                  }}
+                >
+                  <Text style={styles.guestPlacesSignUpText}>Sign Up</Text>
+                </Pressable>
+                <Pressable
+                  style={({ pressed }) => [styles.guestPlacesLogIn, pressed && styles.guestPlacesLogInPressed]}
+                  onPress={() => useAuthStore.getState().setIsGuest(false)}
+                >
+                  <Text style={styles.guestPlacesLogInText}>Log In</Text>
+                </Pressable>
+              </View>
+            </View>
+          </View>
+        )}
+
+        {placesTab === 'myPlaces' && !!user && (
           savedPlacesLoading ? (
             <View style={[styles.safe, styles.centered]}>
               <ActivityIndicator size="large" color={colors.primary} />
@@ -1242,5 +1269,45 @@ const styles = StyleSheet.create({
   placesTabChipTextActive: {
     fontFamily: 'Inter_600SemiBold',
     color: '#000000',
+  },
+  guestPlacesBody: {
+    ...typography.body,
+    color: colors.textSecondary,
+    textAlign: 'center',
+    lineHeight: 24,
+  },
+  guestPlacesActions: {
+    flexDirection: 'row',
+    gap: spacing.sm,
+  },
+  guestPlacesSignUp: {
+    backgroundColor: colors.primary,
+    borderRadius: 10,
+    paddingVertical: spacing.sm + 2,
+    paddingHorizontal: spacing.lg,
+    alignItems: 'center',
+  },
+  guestPlacesSignUpPressed: {
+    backgroundColor: colors.primaryDark,
+  },
+  guestPlacesSignUpText: {
+    ...typography.body,
+    color: colors.surface,
+  },
+  guestPlacesLogIn: {
+    backgroundColor: colors.surfaceMuted,
+    borderRadius: 10,
+    paddingVertical: spacing.sm + 2,
+    paddingHorizontal: spacing.lg,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  guestPlacesLogInPressed: {
+    backgroundColor: colors.border,
+  },
+  guestPlacesLogInText: {
+    ...typography.body,
+    color: colors.textPrimary,
   },
 });

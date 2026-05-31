@@ -10,6 +10,7 @@ import {
 } from '@/api/dogSpotVibes';
 import type { VibeVote, VibeVoteWithPlace } from '@/api/dogSpotVibes';
 import { useAuthStore } from '@/store/authStore';
+import { useUIStore } from '@/store/uiStore';
 
 export type VibeOptionWithCount = {
   id: string;
@@ -22,6 +23,7 @@ export type VibeOptionWithCount = {
 
 export function useDogSpotVibes(googlePlaceId: string) {
   const { user } = useAuthStore();
+  const showGuestPrompt = useUIStore((s) => s.showGuestPrompt);
   const queryClient = useQueryClient();
 
   const [togglingOptionId, setTogglingOptionId] = useState<string | null>(null);
@@ -109,7 +111,7 @@ export function useDogSpotVibes(googlePlaceId: string) {
 
   const toggleVibe = (optionId: string) => {
     if (!user) {
-      Alert.alert('Sign in required', 'Sign in to add your dog vibe.');
+      showGuestPrompt();
       return;
     }
     if (togglingOptionId) return; // debounce rapid taps

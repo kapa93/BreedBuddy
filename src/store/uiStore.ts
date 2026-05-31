@@ -27,6 +27,9 @@ interface UIState {
   notificationsOpen: boolean;
   openNotifications: () => void;
   closeNotifications: () => void;
+  guestPromptVisible: boolean;
+  showGuestPrompt: () => void;
+  hideGuestPrompt: () => void;
 }
 
 export const useUIStore = create<UIState>((set) => ({
@@ -44,4 +47,7 @@ export const useUIStore = create<UIState>((set) => ({
   notificationsOpen: false,
   openNotifications: () => set({ notificationsOpen: true }),
   closeNotifications: () => set({ notificationsOpen: false }),
+  guestPromptVisible: false,
+  showGuestPrompt: () => set({ guestPromptVisible: true }),
+  hideGuestPrompt: () => set({ guestPromptVisible: false }),
 }));

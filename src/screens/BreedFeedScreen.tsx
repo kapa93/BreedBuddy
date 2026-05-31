@@ -51,7 +51,7 @@ export function BreedFeedScreen() {
     setParams: (params: { breed?: BreedEnum }) => void;
   }>();
   const { user } = useAuthStore();
-  const { feedFilter, setFeedFilter, setActiveFeedBreed } = useUIStore();
+  const { feedFilter, setFeedFilter, setActiveFeedBreed, showGuestPrompt } = useUIStore();
   const queryClient = useQueryClient();
   const breed = breedParam ?? "GOLDEN_RETRIEVER";
 
@@ -87,6 +87,7 @@ export function BreedFeedScreen() {
   });
 
   const handleJoinPress = () => {
+    if (!user) { showGuestPrompt(); return; }
     if (isJoined) {
       leaveMutation.mutate(breed);
     } else {
@@ -95,6 +96,7 @@ export function BreedFeedScreen() {
   };
 
   const handleJoinPressForBreed = (b: BreedEnum) => {
+    if (!user) { showGuestPrompt(); return; }
     const joined = joinedBreeds.includes(b);
     if (joined) {
       leaveMutation.mutate(b);

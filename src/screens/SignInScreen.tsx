@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  Pressable,
   StyleSheet,
   Keyboard,
   Platform,
@@ -335,6 +336,12 @@ export function SignInScreen() {
                 </Text>
               </TouchableOpacity>
               <AuthLegalNotice />
+              <Pressable
+                style={({ pressed }) => [styles.guestLink, pressed && styles.guestLinkPressed]}
+                onPress={() => useAuthStore.getState().setIsGuest(true)}
+              >
+                <Text style={styles.guestLinkText}>Continue as Guest</Text>
+              </Pressable>
             </View>
           </View>
 
@@ -517,5 +524,18 @@ const styles = StyleSheet.create({
   linkText: {
     color: colors.primary,
     fontSize: 15,
+  },
+  guestLink: {
+    marginTop: 16,
+    alignItems: "center",
+    paddingVertical: 8,
+    borderRadius: 8,
+  },
+  guestLinkPressed: {
+    backgroundColor: colors.surfaceMuted,
+  },
+  guestLinkText: {
+    color: colors.textMuted,
+    fontSize: 14,
   },
 });

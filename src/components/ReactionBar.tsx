@@ -8,6 +8,7 @@ import {
   type ViewStyle,
 } from "react-native";
 import { Bone } from "lucide-react-native";
+import { useGatedAction } from "@/hooks/useGatedAction";
 import { colors, spacing, typography } from "@/theme";
 import type { ReactionEnum } from "@/types";
 
@@ -23,13 +24,15 @@ interface ReactionBarProps {
 export function ReactionBar({ reactions, userReaction, onSelect, wrapperStyle }: ReactionBarProps) {
   const totalCount = Object.values(reactions || {}).reduce((s, c) => s + (c ?? 0), 0);
 
-  const handleTap = () => {
+  const rawHandleTap = () => {
     if (userReaction) {
       onSelect(null);
     } else {
       onSelect("LIKE");
     }
   };
+
+  const handleTap = useGatedAction(rawHandleTap);
 
   return (
     <View style={[styles.wrapper, wrapperStyle]}>

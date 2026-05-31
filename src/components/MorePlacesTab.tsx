@@ -26,6 +26,7 @@ import { markCommunityInterest, removeCommunityInterest } from "@/api/communityI
 import { PlaceRow } from "@/components/PlaceRow";
 import { useSavedPlaces, useToggleSavedPlace } from "@/hooks/useSavedPlaces";
 import { useAuthStore } from "@/store/authStore";
+import { useUIStore } from "@/store/uiStore";
 import { getDistanceMeters } from "@/utils/location";
 import { getPlaceHeroImage } from "@/utils/placeHeroImage";
 import { colors, spacing, typography, radius, shadow } from "@/theme";
@@ -512,6 +513,7 @@ export function MorePlacesTab({
   onScroll,
 }: Props) {
   const { user, profile } = useAuthStore();
+  const { showGuestPrompt } = useUIStore();
   const queryClient = useQueryClient();
   const [coords, setCoords] = useState<UserCoords>(null);
   const [placesLocationState, setPlacesLocationState] = useState<PlacesLocationState>("unknown");
@@ -523,7 +525,6 @@ export function MorePlacesTab({
   const { data: places = [], isLoading: placesLoading } = useQuery({
     queryKey: ["places"],
     queryFn: listActivePlaces,
-    enabled: !!user?.id,
   });
 
   const { savedPlaceIds } = useSavedPlaces(user?.id);
@@ -543,7 +544,6 @@ export function MorePlacesTab({
   const { data: pendingPlaces = [], isLoading: pendingLoading } = useQuery({
     queryKey: ["pendingPlaces"],
     queryFn: listPendingPlacesWithInterests,
-    enabled: !!user?.id,
     staleTime: 2 * 60_000,
   });
 
@@ -813,7 +813,10 @@ export function MorePlacesTab({
                   onGooglePlacePress(place.google_place_id, place.name);
                 }
               }}
-              onCountMeIn={(isInterested) => countMeInMutation.mutate({ placeId: place.id, isInterested })}
+              onCountMeIn={(isInterested) => {
+                if (!user) { showGuestPrompt(); return; }
+                countMeInMutation.mutate({ placeId: place.id, isInterested });
+              }}
             />
           ))}
         </PlacesSection>
@@ -824,7 +827,10 @@ export function MorePlacesTab({
           Don't see your dog spot? Suggest it and we'll launch it once enough local dog owners are interested.
         </Text>
         <Pressable
-          onPress={() => setNearbySheetVisible(true)}
+          onPress={() => {
+            if (!user) { showGuestPrompt(); return; }
+            setNearbySheetVisible(true);
+          }}
           style={({ pressed }) => [
             styles.suggestButton,
             (placesLocationState === "denied" || placesLocationState === "error") && styles.suggestButtonDisabled,

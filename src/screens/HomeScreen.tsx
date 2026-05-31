@@ -98,13 +98,13 @@ export function HomeScreen({
   const headerHeight = useStackHeaderHeight();
   const flatListRef = useRef<FlatList>(null);
   useScrollToTop(flatListRef);
-  const { feedFilter, setFeedFilter } = useUIStore();
+  const { feedFilter, setFeedFilter, showGuestPrompt } = useUIStore();
   const queryClient = useQueryClient();
   const [selectedDogIndex, setSelectedDogIndex] = useState(0);
   const [selectedBreedIndex, setSelectedBreedIndex] = useState(0);
   const [isNearPlace, setIsNearPlace] = useState(false);
   const [locationChecked, setLocationChecked] = useState(false);
-  const [homeTab, setHomeTab] = useState<HomeTab>("myBreeds");
+  const [homeTab, setHomeTab] = useState<HomeTab>(user ? "myBreeds" : "moreBreeds");
   const [homeTabBarHeight, setHomeTabBarHeight] = useState(0);
   const { width } = useWindowDimensions();
   const cardWidth = (width - H_PADDING * 2 - CARD_GAP * (NUM_COLUMNS - 1)) / NUM_COLUMNS + 1;
@@ -276,21 +276,23 @@ export function HomeScreen({
   });
 
   const handleJoinPress = useCallback(() => {
+    if (!user) { showGuestPrompt(); return; }
     if (isJoined) {
       leaveMutation.mutate(breed);
     } else {
       joinMutation.mutate(breed);
     }
-  }, [isJoined, breed, leaveMutation, joinMutation]);
+  }, [isJoined, breed, leaveMutation, joinMutation, user, showGuestPrompt]);
 
   const handleJoinPressForBreed = useCallback((b: import("@/types").BreedEnum) => {
+    if (!user) { showGuestPrompt(); return; }
     const joined = joinedBreeds.includes(b);
     if (joined) {
       leaveMutation.mutate(b);
     } else {
       joinMutation.mutate(b);
     }
-  }, [joinedBreeds, leaveMutation, joinMutation]);
+  }, [joinedBreeds, leaveMutation, joinMutation, user, showGuestPrompt]);
 
   const handlePlaceCheckIn = useCallback(() => {
     if (!dogs || dogs.length === 0) {
@@ -340,7 +342,6 @@ export function HomeScreen({
     typeFilter,
     user,
     navigation,
-    enabled: !!user?.id,
   });
 
   const [initialLoadDone, setInitialLoadDone] = useState(false);
@@ -478,39 +479,12 @@ export function HomeScreen({
 
   const renderSeparator = useCallback(() => <View style={styles.feedSeparator} />, []);
 
-  if (!user) {
-    return (
-      <View style={styles.screen}>
-        <SafeAreaView style={styles.safe}>
-          <View style={styles.center}>
-            <Text style={styles.emptyText}>Sign in to see your feed</Text>
-          </View>
-        </SafeAreaView>
-      </View>
-    );
-  }
-
   if (showInitialLoader) {
     return (
       <View style={styles.screen}>
         <View style={styles.center}>
           <ActivityIndicator size="large" color={colors.primary} />
         </View>
-      </View>
-    );
-  }
-
-  if ((!dogs || dogs.length === 0) && !onboardingDog) {
-    return (
-      <View style={styles.screen}>
-        <SafeAreaView style={styles.safe}>
-          <View style={styles.center}>
-            <Text style={styles.emptyText}>Add a dog profile to see your breed's feed</Text>
-            <Text style={styles.link} onPress={() => navigation.navigate("Profile")}>
-              Go to Profile
-            </Text>
-          </View>
-        </SafeAreaView>
       </View>
     );
   }
@@ -566,7 +540,32 @@ export function HomeScreen({
             </View>
           </Animated.View>
 
-          {homeTab === "myBreeds" && (
+          {homeTab === "myBreeds" && !user && (
+            <View style={[styles.guestBreedsContainer, { paddingTop: headerHeight + homeTabBarHeight, paddingBottom: tabBarHeight }]}>
+              <Text style={styles.guestBreedsBody}>
+                Breed communities you join live here.{"\n"}Create a free account to start posting, asking questions, sharing tips, and meeting local dog owners.
+              </Text>
+              <View style={styles.guestBreedsActions}>
+                <Pressable
+                  style={({ pressed }) => [styles.guestBreedsSignUp, pressed && styles.guestBreedsSignUpPressed]}
+                  onPress={() => {
+                    useAuthStore.getState().setPendingSignUp(true);
+                    useAuthStore.getState().setIsGuest(false);
+                  }}
+                >
+                  <Text style={styles.guestBreedsSignUpText}>Sign Up</Text>
+                </Pressable>
+                <Pressable
+                  style={({ pressed }) => [styles.guestBreedsLogIn, pressed && styles.guestBreedsLogInPressed]}
+                  onPress={() => useAuthStore.getState().setIsGuest(false)}
+                >
+                  <Text style={styles.guestBreedsLogInText}>Log In</Text>
+                </Pressable>
+              </View>
+            </View>
+          )}
+
+          {homeTab === "myBreeds" && !!user && (
             <FlatList
             ref={flatListRef}
             data={posts}
@@ -740,6 +739,53 @@ const styles = StyleSheet.create({
   homeTabChipTextActive: {
     fontFamily: 'Inter_600SemiBold',
     color: '#000000',
+  },
+  guestBreedsContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: spacing.xl,
+  },
+  guestBreedsBody: {
+    ...typography.body,
+    color: colors.textSecondary,
+    textAlign: 'center',
+    lineHeight: 24,
+    marginBottom: spacing.xl,
+  },
+  guestBreedsActions: {
+    flexDirection: 'row',
+    gap: spacing.sm,
+  },
+  guestBreedsSignUp: {
+    backgroundColor: colors.primary,
+    borderRadius: 10,
+    paddingVertical: spacing.sm + 2,
+    paddingHorizontal: spacing.lg,
+    alignItems: 'center',
+  },
+  guestBreedsSignUpPressed: {
+    backgroundColor: colors.primaryDark,
+  },
+  guestBreedsSignUpText: {
+    ...typography.body,
+    color: colors.surface,
+  },
+  guestBreedsLogIn: {
+    backgroundColor: colors.surfaceMuted,
+    borderRadius: 10,
+    paddingVertical: spacing.sm + 2,
+    paddingHorizontal: spacing.lg,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  guestBreedsLogInPressed: {
+    backgroundColor: colors.border,
+  },
+  guestBreedsLogInText: {
+    ...typography.body,
+    color: colors.textPrimary,
   },
 
 });

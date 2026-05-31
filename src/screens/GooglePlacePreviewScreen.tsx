@@ -20,6 +20,7 @@ import {
 import { suggestLocalCommunity } from '@/api/communityInterests';
 import { supabase } from '@/lib/supabase';
 import { useAuthStore } from '@/store/authStore';
+import { useUIStore } from '@/store/uiStore';
 import { useStackHeaderHeight } from '@/hooks/useStackHeaderHeight';
 import { colors, radius, shadow, spacing, typography } from '@/theme';
 
@@ -37,6 +38,7 @@ export function GooglePlacePreviewScreen({ route, navigation }: Props) {
   const headerHeight = useStackHeaderHeight();
   const queryClient = useQueryClient();
   const { user } = useAuthStore();
+  const { showGuestPrompt } = useUIStore();
 
   const placeQuery = useQuery({
     queryKey: ['googlePlacePreview', googlePlaceId],
@@ -108,7 +110,7 @@ export function GooglePlacePreviewScreen({ route, navigation }: Props) {
 
   const handleSuggest = () => {
     if (!user) {
-      Alert.alert('Sign in required', 'Please sign in to suggest a local community.');
+      showGuestPrompt();
       return;
     }
     if (!selectedPhotoName) {

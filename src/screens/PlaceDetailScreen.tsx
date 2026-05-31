@@ -30,6 +30,7 @@ import { setReaction } from '@/api/reactions';
 import { FeedItem } from '@/components/FeedItem';
 import { getDogsByOwner } from '@/api/dogs';
 import { useAuthStore } from '@/store/authStore';
+import { useUIStore } from '@/store/uiStore';
 import { BREED_LABELS, PLAY_STYLE_LABELS, formatRelativeTime } from '@/utils/breed';
 import { colors, radius, shadow, spacing, typography } from '@/theme';
 import type { ActivePlaceCheckin, Dog, Place, PostWithDetails, ReactionEnum } from '@/types';
@@ -69,6 +70,7 @@ type Props = {
 export function PlaceDetailScreen({ route, navigation }: Props) {
   const { placeId } = route.params;
   const { user } = useAuthStore();
+  const { showGuestPrompt } = useUIStore();
   const tabBarHeight = useBottomTabBarHeight();
   const tabBarScrollPad = Math.max(0, tabBarHeight - NUZZLE_TAB_BAR_LAYOUT_EXTENDS_BELOW_SCREEN);
   const headerHeight = useStackHeaderHeight();
@@ -244,17 +246,17 @@ export function PlaceDetailScreen({ route, navigation }: Props) {
   );
   const handleReactionSelect = useCallback(
     (postId: string, reaction: ReactionEnum | null) => {
-      if (!user) return;
+      if (!user) { showGuestPrompt(); return; }
       reactionMutation.mutate({ postId, reaction });
     },
-    [reactionMutation, user],
+    [reactionMutation, user, showGuestPrompt],
   );
   const handleRsvpToggle = useCallback(
     (postId: string, rsvped: boolean) => {
-      if (!user) return;
+      if (!user) { showGuestPrompt(); return; }
       rsvpMutation.mutate({ postId, rsvped });
     },
-    [rsvpMutation, user],
+    [rsvpMutation, user, showGuestPrompt],
   );
   const handleEditPost = useCallback(
     (postId: string) => navigation.navigate('EditPost', { postId }),
@@ -432,11 +434,17 @@ export function PlaceDetailScreen({ route, navigation }: Props) {
               locationLine={locationLine}
               isSaved={isSaved}
               hasHeroImage
-              onToggleSave={() => toggleSave.mutate({ placeId: place.id, isSaved })}
-              onPostHere={() => navigation.navigate('CreatePost', {
-                initialPlaceId: place.id,
-                initialPlaceName: place.name,
-              })}
+              onToggleSave={() => {
+                if (!user) { showGuestPrompt(); return; }
+                toggleSave.mutate({ placeId: place.id, isSaved });
+              }}
+              onPostHere={() => {
+                if (!user) { showGuestPrompt(); return; }
+                navigation.navigate('CreatePost', {
+                  initialPlaceId: place.id,
+                  initialPlaceName: place.name,
+                });
+              }}
               onCheckIn={handleCheckinPress}
             />
           </ImageBackground>
@@ -447,11 +455,17 @@ export function PlaceDetailScreen({ route, navigation }: Props) {
               locationLine={locationLine}
               isSaved={isSaved}
               hasHeroImage={false}
-              onToggleSave={() => toggleSave.mutate({ placeId: place.id, isSaved })}
-              onPostHere={() => navigation.navigate('CreatePost', {
-                initialPlaceId: place.id,
-                initialPlaceName: place.name,
-              })}
+              onToggleSave={() => {
+                if (!user) { showGuestPrompt(); return; }
+                toggleSave.mutate({ placeId: place.id, isSaved });
+              }}
+              onPostHere={() => {
+                if (!user) { showGuestPrompt(); return; }
+                navigation.navigate('CreatePost', {
+                  initialPlaceId: place.id,
+                  initialPlaceName: place.name,
+                });
+              }}
               onCheckIn={handleCheckinPress}
             />
           </View>

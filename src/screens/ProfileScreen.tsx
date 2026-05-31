@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, Pressable, StyleSheet } from 'react-native';
+import { Alert, Pressable, StyleSheet, View, Text } from 'react-native';
 import { NotificationBell } from '@/components/NotificationBell';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { signOut, updateProfile } from '@/api/auth';
@@ -8,7 +8,8 @@ import { UserProfileContent } from '@/components/UserProfileContent';
 import { pickImages, uploadProfileImage } from '@/lib/imageUpload';
 import type { ProfileStackParamList, RootStackParamList } from '@/navigation/types';
 import { useAuthStore } from '@/store/authStore';
-import { spacing } from '@/theme';
+import { useUIStore } from '@/store/uiStore';
+import { colors, spacing, typography } from '@/theme';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type ProfileNav = NativeStackNavigationProp<ProfileStackParamList, 'ProfileMain'>;
@@ -50,7 +51,32 @@ export function ProfileScreen({ navigation }: { navigation: ProfileNav }) {
     onError: (err: Error) => Alert.alert('Error', err.message),
   });
 
-  if (!userId) return null;
+  const { showGuestPrompt } = useUIStore();
+
+  if (!userId) {
+    return (
+      <View style={styles.guestContainer}>
+        <Text style={styles.guestTitle}>Your profile</Text>
+        <Text style={styles.guestBody}>
+          Create an account to build your profile, add your dog, and connect with other dog owners.
+        </Text>
+        <Pressable
+          style={({ pressed }) => [styles.guestSignUpBtn, pressed && styles.guestSignUpBtnPressed]}
+          onPress={showGuestPrompt}
+        >
+          <Text style={styles.guestSignUpText}>Sign Up</Text>
+        </Pressable>
+        <Pressable
+          style={({ pressed }) => [styles.guestLogInBtn, pressed && styles.guestLogInBtnPressed]}
+          onPress={() => {
+            useAuthStore.getState().setIsGuest(false);
+          }}
+        >
+          <Text style={styles.guestLogInText}>Log In</Text>
+        </Pressable>
+      </View>
+    );
+  }
 
   const handleSignOut = () => {
     Alert.alert('Sign out', 'Are you sure?', [
@@ -129,4 +155,55 @@ const styles = StyleSheet.create({
     transform: [{ translateX: 1 }],
   },
   headerButtonPressed: { opacity: 0.7 },
+  guestContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: spacing.xl,
+    backgroundColor: colors.background,
+  },
+  guestTitle: {
+    ...typography.titleMD,
+    marginBottom: spacing.sm,
+    textAlign: 'center',
+  },
+  guestBody: {
+    ...typography.bodyMuted,
+    textAlign: 'center',
+    marginBottom: spacing.xl,
+    lineHeight: 22,
+  },
+  guestSignUpBtn: {
+    backgroundColor: colors.primary,
+    borderRadius: 12,
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.xl,
+    alignItems: 'center',
+    marginBottom: spacing.sm,
+    width: '100%',
+  },
+  guestSignUpBtnPressed: {
+    backgroundColor: colors.primaryDark,
+  },
+  guestSignUpText: {
+    ...typography.body,
+    color: colors.surface,
+  },
+  guestLogInBtn: {
+    backgroundColor: colors.surfaceMuted,
+    borderRadius: 12,
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.xl,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: colors.border,
+    width: '100%',
+  },
+  guestLogInBtnPressed: {
+    backgroundColor: colors.border,
+  },
+  guestLogInText: {
+    ...typography.body,
+    color: colors.textPrimary,
+  },
 });

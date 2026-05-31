@@ -54,7 +54,7 @@ export function PostDetailScreen() {
   const postId = routeParams?.postId ?? "";
   const isFromSearch = routeParams?.source === "search";
   const { user, profile } = useAuthStore();
-  const { showToast } = useUIStore();
+  const { showToast, showGuestPrompt } = useUIStore();
   const queryClient = useQueryClient();
   const { setScrollDirection } = useScrollDirection();
   const headerHeight = useStackHeaderHeight();
@@ -181,11 +181,13 @@ export function PostDetailScreen() {
   });
 
   const handleReactionSelect = (reaction: ReactionEnum | null) => {
+    if (!user) { showGuestPrompt(); return; }
     if (reaction && post) track('post_reaction_added', { reaction_type: reaction, post_type: post.type });
-    reactionMutation.mutate({ postId, userId: user!.id, reaction });
+    reactionMutation.mutate({ postId, userId: user.id, reaction });
   };
 
   const handleSubmitComment = () => {
+    if (!user) { showGuestPrompt(); return; }
     const parsed = commentSchema.safeParse({ content: commentText.trim() });
     if (!parsed.success) {
       Alert.alert("Error", parsed.error.issues[0]?.message ?? "Invalid comment");
@@ -234,6 +236,7 @@ export function PostDetailScreen() {
   };
 
   const handleReport = () => {
+    if (!user) { showGuestPrompt(); return; }
     setReportModalVisible(true);
   };
 
@@ -454,7 +457,10 @@ export function PostDetailScreen() {
                 {user && user.id !== post.author_id && (
                   <Pressable
                     style={[styles.rsvpBtn, post.user_rsvped && styles.rsvpBtnJoined]}
-                    onPress={() => rsvpMutation.mutate(post.user_rsvped ?? false)}
+                    onPress={() => {
+                      if (!user) { showGuestPrompt(); return; }
+                      rsvpMutation.mutate(post.user_rsvped ?? false);
+                    }}
                     disabled={rsvpMutation.isPending}
                   >
                     <Text style={styles.rsvpBtnText}>

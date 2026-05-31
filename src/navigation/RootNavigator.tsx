@@ -3,6 +3,7 @@ import { DefaultTheme, NavigationContainer, type LinkingOptions } from '@react-n
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, Text, ActivityIndicator, StyleSheet, Platform, Pressable } from 'react-native';
+import { GuestSignupPrompt } from '@/components/GuestSignupPrompt';
 import { ToastBanner } from '@/components/ToastBanner';
 import { NotificationsSheet } from '@/components/NotificationsSheet';
 import { X, ChevronLeft } from 'lucide-react-native';
@@ -57,8 +58,16 @@ const OnboardingStack = createNativeStackNavigator<OnboardingStackParamList>();
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
 function AuthNavigator() {
+  const pendingSignUp = useAuthStore((s) => s.pendingSignUp);
+  const setPendingSignUp = useAuthStore((s) => s.setPendingSignUp);
+
+  useEffect(() => {
+    if (pendingSignUp) setPendingSignUp(false);
+  }, []);
+
   return (
     <AuthStack.Navigator
+      initialRouteName={pendingSignUp ? 'SignUp' : 'SignIn'}
       screenOptions={{
         headerShown: false,
         contentStyle: { backgroundColor: colors.background },
@@ -330,7 +339,7 @@ function MainTabs() {
 }
 
 export function RootNavigator() {
-  const { session, setSession, user, profile, setProfile } = useAuthStore();
+  const { session, setSession, user, profile, setProfile, isGuest } = useAuthStore();
   const { hasHydrated, needsOnboarding, onboardingDog } = useOnboardingStore();
   const [loading, setLoading] = React.useState(true);
   const navRef = React.useRef<any>(null);
@@ -419,8 +428,8 @@ export function RootNavigator() {
           contentStyle: { backgroundColor: colors.background },
         }}
       >
-        {session && user ? (
-          needsOnboarding ? (
+        {(session && user) || isGuest ? (
+          needsOnboarding && !isGuest ? (
             <RootStack.Screen name="Onboarding" component={OnboardingNavigator} />
           ) : (
             <>
@@ -429,6 +438,7 @@ export function RootNavigator() {
                 component={MainTabs}
                 options={{ animation: onboardingDog ? 'none' : 'default' }}
               />
+              {session && user && (
               <RootStack.Screen
                 name="CreatePostModal"
                 component={CreatePostScreen}
@@ -490,6 +500,7 @@ export function RootNavigator() {
                   animation: 'slide_from_bottom',
                 }}
               />
+              )}
               <RootStack.Screen
                 name="SearchModal"
                 component={SearchScreen}
@@ -580,6 +591,7 @@ export function RootNavigator() {
       </RootStack.Navigator>
     </NavigationContainer>
     <ToastBanner />
+    <GuestSignupPrompt />
     {session && user && !needsOnboarding && (
       <NotificationsSheet
         onPostPress={(postId) => navRef.current?.navigate('PostDetail', { postId })}
